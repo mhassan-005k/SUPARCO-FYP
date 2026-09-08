@@ -1,0 +1,35 @@
+seed: 42
+scale: 3
+model:
+  channels: 48
+  num_blocks: 8
+  embed_dim: 64
+  kernel_size: 7
+  use_degradation_adaptation: true
+  use_observation_consistency: true
+  use_uncertainty: true
+data:
+  crop_size: 192
+  train_ratio: 0.8
+  mixed_probability: 0.8
+  extensions: [".tif", ".tiff", ".png", ".jpg", ".jpeg"]
+training:
+  epochs: 100
+  batch_size: 8
+  workers: 2
+  learning_rate: 0.0002
+  weight_decay: 0.0001
+  amp: true
+loss:
+  charbonnier: 1.0
+  ssim: 0.10
+  gradient: 0.03
+  frequency: 0.02
+  observation: 0.05
+  degradation: 0.02
+  uncertainty: 0.02
+  distillation: 0.05
+inference:
+  tile_size: 512
+  overlap: 32
+  batch_size: 1

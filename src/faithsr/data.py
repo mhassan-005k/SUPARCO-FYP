@@ -1,0 +1,74 @@
+from __future__ import annotations
+
+import json
+from pathlib import Path
+import random
+
+import numpy as np
+from PIL import Image
+import rasterio
+import torch
+from torch.utils.data import Dataset
+
+from .degradation import degrade
+
+
+def discover_images(root: str | Path, extensions: set[str] | None = None) -> list[Path]:
+    extensions = extensions or {".tif", ".tiff", ".png", ".jpg", ".jpeg"}
+    return sorted(path for path in Path(root).rglob("*") if path.suffix.lower() in extensions)
+
+
+def geographic_split(files: list[Path], train_ratio: float = 0.8, seed: int = 42) -> tuple[list[Path], list[Path]]:
+    groups: dict[str, list[Path]] = {}
+    for path in files:
+        key = path.parent.name or path.stem.split("_")[0]
+        groups.setdefault(key, []).append(path)
+    keys = sorted(groups)
+    random.Random(seed).shuffle(keys)
+    split = max(1, min(len(keys) - 1, round(len(keys) * train_ratio))) if len(keys) > 1 else 1
+    train_keys = set(keys[:split])
+    return [p for key in keys if key in train_keys for p in groups[key]], [p for key in keys if key not in train_keys for p in groups[key]]
+
+
+def read_image(path: Path, bands: int = 3) -> torch.Tensor:
+    if path.suffix.lower() in {".tif", ".tiff"}:
+        with rasterio.open(path) as source:
+            if any(dtype != "uint8" for dtype in source.dtypes):
+                raise ValueError(f"Training TIFF must be derived/documented uint8: {path}")
+            if source.count < bands:
+                raise ValueError(f"Expected at least {bands} bands: {path}")
+            array = source.read(list(range(1, bands + 1)))
+    else:
+        array = np.asarray(Image.open(path).convert("RGB")).transpose(2, 0, 1)
+    return torch.from_numpy(array.copy()).float() / 255
+
+
+class SyntheticSRDataset(Dataset):
+    def __init__(self, files: list[Path], crop_size: int = 192, bands: int = 3, train: bool = True, seed: int = 42) -> None:
+        if crop_size % 3:
+            raise ValueError("HR crop size must be divisible by 3")
+        self.files, self.crop_size, self.bands, self.train, self.seed = files, crop_size, bands, train, seed
+
+    def __len__(self) -> int:
+        return len(self.files)
+
+    def __getitem__(self, index: int):
+        image = read_image(self.files[index], self.bands)
+        _, height, width = image.shape
+        if min(height, width) < self.crop_size:
+            raise ValueError(f"Image smaller than {self.crop_size}: {self.files[index]}")
+        rng = random.Random() if self.train else random.Random(self.seed + index)
+        top = rng.randint(0, height - self.crop_size) if self.train else (height - self.crop_size) // 2
+        left = rng.randint(0, width - self.crop_size) if self.train else (width - self.crop_size) // 2
+        hr = image[:, top:top + self.crop_size, left:left + self.crop_size]
+        if self.train:
+            hr = torch.rot90(hr, rng.randint(0, 3), (1, 2))
+            if rng.random() < 0.5:
+                hr = hr.flip(2)
+        lr, parameters = degrade(hr, seed=None if self.train else self.seed + index)
+        return lr, hr, parameters.normalized_target(), str(self.files[index])
+
+
+def write_split_manifest(path: str | Path, train: list[Path], validation: list[Path], seed: int) -> None:
+    payload = {"seed": seed, "strategy": "parent-geography-group", "train": [str(p) for p in train], "validation": [str(p) for p in validation]}
+    Path(path).write_text(json.dumps(payload, indent=2), encoding="utf-8")

@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "faithsr"
+version = "0.2.0"
+description = "Faithful degradation-aware 3x super-resolution for 8-bit satellite TIFF imagery"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "numpy>=1.26,<3",
+  "Pillow>=10,<12",
+  "PyYAML>=6,<7",
+  "rasterio>=1.3.10,<2",
+  "torch>=2.4,<3",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<9"]
+metrics = ["scikit-image>=0.23,<1", "lpips>=0.1.4,<1"]
+app = ["streamlit>=1.38,<2"]
+export = ["onnx>=1.16,<2", "onnxruntime>=1.19,<2"]
+kaggle = ["kaggle>=1.6.17,<2"]
+all = [
+  "pytest>=8,<9",
+  "scikit-image>=0.23,<1",
+  "lpips>=0.1.4,<1",
+  "streamlit>=1.38,<2",
+  "onnx>=1.16,<2",
+  "onnxruntime>=1.19,<2",
+  "kaggle>=1.6.17,<2",
+]
+
+[project.scripts]
+faithsr = "faithsr.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["faithsr*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"

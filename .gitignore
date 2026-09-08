@@ -16,3 +16,11 @@ venv/
 # Temporary files
 tmp/
 *.tmp
+
+# Generated runs, exports, caches, and local application files
+runs/
+exports/
+.pytest_cache/
+graphify-out/
+*.audit.json
+*.egg-info/

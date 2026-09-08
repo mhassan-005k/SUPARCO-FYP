@@ -94,6 +94,8 @@ Supported input extensions in the current trainer are `.tif`, `.tiff`, `.png`, `
 - SUPARCO meeting requirements: [`docs/meetings/2026-07-30-suparco-meeting.txt`](docs/meetings/2026-07-30-suparco-meeting.txt)
 - Input/output and metadata contract: [`docs/requirements/data-contract.md`](docs/requirements/data-contract.md)
 - Updated implementation plan: [`docs/implementation-plan.md`](docs/implementation-plan.md)
+- Development and reproduction guide: [`docs/development.md`](docs/development.md)
+- Kaggle execution runbook: [`docs/kaggle-runbook.md`](docs/kaggle-runbook.md)
 - Public and restricted dataset strategy: [`docs/requirements/dataset-strategy.md`](docs/requirements/dataset-strategy.md)
 - Edge-AI reference paper: [`docs/references/edge-ai-sr-platform-paper.md`](docs/references/edge-ai-sr-platform-paper.md)
 - Research paper outline: [`docs/research/paper-outline.md`](docs/research/paper-outline.md)
