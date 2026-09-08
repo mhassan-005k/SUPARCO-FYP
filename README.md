@@ -92,7 +92,12 @@ Supported input extensions in the current trainer are `.tif`, `.tiff`, `.png`, `
 
 - Project proposal: [`docs/proposal/fyp-proposal.md`](docs/proposal/fyp-proposal.md)
 - SUPARCO meeting requirements: [`docs/meetings/2026-07-30-suparco-meeting.txt`](docs/meetings/2026-07-30-suparco-meeting.txt)
+- Input/output and metadata contract: [`docs/requirements/data-contract.md`](docs/requirements/data-contract.md)
+- Updated implementation plan: [`docs/implementation-plan.md`](docs/implementation-plan.md)
+- Public and restricted dataset strategy: [`docs/requirements/dataset-strategy.md`](docs/requirements/dataset-strategy.md)
 - Edge-AI reference paper: [`docs/references/edge-ai-sr-platform-paper.md`](docs/references/edge-ai-sr-platform-paper.md)
+- Research paper outline: [`docs/research/paper-outline.md`](docs/research/paper-outline.md)
+- Experiment audit log: [`docs/research/experiment-log.md`](docs/research/experiment-log.md)
 - Result figures: [`artifacts/results/figures/`](artifacts/results/figures/)
 - Stress-test metrics: [`artifacts/results/metrics/faithsr_da_vs_base_stress_test.csv`](artifacts/results/metrics/faithsr_da_vs_base_stress_test.csv)
 - Archived training runs: [`artifacts/training_runs/archives/`](artifacts/training_runs/archives/)
