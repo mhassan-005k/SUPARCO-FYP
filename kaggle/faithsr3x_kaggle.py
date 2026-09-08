@@ -23,6 +23,6 @@ if __name__ == "__main__":
     run([sys.executable, "-m", "pip", "install", "-e", str(REPO_ROOT), "--no-deps", "--quiet"])
     run([
         sys.executable, "-m", "faithsr.train", "--data", str(DATA_ROOT),
-        "--config", str(REPO_ROOT / "configs/faithsr3x_base.yaml"),
+        "--config", str(REPO_ROOT / "configs/eurosat_kaggle.yaml"),
         "--output", str(OUTPUT_ROOT),
     ])
