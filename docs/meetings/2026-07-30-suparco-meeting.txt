@@ -1,0 +1,9 @@
+Here is a brief summary of our meeting today (July 30, 2026) with the RESOLVE South (SUPARCO) team regarding our proposal (Serial No. 6):
+
+Validation & Expectations: They confirmed "hallucination" aligns with their core problem statement
+
+Technical Requirements: Original metadata must be fully preserved, GSD needs enhancement from 0.5 down to 0.3 like they want 3x image enhancement/scalling , and the processing speed must be less than 1 second for a 512x512 image block.
+
+Data Constraints: The dataset is restricted and can only be used on-site. They will allow 1–2 working slots per week at the SUPARCO premises, depending on facility availability. so that is why we are allowed to use UC-Merced or Sentinel-2 data or any other online or publicaly avalaible dataset
+
+Next Steps: The final deliverable will be an application interface. The SUPARCO team will soon share a detailed requirements document and notify us regarding the official start date of the project.

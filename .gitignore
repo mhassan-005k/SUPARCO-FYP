@@ -1,0 +1,18 @@
+# Local credentials and secrets
+kaggle.json
+
+# Python-generated local files
+__pycache__/
+*.py[cod]
+
+# Local environments and editor state
+.venv/
+venv/
+.env
+.env.*
+.vscode/
+.idea/
+
+# Temporary files
+tmp/
+*.tmp
