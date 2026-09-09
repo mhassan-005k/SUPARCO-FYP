@@ -1,0 +1,41 @@
+{
+  "runs": 100,
+  "warmup": 10,
+  "mean_ms": 52.797763860003215,
+  "median_ms": 52.78871199993773,
+  "p95_ms": 53.0273770000349,
+  "peak_vram_bytes": 3200190976,
+  "scope": "model_only",
+  "precision": "fp32",
+  "device": "cuda",
+  "input": [
+    1,
+    3,
+    512,
+    512
+  ],
+  "output": [
+    1,
+    3,
+    1536,
+    1536
+  ],
+  "end_to_end": {
+    "runs": 10,
+    "mean_ms": 357.729239199989,
+    "median_ms": 342.9699549999441,
+    "p95_ms": 497.8595290001522,
+    "scope": "end_to_end_tiff_disk_backed",
+    "component_mean_ms": {
+      "read": 2.1538592000752033,
+      "inference": 68.50990110006023,
+      "disk_accumulation": 68.42804530001558,
+      "finalize_and_write": 218.637433599838,
+      "total": 357.729239199989
+    },
+    "tile_size": 512,
+    "overlap": 32,
+    "compression": "none",
+    "precision": "fp32"
+  }
+}

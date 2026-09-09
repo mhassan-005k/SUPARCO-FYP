@@ -1,0 +1,14 @@
+{
+  "benchmark_id": "deployment-benchmark-v5",
+  "executed_on": "2026-09-09",
+  "kaggle_kernel": "muhammadhassan2/faithsr-3x-matched-eurosat-evaluation",
+  "kaggle_kernel_version": 5,
+  "source_dataset_version": 8,
+  "checkpoint_sha256": "E3C877EE006828F161ADB6926F8D71D1B5063888668FAB1EFBABF98FD17C6C8B",
+  "latency_sha256": "E1D3B610EA516192778E7305EB4D5A6DDBD5D0536D9D7F7E265248FAA2211615",
+  "log_sha256": "4A3A46434F9C6E0EBD6D5D33115E9B7904C178F6E683B480F38BEE9DB112D7A3",
+  "hardware": "Kaggle Tesla P100",
+  "fixture": "Deterministic 512x512 three-band uint8 EPSG:32643 Deflate GeoTIFF",
+  "result": "Model-only P95 passed one second; full read/stream/infer/uncertainty/write Deflate P95 was 1266.34 ms and failed the provisional one-second end-to-end threshold.",
+  "next_action": "Benchmark lossless LZW and uncompressed finalization without changing pixels or geospatial metadata."
+}

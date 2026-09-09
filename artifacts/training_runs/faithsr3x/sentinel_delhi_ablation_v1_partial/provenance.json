@@ -1,0 +1,23 @@
+{
+  "kernel": "muhammadhassan2/faithsr-3x-sentinel-delhi-ablation",
+  "kernel_version": 1,
+  "status": "partial: plain, degradation, observation and full completed; distilled failed before training",
+  "dataset": "rishabhsnip/earth-observation-delhi-airshed",
+  "seed": 42,
+  "split": {
+    "strategy": "0.1-degree coordinate grid groups",
+    "train_images": 7488,
+    "validation_images": 1728,
+    "train_groups": 58,
+    "validation_groups": 14,
+    "group_overlap": 0,
+    "sha256": "D5AAE05587C5A18383B87D37A2CDF51CAC075DBC6EB977756B71E2548BF5F864"
+  },
+  "checkpoint_sha256": {
+    "plain": "671DA43716BCF8B551C252D92CCC07398915C2140750576E94201123AE6B7335",
+    "degradation": "B2586F62F0E782ECD6438C2EAB1DBA847DA0235C91C8894BC9FF12B2E47EC297",
+    "observation": "375928AE8718EB4688DD87E1184209C4E24C2F1E3CE1836EF0CEC648C5C0938B",
+    "full": "49C171261944DC761D7427CEE972E73026A31FC0AB78091C746C1360CD90369F"
+  },
+  "failure": "Pinned Torch 2.5.1 was incompatible with Kaggle's preinstalled TorchVision 0.25.0; transformers import raised operator torchvision::nms does not exist. Corrected follow-up pins TorchVision 0.20.1."
+}

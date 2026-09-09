@@ -1,0 +1,17 @@
+{
+  "id": "muhammadhassan2/faithsr-3x-downstream-landcover",
+  "title": "FaithSR-3X Downstream Landcover",
+  "code_file": "faithsr3x_downstream_landcover.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "rishabhsnip/earth-observation-delhi-airshed",
+    "muhammadhassan2/faithsr-3x-private-source",
+    "muhammadhassan2/faithsr-3x-sentinel-ablation-v1-artifacts"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

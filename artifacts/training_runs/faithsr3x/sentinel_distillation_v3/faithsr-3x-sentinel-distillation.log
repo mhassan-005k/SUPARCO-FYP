@@ -1,0 +1,434 @@
+[{"stream_name":"stdout","time":0.772031838,"data":"RUN /usr/bin/python3 -m pip install torch==2.5.1 torchvision==0.20.1 --index-url https://download.pytorch.org/whl/cu121 --quiet\n"}
+,{"stream_name":"stdout","time":12.143282092,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 780.4/780.4 MB 2.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":14.996068736,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 7.3/7.3 MB 98.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":15.660856921,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.7/23.7 MB 186.5 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":16.08658523,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 823.6/823.6 kB 154.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":16.36998009,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.1/14.1 MB 133.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":22.659145538,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 2.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":27.932858356,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 410.6/410.6 MB 81.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":30.488561506,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.6/121.6 MB 132.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":31.39312212,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.5/56.5 MB 160.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":32.46889903,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 124.2/124.2 MB 137.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":34.07122046,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.0/196.0 MB 124.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":36.373013479,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 114.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":37.256300279,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 kB 114.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":40.955938582,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.6/209.6 MB 3.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":42.793492716,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 115.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stderr","time":156.180969515,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":156.181031375,"data":"torchaudio 2.10.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stdout","time":156.784406087,"data":"RUN /usr/bin/python3 -m pip install rasterio PyYAML transformers==4.47.1 --quiet\n"}
+,{"stream_name":"stdout","time":158.012416547,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.1/44.1 kB 3.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":158.886381955,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.1/10.1 MB 99.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":158.908237212,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 566.4/566.4 kB 39.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":158.949049429,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 93.9 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":171.120347133,"data":"RUN /usr/bin/python3 -m faithsr.train --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --config /kaggle/working/faithsr3x-sentinel-distillation/distilled.yaml --output /kaggle/working/faithsr3x-sentinel-distillation/distilled --teacher-model caidas/swin2SR-classical-sr-x4-64 --teacher-revision c69ef3e2d2ac5777ff4a9f2f5afcd86d20604b7e --experiment-rationale Transfer a pinned pretrained Swin2SR prior for three warm-start epochs, then personalize the custom student to Sentinel RGB evidence. --previous-experiment Full Sentinel v1 student; same deployed architecture, with a temporary frozen teacher loss added.\n"}
+,{"stream_name":"stderr","time":209.143845564,"data":"fatal: not a git repository (or any parent up to mount point /kaggle)\n"}
+,{"stream_name":"stderr","time":209.143880848,"data":"Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"}
+,{"stream_name":"stderr","time":213.228420444,"data":"/usr/local/lib/python3.12/dist-packages/torch/autograd/graph.py:825: UserWarning: upsample_bicubic2d_backward_out_cuda does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True, warn_only=True)'. You can file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation. (Triggered internally at ../aten/src/ATen/Context.cpp:91.)\n"}
+,{"stream_name":"stderr","time":213.228480199,"data":"  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n"}
+,{"stream_name":"stdout","time":724.108364473,"data":"{\"epoch\": 1, \"train_loss\": 0.11239135488230959, \"psnr\": 23.253277248806423, \"ssim\": 0.6256283102212129, \"false_edge_rate\": 0.1528616437205562, \"observation_l1\": 0.037803006254964404, \"uncertainty_correlation\": -0.11915662329368017}\n"}
+,{"stream_name":"stdout","time":1234.743506979,"data":"{\"epoch\": 2, \"train_loss\": 0.09400892397786817, \"psnr\": 23.6852153495506, \"ssim\": 0.6473319629828135, \"false_edge_rate\": 0.141503911189459, \"observation_l1\": 0.04305019860880242, \"uncertainty_correlation\": -0.10913089987028528}\n"}
+,{"stream_name":"stdout","time":1744.275285122,"data":"{\"epoch\": 3, \"train_loss\": 0.09174337349513657, \"psnr\": 23.753677014951354, \"ssim\": 0.6507664896823742, \"false_edge_rate\": 0.13940985638786246, \"observation_l1\": 0.04333832014903978, \"uncertainty_correlation\": -0.103091428194333}\n"}
+,{"stream_name":"stdout","time":1772.611801327,"data":"{\"epoch\": 4, \"train_loss\": 0.09126565146904725, \"psnr\": 23.772471569202565, \"ssim\": 0.6515220778959768, \"false_edge_rate\": 0.13871200175748932, \"observation_l1\": 0.043747122675456385, \"uncertainty_correlation\": -0.09697884076309425}\n"}
+,{"stream_name":"stdout","time":1801.227849148,"data":"{\"epoch\": 5, \"train_loss\": 0.09113250656897186, \"psnr\": 23.78802988264296, \"ssim\": 0.6521584811034026, \"false_edge_rate\": 0.13842017507111584, \"observation_l1\": 0.04380458596817873, \"uncertainty_correlation\": -0.08622780578486898}\n"}
+,{"stream_name":"stdout","time":1829.181232945,"data":"{\"epoch\": 6, \"train_loss\": 0.09100815249431847, \"psnr\": 23.79699095973262, \"ssim\": 0.6528697786507783, \"false_edge_rate\": 0.13793876670576907, \"observation_l1\": 0.04385022853535635, \"uncertainty_correlation\": -0.0585919419148316}\n"}
+,{"stream_name":"stdout","time":1856.77330746,"data":"{\"epoch\": 7, \"train_loss\": 0.09090675690617317, \"psnr\": 23.80869883078116, \"ssim\": 0.6529845153843915, \"false_edge_rate\": 0.13730448539610263, \"observation_l1\": 0.0440478729153121, \"uncertainty_correlation\": 0.009938635731857546}\n"}
+,{"stream_name":"stdout","time":1884.510519918,"data":"{\"epoch\": 8, \"train_loss\": 0.09077387866683495, \"psnr\": 23.810359530978733, \"ssim\": 0.6536277300781674, \"false_edge_rate\": 0.13724613341468353, \"observation_l1\": 0.043880187526897145, \"uncertainty_correlation\": 0.09953760417799155}\n"}
+,{"stream_name":"stdout","time":1913.043488727,"data":"{\"epoch\": 9, \"train_loss\": 0.09077160003093573, \"psnr\": 23.82624191708035, \"ssim\": 0.6539269155926175, \"false_edge_rate\": 0.1359970479927681, \"observation_l1\": 0.04412225992591293, \"uncertainty_correlation\": 0.1509740874171257}\n"}
+,{"stream_name":"stdout","time":1940.569528101,"data":"{\"epoch\": 10, \"train_loss\": 0.09074223041534424, \"psnr\": 23.838863690694172, \"ssim\": 0.6546951786235526, \"false_edge_rate\": 0.13495132865177262, \"observation_l1\": 0.04426738919897212, \"uncertainty_correlation\": 0.1722969356234427}\n"}
+,{"stream_name":"stdout","time":1968.364776539,"data":"{\"epoch\": 11, \"train_loss\": 0.09048990984885101, \"psnr\": 23.844335591351545, \"ssim\": 0.6549033213544775, \"false_edge_rate\": 0.13366999090821655, \"observation_l1\": 0.04436879725781856, \"uncertainty_correlation\": 0.18568583301923894}\n"}
+,{"stream_name":"stdout","time":1996.195796873,"data":"{\"epoch\": 12, \"train_loss\": 0.0904147641844729, \"psnr\": 23.847152851246022, \"ssim\": 0.6559699751712658, \"false_edge_rate\": 0.13314936654987158, \"observation_l1\": 0.04423705798884233, \"uncertainty_correlation\": 0.18315074992952524}\n"}
+,{"stream_name":"stdout","time":2023.77993934,"data":"{\"epoch\": 13, \"train_loss\": 0.09010635437364252, \"psnr\": 23.86106448703342, \"ssim\": 0.6558574040730795, \"false_edge_rate\": 0.13135808306159796, \"observation_l1\": 0.0445750608212418, \"uncertainty_correlation\": 0.20157732400629255}\n"}
+,{"stream_name":"stdout","time":2052.130245721,"data":"{\"epoch\": 14, \"train_loss\": 0.08999879709166339, \"psnr\": 23.867013154206454, \"ssim\": 0.656781714271616, \"false_edge_rate\": 0.13032099466632913, \"observation_l1\": 0.044580543965653134, \"uncertainty_correlation\": 0.2040554672755577}\n"}
+,{"stream_name":"stdout","time":2080.161435693,"data":"{\"epoch\": 15, \"train_loss\": 0.09005820216276707, \"psnr\": 23.872705812807435, \"ssim\": 0.6570981818216818, \"false_edge_rate\": 0.13034609387870189, \"observation_l1\": 0.04438083770650404, \"uncertainty_correlation\": 0.20800937546624076}\n"}
+,{"stream_name":"stdout","time":2109.167352848,"data":"{\"epoch\": 16, \"train_loss\": 0.0899243658551803, \"psnr\": 23.868949324996382, \"ssim\": 0.6576045376283152, \"false_edge_rate\": 0.12984530531145907, \"observation_l1\": 0.0445061000753884, \"uncertainty_correlation\": 0.21383238307855748}\n"}
+,{"stream_name":"stdout","time":2137.603940413,"data":"{\"epoch\": 17, \"train_loss\": 0.08989575572120838, \"psnr\": 23.866667288321036, \"ssim\": 0.6579315916255668, \"false_edge_rate\": 0.13052154028857196, \"observation_l1\": 0.04416248429980543, \"uncertainty_correlation\": 0.21672985537184608}\n"}
+,{"stream_name":"stdout","time":2166.079432647,"data":"{\"epoch\": 18, \"train_loss\": 0.09011097729970248, \"psnr\": 23.882358798274286, \"ssim\": 0.657580366841069, \"false_edge_rate\": 0.12895193737414148, \"observation_l1\": 0.04442542211876975, \"uncertainty_correlation\": 0.22860330481220176}\n"}
+,{"stream_name":"stdout","time":2194.620524039,"data":"{\"epoch\": 19, \"train_loss\": 0.08994250852837522, \"psnr\": 23.883570105941207, \"ssim\": 0.6577252204771395, \"false_edge_rate\": 0.12851133859819835, \"observation_l1\": 0.044459698273351896, \"uncertainty_correlation\": 0.23468195095106406}\n"}
+,{"stream_name":"stdout","time":2222.768760067,"data":"{\"epoch\": 20, \"train_loss\": 0.08985621020452589, \"psnr\": 23.885199900026674, \"ssim\": 0.6578637030389574, \"false_edge_rate\": 0.12830523870609425, \"observation_l1\": 0.04457045536212347, \"uncertainty_correlation\": 0.23701215204265383}\n"}
+,{"stream_name":"stdout","time":2250.975256341,"data":"{\"epoch\": 21, \"train_loss\": 0.08988965843987261, \"psnr\": 23.889797069408274, \"ssim\": 0.6577928596072726, \"false_edge_rate\": 0.12770450087609114, \"observation_l1\": 0.04466985245407731, \"uncertainty_correlation\": 0.24376551530979298}\n"}
+,{"stream_name":"stdout","time":2279.349664155,"data":"{\"epoch\": 22, \"train_loss\": 0.08996524607651255, \"psnr\": 23.889863932574237, \"ssim\": 0.6580759485562643, \"false_edge_rate\": 0.12785582644519983, \"observation_l1\": 0.044591471932276534, \"uncertainty_correlation\": 0.2435186908200935}\n"}
+,{"stream_name":"stdout","time":2307.491778292,"data":"{\"epoch\": 23, \"train_loss\": 0.08970648158564527, \"psnr\": 23.888275181805646, \"ssim\": 0.6580810425458131, \"false_edge_rate\": 0.12776041196452248, \"observation_l1\": 0.04452110006025544, \"uncertainty_correlation\": 0.24812828197523398}\n"}
+,{"stream_name":"stdout","time":2335.598161892,"data":"{\"epoch\": 24, \"train_loss\": 0.08969489914866594, \"psnr\": 23.89872639267533, \"ssim\": 0.6575722815813841, \"false_edge_rate\": 0.12665897180084829, \"observation_l1\": 0.04473621622417812, \"uncertainty_correlation\": 0.25282361303214673}\n"}
+,{"stream_name":"stdout","time":2363.574308857,"data":"{\"epoch\": 25, \"train_loss\": 0.08978606642693536, \"psnr\": 23.889481014675564, \"ssim\": 0.658274812830819, \"false_edge_rate\": 0.1281036840820754, \"observation_l1\": 0.04450560547411442, \"uncertainty_correlation\": 0.252190880201481}\n"}
+,{"stream_name":"stdout","time":2391.445547399,"data":"{\"epoch\": 26, \"train_loss\": 0.08978126978135517, \"psnr\": 23.902683469984268, \"ssim\": 0.6575366512492851, \"false_edge_rate\": 0.12638820349066346, \"observation_l1\": 0.04478697099343494, \"uncertainty_correlation\": 0.25562366208544485}\n"}
+,{"stream_name":"stdout","time":2419.245313857,"data":"{\"epoch\": 27, \"train_loss\": 0.08979232854440682, \"psnr\": 23.90263151239466, \"ssim\": 0.6575683289104037, \"false_edge_rate\": 0.12626673598532323, \"observation_l1\": 0.04478156590765273, \"uncertainty_correlation\": 0.2569466614060932}\n"}
+,{"stream_name":"stdout","time":2447.464914544,"data":"{\"epoch\": 28, \"train_loss\": 0.0898956355248761, \"psnr\": 23.898337576124405, \"ssim\": 0.6578588264959829, \"false_edge_rate\": 0.1268547943068875, \"observation_l1\": 0.04468288041513275, \"uncertainty_correlation\": 0.25634747550443365}\n"}
+,{"stream_name":"stdout","time":2475.053898016,"data":"{\"epoch\": 29, \"train_loss\": 0.08979091458977798, \"psnr\": 23.895372072855633, \"ssim\": 0.6581134862369962, \"false_edge_rate\": 0.12728546463229037, \"observation_l1\": 0.04463903633532701, \"uncertainty_correlation\": 0.25612110561794704}\n"}
+,{"stream_name":"stdout","time":2502.831921103,"data":"{\"epoch\": 30, \"train_loss\": 0.08980845427538595, \"psnr\": 23.896861217640065, \"ssim\": 0.6579975728635434, \"false_edge_rate\": 0.1270047623526167, \"observation_l1\": 0.04468847676697704, \"uncertainty_correlation\": 0.25626800540420747}\n"}
+,{"stream_name":"stdout","time":2505.025223593,"data":"RUN /usr/bin/python3 -m faithsr.compare --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --checkpoint /kaggle/working/faithsr3x-sentinel-distillation/distilled/best.pth --split-manifest /kaggle/working/faithsr3x-sentinel-distillation/distilled/split.json --crop-size 120 --batch-size 32 --workers 2 --output /kaggle/working/faithsr3x-sentinel-distillation/distilled/comparison.csv\n"}
+,{"stream_name":"stdout","time":2512.794178043,"data":"{\n"}
+,{"stream_name":"stdout","time":2512.794219507,"data":"  \"methods\": {\n"}
+,{"stream_name":"stdout","time":2512.794230291,"data":"    \"bicubic\": {\n"}
+,{"stream_name":"stdout","time":2512.794233899,"data":"      \"psnr\": 22.365187534579523,\n"}
+,{"stream_name":"stdout","time":2512.794237427,"data":"      \"ssim\": 0.5617672137881594,\n"}
+,{"stream_name":"stdout","time":2512.794240542,"data":"      \"false_edge_rate\": 0.1601822725610368,\n"}
+,{"stream_name":"stdout","time":2512.794243867,"data":"      \"edge_precision\": 0.8398177272778142,\n"}
+,{"stream_name":"stdout","time":2512.794247103,"data":"      \"edge_recall\": 0.8919181151884712,\n"}
+,{"stream_name":"stdout","time":2512.794250218,"data":"      \"sam_radians\": 0.16273500832203017,\n"}
+,{"stream_name":"stdout","time":2512.794253539,"data":"      \"ergas\": 10.494175573190054,\n"}
+,{"stream_name":"stdout","time":2512.794256789,"data":"      \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794259878,"data":"    },\n"}
+,{"stream_name":"stdout","time":2512.794262899,"data":"    \"bilinear\": {\n"}
+,{"stream_name":"stdout","time":2512.794266109,"data":"      \"psnr\": 22.748127932901735,\n"}
+,{"stream_name":"stdout","time":2512.794269753,"data":"      \"ssim\": 0.5716070925851388,\n"}
+,{"stream_name":"stdout","time":2512.794272835,"data":"      \"false_edge_rate\": 0.15646040730967392,\n"}
+,{"stream_name":"stdout","time":2512.794275963,"data":"      \"edge_precision\": 0.8435395927237416,\n"}
+,{"stream_name":"stdout","time":2512.794279061,"data":"      \"edge_recall\": 0.866674575385534,\n"}
+,{"stream_name":"stdout","time":2512.794282127,"data":"      \"sam_radians\": 0.14435494115524408,\n"}
+,{"stream_name":"stdout","time":2512.794285192,"data":"      \"ergas\": 9.977077400518787,\n"}
+,{"stream_name":"stdout","time":2512.794288257,"data":"      \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2512.7942913,"data":"    },\n"}
+,{"stream_name":"stdout","time":2512.794294251,"data":"    \"faithsr3x\": {\n"}
+,{"stream_name":"stdout","time":2512.794297294,"data":"      \"psnr\": 24.191094124758685,\n"}
+,{"stream_name":"stdout","time":2512.794300341,"data":"      \"ssim\": 0.6575366485243043,\n"}
+,{"stream_name":"stdout","time":2512.794303397,"data":"      \"false_edge_rate\": 0.13141624647876057,\n"}
+,{"stream_name":"stdout","time":2512.794306522,"data":"      \"edge_precision\": 0.868583752601235,\n"}
+,{"stream_name":"stdout","time":2512.794309581,"data":"      \"edge_recall\": 0.7194025956732394,\n"}
+,{"stream_name":"stdout","time":2512.794312653,"data":"      \"sam_radians\": 0.07521575794736338,\n"}
+,{"stream_name":"stdout","time":2512.794315745,"data":"      \"ergas\": 8.355740996974486,\n"}
+,{"stream_name":"stdout","time":2512.794318799,"data":"      \"uncertainty_correlation\": 0.19520220538039143,\n"}
+,{"stream_name":"stdout","time":2512.794333277,"data":"      \"uncertainty_calibration_error\": 0.006177201448091789,\n"}
+,{"stream_name":"stdout","time":2512.794336655,"data":"      \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794339869,"data":"    },\n"}
+,{"stream_name":"stdout","time":2512.794342866,"data":"    \"nearest\": {\n"}
+,{"stream_name":"stdout","time":2512.794345929,"data":"      \"psnr\": 21.283494517207146,\n"}
+,{"stream_name":"stdout","time":2512.794348975,"data":"      \"ssim\": 0.5069641068112105,\n"}
+,{"stream_name":"stdout","time":2512.79436303,"data":"      \"false_edge_rate\": 0.16596562139090598,\n"}
+,{"stream_name":"stdout","time":2512.794365813,"data":"      \"edge_precision\": 0.8340343780539654,\n"}
+,{"stream_name":"stdout","time":2512.794368194,"data":"      \"edge_recall\": 0.7957728624136912,\n"}
+,{"stream_name":"stdout","time":2512.794370613,"data":"      \"sam_radians\": 0.19001399921210207,\n"}
+,{"stream_name":"stdout","time":2512.794373027,"data":"      \"ergas\": 11.966372930617243,\n"}
+,{"stream_name":"stdout","time":2512.794375445,"data":"      \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794377779,"data":"    }\n"}
+,{"stream_name":"stdout","time":2512.794380161,"data":"  },\n"}
+,{"stream_name":"stdout","time":2512.794382467,"data":"  \"paired_cluster_robust_vs_bicubic\": {\n"}
+,{"stream_name":"stdout","time":2512.794384931,"data":"    \"bilinear_vs_bicubic\": {\n"}
+,{"stream_name":"stdout","time":2512.794387343,"data":"      \"psnr\": {\n"}
+,{"stream_name":"stdout","time":2512.794389688,"data":"        \"mean_delta\": 0.38481044580066015,\n"}
+,{"stream_name":"stdout","time":2512.794392208,"data":"        \"ci95_low\": 0.3477636470238287,\n"}
+,{"stream_name":"stdout","time":2512.794394619,"data":"        \"ci95_high\": 0.4218572445774916,\n"}
+,{"stream_name":"stdout","time":2512.794397025,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794402815,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794405225,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794407635,"data":"      \"ssim\": {\n"}
+,{"stream_name":"stdout","time":2512.794409983,"data":"        \"mean_delta\": 0.010132273526063986,\n"}
+,{"stream_name":"stdout","time":2512.794412407,"data":"        \"ci95_low\": 0.007640656958797322,\n"}
+,{"stream_name":"stdout","time":2512.794414973,"data":"        \"ci95_high\": 0.012623890093330651,\n"}
+,{"stream_name":"stdout","time":2512.794417381,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794419897,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794422297,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794424644,"data":"      \"false_edge_rate\": {\n"}
+,{"stream_name":"stdout","time":2512.794427033,"data":"        \"mean_delta\": -0.003853109904975143,\n"}
+,{"stream_name":"stdout","time":2512.794429452,"data":"        \"ci95_low\": -0.004327806444981691,\n"}
+,{"stream_name":"stdout","time":2512.794433032,"data":"        \"ci95_high\": -0.0033784133649685947,\n"}
+,{"stream_name":"stdout","time":2512.794435659,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794437988,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794440356,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794442707,"data":"      \"sam_radians\": {\n"}
+,{"stream_name":"stdout","time":2512.794445161,"data":"        \"mean_delta\": -0.018247903278467086,\n"}
+,{"stream_name":"stdout","time":2512.794447584,"data":"        \"ci95_low\": -0.01902655166221313,\n"}
+,{"stream_name":"stdout","time":2512.794449986,"data":"        \"ci95_high\": -0.01746925489472104,\n"}
+,{"stream_name":"stdout","time":2512.794452377,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794454741,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.79445708,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794459339,"data":"      \"ergas\": {\n"}
+,{"stream_name":"stdout","time":2512.794461691,"data":"        \"mean_delta\": -0.5192178707747233,\n"}
+,{"stream_name":"stdout","time":2512.794467364,"data":"        \"ci95_low\": -0.5594684856610237,\n"}
+,{"stream_name":"stdout","time":2512.794469956,"data":"        \"ci95_high\": -0.4789672558884228,\n"}
+,{"stream_name":"stdout","time":2512.794472319,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794474659,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794477026,"data":"      }\n"}
+,{"stream_name":"stdout","time":2512.794479305,"data":"    },\n"}
+,{"stream_name":"stdout","time":2512.794481555,"data":"    \"faithsr3x_vs_bicubic\": {\n"}
+,{"stream_name":"stdout","time":2512.794483982,"data":"      \"psnr\": {\n"}
+,{"stream_name":"stdout","time":2512.794486301,"data":"        \"mean_delta\": 1.843811461849818,\n"}
+,{"stream_name":"stdout","time":2512.794488711,"data":"        \"ci95_low\": 1.690495419403011,\n"}
+,{"stream_name":"stdout","time":2512.79449109,"data":"        \"ci95_high\": 1.997127504296625,\n"}
+,{"stream_name":"stdout","time":2512.794493467,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794495851,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794498205,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794500475,"data":"      \"ssim\": {\n"}
+,{"stream_name":"stdout","time":2512.794502789,"data":"        \"mean_delta\": 0.09675028008068838,\n"}
+,{"stream_name":"stdout","time":2512.794505697,"data":"        \"ci95_low\": 0.08817324008402949,\n"}
+,{"stream_name":"stdout","time":2512.79450816,"data":"        \"ci95_high\": 0.10532732007734727,\n"}
+,{"stream_name":"stdout","time":2512.794510528,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794512958,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794515455,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794517788,"data":"      \"false_edge_rate\": {\n"}
+,{"stream_name":"stdout","time":2512.794520145,"data":"        \"mean_delta\": -0.02908303954135922,\n"}
+,{"stream_name":"stdout","time":2512.794522541,"data":"        \"ci95_low\": -0.03163066116530659,\n"}
+,{"stream_name":"stdout","time":2512.794524921,"data":"        \"ci95_high\": -0.026535417917411847,\n"}
+,{"stream_name":"stdout","time":2512.79452739,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794529814,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794532165,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794534505,"data":"      \"sam_radians\": {\n"}
+,{"stream_name":"stdout","time":2512.794536849,"data":"        \"mean_delta\": -0.08703762761110233,\n"}
+,{"stream_name":"stdout","time":2512.79453933,"data":"        \"ci95_low\": -0.09080694672575279,\n"}
+,{"stream_name":"stdout","time":2512.794541721,"data":"        \"ci95_high\": -0.08326830849645186,\n"}
+,{"stream_name":"stdout","time":2512.794544109,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794546572,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.79454893,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794551201,"data":"      \"ergas\": {\n"}
+,{"stream_name":"stdout","time":2512.794553555,"data":"        \"mean_delta\": -2.1492353046224233,\n"}
+,{"stream_name":"stdout","time":2512.794556025,"data":"        \"ci95_low\": -2.2793362003919255,\n"}
+,{"stream_name":"stdout","time":2512.794558415,"data":"        \"ci95_high\": -2.019134408852921,\n"}
+,{"stream_name":"stdout","time":2512.794560788,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794563148,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794567774,"data":"      }\n"}
+,{"stream_name":"stdout","time":2512.794609971,"data":"    },\n"}
+,{"stream_name":"stdout","time":2512.79461865,"data":"    \"nearest_vs_bicubic\": {\n"}
+,{"stream_name":"stdout","time":2512.794625826,"data":"      \"psnr\": {\n"}
+,{"stream_name":"stdout","time":2512.794628183,"data":"        \"mean_delta\": -1.088871654536989,\n"}
+,{"stream_name":"stdout","time":2512.794630669,"data":"        \"ci95_low\": -1.1358706351490109,\n"}
+,{"stream_name":"stdout","time":2512.794634333,"data":"        \"ci95_high\": -1.041872673924967,\n"}
+,{"stream_name":"stdout","time":2512.794636943,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794640353,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794642693,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794645036,"data":"      \"ssim\": {\n"}
+,{"stream_name":"stdout","time":2512.794647369,"data":"        \"mean_delta\": -0.05502445142834433,\n"}
+,{"stream_name":"stdout","time":2512.794649753,"data":"        \"ci95_low\": -0.05684249816298812,\n"}
+,{"stream_name":"stdout","time":2512.794652155,"data":"        \"ci95_high\": -0.05320640469370053,\n"}
+,{"stream_name":"stdout","time":2512.794654632,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794656976,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794659327,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794662221,"data":"      \"false_edge_rate\": {\n"}
+,{"stream_name":"stdout","time":2512.794664704,"data":"        \"mean_delta\": 0.006090998964195717,\n"}
+,{"stream_name":"stdout","time":2512.794667115,"data":"        \"ci95_low\": 0.005048212979850025,\n"}
+,{"stream_name":"stdout","time":2512.794669533,"data":"        \"ci95_high\": 0.007133784948541408,\n"}
+,{"stream_name":"stdout","time":2512.7946719,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794674315,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794676667,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794678922,"data":"      \"sam_radians\": {\n"}
+,{"stream_name":"stdout","time":2512.794681266,"data":"        \"mean_delta\": 0.02705373928423912,\n"}
+,{"stream_name":"stdout","time":2512.794683661,"data":"        \"ci95_low\": 0.025895247678109426,\n"}
+,{"stream_name":"stdout","time":2512.794686075,"data":"        \"ci95_high\": 0.02821223089036881,\n"}
+,{"stream_name":"stdout","time":2512.794688463,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794690893,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.79469324,"data":"      },\n"}
+,{"stream_name":"stdout","time":2512.794695493,"data":"      \"ergas\": {\n"}
+,{"stream_name":"stdout","time":2512.794697809,"data":"        \"mean_delta\": 1.473849644027059,\n"}
+,{"stream_name":"stdout","time":2512.794700204,"data":"        \"ci95_low\": 1.4308001909932258,\n"}
+,{"stream_name":"stdout","time":2512.794702601,"data":"        \"ci95_high\": 1.5168990970608922,\n"}
+,{"stream_name":"stdout","time":2512.794705102,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2512.794707445,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2512.794709787,"data":"      }\n"}
+,{"stream_name":"stdout","time":2512.794712076,"data":"    }\n"}
+,{"stream_name":"stdout","time":2512.794714363,"data":"  },\n"}
+,{"stream_name":"stdout","time":2512.794716709,"data":"  \"aggregation\": \"Per-image means; paired normal-approximation 95% CI over geographic-group mean deltas.\"\n"}
+,{"stream_name":"stdout","time":2512.794722901,"data":"}\n"}
+,{"stream_name":"stdout","time":2513.403870213,"data":"RUN /usr/bin/python3 -m faithsr.compare --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --checkpoint /kaggle/working/faithsr3x-sentinel-distillation/previous-v1/full/best.pth --split-manifest /kaggle/working/faithsr3x-sentinel-distillation/previous-v1/full/split.json --teacher-model caidas/swin2SR-classical-sr-x4-64 --teacher-revision c69ef3e2d2ac5777ff4a9f2f5afcd86d20604b7e --crop-size 120 --batch-size 2 --workers 2 --output /kaggle/working/faithsr3x-sentinel-distillation/pretrained_comparison.csv\n"}
+,{"stream_name":"stdout","time":2631.130040261,"data":"{\n"}
+,{"stream_name":"stdout","time":2631.130085658,"data":"  \"methods\": {\n"}
+,{"stream_name":"stdout","time":2631.130092984,"data":"    \"bicubic\": {\n"}
+,{"stream_name":"stdout","time":2631.130098426,"data":"      \"psnr\": 22.365187534579523,\n"}
+,{"stream_name":"stdout","time":2631.130103638,"data":"      \"ssim\": 0.5617672137881594,\n"}
+,{"stream_name":"stdout","time":2631.130108548,"data":"      \"false_edge_rate\": 0.1601822725610368,\n"}
+,{"stream_name":"stdout","time":2631.130113091,"data":"      \"edge_precision\": 0.8398177272778142,\n"}
+,{"stream_name":"stdout","time":2631.130117479,"data":"      \"edge_recall\": 0.8919181151884712,\n"}
+,{"stream_name":"stdout","time":2631.130121748,"data":"      \"sam_radians\": 0.16273500832203017,\n"}
+,{"stream_name":"stdout","time":2631.130126048,"data":"      \"ergas\": 10.494175573190054,\n"}
+,{"stream_name":"stdout","time":2631.130130457,"data":"      \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130140101,"data":"    },\n"}
+,{"stream_name":"stdout","time":2631.130143104,"data":"    \"bilinear\": {\n"}
+,{"stream_name":"stdout","time":2631.130146095,"data":"      \"psnr\": 22.748127932901735,\n"}
+,{"stream_name":"stdout","time":2631.130148981,"data":"      \"ssim\": 0.5716070925851388,\n"}
+,{"stream_name":"stdout","time":2631.130151821,"data":"      \"false_edge_rate\": 0.15646040730967392,\n"}
+,{"stream_name":"stdout","time":2631.1301547,"data":"      \"edge_precision\": 0.8435395927237416,\n"}
+,{"stream_name":"stdout","time":2631.130157606,"data":"      \"edge_recall\": 0.866674575385534,\n"}
+,{"stream_name":"stdout","time":2631.130160426,"data":"      \"sam_radians\": 0.14435494115524408,\n"}
+,{"stream_name":"stdout","time":2631.130163273,"data":"      \"ergas\": 9.977077400518787,\n"}
+,{"stream_name":"stdout","time":2631.130166192,"data":"      \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130169462,"data":"    },\n"}
+,{"stream_name":"stdout","time":2631.130185598,"data":"    \"faithsr3x\": {\n"}
+,{"stream_name":"stdout","time":2631.130190828,"data":"      \"psnr\": 24.19105742375056,\n"}
+,{"stream_name":"stdout","time":2631.130195832,"data":"      \"ssim\": 0.6575294595073771,\n"}
+,{"stream_name":"stdout","time":2631.13020088,"data":"      \"false_edge_rate\": 0.13142105367215764,\n"}
+,{"stream_name":"stdout","time":2631.130205668,"data":"      \"edge_precision\": 0.8685789456659997,\n"}
+,{"stream_name":"stdout","time":2631.13020995,"data":"      \"edge_recall\": 0.7193991872654469,\n"}
+,{"stream_name":"stdout","time":2631.130214291,"data":"      \"sam_radians\": 0.0751999528190397,\n"}
+,{"stream_name":"stdout","time":2631.130218556,"data":"      \"ergas\": 8.355770325771084,\n"}
+,{"stream_name":"stdout","time":2631.130222855,"data":"      \"uncertainty_correlation\": 0.19523903962288858,\n"}
+,{"stream_name":"stdout","time":2631.130227201,"data":"      \"uncertainty_calibration_error\": 0.006174565926926334,\n"}
+,{"stream_name":"stdout","time":2631.130241623,"data":"      \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130245213,"data":"    },\n"}
+,{"stream_name":"stdout","time":2631.130250196,"data":"    \"nearest\": {\n"}
+,{"stream_name":"stdout","time":2631.130256715,"data":"      \"psnr\": 21.283494517207146,\n"}
+,{"stream_name":"stdout","time":2631.130258975,"data":"      \"ssim\": 0.5069641068112105,\n"}
+,{"stream_name":"stdout","time":2631.130261181,"data":"      \"false_edge_rate\": 0.16596562139090598,\n"}
+,{"stream_name":"stdout","time":2631.130263466,"data":"      \"edge_precision\": 0.8340343780539654,\n"}
+,{"stream_name":"stdout","time":2631.130265698,"data":"      \"edge_recall\": 0.7957728624136912,\n"}
+,{"stream_name":"stdout","time":2631.130280089,"data":"      \"sam_radians\": 0.19001399921210207,\n"}
+,{"stream_name":"stdout","time":2631.130284279,"data":"      \"ergas\": 11.966372930617243,\n"}
+,{"stream_name":"stdout","time":2631.130288231,"data":"      \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130292149,"data":"    },\n"}
+,{"stream_name":"stdout","time":2631.130297122,"data":"    \"swin2sr_x4_resized_x3\": {\n"}
+,{"stream_name":"stdout","time":2631.130300571,"data":"      \"psnr\": 19.671407829832148,\n"}
+,{"stream_name":"stdout","time":2631.130304631,"data":"      \"ssim\": 0.4580026891048032,\n"}
+,{"stream_name":"stdout","time":2631.130308724,"data":"      \"false_edge_rate\": 0.1644475841021631,\n"}
+,{"stream_name":"stdout","time":2631.130312249,"data":"      \"edge_precision\": 0.8355524159657458,\n"}
+,{"stream_name":"stdout","time":2631.130315583,"data":"      \"edge_recall\": 0.9130142498244014,\n"}
+,{"stream_name":"stdout","time":2631.13031896,"data":"      \"sam_radians\": 0.2663940826443852,\n"}
+,{"stream_name":"stdout","time":2631.130322283,"data":"      \"ergas\": 15.106288591192829,\n"}
+,{"stream_name":"stdout","time":2631.130325625,"data":"      \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130328864,"data":"    }\n"}
+,{"stream_name":"stdout","time":2631.130332066,"data":"  },\n"}
+,{"stream_name":"stdout","time":2631.130335295,"data":"  \"paired_cluster_robust_vs_bicubic\": {\n"}
+,{"stream_name":"stdout","time":2631.130338754,"data":"    \"bilinear_vs_bicubic\": {\n"}
+,{"stream_name":"stdout","time":2631.130342015,"data":"      \"psnr\": {\n"}
+,{"stream_name":"stdout","time":2631.130345331,"data":"        \"mean_delta\": 0.38481044580066015,\n"}
+,{"stream_name":"stdout","time":2631.130348755,"data":"        \"ci95_low\": 0.3477636470238287,\n"}
+,{"stream_name":"stdout","time":2631.130352136,"data":"        \"ci95_high\": 0.4218572445774916,\n"}
+,{"stream_name":"stdout","time":2631.130355504,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.13035896,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130362434,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130367364,"data":"      \"ssim\": {\n"}
+,{"stream_name":"stdout","time":2631.130373767,"data":"        \"mean_delta\": 0.010132273526063986,\n"}
+,{"stream_name":"stdout","time":2631.130377556,"data":"        \"ci95_low\": 0.007640656958797322,\n"}
+,{"stream_name":"stdout","time":2631.130381559,"data":"        \"ci95_high\": 0.012623890093330651,\n"}
+,{"stream_name":"stdout","time":2631.130385702,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130389899,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130394074,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.13039728,"data":"      \"false_edge_rate\": {\n"}
+,{"stream_name":"stdout","time":2631.130404695,"data":"        \"mean_delta\": -0.003853109904975143,\n"}
+,{"stream_name":"stdout","time":2631.130408138,"data":"        \"ci95_low\": -0.004327806444981691,\n"}
+,{"stream_name":"stdout","time":2631.130411575,"data":"        \"ci95_high\": -0.0033784133649685947,\n"}
+,{"stream_name":"stdout","time":2631.130414951,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130418178,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130421481,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130424652,"data":"      \"sam_radians\": {\n"}
+,{"stream_name":"stdout","time":2631.130427953,"data":"        \"mean_delta\": -0.018247903278467086,\n"}
+,{"stream_name":"stdout","time":2631.130431284,"data":"        \"ci95_low\": -0.01902655166221313,\n"}
+,{"stream_name":"stdout","time":2631.130434589,"data":"        \"ci95_high\": -0.01746925489472104,\n"}
+,{"stream_name":"stdout","time":2631.130437956,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130441263,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130444521,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130447748,"data":"      \"ergas\": {\n"}
+,{"stream_name":"stdout","time":2631.130456873,"data":"        \"mean_delta\": -0.5192178707747233,\n"}
+,{"stream_name":"stdout","time":2631.1304598790002,"data":"        \"ci95_low\": -0.5594684856610237,\n"}
+,{"stream_name":"stdout","time":2631.130474869,"data":"        \"ci95_high\": -0.4789672558884228,\n"}
+,{"stream_name":"stdout","time":2631.130479041,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130483185,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130487176,"data":"      }\n"}
+,{"stream_name":"stdout","time":2631.130490906,"data":"    },\n"}
+,{"stream_name":"stdout","time":2631.130494077,"data":"    \"faithsr3x_vs_bicubic\": {\n"}
+,{"stream_name":"stdout","time":2631.13049747,"data":"      \"psnr\": {\n"}
+,{"stream_name":"stdout","time":2631.130500712,"data":"        \"mean_delta\": 1.8437805961048792,\n"}
+,{"stream_name":"stdout","time":2631.130504068,"data":"        \"ci95_low\": 1.690441405296762,\n"}
+,{"stream_name":"stdout","time":2631.130507459,"data":"        \"ci95_high\": 1.9971197869129964,\n"}
+,{"stream_name":"stdout","time":2631.130510769,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130514103,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130517449,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.1305206,"data":"      \"ssim\": {\n"}
+,{"stream_name":"stdout","time":2631.130523843,"data":"        \"mean_delta\": 0.09674335784086632,\n"}
+,{"stream_name":"stdout","time":2631.130527255,"data":"        \"ci95_low\": 0.08816288383125856,\n"}
+,{"stream_name":"stdout","time":2631.130530612,"data":"        \"ci95_high\": 0.10532383185047409,\n"}
+,{"stream_name":"stdout","time":2631.130534008,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130537251,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130540512,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130544133,"data":"      \"false_edge_rate\": {\n"}
+,{"stream_name":"stdout","time":2631.130553316,"data":"        \"mean_delta\": -0.02907749064800714,\n"}
+,{"stream_name":"stdout","time":2631.130556705,"data":"        \"ci95_low\": -0.03162460345392802,\n"}
+,{"stream_name":"stdout","time":2631.130580649,"data":"        \"ci95_high\": -0.026530377842086252,\n"}
+,{"stream_name":"stdout","time":2631.130607683,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130611911,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130615245,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130618371,"data":"      \"sam_radians\": {\n"}
+,{"stream_name":"stdout","time":2631.13062171,"data":"        \"mean_delta\": -0.08705299410096827,\n"}
+,{"stream_name":"stdout","time":2631.130625084,"data":"        \"ci95_low\": -0.0908200203132057,\n"}
+,{"stream_name":"stdout","time":2631.130628489,"data":"        \"ci95_high\": -0.08328596788873084,\n"}
+,{"stream_name":"stdout","time":2631.130631851,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130635174,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130638478,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130641593,"data":"      \"ergas\": {\n"}
+,{"stream_name":"stdout","time":2631.130644823,"data":"        \"mean_delta\": -2.1492128268120783,\n"}
+,{"stream_name":"stdout","time":2631.130648243,"data":"        \"ci95_low\": -2.279347720325842,\n"}
+,{"stream_name":"stdout","time":2631.130668776,"data":"        \"ci95_high\": -2.0190779332983144,\n"}
+,{"stream_name":"stdout","time":2631.130674136,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130677873,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130683214,"data":"      }\n"}
+,{"stream_name":"stdout","time":2631.130687119,"data":"    },\n"}
+,{"stream_name":"stdout","time":2631.130704175,"data":"    \"nearest_vs_bicubic\": {\n"}
+,{"stream_name":"stdout","time":2631.130708262,"data":"      \"psnr\": {\n"}
+,{"stream_name":"stdout","time":2631.130712268,"data":"        \"mean_delta\": -1.088871654536989,\n"}
+,{"stream_name":"stdout","time":2631.130716251,"data":"        \"ci95_low\": -1.1358706351490109,\n"}
+,{"stream_name":"stdout","time":2631.130720899,"data":"        \"ci95_high\": -1.041872673924967,\n"}
+,{"stream_name":"stdout","time":2631.130724281,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130727644,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.13073133,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130734543,"data":"      \"ssim\": {\n"}
+,{"stream_name":"stdout","time":2631.130737806,"data":"        \"mean_delta\": -0.05502445142834433,\n"}
+,{"stream_name":"stdout","time":2631.130741196,"data":"        \"ci95_low\": -0.05684249816298812,\n"}
+,{"stream_name":"stdout","time":2631.130744558,"data":"        \"ci95_high\": -0.05320640469370053,\n"}
+,{"stream_name":"stdout","time":2631.130747958,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130751246,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130754516,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130757679,"data":"      \"false_edge_rate\": {\n"}
+,{"stream_name":"stdout","time":2631.130760968,"data":"        \"mean_delta\": 0.006090998964195717,\n"}
+,{"stream_name":"stdout","time":2631.130764251,"data":"        \"ci95_low\": 0.005048212979850025,\n"}
+,{"stream_name":"stdout","time":2631.130767563,"data":"        \"ci95_high\": 0.007133784948541408,\n"}
+,{"stream_name":"stdout","time":2631.130770877,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130775897,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130783666,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130807766,"data":"      \"sam_radians\": {\n"}
+,{"stream_name":"stdout","time":2631.130816494,"data":"        \"mean_delta\": 0.02705373928423912,\n"}
+,{"stream_name":"stdout","time":2631.130820239,"data":"        \"ci95_low\": 0.025895247678109426,\n"}
+,{"stream_name":"stdout","time":2631.130823647,"data":"        \"ci95_high\": 0.02821223089036881,\n"}
+,{"stream_name":"stdout","time":2631.130827005,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130830291,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130833704,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130836949,"data":"      \"ergas\": {\n"}
+,{"stream_name":"stdout","time":2631.130840223,"data":"        \"mean_delta\": 1.473849644027059,\n"}
+,{"stream_name":"stdout","time":2631.130843629,"data":"        \"ci95_low\": 1.4308001909932258,\n"}
+,{"stream_name":"stdout","time":2631.130846954,"data":"        \"ci95_high\": 1.5168990970608922,\n"}
+,{"stream_name":"stdout","time":2631.130850349,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130853661,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130857049,"data":"      }\n"}
+,{"stream_name":"stdout","time":2631.130860281,"data":"    },\n"}
+,{"stream_name":"stdout","time":2631.130863523,"data":"    \"swin2sr_x4_resized_x3_vs_bicubic\": {\n"}
+,{"stream_name":"stdout","time":2631.130866958,"data":"      \"psnr\": {\n"}
+,{"stream_name":"stdout","time":2631.130872167,"data":"        \"mean_delta\": -2.6918388236136663,\n"}
+,{"stream_name":"stdout","time":2631.130879598,"data":"        \"ci95_low\": -2.816559892970798,\n"}
+,{"stream_name":"stdout","time":2631.130894365,"data":"        \"ci95_high\": -2.5671177542565347,\n"}
+,{"stream_name":"stdout","time":2631.13089866,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.13090259,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130906304,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130910026,"data":"      \"ssim\": {\n"}
+,{"stream_name":"stdout","time":2631.130913787,"data":"        \"mean_delta\": -0.1040059894042474,\n"}
+,{"stream_name":"stdout","time":2631.130917217,"data":"        \"ci95_low\": -0.10902801464819828,\n"}
+,{"stream_name":"stdout","time":2631.130920632,"data":"        \"ci95_high\": -0.09898396416029653,\n"}
+,{"stream_name":"stdout","time":2631.130924034,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130927271,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130930526,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130933749,"data":"      \"false_edge_rate\": {\n"}
+,{"stream_name":"stdout","time":2631.130937019,"data":"        \"mean_delta\": 0.0044718328128857095,\n"}
+,{"stream_name":"stdout","time":2631.130940345,"data":"        \"ci95_low\": 0.0037492348250307644,\n"}
+,{"stream_name":"stdout","time":2631.1309437,"data":"        \"ci95_high\": 0.005194430800740654,\n"}
+,{"stream_name":"stdout","time":2631.130947096,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.13095033,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.130953676,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.130956782,"data":"      \"sam_radians\": {\n"}
+,{"stream_name":"stdout","time":2631.130960172,"data":"        \"mean_delta\": 0.10285146372754954,\n"}
+,{"stream_name":"stdout","time":2631.130963482,"data":"        \"ci95_low\": 0.09842138691072502,\n"}
+,{"stream_name":"stdout","time":2631.130968523,"data":"        \"ci95_high\": 0.10728154054437405,\n"}
+,{"stream_name":"stdout","time":2631.130978345,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.130994211,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.13099817,"data":"      },\n"}
+,{"stream_name":"stdout","time":2631.131001802,"data":"      \"ergas\": {\n"}
+,{"stream_name":"stdout","time":2631.131006263,"data":"        \"mean_delta\": 4.601501025141232,\n"}
+,{"stream_name":"stdout","time":2631.131010519,"data":"        \"ci95_low\": 4.408007232547753,\n"}
+,{"stream_name":"stdout","time":2631.131013927,"data":"        \"ci95_high\": 4.794994817734711,\n"}
+,{"stream_name":"stdout","time":2631.131017248,"data":"        \"clusters\": 14,\n"}
+,{"stream_name":"stdout","time":2631.131020555,"data":"        \"paired_images\": 1728\n"}
+,{"stream_name":"stdout","time":2631.131023838,"data":"      }\n"}
+,{"stream_name":"stdout","time":2631.131027014,"data":"    }\n"}
+,{"stream_name":"stdout","time":2631.131030167,"data":"  },\n"}
+,{"stream_name":"stdout","time":2631.131034009,"data":"  \"aggregation\": \"Per-image means; paired normal-approximation 95% CI over geographic-group mean deltas.\"\n"}
+,{"stream_name":"stdout","time":2631.131037768,"data":"}\n"}
+,{"stream_name":"stderr","time":2635.061842232,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":2635.061872754,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":2635.270263604,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":2635.270287857,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":2635.895013562,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":2636.709650633,"data":"[NbConvertApp] Writing 302333 bytes to __results__.html\n"}
+]

@@ -13,6 +13,7 @@ from torch.utils.data import DataLoader
 from .checkpoint import save_checkpoint
 from .config import load_config, seed_everything, write_run_manifest
 from .data import SyntheticSRDataset, discover_images, geographic_split, write_split_manifest
+from .documentation import append_run_results, write_model_card
 from .losses import FaithfulObjective
 from .metrics import false_edge_rate, psnr, ssim, uncertainty_error_correlation
 from .model import FaithSR3X, FaithSRConfig, count_parameters
@@ -50,18 +51,29 @@ def run(args: argparse.Namespace) -> Path:
     files = discover_images(args.data, set(config["data"]["extensions"]))
     if len(files) < 2:
         raise RuntimeError("At least two images are required")
-    train_files, val_files = geographic_split(files, config["data"]["train_ratio"], config["seed"])
-    if not val_files:
-        val_files = train_files[-1:]
-        train_files = train_files[:-1]
+    grid_degrees = config["data"].get("split_grid_degrees", 0.1)
+    train_files, val_files = geographic_split(files, config["data"]["train_ratio"], config["seed"], grid_degrees)
+    if not train_files or not val_files:
+        raise ValueError("Geographic split produced an empty train or validation set; supply multiple parent/geographic groups")
     output = Path(args.output)
     output.mkdir(parents=True, exist_ok=True)
-    write_split_manifest(output / "split.json", train_files, val_files, config["seed"])
+    write_split_manifest(output / "split.json", train_files, val_files, config["seed"], grid_degrees)
     model_cfg = FaithSRConfig(in_channels=args.bands, out_channels=args.bands, **config["model"])
     model = FaithSR3X(model_cfg).to(device)
+    write_model_card(
+        output / "model-card.md", model, config, output.name,
+        args.experiment_rationale or "Evaluate the configured FaithSR-3X hypothesis under a frozen reproducible protocol.",
+        args.previous_experiment or "See docs/research/model-and-experiment-methodology.md for the experiment lineage.",
+    )
     teacher = None
     if args.teacher_model:
-        teacher = Swin2SRTeacher(args.teacher_model, args.teacher_checkpoint).to(device)
+        teacher = Swin2SRTeacher(
+            args.teacher_model,
+            args.teacher_checkpoint,
+            args.teacher_revision,
+            config["training"].get("teacher_batch_size"),
+        ).to(device)
+    teacher_max_epoch = int(config["training"].get("teacher_max_epoch", config["training"]["epochs"]))
     train_ds = SyntheticSRDataset(train_files, config["data"]["crop_size"], args.bands, True, config["seed"])
     val_ds = SyntheticSRDataset(val_files, config["data"]["crop_size"], args.bands, False, config["seed"])
     train_loader = DataLoader(train_ds, batch_size=config["training"]["batch_size"], shuffle=True, num_workers=config["training"]["workers"], drop_last=False)
@@ -92,7 +104,7 @@ def run(args: argparse.Namespace) -> Path:
             optimizer.zero_grad(set_to_none=True)
             with torch.amp.autocast("cuda", enabled=amp_enabled):
                 sr, aux = model(lr, return_aux=True)
-                teacher_sr = None if teacher is None else teacher(lr, hr.shape[-2:])
+                teacher_sr = None if teacher is None or epoch > teacher_max_epoch else teacher(lr, hr.shape[-2:])
                 loss, _ = objective(sr, hr, lr, aux, degradation_target, teacher_sr)
             scaler.scale(loss).backward()
             scaler.unscale_(optimizer)
@@ -110,6 +122,10 @@ def run(args: argparse.Namespace) -> Path:
         with metrics_path.open("a", encoding="utf-8", newline="") as handle:
             csv.writer(handle).writerow([epoch, total / max(1, len(train_loader)), validation.get("psnr"), validation.get("ssim"), validation.get("false_edge_rate"), validation.get("observation_l1"), validation.get("uncertainty_correlation"), optimizer.param_groups[0]["lr"]])
         print(json.dumps({"epoch": epoch, "train_loss": total / max(1, len(train_loader)), **validation}))
+    finished = time.time()
+    manifest.update({"finished_unix": finished, "duration_seconds": finished - manifest["started_unix"], "best_validation_psnr": best})
+    write_run_manifest(output / "run.json", manifest)
+    append_run_results(output / "model-card.md", metrics_path, manifest["duration_seconds"])
     return output
 
 
@@ -123,6 +139,9 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--resume")
     parser.add_argument("--teacher-model", help="Hugging Face Swin2SR model ID used as a frozen teacher")
     parser.add_argument("--teacher-checkpoint", help="Optional compatible local Swin2SR state dict")
+    parser.add_argument("--teacher-revision", help="Immutable Hugging Face model revision")
+    parser.add_argument("--experiment-rationale", help="Why this run is scientifically necessary; written into model-card.md")
+    parser.add_argument("--previous-experiment", help="Prior run/hypothesis this experiment extends; written into model-card.md")
     return parser
 
 

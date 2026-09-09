@@ -1,6 +1,16 @@
 import torch
 
-from faithsr.metrics import ergas, false_edge_rate, psnr, segmentation_iou_f1, spectral_angle_mapper, ssim, uncertainty_calibration_error
+from faithsr.metrics import (
+    ergas,
+    false_edge_rate,
+    psnr,
+    reconstruction_metrics_per_sample,
+    segmentation_iou_f1,
+    spectral_angle_mapper,
+    ssim,
+    uncertainty_calibration_error,
+    uncertainty_metrics_per_sample,
+)
 
 
 def test_identical_images_have_expected_fidelity_scores():
@@ -19,3 +29,13 @@ def test_downstream_binary_metrics():
     iou, f1 = segmentation_iou_f1(prediction, target)
     assert torch.isclose(iou, torch.tensor(1 / 3))
     assert torch.isclose(f1, torch.tensor(0.5))
+
+
+def test_vectorized_metrics_return_one_value_per_image():
+    target = torch.rand(3, 3, 24, 24)
+    prediction = (target + 0.01 * torch.randn_like(target)).clamp(0, 1)
+    uncertainty = torch.rand(3, 1, 24, 24)
+    reconstruction = reconstruction_metrics_per_sample(prediction, target)
+    calibration = uncertainty_metrics_per_sample(uncertainty, prediction, target)
+    assert all(value.shape == (3,) for value in reconstruction.values())
+    assert all(value.shape == (3,) for value in calibration.values())

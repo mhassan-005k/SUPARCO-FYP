@@ -1,0 +1,12 @@
+{
+  "kernel": "muhammadhassan2/faithsr-3x-matched-eurosat-evaluation",
+  "kernel_version": 6,
+  "hardware": "Kaggle Tesla P100",
+  "fixture": "deterministic 512x512 3-band uint8 EPSG:32643 GeoTIFF",
+  "files_sha256": {
+    "latency_512.json": "9C1961A9DBF813070FCD042C8B9D57D7F30204D6CC4907DC4D39338FFBD2320F",
+    "latency_512_lzw.json": "F7ED06AC48CBBD98E7F89AD047D1D09A009AAAE5D2E5539280B2911781913D98",
+    "latency_512_none.json": "637F0E674517A29C573829608C464A85B354FEE1561589A33E760362D3229BF5",
+    "kaggle.log": "9FBDAB5A6A664F076DDF64859A43C3F28B6E71AC4F914B5855E1E491B3C3D4F7"
+  }
+}

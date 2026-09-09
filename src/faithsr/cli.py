@@ -13,7 +13,7 @@ from .inference import process_tiff
 def infer(args: argparse.Namespace) -> None:
     device = args.device or ("cuda" if torch.cuda.is_available() else "cpu")
     model, state = load_checkpoint(args.checkpoint, device)
-    audit = process_tiff(args.input, args.output, model, device, args.tile_size, args.overlap, f"faithsr3x-epoch-{state.get('epoch', 'unknown')}")
+    audit = process_tiff(args.input, args.output, model, device, args.tile_size, args.overlap, f"faithsr3x-epoch-{state.get('epoch', 'unknown')}", args.compression, args.precision)
     print(json.dumps(audit, indent=2))
 
 
@@ -22,6 +22,8 @@ def main() -> None:
     command = commands.add_parser("infer", help="Super-resolve an 8-bit TIFF by exactly 3x")
     command.add_argument("--input", required=True); command.add_argument("--output", required=True); command.add_argument("--checkpoint", required=True)
     command.add_argument("--device"); command.add_argument("--tile-size", type=int, default=512); command.add_argument("--overlap", type=int, default=32); command.set_defaults(handler=infer)
+    command.add_argument("--compression", choices=["input", "deflate", "lzw", "zstd", "none"], default="input")
+    command.add_argument("--precision", choices=["fp32", "fp16"], default="fp32")
     args = parser.parse_args(); args.handler(args)
 
 

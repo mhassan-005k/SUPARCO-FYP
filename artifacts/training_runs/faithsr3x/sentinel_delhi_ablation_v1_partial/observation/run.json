@@ -1,0 +1,51 @@
+{
+  "config": {
+    "seed": 42,
+    "scale": 3,
+    "model": {
+      "channels": 32,
+      "num_blocks": 6,
+      "embed_dim": 48,
+      "kernel_size": 7,
+      "use_degradation_adaptation": true,
+      "use_observation_consistency": true,
+      "use_uncertainty": false
+    },
+    "data": {
+      "crop_size": 120,
+      "train_ratio": 0.8,
+      "split_grid_degrees": 0.1,
+      "extensions": [
+        ".png"
+      ]
+    },
+    "training": {
+      "epochs": 30,
+      "batch_size": 32,
+      "validation_batch_size": 32,
+      "workers": 2,
+      "learning_rate": 0.0002,
+      "weight_decay": 0.0001,
+      "amp": true
+    },
+    "loss": {
+      "charbonnier": 1.0,
+      "ssim": 0.1,
+      "gradient": 0.03,
+      "frequency": 0.02,
+      "observation": 0.05,
+      "degradation": 0.02,
+      "uncertainty": 0.02,
+      "distillation": 0.0
+    },
+    "inference": {
+      "tile_size": 512,
+      "overlap": 32
+    }
+  },
+  "git_commit": "unknown",
+  "device": "cuda",
+  "parameters": 112455,
+  "data_root": "/kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb",
+  "started_unix": 1788943157.3919883
+}

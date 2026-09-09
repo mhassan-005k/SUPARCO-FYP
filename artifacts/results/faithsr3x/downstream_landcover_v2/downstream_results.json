@@ -1,0 +1,75 @@
+{
+  "protocol": "HR-trained frozen classifier; untouched main validation groups are final test",
+  "classes": [
+    {
+      "code": 10,
+      "name": "tree_cover"
+    },
+    {
+      "code": 20,
+      "name": "shrubland"
+    },
+    {
+      "code": 30,
+      "name": "grassland"
+    },
+    {
+      "code": 40,
+      "name": "cropland"
+    },
+    {
+      "code": 50,
+      "name": "built_up"
+    },
+    {
+      "code": 60,
+      "name": "bare_sparse"
+    },
+    {
+      "code": 80,
+      "name": "water"
+    }
+  ],
+  "excluded_unknown_test_samples": 2,
+  "split": {
+    "fit_groups": 49,
+    "calibration_groups": 9,
+    "test_groups": 14
+  },
+  "classifier_best_epoch": 8,
+  "classifier_calibration": {
+    "accuracy": 0.5789930820465088,
+    "macro_f1": 0.16320466063916683
+  },
+  "methods": {
+    "hr_reference": {
+      "accuracy": 0.6546929478645325,
+      "macro_f1": 0.23650518698351725,
+      "samples": 1726
+    },
+    "bicubic": {
+      "accuracy": 0.6523754596710205,
+      "macro_f1": 0.2354257596390588,
+      "samples": 1726
+    },
+    "faithsr3x": {
+      "accuracy": 0.6651216745376587,
+      "macro_f1": 0.240837533559118,
+      "samples": 1726
+    }
+  },
+  "paired_accuracy_vs_bicubic": {
+    "hr_reference": {
+      "mean_delta": 0.0034652358596020563,
+      "ci95_low": -0.004702829049853091,
+      "ci95_high": 0.011633300769057204,
+      "clusters": 14
+    },
+    "faithsr3x": {
+      "mean_delta": 0.015397943214844624,
+      "ci95_low": 0.006577789080086381,
+      "ci95_high": 0.02421809734960287,
+      "clusters": 14
+    }
+  }
+}

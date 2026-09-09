@@ -1,0 +1,13 @@
+{
+  "kernel": "muhammadhassan2/faithsr-3x-precision-benchmark",
+  "version": 1,
+  "status": "complete",
+  "hardware": "NVIDIA Tesla P100",
+  "protocol": "Same checkpoint and 512x512 input; 10 warmups plus 100 model-only runs; 10 uncompressed disk-backed TIFF pipeline runs per precision.",
+  "sha256": {
+    "benchmark_fp16.json": "EB3E600F7EC0EB85A3F0602C8EAF4151357EB074CEA22F06534970D46D4459D5",
+    "benchmark_fp32.json": "27006BF4773A1B969CDA93312855393089ED88737EE35CB377572FF663686AAA",
+    "kaggle.log": "6BD87567E8673F89BB86FE9A914D793DC7CB092236657A54C7A118A3C3F03851",
+    "precision_summary.json": "736497A1315747A340DCA1C5EFF1F3507A33FF2708CDAA5C632F5717A8D7AF63"
+  }
+}

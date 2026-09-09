@@ -1,0 +1,16 @@
+{
+  "id": "muhammadhassan2/faithsr-3x-sentinel-delhi-ablation",
+  "title": "FaithSR-3X Sentinel Delhi Ablation",
+  "code_file": "faithsr3x_sentinel_ablation.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "rishabhsnip/earth-observation-delhi-airshed",
+    "muhammadhassan2/faithsr-3x-private-source"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

@@ -1,0 +1,415 @@
+[{"stream_name":"stdout","time":0.755893354,"data":"RUN /usr/bin/python3 -m pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cu121 --quiet\n"}
+,{"stream_name":"stdout","time":12.90161886,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 780.4/780.4 MB 2.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":15.608631858,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 23.7/23.7 MB 222.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":15.724977353,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 823.6/823.6 kB 228.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":15.831315097,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 14.1/14.1 MB 237.1 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":23.180613385,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 664.8/664.8 MB 2.3 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":27.61742078,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 410.6/410.6 MB 72.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":30.152840226,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 121.6/121.6 MB 165.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":30.799303872,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 56.5/56.5 MB 202.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":31.742437081,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 124.2/124.2 MB 135.0 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":33.066130965,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 196.0/196.0 MB 136.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":35.051909565,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 188.7/188.7 MB 113.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":35.688702039,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 99.1/99.1 kB 114.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":37.910983393,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 209.6/209.6 MB 8.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":39.292912258,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.2/6.2 MB 15.6 MB/s eta 0:00:00\n"}
+,{"stream_name":"stderr","time":154.427937659,"data":"ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.\n"}
+,{"stream_name":"stderr","time":154.427998929,"data":"torchaudio 2.10.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stderr","time":154.428003624,"data":"torchvision 0.25.0+cu128 requires torch==2.10.0, but you have torch 2.5.1+cu121 which is incompatible.\n"}
+,{"stream_name":"stdout","time":155.078550066,"data":"RUN /usr/bin/python3 -m pip install rasterio PyYAML transformers==4.47.1 --quiet\n"}
+,{"stream_name":"stdout","time":157.892943777,"data":"     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 44.1/44.1 kB 544.7 kB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":159.376961191,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 10.1/10.1 MB 24.7 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":159.450848801,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 566.4/566.4 kB 34.8 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":159.562882454,"data":"   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 3.1/3.1 MB 59.4 MB/s eta 0:00:00\n"}
+,{"stream_name":"stdout","time":171.826990343,"data":"RUN /usr/bin/python3 -m faithsr.train --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --config /kaggle/working/faithsr3x-sentinel-ablation/plain.yaml --output /kaggle/working/faithsr3x-sentinel-ablation/plain\n"}
+,{"stream_name":"stderr","time":182.522688422,"data":"fatal: not a git repository (or any parent up to mount point /kaggle)\n"}
+,{"stream_name":"stderr","time":182.522726211,"data":"Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"}
+,{"stream_name":"stdout","time":217.447153376,"data":"{\"epoch\": 1, \"train_loss\": 0.11512780129017992, \"psnr\": 22.71971896842674, \"ssim\": 0.6028706000910865, \"false_edge_rate\": 0.15855972717205682}\n"}
+,{"stream_name":"stdout","time":241.706044386,"data":"{\"epoch\": 2, \"train_loss\": 0.09543254560767075, \"psnr\": 23.6272879353276, \"ssim\": 0.6439621934184322, \"false_edge_rate\": 0.14327541835330151}\n"}
+,{"stream_name":"stdout","time":266.057367293,"data":"{\"epoch\": 3, \"train_loss\": 0.09102985278790833, \"psnr\": 23.751110041583026, \"ssim\": 0.6497741209136115, \"false_edge_rate\": 0.13904382674782365}\n"}
+,{"stream_name":"stdout","time":290.068622333,"data":"{\"epoch\": 4, \"train_loss\": 0.09055408590242393, \"psnr\": 23.788676226580584, \"ssim\": 0.6513135311780153, \"false_edge_rate\": 0.13765448249048656}\n"}
+,{"stream_name":"stdout","time":314.362078115,"data":"{\"epoch\": 5, \"train_loss\": 0.09030849922798638, \"psnr\": 23.790853394402397, \"ssim\": 0.6529183928613309, \"false_edge_rate\": 0.1378048008514775}\n"}
+,{"stream_name":"stdout","time":338.485231607,"data":"{\"epoch\": 6, \"train_loss\": 0.08979351360064286, \"psnr\": 23.80217852415862, \"ssim\": 0.6536001011177346, \"false_edge_rate\": 0.1364370181604668}\n"}
+,{"stream_name":"stdout","time":362.654156554,"data":"{\"epoch\": 7, \"train_loss\": 0.08998411378035179, \"psnr\": 23.824260429099755, \"ssim\": 0.6539116060292279, \"false_edge_rate\": 0.13434751442185155}\n"}
+,{"stream_name":"stdout","time":386.95503149,"data":"{\"epoch\": 8, \"train_loss\": 0.08958325471378799, \"psnr\": 23.823785428647643, \"ssim\": 0.6549785115100719, \"false_edge_rate\": 0.13358957651588652}\n"}
+,{"stream_name":"stdout","time":411.287077272,"data":"{\"epoch\": 9, \"train_loss\": 0.08945118158291547, \"psnr\": 23.828232588591398, \"ssim\": 0.655603039043921, \"false_edge_rate\": 0.13307154082037784}\n"}
+,{"stream_name":"stdout","time":435.636471136,"data":"{\"epoch\": 10, \"train_loss\": 0.08948829690487976, \"psnr\": 23.844866010877823, \"ssim\": 0.6556177812593954, \"false_edge_rate\": 0.13106809639268452}\n"}
+,{"stream_name":"stdout","time":459.748790908,"data":"{\"epoch\": 11, \"train_loss\": 0.08946751144069892, \"psnr\": 23.85302441208451, \"ssim\": 0.6559347598641007, \"false_edge_rate\": 0.12999832354210042}\n"}
+,{"stream_name":"stdout","time":484.102786762,"data":"{\"epoch\": 12, \"train_loss\": 0.0891597444175655, \"psnr\": 23.8664908585725, \"ssim\": 0.6556491575859211, \"false_edge_rate\": 0.12767883942083078}\n"}
+,{"stream_name":"stdout","time":508.594735546,"data":"{\"epoch\": 13, \"train_loss\": 0.08920731252202621, \"psnr\": 23.865864329867893, \"ssim\": 0.6560255410494628, \"false_edge_rate\": 0.12760277506377962}\n"}
+,{"stream_name":"stdout","time":533.388550744,"data":"{\"epoch\": 14, \"train_loss\": 0.08939031505177164, \"psnr\": 23.860903669286657, \"ssim\": 0.6567318439483643, \"false_edge_rate\": 0.12828478575856597}\n"}
+,{"stream_name":"stdout","time":558.042656886,"data":"{\"epoch\": 15, \"train_loss\": 0.08897312870647153, \"psnr\": 23.857051920007777, \"ssim\": 0.657056995012142, \"false_edge_rate\": 0.1279634605679247}\n"}
+,{"stream_name":"stdout","time":582.594380474,"data":"{\"epoch\": 16, \"train_loss\": 0.0889946203201245, \"psnr\": 23.857002399585866, \"ssim\": 0.6577522313153302, \"false_edge_rate\": 0.1286575376159615}\n"}
+,{"stream_name":"stdout","time":608.234760623,"data":"{\"epoch\": 17, \"train_loss\": 0.08912682889873146, \"psnr\": 23.86413510640462, \"ssim\": 0.6574789738213574, \"false_edge_rate\": 0.127804993065419}\n"}
+,{"stream_name":"stdout","time":634.785590336,"data":"{\"epoch\": 18, \"train_loss\": 0.08899418207315299, \"psnr\": 23.86403384032073, \"ssim\": 0.6574996687747814, \"false_edge_rate\": 0.1276064116369795}\n"}
+,{"stream_name":"stdout","time":660.374302142,"data":"{\"epoch\": 19, \"train_loss\": 0.08939734524768642, \"psnr\": 23.87531202810782, \"ssim\": 0.6574438026657811, \"false_edge_rate\": 0.12681578720609346}\n"}
+,{"stream_name":"stdout","time":685.344714123,"data":"{\"epoch\": 20, \"train_loss\": 0.08900851189580739, \"psnr\": 23.874792593496817, \"ssim\": 0.6574918914724279, \"false_edge_rate\": 0.1266437795151163}\n"}
+,{"stream_name":"stdout","time":710.156622581,"data":"{\"epoch\": 21, \"train_loss\": 0.08913618791052419, \"psnr\": 23.87689682289406, \"ssim\": 0.6574663884109921, \"false_edge_rate\": 0.12641266857584318}\n"}
+,{"stream_name":"stdout","time":734.898276229,"data":"{\"epoch\": 22, \"train_loss\": 0.08889253326078765, \"psnr\": 23.873203348230433, \"ssim\": 0.657694505320655, \"false_edge_rate\": 0.1267505936600544}\n"}
+,{"stream_name":"stdout","time":759.029511736,"data":"{\"epoch\": 23, \"train_loss\": 0.08889214490723406, \"psnr\": 23.878037276091398, \"ssim\": 0.6573519927484018, \"false_edge_rate\": 0.12602548039069883}\n"}
+,{"stream_name":"stdout","time":783.245804473,"data":"{\"epoch\": 24, \"train_loss\": 0.08894484541100314, \"psnr\": 23.877985848320854, \"ssim\": 0.6577131902730023, \"false_edge_rate\": 0.12652842438331358}\n"}
+,{"stream_name":"stdout","time":807.19284973,"data":"{\"epoch\": 25, \"train_loss\": 0.08885230865870786, \"psnr\": 23.881164338853623, \"ssim\": 0.6576453027901826, \"false_edge_rate\": 0.12615218468838268}\n"}
+,{"stream_name":"stdout","time":830.681850269,"data":"{\"epoch\": 26, \"train_loss\": 0.08896242324103656, \"psnr\": 23.878060694094057, \"ssim\": 0.657897683205428, \"false_edge_rate\": 0.12672598273665817}\n"}
+,{"stream_name":"stdout","time":854.860888971,"data":"{\"epoch\": 27, \"train_loss\": 0.08883298213920023, \"psnr\": 23.87873218677662, \"ssim\": 0.6578876762478439, \"false_edge_rate\": 0.12647104732416295}\n"}
+,{"stream_name":"stdout","time":879.593934122,"data":"{\"epoch\": 28, \"train_loss\": 0.0889250631006355, \"psnr\": 23.880467344213415, \"ssim\": 0.6577865790437769, \"false_edge_rate\": 0.12625983357429504}\n"}
+,{"stream_name":"stdout","time":904.512687724,"data":"{\"epoch\": 29, \"train_loss\": 0.08891842966405754, \"psnr\": 23.87878605171486, \"ssim\": 0.657890812114433, \"false_edge_rate\": 0.12636893394368667}\n"}
+,{"stream_name":"stdout","time":929.202355904,"data":"{\"epoch\": 30, \"train_loss\": 0.08884457011635487, \"psnr\": 23.87929810418023, \"ssim\": 0.6578534234453131, \"false_edge_rate\": 0.12631750865666955}\n"}
+,{"stream_name":"stdout","time":930.017098224,"data":"RUN /usr/bin/python3 -m faithsr.compare --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --checkpoint /kaggle/working/faithsr3x-sentinel-ablation/plain/best.pth --split-manifest /kaggle/working/faithsr3x-sentinel-ablation/plain/split.json --crop-size 120 --batch-size 32 --workers 2 --output /kaggle/working/faithsr3x-sentinel-ablation/plain/comparison.csv\n"}
+,{"stream_name":"stdout","time":937.063314197,"data":"{\n"}
+,{"stream_name":"stdout","time":937.063350371,"data":"  \"bicubic\": {\n"}
+,{"stream_name":"stdout","time":937.063355028,"data":"    \"psnr\": 21.814054277208115,\n"}
+,{"stream_name":"stdout","time":937.063371512,"data":"    \"ssim\": 0.5617672094592342,\n"}
+,{"stream_name":"stdout","time":937.063377074,"data":"    \"false_edge_rate\": 0.16150316996154962,\n"}
+,{"stream_name":"stdout","time":937.063382327,"data":"    \"edge_precision\": 0.8384968252093704,\n"}
+,{"stream_name":"stdout","time":937.063390094,"data":"    \"edge_recall\": 0.8960024140499256,\n"}
+,{"stream_name":"stdout","time":937.063395274,"data":"    \"sam_radians\": 0.16273500963493628,\n"}
+,{"stream_name":"stdout","time":937.063399659,"data":"    \"ergas\": 10.803253950896087,\n"}
+,{"stream_name":"stdout","time":937.063404114,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":937.063408449,"data":"  },\n"}
+,{"stream_name":"stdout","time":937.063412746,"data":"  \"bilinear\": {\n"}
+,{"stream_name":"stdout","time":937.063418896,"data":"    \"psnr\": 22.306899635880082,\n"}
+,{"stream_name":"stdout","time":937.063426536,"data":"    \"ssim\": 0.5716070963276757,\n"}
+,{"stream_name":"stdout","time":937.06342971,"data":"    \"false_edge_rate\": 0.15810864736084584,\n"}
+,{"stream_name":"stdout","time":937.063432894,"data":"    \"edge_precision\": 0.8418913494657587,\n"}
+,{"stream_name":"stdout","time":937.063435939,"data":"    \"edge_recall\": 0.8714173557581725,\n"}
+,{"stream_name":"stdout","time":937.063438963,"data":"    \"sam_radians\": 0.14435494208225497,\n"}
+,{"stream_name":"stdout","time":937.063442056,"data":"    \"ergas\": 10.21773428387112,\n"}
+,{"stream_name":"stdout","time":937.063445081,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":937.063448092,"data":"  },\n"}
+,{"stream_name":"stdout","time":937.063451021,"data":"  \"faithsr3x\": {\n"}
+,{"stream_name":"stdout","time":937.063454057,"data":"    \"psnr\": 23.881164338853623,\n"}
+,{"stream_name":"stdout","time":937.06345772,"data":"    \"ssim\": 0.6576453027901826,\n"}
+,{"stream_name":"stdout","time":937.063473744,"data":"    \"false_edge_rate\": 0.12615218468838268,\n"}
+,{"stream_name":"stdout","time":937.063479013,"data":"    \"edge_precision\": 0.873847813517959,\n"}
+,{"stream_name":"stdout","time":937.063484168,"data":"    \"edge_recall\": 0.7314432119881665,\n"}
+,{"stream_name":"stdout","time":937.063489266,"data":"    \"sam_radians\": 0.0760782925343072,\n"}
+,{"stream_name":"stdout","time":937.063493865,"data":"    \"ergas\": 8.505826067041468,\n"}
+,{"stream_name":"stdout","time":937.063498254,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":937.063502546,"data":"  },\n"}
+,{"stream_name":"stdout","time":937.063506696,"data":"  \"nearest\": {\n"}
+,{"stream_name":"stdout","time":937.063510947,"data":"    \"psnr\": 20.60503164927165,\n"}
+,{"stream_name":"stdout","time":937.063515132,"data":"    \"ssim\": 0.5069641051469026,\n"}
+,{"stream_name":"stdout","time":937.063541631,"data":"    \"false_edge_rate\": 0.1656815771151472,\n"}
+,{"stream_name":"stdout","time":937.063545674,"data":"    \"edge_precision\": 0.834318428127854,\n"}
+,{"stream_name":"stdout","time":937.063571556,"data":"    \"edge_recall\": 0.7985921623530211,\n"}
+,{"stream_name":"stdout","time":937.063576409,"data":"    \"sam_radians\": 0.19001399891244042,\n"}
+,{"stream_name":"stdout","time":937.063580591,"data":"    \"ergas\": 12.393823817924217,\n"}
+,{"stream_name":"stdout","time":937.063584813,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":937.063588476,"data":"  }\n"}
+,{"stream_name":"stdout","time":937.063591662,"data":"}\n"}
+,{"stream_name":"stdout","time":937.59817158,"data":"RUN /usr/bin/python3 -m faithsr.train --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --config /kaggle/working/faithsr3x-sentinel-ablation/degradation.yaml --output /kaggle/working/faithsr3x-sentinel-ablation/degradation\n"}
+,{"stream_name":"stderr","time":940.837770726,"data":"fatal: not a git repository (or any parent up to mount point /kaggle)\n"}
+,{"stream_name":"stderr","time":940.837820057,"data":"Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"}
+,{"stream_name":"stdout","time":966.106503526,"data":"{\"epoch\": 1, \"train_loss\": 0.11045416310811654, \"psnr\": 23.254617267184788, \"ssim\": 0.6256274227742795, \"false_edge_rate\": 0.15273670838386924}\n"}
+,{"stream_name":"stdout","time":991.298618128,"data":"{\"epoch\": 2, \"train_loss\": 0.0931524007429934, \"psnr\": 23.718437088860405, \"ssim\": 0.6487717385645266, \"false_edge_rate\": 0.1405142758179594}\n"}
+,{"stream_name":"stdout","time":1016.715595096,"data":"{\"epoch\": 3, \"train_loss\": 0.09148735702674612, \"psnr\": 23.775244394938152, \"ssim\": 0.6513529949718051, \"false_edge_rate\": 0.13840714455754669}\n"}
+,{"stream_name":"stdout","time":1042.36681337,"data":"{\"epoch\": 4, \"train_loss\": 0.09085676876398233, \"psnr\": 23.802557556717485, \"ssim\": 0.6523005255946407, \"false_edge_rate\": 0.13777033722511045}\n"}
+,{"stream_name":"stdout","time":1067.357088913,"data":"{\"epoch\": 5, \"train_loss\": 0.0906885968059556, \"psnr\": 23.81272898779975, \"ssim\": 0.6528562815101059, \"false_edge_rate\": 0.1373806275703289}\n"}
+,{"stream_name":"stdout","time":1092.810225511,"data":"{\"epoch\": 6, \"train_loss\": 0.09077983572442308, \"psnr\": 23.81269317203098, \"ssim\": 0.6537460795155278, \"false_edge_rate\": 0.13775114646112477}\n"}
+,{"stream_name":"stdout","time":1117.761284657,"data":"{\"epoch\": 7, \"train_loss\": 0.09054688587147966, \"psnr\": 23.830925906146014, \"ssim\": 0.6539007778520938, \"false_edge_rate\": 0.13602265080919973}\n"}
+,{"stream_name":"stdout","time":1142.667592704,"data":"{\"epoch\": 8, \"train_loss\": 0.09059927956416057, \"psnr\": 23.843391524420845, \"ssim\": 0.6542602247662015, \"false_edge_rate\": 0.13454275978384195}\n"}
+,{"stream_name":"stdout","time":1168.13482127,"data":"{\"epoch\": 9, \"train_loss\": 0.0901849278782168, \"psnr\": 23.85004923078749, \"ssim\": 0.6548987958166335, \"false_edge_rate\": 0.13377097207638952}\n"}
+,{"stream_name":"stdout","time":1193.557943401,"data":"{\"epoch\": 10, \"train_loss\": 0.09014220427498858, \"psnr\": 23.861521932813858, \"ssim\": 0.6552469796604581, \"false_edge_rate\": 0.1321288940531236}\n"}
+,{"stream_name":"stdout","time":1218.814166864,"data":"{\"epoch\": 11, \"train_loss\": 0.09017056401850831, \"psnr\": 23.862487192507142, \"ssim\": 0.6562024939943243, \"false_edge_rate\": 0.13186703429177957}\n"}
+,{"stream_name":"stdout","time":1243.608548182,"data":"{\"epoch\": 12, \"train_loss\": 0.09006443043422495, \"psnr\": 23.85833885051586, \"ssim\": 0.6567025493692469, \"false_edge_rate\": 0.13131440265311134}\n"}
+,{"stream_name":"stdout","time":1268.121587884,"data":"{\"epoch\": 13, \"train_loss\": 0.08997937833142076, \"psnr\": 23.855248239305283, \"ssim\": 0.6575026501108099, \"false_edge_rate\": 0.13152126926514837}\n"}
+,{"stream_name":"stdout","time":1293.503759582,"data":"{\"epoch\": 14, \"train_loss\": 0.08999815943022059, \"psnr\": 23.871272334346063, \"ssim\": 0.6575065818097856, \"false_edge_rate\": 0.1294391026927365}\n"}
+,{"stream_name":"stdout","time":1318.15947604,"data":"{\"epoch\": 15, \"train_loss\": 0.08993871538684918, \"psnr\": 23.891192930716056, \"ssim\": 0.6566137318257932, \"false_edge_rate\": 0.12678638831884773}\n"}
+,{"stream_name":"stdout","time":1343.103041926,"data":"{\"epoch\": 16, \"train_loss\": 0.08989373339801772, \"psnr\": 23.889858422455966, \"ssim\": 0.657014893160926, \"false_edge_rate\": 0.1266343668103218}\n"}
+,{"stream_name":"stdout","time":1367.82093108,"data":"{\"epoch\": 17, \"train_loss\": 0.08968563301440997, \"psnr\": 23.8883884218004, \"ssim\": 0.657682235594149, \"false_edge_rate\": 0.12773439412315687}\n"}
+,{"stream_name":"stdout","time":1392.609694491,"data":"{\"epoch\": 18, \"train_loss\": 0.08972243684479314, \"psnr\": 23.888390858968098, \"ssim\": 0.6577580515985135, \"false_edge_rate\": 0.12699667074614102}\n"}
+,{"stream_name":"stdout","time":1416.987336462,"data":"{\"epoch\": 19, \"train_loss\": 0.08956478532944989, \"psnr\": 23.893941985236275, \"ssim\": 0.657840464954023, \"false_edge_rate\": 0.12687944013763358}\n"}
+,{"stream_name":"stdout","time":1441.810219024,"data":"{\"epoch\": 20, \"train_loss\": 0.08964157534333375, \"psnr\": 23.890971819559734, \"ssim\": 0.6581674185064104, \"false_edge_rate\": 0.12730165929706008}\n"}
+,{"stream_name":"stdout","time":1466.37772117,"data":"{\"epoch\": 21, \"train_loss\": 0.08971276338029112, \"psnr\": 23.89716505121302, \"ssim\": 0.6581821728635717, \"false_edge_rate\": 0.12681066189651136}\n"}
+,{"stream_name":"stdout","time":1490.729196273,"data":"{\"epoch\": 22, \"train_loss\": 0.0896505457150121, \"psnr\": 23.91068854155364, \"ssim\": 0.6571073532104492, \"false_edge_rate\": 0.12433089922975611}\n"}
+,{"stream_name":"stdout","time":1516.466107191,"data":"{\"epoch\": 23, \"train_loss\": 0.08958362278520551, \"psnr\": 23.902228991190594, \"ssim\": 0.6581717994478014, \"false_edge_rate\": 0.12636727701734612}\n"}
+,{"stream_name":"stdout","time":1541.431171455,"data":"{\"epoch\": 24, \"train_loss\": 0.08959351763383955, \"psnr\": 23.904489941067165, \"ssim\": 0.6579561763339572, \"false_edge_rate\": 0.12567927164060097}\n"}
+,{"stream_name":"stdout","time":1566.559394852,"data":"{\"epoch\": 25, \"train_loss\": 0.089495612674544, \"psnr\": 23.903348993372035, \"ssim\": 0.6582639250490401, \"false_edge_rate\": 0.1263125792697624}\n"}
+,{"stream_name":"stdout","time":1591.824326629,"data":"{\"epoch\": 26, \"train_loss\": 0.08938196209124011, \"psnr\": 23.90495879561813, \"ssim\": 0.6580871178044213, \"false_edge_rate\": 0.12578235332060744}\n"}
+,{"stream_name":"stdout","time":1617.380244437,"data":"{\"epoch\": 27, \"train_loss\": 0.08978280405967663, \"psnr\": 23.910026479650426, \"ssim\": 0.6578330761856503, \"false_edge_rate\": 0.12511850700334268}\n"}
+,{"stream_name":"stdout","time":1642.613972529,"data":"{\"epoch\": 28, \"train_loss\": 0.08955886399644053, \"psnr\": 23.89972171077022, \"ssim\": 0.6585176796824844, \"false_edge_rate\": 0.12655386715023606}\n"}
+,{"stream_name":"stdout","time":1667.636068241,"data":"{\"epoch\": 29, \"train_loss\": 0.08967723343998958, \"psnr\": 23.90704963825367, \"ssim\": 0.6581234788453137, \"false_edge_rate\": 0.1256159639192952}\n"}
+,{"stream_name":"stdout","time":1692.703061388,"data":"{\"epoch\": 30, \"train_loss\": 0.08956518326686998, \"psnr\": 23.906136724683975, \"ssim\": 0.6581828031275008, \"false_edge_rate\": 0.1257561228617474}\n"}
+,{"stream_name":"stdout","time":1693.449374808,"data":"RUN /usr/bin/python3 -m faithsr.compare --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --checkpoint /kaggle/working/faithsr3x-sentinel-ablation/degradation/best.pth --split-manifest /kaggle/working/faithsr3x-sentinel-ablation/degradation/split.json --crop-size 120 --batch-size 32 --workers 2 --output /kaggle/working/faithsr3x-sentinel-ablation/degradation/comparison.csv\n"}
+,{"stream_name":"stdout","time":1700.26894677,"data":"{\n"}
+,{"stream_name":"stdout","time":1700.268989,"data":"  \"bicubic\": {\n"}
+,{"stream_name":"stdout","time":1700.268995462,"data":"    \"psnr\": 21.814054277208115,\n"}
+,{"stream_name":"stdout","time":1700.269000519,"data":"    \"ssim\": 0.5617672094592342,\n"}
+,{"stream_name":"stdout","time":1700.269007297,"data":"    \"false_edge_rate\": 0.16150316996154962,\n"}
+,{"stream_name":"stdout","time":1700.26901504,"data":"    \"edge_precision\": 0.8384968252093704,\n"}
+,{"stream_name":"stdout","time":1700.269019377,"data":"    \"edge_recall\": 0.8960024140499256,\n"}
+,{"stream_name":"stdout","time":1700.269024065,"data":"    \"sam_radians\": 0.16273500963493628,\n"}
+,{"stream_name":"stdout","time":1700.269027329,"data":"    \"ergas\": 10.803253950896087,\n"}
+,{"stream_name":"stdout","time":1700.26903045,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":1700.269033658,"data":"  },\n"}
+,{"stream_name":"stdout","time":1700.269036856,"data":"  \"bilinear\": {\n"}
+,{"stream_name":"stdout","time":1700.269044552,"data":"    \"psnr\": 22.306899635880082,\n"}
+,{"stream_name":"stdout","time":1700.269060929,"data":"    \"ssim\": 0.5716070963276757,\n"}
+,{"stream_name":"stdout","time":1700.26906631,"data":"    \"false_edge_rate\": 0.15810864736084584,\n"}
+,{"stream_name":"stdout","time":1700.269071457,"data":"    \"edge_precision\": 0.8418913494657587,\n"}
+,{"stream_name":"stdout","time":1700.26909356,"data":"    \"edge_recall\": 0.8714173557581725,\n"}
+,{"stream_name":"stdout","time":1700.269098938,"data":"    \"sam_radians\": 0.14435494208225497,\n"}
+,{"stream_name":"stdout","time":1700.269103725,"data":"    \"ergas\": 10.21773428387112,\n"}
+,{"stream_name":"stdout","time":1700.269108561,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":1700.269113248,"data":"  },\n"}
+,{"stream_name":"stdout","time":1700.269117782,"data":"  \"faithsr3x\": {\n"}
+,{"stream_name":"stdout","time":1700.269139802,"data":"    \"psnr\": 23.91068854155364,\n"}
+,{"stream_name":"stdout","time":1700.269147045,"data":"    \"ssim\": 0.6571073532104492,\n"}
+,{"stream_name":"stdout","time":1700.269152362,"data":"    \"false_edge_rate\": 0.12433089922975611,\n"}
+,{"stream_name":"stdout","time":1700.269159662,"data":"    \"edge_precision\": 0.8756690974588748,\n"}
+,{"stream_name":"stdout","time":1700.269165569,"data":"    \"edge_recall\": 0.7200439947622793,\n"}
+,{"stream_name":"stdout","time":1700.26917159,"data":"    \"sam_radians\": 0.0749066539660648,\n"}
+,{"stream_name":"stdout","time":1700.269178575,"data":"    \"ergas\": 8.478869879687274,\n"}
+,{"stream_name":"stdout","time":1700.269191745,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":1700.269198083,"data":"  },\n"}
+,{"stream_name":"stdout","time":1700.269203861,"data":"  \"nearest\": {\n"}
+,{"stream_name":"stdout","time":1700.269209576,"data":"    \"psnr\": 20.60503164927165,\n"}
+,{"stream_name":"stdout","time":1700.26921494,"data":"    \"ssim\": 0.5069641051469026,\n"}
+,{"stream_name":"stdout","time":1700.269220119,"data":"    \"false_edge_rate\": 0.1656815771151472,\n"}
+,{"stream_name":"stdout","time":1700.269225461,"data":"    \"edge_precision\": 0.834318428127854,\n"}
+,{"stream_name":"stdout","time":1700.269230607,"data":"    \"edge_recall\": 0.7985921623530211,\n"}
+,{"stream_name":"stdout","time":1700.269236552,"data":"    \"sam_radians\": 0.19001399891244042,\n"}
+,{"stream_name":"stdout","time":1700.269242748,"data":"    \"ergas\": 12.393823817924217,\n"}
+,{"stream_name":"stdout","time":1700.269259931,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":1700.269264837,"data":"  }\n"}
+,{"stream_name":"stdout","time":1700.269269174,"data":"}\n"}
+,{"stream_name":"stdout","time":1700.794533516,"data":"RUN /usr/bin/python3 -m faithsr.train --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --config /kaggle/working/faithsr3x-sentinel-ablation/observation.yaml --output /kaggle/working/faithsr3x-sentinel-ablation/observation\n"}
+,{"stream_name":"stderr","time":1703.991995373,"data":"fatal: not a git repository (or any parent up to mount point /kaggle)\n"}
+,{"stream_name":"stderr","time":1703.992040187,"data":"Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"}
+,{"stream_name":"stderr","time":1704.805166888,"data":"/usr/local/lib/python3.12/dist-packages/torch/autograd/graph.py:825: UserWarning: upsample_bicubic2d_backward_out_cuda does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True, warn_only=True)'. You can file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation. (Triggered internally at ../aten/src/ATen/Context.cpp:91.)\n"}
+,{"stream_name":"stderr","time":1704.805214789,"data":"  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n"}
+,{"stream_name":"stdout","time":1730.306863458,"data":"{\"epoch\": 1, \"train_loss\": 0.1116616207246597, \"psnr\": 23.290285216437447, \"ssim\": 0.6267160773277283, \"false_edge_rate\": 0.1520874976283974, \"observation_l1\": 0.038380652769572206}\n"}
+,{"stream_name":"stdout","time":1755.770642243,"data":"{\"epoch\": 2, \"train_loss\": 0.0934169077847758, \"psnr\": 23.71345043182373, \"ssim\": 0.648125374758685, \"false_edge_rate\": 0.14027076559486212, \"observation_l1\": 0.04354771185252401}\n"}
+,{"stream_name":"stdout","time":1781.350364913,"data":"{\"epoch\": 3, \"train_loss\": 0.09155605717474578, \"psnr\": 23.764418813917374, \"ssim\": 0.6510052305680735, \"false_edge_rate\": 0.13890046295192507, \"observation_l1\": 0.04364078533318308}\n"}
+,{"stream_name":"stdout","time":1806.715763245,"data":"{\"epoch\": 4, \"train_loss\": 0.09120381190481348, \"psnr\": 23.776066886054146, \"ssim\": 0.6516019834412469, \"false_edge_rate\": 0.13843005688654053, \"observation_l1\": 0.043765792450695125}\n"}
+,{"stream_name":"stdout","time":1832.434348608,"data":"{\"epoch\": 5, \"train_loss\": 0.0911086080993852, \"psnr\": 23.791946411132812, \"ssim\": 0.6524110094264701, \"false_edge_rate\": 0.1380104087293148, \"observation_l1\": 0.04379839118984011}\n"}
+,{"stream_name":"stdout","time":1857.681564421,"data":"{\"epoch\": 6, \"train_loss\": 0.09088833840229572, \"psnr\": 23.80713865492079, \"ssim\": 0.6528054243988461, \"false_edge_rate\": 0.13724337835554723, \"observation_l1\": 0.04403536966829388}\n"}
+,{"stream_name":"stdout","time":1882.463856789,"data":"{\"epoch\": 7, \"train_loss\": 0.09085505691348997, \"psnr\": 23.822820875379776, \"ssim\": 0.6526523994074928, \"false_edge_rate\": 0.13597282560335266, \"observation_l1\": 0.044261325978570513}\n"}
+,{"stream_name":"stdout","time":1907.930746058,"data":"{\"epoch\": 8, \"train_loss\": 0.09065270188272509, \"psnr\": 23.815632537559228, \"ssim\": 0.6539773753395787, \"false_edge_rate\": 0.13687762728443853, \"observation_l1\": 0.04395898576411936}\n"}
+,{"stream_name":"stdout","time":1933.234891586,"data":"{\"epoch\": 9, \"train_loss\": 0.09067289871919869, \"psnr\": 23.829884352507413, \"ssim\": 0.6542988386419084, \"false_edge_rate\": 0.13552260867975377, \"observation_l1\": 0.044175269599590034}\n"}
+,{"stream_name":"stdout","time":1958.246046582,"data":"{\"epoch\": 10, \"train_loss\": 0.09053488002500983, \"psnr\": 23.84309998265019, \"ssim\": 0.6546259257528517, \"false_edge_rate\": 0.13402688820604924, \"observation_l1\": 0.04443723625606961}\n"}
+,{"stream_name":"stdout","time":1983.217998548,"data":"{\"epoch\": 11, \"train_loss\": 0.09048565066395661, \"psnr\": 23.846395951730234, \"ssim\": 0.6552419982574604, \"false_edge_rate\": 0.13315995961979585, \"observation_l1\": 0.04428379089330082}\n"}
+,{"stream_name":"stdout","time":2008.739251173,"data":"{\"epoch\": 12, \"train_loss\": 0.09021983142846669, \"psnr\": 23.874640923959237, \"ssim\": 0.6552566852834489, \"false_edge_rate\": 0.13052699618317462, \"observation_l1\": 0.0445409078426935}\n"}
+,{"stream_name":"stdout","time":2035.544570766,"data":"{\"epoch\": 13, \"train_loss\": 0.09009143601880114, \"psnr\": 23.86878702375624, \"ssim\": 0.6562438176737891, \"false_edge_rate\": 0.13071543557776344, \"observation_l1\": 0.044609836751112235}\n"}
+,{"stream_name":"stdout","time":2061.408479372,"data":"{\"epoch\": 14, \"train_loss\": 0.09025411906405392, \"psnr\": 23.880101345203542, \"ssim\": 0.6560878334222017, \"false_edge_rate\": 0.12856833774734427, \"observation_l1\": 0.04474549926817417}\n"}
+,{"stream_name":"stdout","time":2087.700866539,"data":"{\"epoch\": 15, \"train_loss\": 0.09005704140051818, \"psnr\": 23.872671551174587, \"ssim\": 0.6567571979981882, \"false_edge_rate\": 0.1289807422845452, \"observation_l1\": 0.04458603114579563}\n"}
+,{"stream_name":"stdout","time":2113.194184052,"data":"{\"epoch\": 16, \"train_loss\": 0.08993142448429368, \"psnr\": 23.85648183469419, \"ssim\": 0.6579354637198978, \"false_edge_rate\": 0.13158961895991256, \"observation_l1\": 0.04401656219528781}\n"}
+,{"stream_name":"stdout","time":2139.178711407,"data":"{\"epoch\": 17, \"train_loss\": 0.08988997225578015, \"psnr\": 23.892511014585143, \"ssim\": 0.6567694003935214, \"false_edge_rate\": 0.12689527482898147, \"observation_l1\": 0.04493811074644327}\n"}
+,{"stream_name":"stdout","time":2165.631873551,"data":"{\"epoch\": 18, \"train_loss\": 0.08981585228799754, \"psnr\": 23.89055449874313, \"ssim\": 0.6569379038280911, \"false_edge_rate\": 0.12711269891372434, \"observation_l1\": 0.04477920007236578}\n"}
+,{"stream_name":"stdout","time":2191.575003595,"data":"{\"epoch\": 19, \"train_loss\": 0.08992883773186268, \"psnr\": 23.886741461577238, \"ssim\": 0.6579189951773043, \"false_edge_rate\": 0.12857329183154637, \"observation_l1\": 0.04450191878196266}\n"}
+,{"stream_name":"stdout","time":2217.663188528,"data":"{\"epoch\": 20, \"train_loss\": 0.08978446722667441, \"psnr\": 23.897734747992622, \"ssim\": 0.6571829826743515, \"false_edge_rate\": 0.1262739942305618, \"observation_l1\": 0.04484670309142934}\n"}
+,{"stream_name":"stdout","time":2243.158894761,"data":"{\"epoch\": 21, \"train_loss\": 0.08997483420957866, \"psnr\": 23.890375207971644, \"ssim\": 0.6578866099869763, \"false_edge_rate\": 0.12746128840027032, \"observation_l1\": 0.044573326112219584}\n"}
+,{"stream_name":"stdout","time":2268.981252091,"data":"{\"epoch\": 22, \"train_loss\": 0.08963768973819211, \"psnr\": 23.89742664054588, \"ssim\": 0.6575642724831899, \"false_edge_rate\": 0.12617293455534512, \"observation_l1\": 0.04485539598735394}\n"}
+,{"stream_name":"stdout","time":2294.901935268,"data":"{\"epoch\": 23, \"train_loss\": 0.08966120256063266, \"psnr\": 23.900515026516384, \"ssim\": 0.657627170836484, \"false_edge_rate\": 0.12625796154693322, \"observation_l1\": 0.044797787373816525}\n"}
+,{"stream_name":"stdout","time":2320.650028604,"data":"{\"epoch\": 24, \"train_loss\": 0.08992990348328891, \"psnr\": 23.895246470416033, \"ssim\": 0.65794234584879, \"false_edge_rate\": 0.12677945955484002, \"observation_l1\": 0.044681425827244915}\n"}
+,{"stream_name":"stdout","time":2346.701319579,"data":"{\"epoch\": 25, \"train_loss\": 0.08978152813182937, \"psnr\": 23.894529483936452, \"ssim\": 0.65824478092017, \"false_edge_rate\": 0.1276416532971241, \"observation_l1\": 0.044553797105672185}\n"}
+,{"stream_name":"stdout","time":2373.290233591,"data":"{\"epoch\": 26, \"train_loss\": 0.0896174395058909, \"psnr\": 23.900489347952384, \"ssim\": 0.6579684957310006, \"false_edge_rate\": 0.12648320708561828, \"observation_l1\": 0.044792451447358834}\n"}
+,{"stream_name":"stdout","time":2399.620161991,"data":"{\"epoch\": 27, \"train_loss\": 0.08990812276163672, \"psnr\": 23.899357159932453, \"ssim\": 0.6580213462864911, \"false_edge_rate\": 0.1267575747161, \"observation_l1\": 0.04474925580951902}\n"}
+,{"stream_name":"stdout","time":2426.058079844,"data":"{\"epoch\": 28, \"train_loss\": 0.08979235083246842, \"psnr\": 23.90069986272741, \"ssim\": 0.6579641942624692, \"false_edge_rate\": 0.12663322825122764, \"observation_l1\": 0.04471172147464973}\n"}
+,{"stream_name":"stdout","time":2451.939896443,"data":"{\"epoch\": 29, \"train_loss\": 0.08973319869902399, \"psnr\": 23.898986639799894, \"ssim\": 0.6581313091295736, \"false_edge_rate\": 0.12696141446078266, \"observation_l1\": 0.044666199737952814}\n"}
+,{"stream_name":"stdout","time":2477.873110238,"data":"{\"epoch\": 30, \"train_loss\": 0.08984044041389073, \"psnr\": 23.900208049350315, \"ssim\": 0.6580330287968671, \"false_edge_rate\": 0.12671214121359367, \"observation_l1\": 0.044706351572164786}\n"}
+,{"stream_name":"stdout","time":2478.646893001,"data":"RUN /usr/bin/python3 -m faithsr.compare --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --checkpoint /kaggle/working/faithsr3x-sentinel-ablation/observation/best.pth --split-manifest /kaggle/working/faithsr3x-sentinel-ablation/observation/split.json --crop-size 120 --batch-size 32 --workers 2 --output /kaggle/working/faithsr3x-sentinel-ablation/observation/comparison.csv\n"}
+,{"stream_name":"stdout","time":2485.678700814,"data":"{\n"}
+,{"stream_name":"stdout","time":2485.678748458,"data":"  \"bicubic\": {\n"}
+,{"stream_name":"stdout","time":2485.678755103,"data":"    \"psnr\": 21.814054277208115,\n"}
+,{"stream_name":"stdout","time":2485.678763147,"data":"    \"ssim\": 0.5617672094592342,\n"}
+,{"stream_name":"stdout","time":2485.678766405,"data":"    \"false_edge_rate\": 0.16150316996154962,\n"}
+,{"stream_name":"stdout","time":2485.678769823,"data":"    \"edge_precision\": 0.8384968252093704,\n"}
+,{"stream_name":"stdout","time":2485.678773068,"data":"    \"edge_recall\": 0.8960024140499256,\n"}
+,{"stream_name":"stdout","time":2485.678776182,"data":"    \"sam_radians\": 0.16273500963493628,\n"}
+,{"stream_name":"stdout","time":2485.678779745,"data":"    \"ergas\": 10.803253950896087,\n"}
+,{"stream_name":"stdout","time":2485.678782884,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2485.678785988,"data":"  },\n"}
+,{"stream_name":"stdout","time":2485.678789045,"data":"  \"bilinear\": {\n"}
+,{"stream_name":"stdout","time":2485.67879217,"data":"    \"psnr\": 22.306899635880082,\n"}
+,{"stream_name":"stdout","time":2485.678795292,"data":"    \"ssim\": 0.5716070963276757,\n"}
+,{"stream_name":"stdout","time":2485.678798558,"data":"    \"false_edge_rate\": 0.15810864736084584,\n"}
+,{"stream_name":"stdout","time":2485.678801784,"data":"    \"edge_precision\": 0.8418913494657587,\n"}
+,{"stream_name":"stdout","time":2485.678804985,"data":"    \"edge_recall\": 0.8714173557581725,\n"}
+,{"stream_name":"stdout","time":2485.678808152,"data":"    \"sam_radians\": 0.14435494208225497,\n"}
+,{"stream_name":"stdout","time":2485.678811234,"data":"    \"ergas\": 10.21773428387112,\n"}
+,{"stream_name":"stdout","time":2485.678814317,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2485.678817375,"data":"  },\n"}
+,{"stream_name":"stdout","time":2485.678820398,"data":"  \"faithsr3x\": {\n"}
+,{"stream_name":"stdout","time":2485.67883421,"data":"    \"psnr\": 23.90069986272741,\n"}
+,{"stream_name":"stdout","time":2485.67884942,"data":"    \"ssim\": 0.6579641942624692,\n"}
+,{"stream_name":"stdout","time":2485.678852991,"data":"    \"false_edge_rate\": 0.12663322825122764,\n"}
+,{"stream_name":"stdout","time":2485.678856373,"data":"    \"edge_precision\": 0.8733667731285095,\n"}
+,{"stream_name":"stdout","time":2485.678859638,"data":"    \"edge_recall\": 0.7299398890248051,\n"}
+,{"stream_name":"stdout","time":2485.678862783,"data":"    \"sam_radians\": 0.07513046913124898,\n"}
+,{"stream_name":"stdout","time":2485.678866087,"data":"    \"ergas\": 8.488688610218189,\n"}
+,{"stream_name":"stdout","time":2485.678869621,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2485.678873366,"data":"  },\n"}
+,{"stream_name":"stdout","time":2485.678877132,"data":"  \"nearest\": {\n"}
+,{"stream_name":"stdout","time":2485.678880301,"data":"    \"psnr\": 20.60503164927165,\n"}
+,{"stream_name":"stdout","time":2485.678883363,"data":"    \"ssim\": 0.5069641051469026,\n"}
+,{"stream_name":"stdout","time":2485.678886686,"data":"    \"false_edge_rate\": 0.1656815771151472,\n"}
+,{"stream_name":"stdout","time":2485.678889878,"data":"    \"edge_precision\": 0.834318428127854,\n"}
+,{"stream_name":"stdout","time":2485.67889306,"data":"    \"edge_recall\": 0.7985921623530211,\n"}
+,{"stream_name":"stdout","time":2485.67889608,"data":"    \"sam_radians\": 0.19001399891244042,\n"}
+,{"stream_name":"stdout","time":2485.67889967,"data":"    \"ergas\": 12.393823817924217,\n"}
+,{"stream_name":"stdout","time":2485.678902953,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":2485.678906613,"data":"  }\n"}
+,{"stream_name":"stdout","time":2485.678910447,"data":"}\n"}
+,{"stream_name":"stdout","time":2486.200793257,"data":"RUN /usr/bin/python3 -m faithsr.train --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --config /kaggle/working/faithsr3x-sentinel-ablation/full.yaml --output /kaggle/working/faithsr3x-sentinel-ablation/full\n"}
+,{"stream_name":"stderr","time":2489.490336225,"data":"fatal: not a git repository (or any parent up to mount point /kaggle)\n"}
+,{"stream_name":"stderr","time":2489.490365723,"data":"Stopping at filesystem boundary (GIT_DISCOVERY_ACROSS_FILESYSTEM not set).\n"}
+,{"stream_name":"stderr","time":2490.524750335,"data":"/usr/local/lib/python3.12/dist-packages/torch/autograd/graph.py:825: UserWarning: upsample_bicubic2d_backward_out_cuda does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True, warn_only=True)'. You can file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation. (Triggered internally at ../aten/src/ATen/Context.cpp:91.)\n"}
+,{"stream_name":"stderr","time":2490.524812818,"data":"  return Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass\n"}
+,{"stream_name":"stdout","time":2515.772434644,"data":"{\"epoch\": 1, \"train_loss\": 0.11217536306024617, \"psnr\": 23.25711109020092, \"ssim\": 0.6257557813768033, \"false_edge_rate\": 0.15277319567071068, \"observation_l1\": 0.03795137590970154, \"uncertainty_correlation\": -0.11907960471041777}\n"}
+,{"stream_name":"stdout","time":2541.845657352,"data":"{\"epoch\": 2, \"train_loss\": 0.09372388555580734, \"psnr\": 23.68644509492097, \"ssim\": 0.6473674189161371, \"false_edge_rate\": 0.14140318968781718, \"observation_l1\": 0.04316652797300507, \"uncertainty_correlation\": -0.10924953853504525}\n"}
+,{"stream_name":"stdout","time":2568.531173619,"data":"{\"epoch\": 3, \"train_loss\": 0.09146971191860671, \"psnr\": 23.754540196171515, \"ssim\": 0.6507593481628983, \"false_edge_rate\": 0.13933780858362163, \"observation_l1\": 0.04345106871591674, \"uncertainty_correlation\": -0.10338439388821523}\n"}
+,{"stream_name":"stdout","time":2594.755487365,"data":"{\"epoch\": 4, \"train_loss\": 0.09126484823914674, \"psnr\": 23.772696742305047, \"ssim\": 0.6515481527204867, \"false_edge_rate\": 0.13870824073199872, \"observation_l1\": 0.043750627621732374, \"uncertainty_correlation\": -0.09709416383325502}\n"}
+,{"stream_name":"stdout","time":2620.854320453,"data":"{\"epoch\": 5, \"train_loss\": 0.09113307825775228, \"psnr\": 23.787696414523655, \"ssim\": 0.6521399098413961, \"false_edge_rate\": 0.13843116067625857, \"observation_l1\": 0.04380388630347119, \"uncertainty_correlation\": -0.08642704553764176}\n"}
+,{"stream_name":"stdout","time":2647.089438299,"data":"{\"epoch\": 6, \"train_loss\": 0.09100891038393363, \"psnr\": 23.797134187486435, \"ssim\": 0.6528772579299079, \"false_edge_rate\": 0.13792997709027044, \"observation_l1\": 0.04384725313219759, \"uncertainty_correlation\": -0.05863183038740384}\n"}
+,{"stream_name":"stdout","time":2673.638141104,"data":"{\"epoch\": 7, \"train_loss\": 0.0909081052383806, \"psnr\": 23.80860498216417, \"ssim\": 0.6529717048009237, \"false_edge_rate\": 0.13731177344366355, \"observation_l1\": 0.044045501974997694, \"uncertainty_correlation\": 0.009791762506076204}\n"}
+,{"stream_name":"stdout","time":2700.890610268,"data":"{\"epoch\": 8, \"train_loss\": 0.09077686599941336, \"psnr\": 23.809586666248464, \"ssim\": 0.653605623377694, \"false_edge_rate\": 0.13725491778718102, \"observation_l1\": 0.04388209366825996, \"uncertainty_correlation\": 0.09902948830966596}\n"}
+,{"stream_name":"stdout","time":2727.89688467,"data":"{\"epoch\": 9, \"train_loss\": 0.09077467750280331, \"psnr\": 23.826350176775897, \"ssim\": 0.6539188766921008, \"false_edge_rate\": 0.13602466260393462, \"observation_l1\": 0.044112922382299545, \"uncertainty_correlation\": 0.150227428448421}\n"}
+,{"stream_name":"stdout","time":2755.059706503,"data":"{\"epoch\": 10, \"train_loss\": 0.0907462813023828, \"psnr\": 23.83869277106391, \"ssim\": 0.6546794882527104, \"false_edge_rate\": 0.13498749101051577, \"observation_l1\": 0.04426296796925642, \"uncertainty_correlation\": 0.171849031691198}\n"}
+,{"stream_name":"stdout","time":2780.636834695,"data":"{\"epoch\": 11, \"train_loss\": 0.09049350704647537, \"psnr\": 23.844105826483833, \"ssim\": 0.6548838957592293, \"false_edge_rate\": 0.13371481346311392, \"observation_l1\": 0.04436313216057089, \"uncertainty_correlation\": 0.18570920038554403}\n"}
+,{"stream_name":"stdout","time":2806.600244278,"data":"{\"epoch\": 12, \"train_loss\": 0.09041858200206716, \"psnr\": 23.84695162596526, \"ssim\": 0.6559075602778682, \"false_edge_rate\": 0.13317012207375634, \"observation_l1\": 0.04424106740151291, \"uncertainty_correlation\": 0.18354401820235783}\n"}
+,{"stream_name":"stdout","time":2832.20099633,"data":"{\"epoch\": 13, \"train_loss\": 0.09010905396734548, \"psnr\": 23.86088215863263, \"ssim\": 0.655842927870927, \"false_edge_rate\": 0.1313975581692325, \"observation_l1\": 0.044576263814060775, \"uncertainty_correlation\": 0.2014788327117761}\n"}
+,{"stream_name":"stdout","time":2858.321104225,"data":"{\"epoch\": 14, \"train_loss\": 0.09000186399262175, \"psnr\": 23.866687209517867, \"ssim\": 0.6567630249041098, \"false_edge_rate\": 0.130356529796565, \"observation_l1\": 0.044581232075062066, \"uncertainty_correlation\": 0.20405729404754108}\n"}
+,{"stream_name":"stdout","time":2883.938921989,"data":"{\"epoch\": 15, \"train_loss\": 0.0900606003900369, \"psnr\": 23.87238308235451, \"ssim\": 0.657092852724923, \"false_edge_rate\": 0.13039570287973792, \"observation_l1\": 0.04437928046617243, \"uncertainty_correlation\": 0.20829712020026314}\n"}
+,{"stream_name":"stdout","time":2909.527601468,"data":"{\"epoch\": 16, \"train_loss\": 0.08992675609058803, \"psnr\": 23.86860720316569, \"ssim\": 0.6575986014472114, \"false_edge_rate\": 0.1298870972737118, \"observation_l1\": 0.044503618135220475, \"uncertainty_correlation\": 0.2139781661055706}\n"}
+,{"stream_name":"stdout","time":2935.235830087,"data":"{\"epoch\": 17, \"train_loss\": 0.08989738026617938, \"psnr\": 23.866376135084366, \"ssim\": 0.6579240152129421, \"false_edge_rate\": 0.13054949127965504, \"observation_l1\": 0.04416092816326353, \"uncertainty_correlation\": 0.21697616246011522}\n"}
+,{"stream_name":"stdout","time":2960.8877529,"data":"{\"epoch\": 18, \"train_loss\": 0.09011304712830445, \"psnr\": 23.882338912398726, \"ssim\": 0.6575736348275785, \"false_edge_rate\": 0.12895646898282898, \"observation_l1\": 0.0444274277391809, \"uncertainty_correlation\": 0.2287748458760756}\n"}
+,{"stream_name":"stdout","time":2986.651045318,"data":"{\"epoch\": 19, \"train_loss\": 0.08994448344167481, \"psnr\": 23.883146003440576, \"ssim\": 0.6577009503488187, \"false_edge_rate\": 0.12852860476683686, \"observation_l1\": 0.044456591450229836, \"uncertainty_correlation\": 0.23498629005970778}\n"}
+,{"stream_name":"stdout","time":3012.559352632,"data":"{\"epoch\": 20, \"train_loss\": 0.0898581404143419, \"psnr\": 23.885116718433522, \"ssim\": 0.6578610837459564, \"false_edge_rate\": 0.12832265899137216, \"observation_l1\": 0.0445698332041502, \"uncertainty_correlation\": 0.23710189345810148}\n"}
+,{"stream_name":"stdout","time":3038.229588991,"data":"{\"epoch\": 21, \"train_loss\": 0.08989120112397732, \"psnr\": 23.889788027162904, \"ssim\": 0.6577857567204369, \"false_edge_rate\": 0.12770385239963178, \"observation_l1\": 0.04467125982046127, \"uncertainty_correlation\": 0.24397376069316157}\n"}
+,{"stream_name":"stdout","time":3063.68510677,"data":"{\"epoch\": 22, \"train_loss\": 0.08996668719073646, \"psnr\": 23.88968234592014, \"ssim\": 0.6580726007620493, \"false_edge_rate\": 0.12787237735810103, \"observation_l1\": 0.044585103203577024, \"uncertainty_correlation\": 0.24369346405620929}\n"}
+,{"stream_name":"stdout","time":3088.654296453,"data":"{\"epoch\": 23, \"train_loss\": 0.08970794584761319, \"psnr\": 23.888247631214284, \"ssim\": 0.6580743392308553, \"false_edge_rate\": 0.12776268935865825, \"observation_l1\": 0.04452312251345979, \"uncertainty_correlation\": 0.2482905255423652}\n"}
+,{"stream_name":"stdout","time":3113.820435221,"data":"{\"epoch\": 24, \"train_loss\": 0.08969633090190399, \"psnr\": 23.898635864257812, \"ssim\": 0.6575759638238836, \"false_edge_rate\": 0.12667539591590563, \"observation_l1\": 0.044734702100632365, \"uncertainty_correlation\": 0.25284165061182445}\n"}
+,{"stream_name":"stdout","time":3139.595902948,"data":"{\"epoch\": 25, \"train_loss\": 0.08978735056952533, \"psnr\": 23.889292434409814, \"ssim\": 0.6582753934242107, \"false_edge_rate\": 0.12812270610420792, \"observation_l1\": 0.04450323349899716, \"uncertainty_correlation\": 0.2522526827675325}\n"}
+,{"stream_name":"stdout","time":3166.013993218,"data":"{\"epoch\": 26, \"train_loss\": 0.08978264384035371, \"psnr\": 23.902630629362882, \"ssim\": 0.6575294611630617, \"false_edge_rate\": 0.12639210566326423, \"observation_l1\": 0.0447870205949854, \"uncertainty_correlation\": 0.25565442967194096}\n"}
+,{"stream_name":"stdout","time":3192.361147642,"data":"{\"epoch\": 27, \"train_loss\": 0.08979371559416127, \"psnr\": 23.9024019241333, \"ssim\": 0.6575613032888483, \"false_edge_rate\": 0.1262739914710875, \"observation_l1\": 0.04478241968899965, \"uncertainty_correlation\": 0.25697049139826383}\n"}
+,{"stream_name":"stdout","time":3218.506940533,"data":"{\"epoch\": 28, \"train_loss\": 0.08989697239465183, \"psnr\": 23.898217731051975, \"ssim\": 0.6578579876157973, \"false_edge_rate\": 0.1268592424414776, \"observation_l1\": 0.044679844165565794, \"uncertainty_correlation\": 0.25651187477288423}\n"}
+,{"stream_name":"stdout","time":3244.523217172,"data":"{\"epoch\": 29, \"train_loss\": 0.08979225906933475, \"psnr\": 23.895205073886448, \"ssim\": 0.658112116433956, \"false_edge_rate\": 0.12729463795268978, \"observation_l1\": 0.04463629921277364, \"uncertainty_correlation\": 0.2561155654214047}\n"}
+,{"stream_name":"stdout","time":3270.562405672,"data":"{\"epoch\": 30, \"train_loss\": 0.0898098575635853, \"psnr\": 23.896709230211044, \"ssim\": 0.6579970882998573, \"false_edge_rate\": 0.12701603535700728, \"observation_l1\": 0.04468400334870374, \"uncertainty_correlation\": 0.2562821303252821}\n"}
+,{"stream_name":"stdout","time":3271.341544007,"data":"RUN /usr/bin/python3 -m faithsr.compare --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --checkpoint /kaggle/working/faithsr3x-sentinel-ablation/full/best.pth --split-manifest /kaggle/working/faithsr3x-sentinel-ablation/full/split.json --crop-size 120 --batch-size 32 --workers 2 --output /kaggle/working/faithsr3x-sentinel-ablation/full/comparison.csv\n"}
+,{"stream_name":"stdout","time":3278.241993012,"data":"{\n"}
+,{"stream_name":"stdout","time":3278.242053833,"data":"  \"bicubic\": {\n"}
+,{"stream_name":"stdout","time":3278.24205898,"data":"    \"psnr\": 21.814054277208115,\n"}
+,{"stream_name":"stdout","time":3278.242062593,"data":"    \"ssim\": 0.5617672094592342,\n"}
+,{"stream_name":"stdout","time":3278.242065958,"data":"    \"false_edge_rate\": 0.16150316996154962,\n"}
+,{"stream_name":"stdout","time":3278.242069974,"data":"    \"edge_precision\": 0.8384968252093704,\n"}
+,{"stream_name":"stdout","time":3278.242073427,"data":"    \"edge_recall\": 0.8960024140499256,\n"}
+,{"stream_name":"stdout","time":3278.242076832,"data":"    \"sam_radians\": 0.16273500963493628,\n"}
+,{"stream_name":"stdout","time":3278.242080103,"data":"    \"ergas\": 10.803253950896087,\n"}
+,{"stream_name":"stdout","time":3278.242083447,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":3278.242086717,"data":"  },\n"}
+,{"stream_name":"stdout","time":3278.242089884,"data":"  \"bilinear\": {\n"}
+,{"stream_name":"stdout","time":3278.242093135,"data":"    \"psnr\": 22.306899635880082,\n"}
+,{"stream_name":"stdout","time":3278.24209655,"data":"    \"ssim\": 0.5716070963276757,\n"}
+,{"stream_name":"stdout","time":3278.242099846,"data":"    \"false_edge_rate\": 0.15810864736084584,\n"}
+,{"stream_name":"stdout","time":3278.242103207,"data":"    \"edge_precision\": 0.8418913494657587,\n"}
+,{"stream_name":"stdout","time":3278.24210646,"data":"    \"edge_recall\": 0.8714173557581725,\n"}
+,{"stream_name":"stdout","time":3278.242109989,"data":"    \"sam_radians\": 0.14435494208225497,\n"}
+,{"stream_name":"stdout","time":3278.242113254,"data":"    \"ergas\": 10.21773428387112,\n"}
+,{"stream_name":"stdout","time":3278.242116516,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":3278.242120149,"data":"  },\n"}
+,{"stream_name":"stdout","time":3278.242123626,"data":"  \"faithsr3x\": {\n"}
+,{"stream_name":"stdout","time":3278.242126852,"data":"    \"psnr\": 23.902630629362882,\n"}
+,{"stream_name":"stdout","time":3278.242130108,"data":"    \"ssim\": 0.6575294611630617,\n"}
+,{"stream_name":"stdout","time":3278.242133351,"data":"    \"false_edge_rate\": 0.12639210566326423,\n"}
+,{"stream_name":"stdout","time":3278.242136661,"data":"    \"edge_precision\": 0.8736078993037895,\n"}
+,{"stream_name":"stdout","time":3278.24213995,"data":"    \"edge_recall\": 0.7275940808984969,\n"}
+,{"stream_name":"stdout","time":3278.242143343,"data":"    \"sam_radians\": 0.07519995241805359,\n"}
+,{"stream_name":"stdout","time":3278.242146588,"data":"    \"ergas\": 8.486122210820517,\n"}
+,{"stream_name":"stdout","time":3278.242149966,"data":"    \"uncertainty_correlation\": 0.25565442884409867,\n"}
+,{"stream_name":"stdout","time":3278.242153324,"data":"    \"uncertainty_calibration_error\": 0.0033854588470637317,\n"}
+,{"stream_name":"stdout","time":3278.24215676,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":3278.242170749,"data":"  },\n"}
+,{"stream_name":"stdout","time":3278.242173475,"data":"  \"nearest\": {\n"}
+,{"stream_name":"stdout","time":3278.24217597,"data":"    \"psnr\": 20.60503164927165,\n"}
+,{"stream_name":"stdout","time":3278.2421785,"data":"    \"ssim\": 0.5069641051469026,\n"}
+,{"stream_name":"stdout","time":3278.242181031,"data":"    \"false_edge_rate\": 0.1656815771151472,\n"}
+,{"stream_name":"stdout","time":3278.24218396,"data":"    \"edge_precision\": 0.834318428127854,\n"}
+,{"stream_name":"stdout","time":3278.24218651,"data":"    \"edge_recall\": 0.7985921623530211,\n"}
+,{"stream_name":"stdout","time":3278.242189048,"data":"    \"sam_radians\": 0.19001399891244042,\n"}
+,{"stream_name":"stdout","time":3278.242191572,"data":"    \"ergas\": 12.393823817924217,\n"}
+,{"stream_name":"stdout","time":3278.24219411,"data":"    \"samples\": 1728\n"}
+,{"stream_name":"stdout","time":3278.242196612,"data":"  }\n"}
+,{"stream_name":"stdout","time":3278.242199028,"data":"}\n"}
+,{"stream_name":"stdout","time":3278.762867381,"data":"RUN /usr/bin/python3 -m faithsr.train --data /kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb --config /kaggle/working/faithsr3x-sentinel-ablation/distilled.yaml --output /kaggle/working/faithsr3x-sentinel-ablation/distilled --teacher-model caidas/swin2SR-classical-sr-x4-64 --teacher-revision c69ef3e2d2ac5777ff4a9f2f5afcd86d20604b7e\n"}
+,{"stream_name":"stderr","time":3285.13914549,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":3285.139177063,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py\", line 1793, in _get_module\n"}
+,{"stream_name":"stderr","time":3285.139622459,"data":"    return importlib.import_module(\".\" + module_name, self.__name__)\n"}
+,{"stream_name":"stderr","time":3285.139641571,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3285.139647707,"data":"  File \"/usr/lib/python3.12/importlib/__init__.py\", line 90, in import_module\n"}
+,{"stream_name":"stderr","time":3285.140285406,"data":"    return _bootstrap._gcd_import(name[level:], package, level)\n"}
+,{"stream_name":"stderr","time":3285.140300776,"data":"           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3285.140306609,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 1387, in _gcd_import\n"}
+,{"stream_name":"stderr","time":3285.140312576,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 1360, in _find_and_load\n"}
+,{"stream_name":"stderr","time":3285.140317955,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 1331, in _find_and_load_unlocked\n"}
+,{"stream_name":"stderr","time":3285.140324041,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 935, in _load_unlocked\n"}
+,{"stream_name":"stderr","time":3285.140329301,"data":"  File \"\u003cfrozen importlib._bootstrap_external\u003e\", line 999, in exec_module\n"}
+,{"stream_name":"stderr","time":3285.140334281,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 488, in _call_with_frames_removed\n"}
+,{"stream_name":"stderr","time":3285.140339475,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/models/swin2sr/modeling_swin2sr.py\", line 28, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3285.140491457,"data":"    from ...modeling_utils import PreTrainedModel\n"}
+,{"stream_name":"stderr","time":3285.140503081,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/modeling_utils.py\", line 48, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3285.140596402,"data":"    from .loss.loss_utils import LOSS_MAPPING\n"}
+,{"stream_name":"stderr","time":3285.1406176,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/loss/loss_utils.py\", line 19, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3285.140748423,"data":"    from .loss_deformable_detr import DeformableDetrForObjectDetectionLoss, DeformableDetrForSegmentationLoss\n"}
+,{"stream_name":"stderr","time":3285.140762695,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/loss/loss_deformable_detr.py\", line 4, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3285.14085372,"data":"    from ..image_transforms import center_to_corners_format\n"}
+,{"stream_name":"stderr","time":3285.140897298,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/image_transforms.py\", line 22, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3285.140978877,"data":"    from .image_utils import (\n"}
+,{"stream_name":"stderr","time":3285.140984201,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/image_utils.py\", line 59, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3285.14109251,"data":"    from torchvision.transforms import InterpolationMode\n"}
+,{"stream_name":"stderr","time":3285.141105119,"data":"  File \"/usr/local/lib/python3.12/dist-packages/torchvision/__init__.py\", line 10, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3285.141193783,"data":"    from torchvision import _meta_registrations, datasets, io, models, ops, transforms, utils  # usort:skip\n"}
+,{"stream_name":"stderr","time":3285.141283712,"data":"    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3285.141297297,"data":"  File \"/usr/local/lib/python3.12/dist-packages/torchvision/_meta_registrations.py\", line 163, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3285.14140929,"data":"    @torch.library.register_fake(\"torchvision::nms\")\n"}
+,{"stream_name":"stderr","time":3285.141567493,"data":"     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3285.141574068,"data":"  File \"/usr/local/lib/python3.12/dist-packages/torch/library.py\", line 795, in register\n"}
+,{"stream_name":"stderr","time":3285.141763842,"data":"    use_lib._register_fake(op_name, func, _stacklevel=stacklevel + 1)\n"}
+,{"stream_name":"stderr","time":3285.141776668,"data":"  File \"/usr/local/lib/python3.12/dist-packages/torch/library.py\", line 184, in _register_fake\n"}
+,{"stream_name":"stderr","time":3285.141952907,"data":"    handle = entry.fake_impl.register(func_to_register, source)\n"}
+,{"stream_name":"stderr","time":3285.14195867,"data":"             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3285.141962214,"data":"  File \"/usr/local/lib/python3.12/dist-packages/torch/_library/fake_impl.py\", line 31, in register\n"}
+,{"stream_name":"stderr","time":3285.142070463,"data":"    if torch._C._dispatch_has_kernel_for_dispatch_key(self.qualname, \"Meta\"):\n"}
+,{"stream_name":"stderr","time":3285.142148172,"data":"       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3285.142159563,"data":"RuntimeError: operator torchvision::nms does not exist\n"}
+,{"stream_name":"stderr","time":3285.142163798,"data":"\n"}
+,{"stream_name":"stderr","time":3285.142167485,"data":"The above exception was the direct cause of the following exception:\n"}
+,{"stream_name":"stderr","time":3285.142171149,"data":"\n"}
+,{"stream_name":"stderr","time":3285.142174719,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":3285.142178242,"data":"  File \"\u003cfrozen runpy\u003e\", line 198, in _run_module_as_main\n"}
+,{"stream_name":"stderr","time":3285.142190148,"data":"  File \"\u003cfrozen runpy\u003e\", line 88, in _run_code\n"}
+,{"stream_name":"stderr","time":3285.142196971,"data":"  File \"/kaggle/input/datasets/muhammadhassan2/faithsr-3x-private-source/src/faithsr/train.py\", line 135, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3285.14302835,"data":"    main()\n"}
+,{"stream_name":"stderr","time":3285.143045773,"data":"  File \"/kaggle/input/datasets/muhammadhassan2/faithsr-3x-private-source/src/faithsr/train.py\", line 131, in main\n"}
+,{"stream_name":"stderr","time":3285.143615078,"data":"    run(build_parser().parse_args())\n"}
+,{"stream_name":"stderr","time":3285.143627459,"data":"  File \"/kaggle/input/datasets/muhammadhassan2/faithsr-3x-private-source/src/faithsr/train.py\", line 64, in run\n"}
+,{"stream_name":"stderr","time":3285.144161014,"data":"    teacher = Swin2SRTeacher(args.teacher_model, args.teacher_checkpoint, args.teacher_revision).to(device)\n"}
+,{"stream_name":"stderr","time":3285.144178915,"data":"              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3285.1441829,"data":"  File \"/kaggle/input/datasets/muhammadhassan2/faithsr-3x-private-source/src/faithsr/teacher.py\", line 16, in __init__\n"}
+,{"stream_name":"stderr","time":3285.144734138,"data":"    from transformers import Swin2SRForImageSuperResolution\n"}
+,{"stream_name":"stderr","time":3285.144748693,"data":"  File \"\u003cfrozen importlib._bootstrap\u003e\", line 1412, in _handle_fromlist\n"}
+,{"stream_name":"stderr","time":3285.144753048,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py\", line 1782, in __getattr__\n"}
+,{"stream_name":"stderr","time":3285.145176145,"data":"    value = getattr(module, name)\n"}
+,{"stream_name":"stderr","time":3285.145183591,"data":"            ^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3285.145187772,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py\", line 1781, in __getattr__\n"}
+,{"stream_name":"stderr","time":3285.145666239,"data":"    module = self._get_module(self._class_to_module[name])\n"}
+,{"stream_name":"stderr","time":3285.145676172,"data":"             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"}
+,{"stream_name":"stderr","time":3285.145679739,"data":"  File \"/usr/local/lib/python3.12/dist-packages/transformers/utils/import_utils.py\", line 1795, in _get_module\n"}
+,{"stream_name":"stderr","time":3285.14613052,"data":"    raise RuntimeError(\n"}
+,{"stream_name":"stderr","time":3285.146138029,"data":"RuntimeError: Failed to import transformers.models.swin2sr.modeling_swin2sr because of the following error (look up to see its traceback):\n"}
+,{"stream_name":"stderr","time":3285.146142402,"data":"operator torchvision::nms does not exist\n"}
+,{"stream_name":"stderr","time":3286.025432912,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":3286.025465745,"data":"  File \"/kaggle/src/script.py\", line 74, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":3286.025625926,"data":"    run(command, environment)\n"}
+,{"stream_name":"stderr","time":3286.025692718,"data":"  File \"/kaggle/src/script.py\", line 20, in run\n"}
+,{"stream_name":"stderr","time":3286.025799109,"data":"    subprocess.run(command, check=True, env=environment)\n"}
+,{"stream_name":"stderr","time":3286.025816163,"data":"  File \"/usr/lib/python3.12/subprocess.py\", line 571, in run\n"}
+,{"stream_name":"stderr","time":3286.027128653,"data":"    raise CalledProcessError(retcode, process.args,\n"}
+,{"stream_name":"stderr","time":3286.027158164,"data":"subprocess.CalledProcessError: Command '['/usr/bin/python3', '-m', 'faithsr.train', '--data', '/kaggle/input/datasets/rishabhsnip/earth-observation-delhi-airshed/rgb', '--config', '/kaggle/working/faithsr3x-sentinel-ablation/distilled.yaml', '--output', '/kaggle/working/faithsr3x-sentinel-ablation/distilled', '--teacher-model', 'caidas/swin2SR-classical-sr-x4-64', '--teacher-revision', 'c69ef3e2d2ac5777ff4a9f2f5afcd86d20604b7e']' returned non-zero exit status 1.\n"}
+,{"stream_name":"stderr","time":3287.920322107,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":3287.920350789,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":3288.117229078,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":3288.117253603,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":3288.741009657,"data":"[NbConvertApp] Converting notebook __script__.ipynb to html\n"}
+,{"stream_name":"stderr","time":3289.871882071,"data":"[NbConvertApp] Writing 299852 bytes to __results__.html\n"}
+]

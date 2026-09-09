@@ -22,8 +22,12 @@ python -m venv .venv
 .venv\Scripts\python -m faithsr.train `
   --data PATH_TO_8BIT_TRAINING_IMAGES `
   --config configs/faithsr3x_base.yaml `
-  --output runs/faithsr3x
+  --output runs/faithsr3x `
+  --experiment-rationale "Why this hypothesis must be tested" `
+  --previous-experiment "Prior run ID and the exact changed component"
 ```
+
+Every training run automatically writes `model-card.md` beside its checkpoint. The card contains the mathematical forward function, conditional components, Mermaid architecture figure, top-level layer/parameter table, activation rationale, exact YAML, experiment purpose, and previous-run connection. Do not accept a paper experiment whose rationale/lineage fields are left generic.
 
 ## TIFF inference
 
@@ -54,6 +58,8 @@ Use the product metadata for the scene-specific additive offset when it is non-z
 .venv\Scripts\python -m faithsr.benchmark --checkpoint runs/faithsr3x/best.pth --runs 100
 ```
 
+Use `--precision fp16` only on CUDA. Both CLI inference and benchmarking reject FP16 on CPU. TIFF inference records precision and compression in the audit sidecar; `--compression none` trades disk size for lower write latency.
+
 ## Application
 
 ```powershell
@@ -69,3 +75,5 @@ Use the product metadata for the scene-specific additive offset when it is non-z
 TensorRT conversion is environment/hardware specific and must use the verified ONNX artifact. FP16 should be validated before INT8. An INT8 model must not be accepted when its frozen fidelity thresholds regress beyond the paper protocol.
 
 The ONNX contract uses fixed batch size 1 with dynamic height and width. This matches tiled analyst inference and keeps the image-adaptive observation operator exportable.
+
+Export performs ONNX structural validation plus two ONNX Runtime numerical checks at different spatial shapes by default. Use `--no-verify` only when the export dependencies are deliberately unavailable. The verified EuroSAT v8 artifact is `artifacts/exports/faithsr3x_eurosat_v8.onnx`; its sidecar records SHA-256 `d7568c054b625a9cc451dd2cb3b4e5346123ddf86492a205310664aaa14b91ec`, dynamic 3x shapes, and maximum observed FP32 parity error `1.04e-5`.

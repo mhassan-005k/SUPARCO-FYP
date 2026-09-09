@@ -38,6 +38,17 @@ if __name__ == "__main__":
     environment["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
     run([sys.executable, "-m", "pip", "install", "torch==2.5.1", "--index-url", "https://download.pytorch.org/whl/cu121", "--quiet"], environment)
     run([sys.executable, "-m", "pip", "install", "rasterio", "PyYAML", "--quiet"], environment)
+    import numpy as np
+    import rasterio
+    from rasterio.transform import from_origin
+
+    fixture = Path("/kaggle/temp/faithsr_benchmark_512.tiff")
+    fixture.parent.mkdir(parents=True, exist_ok=True)
+    axis = np.linspace(0, 255, 512, dtype=np.uint8)
+    pixels = np.stack([np.tile(axis, (512, 1)), np.tile(axis[:, None], (1, 512)), np.full((512, 512), 127, np.uint8)])
+    with rasterio.open(fixture, "w", driver="GTiff", width=512, height=512, count=3, dtype="uint8", crs="EPSG:32643", transform=from_origin(500000, 3000000, 10, 10), compress="deflate") as dataset:
+        dataset.write(pixels)
+        dataset.update_tags(PRODUCT="deterministic-deployment-benchmark")
     run([
         sys.executable, "-m", "faithsr.compare", "--data", str(annual_crop.parent),
         "--checkpoint", str(checkpoint), "--split-manifest", str(split),
@@ -47,5 +58,13 @@ if __name__ == "__main__":
     run([
         sys.executable, "-m", "faithsr.benchmark", "--checkpoint", str(checkpoint),
         "--size", "512", "--warmup", "5", "--runs", "20",
+        "--tiff-input", str(fixture), "--pipeline-runs", "3", "--pipeline-output-dir", "/kaggle/temp/faithsr_pipeline_runs",
         "--output", str(OUTPUT_ROOT / "latency_512.json"),
     ], environment)
+    for compression in ("lzw", "none"):
+        run([
+            sys.executable, "-m", "faithsr.benchmark", "--checkpoint", str(checkpoint),
+            "--size", "512", "--warmup", "2", "--runs", "5", "--tiff-input", str(fixture),
+            "--pipeline-runs", "3", "--pipeline-output-dir", f"/kaggle/temp/faithsr_pipeline_{compression}",
+            "--pipeline-compression", compression, "--output", str(OUTPUT_ROOT / f"latency_512_{compression}.json"),
+        ], environment)

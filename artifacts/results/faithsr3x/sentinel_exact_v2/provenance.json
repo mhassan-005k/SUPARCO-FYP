@@ -1,0 +1,11 @@
+{
+  "kernel": "muhammadhassan2/faithsr-3x-sentinel-exact-evaluation",
+  "kernel_version": 2,
+  "dataset": "rishabhsnip/earth-observation-delhi-airshed",
+  "evaluation": "1728 per-image rows paired within 14 held-out 0.1-degree geographic groups",
+  "files_sha256": {
+    "exact_ablation_summary.json": "2DC85A66D56048E45744870CF9D4F41E8DBA9AD9F61B764BC895FA5067849039",
+    "paired_component_ablation.json": "3B1F827A7241CC4F5A20E1FAFEF04043410BD9B14E6AAC1813E315D725584488",
+    "kaggle.log": "E4126D47CD3BB020BE618F99EDC82E7052A5DE8C4FA9FAAA02E0477FEB6AC343"
+  }
+}

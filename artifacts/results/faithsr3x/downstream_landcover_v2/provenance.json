@@ -1,0 +1,14 @@
+{
+  "kernel": "muhammadhassan2/faithsr-3x-downstream-landcover",
+  "kernel_version": 2,
+  "dataset": "rishabhsnip/earth-observation-delhi-airshed",
+  "label_source": "worldcover_bbox_delhi_ncr_2021.tif",
+  "protocol": "HR-only classifier fit/calibration groups; frozen probe on untouched main validation groups",
+  "files_sha256": {
+    "classifier_best.pth": "5060B5595FBDE043FE25875BBC9391E9065DAC125CDE64B64F26A35D56090CA2",
+    "downstream_results.json": "3775E678D4F5DAC41A59DD3E3680C1D1AD9DC7595E2EA7595FBF4871F485DD1E",
+    "history.json": "278F59A64E1DFA499BCA47FA027EA5CB308B43EF4850E4E40DBC2FE3BA1F7C1A",
+    "model-card.md": "550B2E760C8029A737E9CCA65F7C3CC0D1DC3E28BC167FC680D3A5BBAE1AB6B8",
+    "kaggle.log": "F3B501240FABDB6CFBFA28AA1D53B0D94F7E38D7F69248331F4FFBD5191D12AF"
+  }
+}

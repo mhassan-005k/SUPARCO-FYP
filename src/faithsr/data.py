@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 import json
+import math
 from pathlib import Path
 import random
+import re
 
 import numpy as np
 from PIL import Image
@@ -18,10 +20,24 @@ def discover_images(root: str | Path, extensions: set[str] | None = None) -> lis
     return sorted(path for path in Path(root).rglob("*") if path.suffix.lower() in extensions)
 
 
-def geographic_split(files: list[Path], train_ratio: float = 0.8, seed: int = 42) -> tuple[list[Path], list[Path]]:
+COORDINATE_STEM = re.compile(r"^(?P<lat>-?\d+(?:\.\d+)?)_(?P<lon>-?\d+(?:\.\d+)?)$")
+
+
+def geographic_group(path: Path, grid_degrees: float = 0.1) -> str:
+    """Return a leakage-resistant group for coordinate-named tiles or a parent scene/class."""
+    match = COORDINATE_STEM.match(path.stem)
+    if match:
+        if grid_degrees <= 0:
+            raise ValueError("grid_degrees must be positive")
+        latitude, longitude = float(match.group("lat")), float(match.group("lon"))
+        return f"grid:{math.floor(latitude / grid_degrees)}:{math.floor(longitude / grid_degrees)}"
+    return f"parent:{path.parent.name or path.stem.split('_')[0]}"
+
+
+def geographic_split(files: list[Path], train_ratio: float = 0.8, seed: int = 42, grid_degrees: float = 0.1) -> tuple[list[Path], list[Path]]:
     groups: dict[str, list[Path]] = {}
     for path in files:
-        key = path.parent.name or path.stem.split("_")[0]
+        key = geographic_group(path, grid_degrees)
         groups.setdefault(key, []).append(path)
     keys = sorted(groups)
     random.Random(seed).shuffle(keys)
@@ -71,6 +87,6 @@ class SyntheticSRDataset(Dataset):
         return lr, hr, parameters.normalized_target(), str(self.files[index]), details
 
 
-def write_split_manifest(path: str | Path, train: list[Path], validation: list[Path], seed: int) -> None:
-    payload = {"seed": seed, "strategy": "parent-geography-group", "train": [str(p) for p in train], "validation": [str(p) for p in validation]}
+def write_split_manifest(path: str | Path, train: list[Path], validation: list[Path], seed: int, grid_degrees: float = 0.1) -> None:
+    payload = {"seed": seed, "strategy": "coordinate-grid-when-available-else-parent-group", "grid_degrees": grid_degrees, "train": [str(p) for p in train], "validation": [str(p) for p in validation]}
     Path(path).write_text(json.dumps(payload, indent=2), encoding="utf-8")

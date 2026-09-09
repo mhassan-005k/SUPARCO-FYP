@@ -1,0 +1,19 @@
+{
+  "kernel": "muhammadhassan2/faithsr-3x-sentinel-distillation",
+  "kernel_version": 3,
+  "status": "complete",
+  "hardware": "NVIDIA Tesla P100",
+  "dataset": "rishabhsnip/earth-observation-delhi-airshed",
+  "teacher": {
+    "id": "caidas/swin2SR-classical-sr-x4-64",
+    "revision": "c69ef3e2d2ac5777ff4a9f2f5afcd86d20604b7e",
+    "active_epochs": 3,
+    "output_loss_weight": 0.05
+  },
+  "student_checkpoint_sha256": "B09447B1F0FF21C3E550CCE740DE07A2C7B1A179E44B11AFDBDD5E8BD8612A55",
+  "personalization_summary_sha256": "F2C8D661F6C7382E89585225F25F82737237A98FA6E6F4F7D7230A70937F778B",
+  "pretrained_comparison_summary_sha256": "210F2177421D2E760473D02F98C159BFEA6D7005FFFACB33EA55EEEC7A3F61C8",
+  "distilled_comparison_summary_sha256": "58C16C3867F27EDA224E086BCCE17C2713D713FFD89A0170AB4A65EAA89FB4FC",
+  "distilled_metrics_sha256": "F667B37C0A213EE8992D5A967EB6D9B432F34C9484217B01B9B93122AFC222A8",
+  "kaggle_log_sha256": "44DA7F60733C3B40CEE1580116D47B7F95C6460248994A9C33F348FF57B35A42"
+}

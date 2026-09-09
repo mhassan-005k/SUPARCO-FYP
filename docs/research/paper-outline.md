@@ -14,6 +14,8 @@ How can a lightweight 3x satellite-image super-resolution model adapt to unknown
 
 ## Candidate contribution
 
+Detailed mathematical definitions, layer rationale, activation choices, architecture figures, and experiment-to-experiment connections are maintained in [`model-and-experiment-methodology.md`](model-and-experiment-methodology.md) and should be promoted into the final Methodology section after the corresponding ablations complete.
+
 The proposed system combines:
 
 1. an input-driven degradation representation;
@@ -28,7 +30,13 @@ Novelty is not claimed merely from combining components. The literature review a
 
 ## Evidence available so far
 
-The first reproducible native-3x Kaggle run trained a 117,224-parameter model for 30 epochs on EuroSAT RGB. Its best epoch reached 30.6966 dB PSNR and 0.84078 SSIM on a deterministic 6,000-image class-held-out validation split. A separate matched evaluation of the saved checkpoint reached 30.6825 dB versus 22.7390 dB bicubic PSNR, with false-edge rate 0.28037 versus 0.69036. Model-only P95 latency for a 512x512 input was 54.04 ms on a Tesla P100. The uncertainty/error correlation was 0.28648, which is encouraging but does not by itself prove external calibration. These are preliminary synthetic-degradation results; component ablations, a pretrained baseline, geographic Sentinel-2 evaluation, confidence intervals, end-to-end timing, and the restricted SUPARCO test remain required before paper claims are frozen.
+The first reproducible native-3x Kaggle run trained a 117,224-parameter model for 30 epochs on EuroSAT RGB. Its best epoch reached 30.6966 dB PSNR and 0.84078 SSIM on a deterministic 6,000-image class-held-out validation split. A separate matched evaluation reached 30.6825 dB versus 22.7390 dB bicubic PSNR, with false-edge rate 0.28037 versus 0.69036.
+
+Geographically separated Sentinel-2 Delhi evaluation now adds 1,728 per-image measurements across 14 held-out coordinate groups. Full FaithSR reached 24.1911 dB mean per-image PSNR versus 22.3652 dB bicubic; the paired group-mean difference was +1.8438 dB (95% CI +1.6904 to +1.9971), and false-edge changed by -0.02908 (-0.03162 to -0.02653). Component evidence is nuanced: degradation conditioning improved PSNR by only +0.02594 dB (+0.02112 to +0.03076), while learned observation consistency reduced PSNR by 0.00826 dB but raised SSIM by 0.00078. Full uncertainty correlation was 0.19524.
+
+Model-only P95 latency for a 512x512 input was about 53 ms on Tesla P100. In matched end-to-end disk-backed TIFF runs, P95 was 743 ms with input/Deflate, 697 ms with LZW, and 460 ms uncompressed, though v5/v6 variance prevents a hardware-independent guarantee. Optional FP16 reduced matched uncompressed pipeline P95 from 497.86 to 450.99 ms while changing the final uint8 output by at most 1 DN and preserving metadata. A frozen HR-trained WorldCover probe gave FaithSR 66.51% accuracy / 0.24084 macro-F1 versus bicubic 65.24% / 0.23543; paired accuracy gain was +1.54 points (95% CI +0.66 to +2.42). The probe is weak and imbalanced, so this is modest semantic evidence only.
+
+A pinned pretrained Swin2SR x4 teacher was used for three-epoch output distillation into the native-x3 FaithSR student. The personalized student reached 24.19109 dB, effectively tied with the non-distilled Full model at 24.19106 dB, while the unadapted teacher resized to x3 reached only 19.67141 dB versus bicubic at 22.36519 dB. This negative/neutral result supports the need for domain-and-scale personalization but does not establish a distillation gain. Native L2A radiometry and the restricted SUPARCO test remain required before final claims are frozen.
 
 ## Research questions
 

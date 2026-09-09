@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 import torch
 from torch import nn
 import torch.nn.functional as F
@@ -22,3 +23,8 @@ def test_tiled_output_shape_range_and_repeatability():
     assert uncertainty.shape == (1, 69, 87)
     assert np.array_equal(first, second)
     assert 0 <= first.min() <= first.max() <= 255
+
+
+def test_fp16_requires_cuda():
+    with pytest.raises(ValueError, match="requires a CUDA"):
+        tiled_super_resolve(np.zeros((3, 8, 8), dtype=np.uint8), DeterministicBicubic(), "cpu", precision="fp16")

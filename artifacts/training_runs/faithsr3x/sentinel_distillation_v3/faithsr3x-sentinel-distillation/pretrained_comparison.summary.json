@@ -1,0 +1,207 @@
+{
+  "methods": {
+    "bicubic": {
+      "psnr": 22.365187534579523,
+      "ssim": 0.5617672137881594,
+      "false_edge_rate": 0.1601822725610368,
+      "edge_precision": 0.8398177272778142,
+      "edge_recall": 0.8919181151884712,
+      "sam_radians": 0.16273500832203017,
+      "ergas": 10.494175573190054,
+      "samples": 1728
+    },
+    "bilinear": {
+      "psnr": 22.748127932901735,
+      "ssim": 0.5716070925851388,
+      "false_edge_rate": 0.15646040730967392,
+      "edge_precision": 0.8435395927237416,
+      "edge_recall": 0.866674575385534,
+      "sam_radians": 0.14435494115524408,
+      "ergas": 9.977077400518787,
+      "samples": 1728
+    },
+    "faithsr3x": {
+      "psnr": 24.19105742375056,
+      "ssim": 0.6575294595073771,
+      "false_edge_rate": 0.13142105367215764,
+      "edge_precision": 0.8685789456659997,
+      "edge_recall": 0.7193991872654469,
+      "sam_radians": 0.0751999528190397,
+      "ergas": 8.355770325771084,
+      "uncertainty_correlation": 0.19523903962288858,
+      "uncertainty_calibration_error": 0.006174565926926334,
+      "samples": 1728
+    },
+    "nearest": {
+      "psnr": 21.283494517207146,
+      "ssim": 0.5069641068112105,
+      "false_edge_rate": 0.16596562139090598,
+      "edge_precision": 0.8340343780539654,
+      "edge_recall": 0.7957728624136912,
+      "sam_radians": 0.19001399921210207,
+      "ergas": 11.966372930617243,
+      "samples": 1728
+    },
+    "swin2sr_x4_resized_x3": {
+      "psnr": 19.671407829832148,
+      "ssim": 0.4580026891048032,
+      "false_edge_rate": 0.1644475841021631,
+      "edge_precision": 0.8355524159657458,
+      "edge_recall": 0.9130142498244014,
+      "sam_radians": 0.2663940826443852,
+      "ergas": 15.106288591192829,
+      "samples": 1728
+    }
+  },
+  "paired_cluster_robust_vs_bicubic": {
+    "bilinear_vs_bicubic": {
+      "psnr": {
+        "mean_delta": 0.38481044580066015,
+        "ci95_low": 0.3477636470238287,
+        "ci95_high": 0.4218572445774916,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "ssim": {
+        "mean_delta": 0.010132273526063986,
+        "ci95_low": 0.007640656958797322,
+        "ci95_high": 0.012623890093330651,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "false_edge_rate": {
+        "mean_delta": -0.003853109904975143,
+        "ci95_low": -0.004327806444981691,
+        "ci95_high": -0.0033784133649685947,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "sam_radians": {
+        "mean_delta": -0.018247903278467086,
+        "ci95_low": -0.01902655166221313,
+        "ci95_high": -0.01746925489472104,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "ergas": {
+        "mean_delta": -0.5192178707747233,
+        "ci95_low": -0.5594684856610237,
+        "ci95_high": -0.4789672558884228,
+        "clusters": 14,
+        "paired_images": 1728
+      }
+    },
+    "faithsr3x_vs_bicubic": {
+      "psnr": {
+        "mean_delta": 1.8437805961048792,
+        "ci95_low": 1.690441405296762,
+        "ci95_high": 1.9971197869129964,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "ssim": {
+        "mean_delta": 0.09674335784086632,
+        "ci95_low": 0.08816288383125856,
+        "ci95_high": 0.10532383185047409,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "false_edge_rate": {
+        "mean_delta": -0.02907749064800714,
+        "ci95_low": -0.03162460345392802,
+        "ci95_high": -0.026530377842086252,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "sam_radians": {
+        "mean_delta": -0.08705299410096827,
+        "ci95_low": -0.0908200203132057,
+        "ci95_high": -0.08328596788873084,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "ergas": {
+        "mean_delta": -2.1492128268120783,
+        "ci95_low": -2.279347720325842,
+        "ci95_high": -2.0190779332983144,
+        "clusters": 14,
+        "paired_images": 1728
+      }
+    },
+    "nearest_vs_bicubic": {
+      "psnr": {
+        "mean_delta": -1.088871654536989,
+        "ci95_low": -1.1358706351490109,
+        "ci95_high": -1.041872673924967,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "ssim": {
+        "mean_delta": -0.05502445142834433,
+        "ci95_low": -0.05684249816298812,
+        "ci95_high": -0.05320640469370053,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "false_edge_rate": {
+        "mean_delta": 0.006090998964195717,
+        "ci95_low": 0.005048212979850025,
+        "ci95_high": 0.007133784948541408,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "sam_radians": {
+        "mean_delta": 0.02705373928423912,
+        "ci95_low": 0.025895247678109426,
+        "ci95_high": 0.02821223089036881,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "ergas": {
+        "mean_delta": 1.473849644027059,
+        "ci95_low": 1.4308001909932258,
+        "ci95_high": 1.5168990970608922,
+        "clusters": 14,
+        "paired_images": 1728
+      }
+    },
+    "swin2sr_x4_resized_x3_vs_bicubic": {
+      "psnr": {
+        "mean_delta": -2.6918388236136663,
+        "ci95_low": -2.816559892970798,
+        "ci95_high": -2.5671177542565347,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "ssim": {
+        "mean_delta": -0.1040059894042474,
+        "ci95_low": -0.10902801464819828,
+        "ci95_high": -0.09898396416029653,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "false_edge_rate": {
+        "mean_delta": 0.0044718328128857095,
+        "ci95_low": 0.0037492348250307644,
+        "ci95_high": 0.005194430800740654,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "sam_radians": {
+        "mean_delta": 0.10285146372754954,
+        "ci95_low": 0.09842138691072502,
+        "ci95_high": 0.10728154054437405,
+        "clusters": 14,
+        "paired_images": 1728
+      },
+      "ergas": {
+        "mean_delta": 4.601501025141232,
+        "ci95_low": 4.408007232547753,
+        "ci95_high": 4.794994817734711,
+        "clusters": 14,
+        "paired_images": 1728
+      }
+    }
+  },
+  "aggregation": "Per-image means; paired normal-approximation 95% CI over geographic-group mean deltas."
+}

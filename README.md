@@ -101,6 +101,8 @@ Supported input extensions in the current trainer are `.tif`, `.tiff`, `.png`, `
 - Public and restricted dataset strategy: [`docs/requirements/dataset-strategy.md`](docs/requirements/dataset-strategy.md)
 - Edge-AI reference paper: [`docs/references/edge-ai-sr-platform-paper.md`](docs/references/edge-ai-sr-platform-paper.md)
 - Research paper outline: [`docs/research/paper-outline.md`](docs/research/paper-outline.md)
+- Mathematical model, layers, activations, architecture figures, and experiment lineage: [`docs/research/model-and-experiment-methodology.md`](docs/research/model-and-experiment-methodology.md)
+- Individual historical and pretrained model cards: [`docs/research/model-cards/`](docs/research/model-cards/)
 - Experiment audit log: [`docs/research/experiment-log.md`](docs/research/experiment-log.md)
 - Result figures: [`artifacts/results/figures/`](artifacts/results/figures/)
 - Stress-test metrics: [`artifacts/results/metrics/faithsr_da_vs_base_stress_test.csv`](artifacts/results/metrics/faithsr_da_vs_base_stress_test.csv)

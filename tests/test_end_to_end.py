@@ -7,7 +7,7 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
-from faithsr.inference import process_tiff
+from faithsr.inference import process_tiff, tiled_super_resolve
 
 
 class BicubicModel(nn.Module):
@@ -28,3 +28,9 @@ def test_complete_tiff_read_infer_write_audit(tmp_path):
     assert audit["model_version"] == "test"
     assert len(audit["input_sha256"]) == 64
     assert json.loads(target.with_suffix(".tiff.audit.json").read_text())["metadata"]["mask_preserved"]
+    assert audit["streaming"]["disk_backed"] is True
+    with rasterio.open(source) as dataset:
+        expected, _ = tiled_super_resolve(dataset.read(), BicubicModel(), "cpu", tile_size=8, overlap=2)
+    with rasterio.open(target) as dataset:
+        actual = dataset.read()
+    assert np.array_equal(actual, np.clip(np.rint(expected), 0, 255).astype(np.uint8))

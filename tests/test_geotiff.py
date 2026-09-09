@@ -12,7 +12,9 @@ def _fixture(path: Path) -> None:
     with rasterio.open(path, "w", **profile) as output:
         output.write(np.arange(3 * 7 * 11, dtype=np.uint8).reshape(3, 7, 11))
         output.update_tags(SENSOR="TEST", ACQUISITION="2026-09-08")
+        output.update_tags(ns="FAITHSR_TEST", ORBIT="123")
         output.update_tags(1, BAND_NAME="red")
+        output.update_tags(1, ns="BAND_TEST", WAVELENGTH="665nm")
         output.descriptions = ("red", "green", "blue")
         mask = np.full((7, 11), 255, np.uint8); mask[0, 0] = 0; output.write_mask(mask)
 
@@ -32,6 +34,8 @@ def test_metadata_and_mask_survive_3x_round_trip(tmp_path):
         assert abs(output.transform.e + 10 / 3) < 1e-9
         assert output.tags()["SENSOR"] == "TEST"
         assert output.tags(1)["BAND_NAME"] == "red"
+        assert output.tags(ns="FAITHSR_TEST")["ORBIT"] == "123"
+        assert output.tags(1, ns="BAND_TEST")["WAVELENGTH"] == "665nm"
         assert output.descriptions == ("red", "green", "blue")
         assert output.dataset_mask()[0, 0] == 0
     assert audit["metadata"]["transform_recalculated"] is True
@@ -61,3 +65,15 @@ def test_uncertainty_geotiff_has_matching_grid(tmp_path):
         assert output.dtypes == ("float32",)
         assert output.tags()["FAITHSR_PRODUCT"] == "uncertainty_risk"
         assert output.bounds == rasterio.open(source_path).bounds
+
+
+def test_palette_colormap_is_preserved(tmp_path):
+    source_path, output_path = tmp_path / "classes.tiff", tmp_path / "classes_3x.tiff"
+    palette = {0: (0, 0, 0, 255), 1: (20, 100, 40, 255)}
+    with rasterio.open(source_path, "w", driver="GTiff", width=3, height=2, count=1, dtype="uint8") as source:
+        source.write(np.array([[[0, 1, 0], [1, 1, 0]]], dtype=np.uint8)); source.write_colormap(1, palette)
+    with rasterio.open(source_path) as source:
+        metadata = capture_metadata(source)
+    write_raster(output_path, np.ones((1, 6, 9), dtype=np.uint8), metadata)
+    with rasterio.open(output_path) as output:
+        assert output.colormap(1)[1] == palette[1]
