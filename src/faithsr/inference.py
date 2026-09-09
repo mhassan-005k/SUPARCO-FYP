@@ -10,7 +10,7 @@ import rasterio
 import torch
 import torch.nn.functional as F
 
-from .geotiff import capture_metadata, metadata_summary, write_raster
+from .geotiff import capture_metadata, metadata_summary, write_raster, write_uncertainty_raster
 
 
 def _positions(length: int, tile: int, overlap: int) -> list[int]:
@@ -98,6 +98,7 @@ def process_tiff(input_path: str | Path, output_path: str | Path, model: torch.n
         "uncertainty": None if uncertainty is None else {
             "mean": float(uncertainty.mean()),
             "p95": float(np.quantile(uncertainty, 0.95)),
+            "artifact": write_uncertainty_raster(Path(output_path).with_suffix(".uncertainty.tiff"), uncertainty, metadata),
         },
     })
     audit_path = Path(output_path).with_suffix(Path(output_path).suffix + ".audit.json")

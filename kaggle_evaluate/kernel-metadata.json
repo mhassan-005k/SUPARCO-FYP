@@ -1,0 +1,18 @@
+{
+  "id": "muhammadhassan2/faithsr-3x-matched-eurosat-evaluation",
+  "title": "FaithSR-3X Matched EuroSAT Evaluation",
+  "code_file": "faithsr3x_evaluate.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "apollo2506/eurosat-dataset",
+    "muhammadhassan2/faithsr-3x-private-source"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [
+    "muhammadhassan2/faithsr-3x-eurosat-preliminary-baseline"
+  ]
+}

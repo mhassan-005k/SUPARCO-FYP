@@ -39,7 +39,7 @@ def frequency_loss(x: torch.Tensor, y: torch.Tensor) -> torch.Tensor:
 
 def calibrated_uncertainty_loss(uncertainty: torch.Tensor, prediction: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     error = (prediction.detach() - target).abs().mean(dim=1, keepdim=True).clamp(0, 1)
-    return F.binary_cross_entropy(uncertainty.clamp(1e-5, 1 - 1e-5), error)
+    return F.smooth_l1_loss(uncertainty.float(), error.float())
 
 
 class FaithfulObjective(nn.Module):

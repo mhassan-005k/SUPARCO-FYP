@@ -1,0 +1,17 @@
+{
+  "evaluation_id": "eurosat-matched-v3",
+  "executed_on": "2026-09-09",
+  "kaggle_kernel": "muhammadhassan2/faithsr-3x-matched-eurosat-evaluation",
+  "kaggle_kernel_version": 3,
+  "training_kernel": "muhammadhassan2/faithsr-3x-eurosat-preliminary-baseline",
+  "training_kernel_version": 8,
+  "source_dataset": "muhammadhassan2/faithsr-3x-private-source",
+  "source_dataset_version": 5,
+  "validation_samples": 6000,
+  "validation_classes": ["AnnualCrop", "Forest"],
+  "comparison_csv_sha256": "580340CE7BD687FDF7648E47C247EAE5E835A8FCB0F935E877752F800068F381",
+  "comparison_summary_sha256": "F1501435450579E22253EAF34FE92423D1A663BAD8636897C2199E2681207A1C",
+  "latency_sha256": "DDBFAC40EBAD46A8BAA7DAB3CB0A79BB4D0F8DC5C198B447EF4DED8A96CB71FB",
+  "metric_aggregation": "Metrics computed per batch and sample-count-weighted over the exact deterministic validation manifest.",
+  "limitations": "Synthetic degradation on 8-bit EuroSAT JPEG scenes; class holdout is not a geographic Sentinel-2 test; latency is model-only on Kaggle Tesla P100."
+}

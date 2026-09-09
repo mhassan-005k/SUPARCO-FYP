@@ -57,7 +57,7 @@ class SyntheticSRDataset(Dataset):
         _, height, width = image.shape
         if min(height, width) < self.crop_size:
             raise ValueError(f"Image smaller than {self.crop_size}: {self.files[index]}")
-        rng = random.Random() if self.train else random.Random(self.seed + index)
+        rng = random if self.train else random.Random(self.seed + index)
         top = rng.randint(0, height - self.crop_size) if self.train else (height - self.crop_size) // 2
         left = rng.randint(0, width - self.crop_size) if self.train else (width - self.crop_size) // 2
         hr = image[:, top:top + self.crop_size, left:left + self.crop_size]
@@ -65,8 +65,10 @@ class SyntheticSRDataset(Dataset):
             hr = torch.rot90(hr, rng.randint(0, 3), (1, 2))
             if rng.random() < 0.5:
                 hr = hr.flip(2)
-        lr, parameters = degrade(hr, seed=None if self.train else self.seed + index)
-        return lr, hr, parameters.normalized_target(), str(self.files[index])
+        degradation_seed = rng.randrange(0, 2**31) if self.train else self.seed + index
+        lr, parameters = degrade(hr, seed=degradation_seed)
+        details = json.dumps({"seed": degradation_seed, **parameters.to_dict()}, sort_keys=True)
+        return lr, hr, parameters.normalized_target(), str(self.files[index]), details
 
 
 def write_split_manifest(path: str | Path, train: list[Path], validation: list[Path], seed: int) -> None:

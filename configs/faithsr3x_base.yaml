@@ -16,6 +16,7 @@ data:
 training:
   epochs: 100
   batch_size: 8
+  validation_batch_size: 8
   workers: 2
   learning_rate: 0.0002
   weight_decay: 0.0001

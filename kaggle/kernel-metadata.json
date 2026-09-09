@@ -1,5 +1,5 @@
 {
-  "id": "muhammadhassan2/faithsr-3x-eurosat-baseline",
+  "id": "muhammadhassan2/faithsr-3x-eurosat-preliminary-baseline",
   "title": "FaithSR-3X EuroSAT Preliminary Baseline",
   "code_file": "faithsr3x_kaggle.py",
   "language": "python",
@@ -7,7 +7,10 @@
   "is_private": true,
   "enable_gpu": true,
   "enable_internet": true,
-  "dataset_sources": ["apollo2506/eurosat-dataset"],
+  "dataset_sources": [
+    "apollo2506/eurosat-dataset",
+    "muhammadhassan2/faithsr-3x-private-source"
+  ],
   "competition_sources": [],
   "kernel_sources": []
 }

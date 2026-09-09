@@ -112,6 +112,21 @@ def write_raster(path: str | Path, pixels: np.ndarray, metadata: RasterMetadata)
     }
 
 
+def write_uncertainty_raster(path: str | Path, uncertainty: np.ndarray, metadata: RasterMetadata) -> str:
+    expected = (1, metadata.profile["height"] * 3, metadata.profile["width"] * 3)
+    if uncertainty.shape != expected:
+        raise ValueError(f"Expected uncertainty shape {expected}, received {uncertainty.shape}")
+    profile = output_profile(metadata)
+    profile.update(count=1, dtype="float32", nodata=None)
+    target = Path(path)
+    with rasterio.open(target, "w", **profile) as output:
+        output.write(np.clip(uncertainty, 0, 1).astype(np.float32))
+        output.update_tags(FAITHSR_PRODUCT="uncertainty_risk", FAITHSR_SCALE="3", FAITHSR_RANGE="0,1")
+        output.set_band_description(1, "FaithSR uncertainty risk")
+        output.write_mask(nearest_mask_3x(metadata.mask))
+    return str(target.resolve())
+
+
 def metadata_summary(metadata: RasterMetadata) -> dict[str, Any]:
     profile = metadata.profile
     return {

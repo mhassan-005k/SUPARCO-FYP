@@ -1,0 +1,44 @@
+{
+  "bicubic": {
+    "psnr": 22.73900912475586,
+    "ssim": 0.5572856961886088,
+    "false_edge_rate": 0.6903597747484843,
+    "edge_precision": 0.3096402261654536,
+    "edge_recall": 0.8943976561228434,
+    "sam_radians": 0.12514457154273986,
+    "ergas": 7.701413630167643,
+    "samples": 6000
+  },
+  "bilinear": {
+    "psnr": 23.71556693013509,
+    "ssim": 0.5863256778717041,
+    "false_edge_rate": 0.6873633157412211,
+    "edge_precision": 0.3126366851329804,
+    "edge_recall": 0.8793972322146097,
+    "sam_radians": 0.1098016382654508,
+    "ergas": 6.867872460683187,
+    "samples": 6000
+  },
+  "faithsr3x": {
+    "psnr": 30.682524770100912,
+    "ssim": 0.8406038045883178,
+    "false_edge_rate": 0.2803662299911181,
+    "edge_precision": 0.7196337656974793,
+    "edge_recall": 0.5700230747858683,
+    "sam_radians": 0.03489191763599714,
+    "ergas": 3.185761291503906,
+    "uncertainty_correlation": 0.28648376711209617,
+    "uncertainty_calibration_error": 0.005198448173080882,
+    "samples": 6000
+  },
+  "nearest": {
+    "psnr": 21.303162404378256,
+    "ssim": 0.5127767170270284,
+    "false_edge_rate": 0.6845943473180135,
+    "edge_precision": 0.3154056534369787,
+    "edge_recall": 0.8247003722190857,
+    "sam_radians": 0.1476736309528351,
+    "ergas": 9.088246454874675,
+    "samples": 6000
+  }
+}

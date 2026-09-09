@@ -36,10 +36,21 @@ python -m venv .venv
 
 The output is accompanied by `output_faithsr3x.tiff.audit.json` containing hashes, model version, timings, shape, CRS status, and metadata handling.
 
+## Prepare documented Sentinel-2 8-bit RGB
+
+Aligned Level-2A B04/B03/B02 bands can be converted into the confirmed 8-bit input domain. The command writes a GeoTIFF plus a `.derivation.json` sidecar containing source hashes and the exact radiometric mapping:
+
+```powershell
+.venv\Scripts\python -m faithsr.sentinel --red B04.tif --green B03.tif --blue B02.tif --output scene_rgb8.tiff --quantification 10000 --clip-min 0 --clip-max 0.3
+```
+
+Use the product metadata for the scene-specific additive offset when it is non-zero; the default must not be assumed for every Sentinel-2 processing baseline.
+
 ## Evaluation and latency
 
 ```powershell
 .venv\Scripts\python -m faithsr.evaluate --checkpoint runs/faithsr3x/best.pth --data DATASET
+.venv\Scripts\python -m faithsr.compare --checkpoint runs/faithsr3x/best.pth --data DATASET
 .venv\Scripts\python -m faithsr.benchmark --checkpoint runs/faithsr3x/best.pth --runs 100
 ```
 

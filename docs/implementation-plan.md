@@ -1,8 +1,8 @@
 # FaithSR-3X Updated Implementation Plan
 
-Status: Approved technical direction; implementation pending
+Status: Core implementation complete; preliminary EuroSAT training complete; Sentinel-2, full ablations, pretrained comparison, and restricted SUPARCO validation pending
 
-Last updated: 2026-09-08
+Last updated: 2026-09-09
 
 ## 1. Final product requirement
 

@@ -20,7 +20,9 @@ Two model directions are represented in the repository:
 1. A fine-tuned Swin2SR checkpoint and qualitative comparisons on remote-sensing imagery.
 2. `FaithSRNetV01`, a lightweight experimental CNN with a learned degradation encoder, degradation-conditioned feature modulation, and adaptive observation-consistency correction.
 
-`FaithSRNetV01` currently supports only 2x and 4x upscaling. Native 3x training and inference still need to be implemented and evaluated.
+The new `faithsr` package implements native 3x training/inference, blind degradation conditioning, learned observation consistency, uncertainty output, deterministic degradation replay, 8-bit GeoTIFF metadata preservation, tiled inference, evaluation, benchmarking, ONNX export, and a Streamlit interface. The older `FaithSRNetV01` code remains as an archived 2x/4x baseline.
+
+The first preliminary native-3x EuroSAT RGB Kaggle run completed on 2026-09-09. Its 117,224-parameter model reached 30.6966 dB PSNR and 0.84078 SSIM at epoch 25 on a deterministic 6,000-image held-out split. Matched evaluation reached 30.6825 dB versus 22.7390 dB bicubic PSNR, while model-only P95 latency was 54.04 ms for 512x512 input on a Tesla P100. This is synthetic-degradation evidence only—not yet a Sentinel-2, pretrained-baseline, end-to-end deployment, or SUPARCO claim. Raw artifacts and provenance are under `artifacts/training_runs/faithsr3x/eurosat_preliminary_v8/` and `artifacts/results/faithsr3x/eurosat_matched_v3/`.
 
 ### FaithSRNet v0.1 ablation results
 

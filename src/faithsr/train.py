@@ -16,6 +16,7 @@ from .data import SyntheticSRDataset, discover_images, geographic_split, write_s
 from .losses import FaithfulObjective
 from .metrics import false_edge_rate, psnr, ssim, uncertainty_error_correlation
 from .model import FaithSR3X, FaithSRConfig, count_parameters
+from .teacher import Swin2SRTeacher
 
 
 def _git_commit() -> str:
@@ -29,7 +30,7 @@ def _git_commit() -> str:
 def evaluate(model, loader, device) -> dict[str, float]:
     model.eval()
     rows = []
-    for lr, hr, _, _ in loader:
+    for lr, hr, _, _, _ in loader:
         lr, hr = lr.to(device), hr.to(device)
         sr, aux = model(lr, return_aux=True)
         sr = sr.clamp(0, 1)
@@ -58,10 +59,14 @@ def run(args: argparse.Namespace) -> Path:
     write_split_manifest(output / "split.json", train_files, val_files, config["seed"])
     model_cfg = FaithSRConfig(in_channels=args.bands, out_channels=args.bands, **config["model"])
     model = FaithSR3X(model_cfg).to(device)
+    teacher = None
+    if args.teacher_model:
+        teacher = Swin2SRTeacher(args.teacher_model, args.teacher_checkpoint).to(device)
     train_ds = SyntheticSRDataset(train_files, config["data"]["crop_size"], args.bands, True, config["seed"])
     val_ds = SyntheticSRDataset(val_files, config["data"]["crop_size"], args.bands, False, config["seed"])
     train_loader = DataLoader(train_ds, batch_size=config["training"]["batch_size"], shuffle=True, num_workers=config["training"]["workers"], drop_last=False)
-    val_loader = DataLoader(val_ds, batch_size=1, shuffle=False, num_workers=config["training"]["workers"])
+    validation_batch_size = config["training"].get("validation_batch_size", config["training"]["batch_size"])
+    val_loader = DataLoader(val_ds, batch_size=validation_batch_size, shuffle=False, num_workers=config["training"]["workers"])
     optimizer = torch.optim.AdamW(model.parameters(), lr=config["training"]["learning_rate"], weight_decay=config["training"]["weight_decay"])
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=config["training"]["epochs"])
     objective = FaithfulObjective(config["loss"])
@@ -82,12 +87,13 @@ def run(args: argparse.Namespace) -> Path:
     for epoch in range(start_epoch, config["training"]["epochs"] + 1):
         model.train()
         total = 0.0
-        for lr, hr, degradation_target, _ in train_loader:
+        for lr, hr, degradation_target, _, _ in train_loader:
             lr, hr, degradation_target = lr.to(device), hr.to(device), degradation_target.to(device)
             optimizer.zero_grad(set_to_none=True)
             with torch.amp.autocast("cuda", enabled=amp_enabled):
                 sr, aux = model(lr, return_aux=True)
-                loss, _ = objective(sr, hr, lr, aux, degradation_target)
+                teacher_sr = None if teacher is None else teacher(lr, hr.shape[-2:])
+                loss, _ = objective(sr, hr, lr, aux, degradation_target, teacher_sr)
             scaler.scale(loss).backward()
             scaler.unscale_(optimizer)
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
@@ -115,6 +121,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--bands", type=int, default=3)
     parser.add_argument("--device")
     parser.add_argument("--resume")
+    parser.add_argument("--teacher-model", help="Hugging Face Swin2SR model ID used as a frozen teacher")
+    parser.add_argument("--teacher-checkpoint", help="Optional compatible local Swin2SR state dict")
     return parser
 
 

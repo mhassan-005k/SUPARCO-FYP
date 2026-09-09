@@ -1,0 +1,14 @@
+{
+  "experiment_id": "eurosat-preliminary-v8",
+  "executed_on": "2026-09-09",
+  "kaggle_kernel": "muhammadhassan2/faithsr-3x-eurosat-preliminary-baseline",
+  "kaggle_kernel_version": 8,
+  "source_dataset": "muhammadhassan2/faithsr-3x-private-source",
+  "source_dataset_version": 3,
+  "training_dataset": "apollo2506/eurosat-dataset",
+  "seed": 42,
+  "checkpoint_sha256": "E3C877EE006828F161ADB6926F8D71D1B5063888668FAB1EFBABF98FD17C6C8B",
+  "metrics_sha256": "3628FB4AD8F0C8703DD6F81DC5AB4208E7C02ADDC52AE3656A61B1315578877C",
+  "split_sha256": "89B497E26C0AD78908194AAB95EF61D26FBC739788CFD8BAB3479424C8AA8E55",
+  "notes": "The mounted source snapshot was not a Git checkout, so run.json reports git_commit=unknown. Hashes and immutable Kaggle versions provide the recovery chain. This is a preliminary EuroSAT RGB experiment, not a Sentinel-2 or SUPARCO test result."
+}

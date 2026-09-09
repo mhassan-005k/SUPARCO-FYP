@@ -2,7 +2,7 @@
 
 Status: Living document - claims remain provisional until supported by experiments
 
-Last updated: 2026-09-08
+Last updated: 2026-09-09
 
 ## Working title
 
@@ -25,6 +25,10 @@ The proposed system combines:
 7. metadata-preserving tiled GeoTIFF inference.
 
 Novelty is not claimed merely from combining components. The literature review and ablation study must establish which mechanism is new and which part produces a measurable improvement.
+
+## Evidence available so far
+
+The first reproducible native-3x Kaggle run trained a 117,224-parameter model for 30 epochs on EuroSAT RGB. Its best epoch reached 30.6966 dB PSNR and 0.84078 SSIM on a deterministic 6,000-image class-held-out validation split. A separate matched evaluation of the saved checkpoint reached 30.6825 dB versus 22.7390 dB bicubic PSNR, with false-edge rate 0.28037 versus 0.69036. Model-only P95 latency for a 512x512 input was 54.04 ms on a Tesla P100. The uncertainty/error correlation was 0.28648, which is encouraging but does not by itself prove external calibration. These are preliminary synthetic-degradation results; component ablations, a pretrained baseline, geographic Sentinel-2 evaluation, confidence intervals, end-to-end timing, and the restricted SUPARCO test remain required before paper claims are frozen.
 
 ## Research questions
 

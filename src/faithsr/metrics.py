@@ -43,3 +43,31 @@ def uncertainty_error_correlation(uncertainty: torch.Tensor, prediction: torch.T
     u = u - u.mean()
     error = error - error.mean()
     return (u * error).mean() / (u.std(unbiased=False) * error.std(unbiased=False) + 1e-8)
+
+
+def uncertainty_calibration_error(uncertainty: torch.Tensor, prediction: torch.Tensor, target: torch.Tensor, bins: int = 10) -> torch.Tensor:
+    predicted_risk = uncertainty.flatten().float().clamp(0, 1)
+    observed_error = (prediction - target).abs().mean(1, keepdim=True).flatten().float().clamp(0, 1)
+    total = predicted_risk.new_tensor(0.0)
+    for index in range(bins):
+        lower, upper = index / bins, (index + 1) / bins
+        members = (predicted_risk >= lower) & (predicted_risk < upper if index < bins - 1 else predicted_risk <= upper)
+        if members.any():
+            total = total + members.float().mean() * (predicted_risk[members].mean() - observed_error[members].mean()).abs()
+    return total
+
+
+def ergas(prediction: torch.Tensor, target: torch.Tensor, scale: int = 3) -> torch.Tensor:
+    spatial_dims = tuple(range(2, target.ndim))
+    band_rmse = (prediction - target).square().mean(dim=spatial_dims).sqrt()
+    band_mean = target.mean(dim=spatial_dims).abs().clamp_min(1e-8)
+    return 100 / scale * torch.sqrt(((band_rmse / band_mean).square()).mean())
+
+
+def segmentation_iou_f1(prediction: torch.Tensor, target: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+    prediction, target = prediction.bool(), target.bool()
+    intersection = (prediction & target).sum().float()
+    union = (prediction | target).sum().float()
+    iou = intersection / union.clamp_min(1)
+    f1 = 2 * intersection / (prediction.sum() + target.sum()).clamp_min(1)
+    return iou, f1

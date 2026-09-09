@@ -4,7 +4,7 @@ import numpy as np
 import rasterio
 from rasterio.transform import from_origin
 
-from faithsr.geotiff import capture_metadata, write_raster
+from faithsr.geotiff import capture_metadata, write_raster, write_uncertainty_raster
 
 
 def _fixture(path: Path) -> None:
@@ -48,3 +48,16 @@ def test_non_uint8_input_rejected(tmp_path):
             assert "8-bit" in str(error)
         else:
             raise AssertionError("uint16 input was accepted")
+
+
+def test_uncertainty_geotiff_has_matching_grid(tmp_path):
+    source_path, uncertainty_path = tmp_path / "input.tiff", tmp_path / "risk.tiff"
+    _fixture(source_path)
+    with rasterio.open(source_path) as source:
+        metadata = capture_metadata(source)
+    write_uncertainty_raster(uncertainty_path, np.full((1, 21, 33), 0.25, np.float32), metadata)
+    with rasterio.open(uncertainty_path) as output:
+        assert (output.width, output.height, output.count) == (33, 21, 1)
+        assert output.dtypes == ("float32",)
+        assert output.tags()["FAITHSR_PRODUCT"] == "uncertainty_risk"
+        assert output.bounds == rasterio.open(source_path).bounds

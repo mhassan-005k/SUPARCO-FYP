@@ -19,6 +19,7 @@ dependencies = [
 [project.optional-dependencies]
 test = ["pytest>=8,<9"]
 metrics = ["scikit-image>=0.23,<1", "lpips>=0.1.4,<1"]
+teacher = ["transformers>=4.45,<6"]
 app = ["streamlit>=1.38,<2"]
 export = ["onnx>=1.16,<2", "onnxruntime>=1.19,<2"]
 kaggle = ["kaggle>=1.6.17,<2"]
@@ -30,6 +31,7 @@ all = [
   "onnx>=1.16,<2",
   "onnxruntime>=1.19,<2",
   "kaggle>=1.6.17,<2",
+  "transformers>=4.45,<6",
 ]
 
 [project.scripts]
