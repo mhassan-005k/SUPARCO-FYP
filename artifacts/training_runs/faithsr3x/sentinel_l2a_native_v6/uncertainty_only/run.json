@@ -1,0 +1,63 @@
+{
+  "config": {
+    "seed": 0,
+    "scale": 3,
+    "model": {
+      "channels": 32,
+      "num_blocks": 6,
+      "embed_dim": 48,
+      "kernel_size": 7,
+      "use_degradation_adaptation": false,
+      "use_observation_consistency": false,
+      "use_uncertainty": true
+    },
+    "data": {
+      "crop_size": 192,
+      "train_ratio": 0.5,
+      "split_grid_degrees": 0.1,
+      "extensions": [
+        ".tif",
+        ".tiff"
+      ],
+      "mixed_probability": 0.75
+    },
+    "degradation": {
+      "curriculum_epochs": 15,
+      "start_severity": 0.2,
+      "mtf_probability": 0.5
+    },
+    "training": {
+      "epochs": 60,
+      "batch_size": 16,
+      "validation_batch_size": 16,
+      "workers": 2,
+      "learning_rate": 0.0002,
+      "weight_decay": 0.0001,
+      "amp": true
+    },
+    "loss": {
+      "charbonnier": 1.0,
+      "ssim": 0.1,
+      "gradient": 0.03,
+      "frequency": 0.02,
+      "observation": 0.05,
+      "degradation": 0.02,
+      "uncertainty": 0.02,
+      "distillation": 0.0
+    },
+    "inference": {
+      "tile_size": 512,
+      "overlap": 32
+    }
+  },
+  "git_commit": "unknown",
+  "device": "cuda",
+  "parameters": 61202,
+  "data_root": "/kaggle/working/faithsr3x-native-l2a/data/patches",
+  "started_unix": 1789110284.6522224,
+  "finished_unix": 1789110402.9921207,
+  "duration_seconds": 118.33989834785461,
+  "best_validation_psnr": 22.52752749125163,
+  "degradation_manifest": "/kaggle/working/faithsr3x-native-l2a/uncertainty_only/degradations.jsonl",
+  "degradation_manifest_sha256": "19e419aabf449c1c6234ea676332d25afbcbae623d0ebbfe722067e36345f87a"
+}

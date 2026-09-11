@@ -1,0 +1,73 @@
+{
+  "output": "/kaggle/working/faithsr3x-native-l2a/data/scenes/S2C_42RTN_20260316_0_L2A.tif",
+  "output_sha256": "6728225466b4e89a0b8cd3c1ecdd00a92ec183b117d381b385095bfded3b930a",
+  "dtype": "uint8",
+  "band_order": [
+    "B04",
+    "B03",
+    "B02"
+  ],
+  "quantification": 10000.0,
+  "additive_offset": -1000.0,
+  "reflectance_clip": [
+    0.0,
+    0.3
+  ],
+  "mapping": "round(clip(((DN + additive_offset) / quantification - clip_min) / (clip_max - clip_min), 0, 1) * 255)",
+  "sources": [
+    {
+      "band": "B04",
+      "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/42/R/TN/2026/3/S2C_42RTN_20260316_0_L2A/B04.tif",
+      "dtype": "uint16",
+      "width": 10980,
+      "height": 10980,
+      "crs": "EPSG:32642"
+    },
+    {
+      "band": "B03",
+      "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/42/R/TN/2026/3/S2C_42RTN_20260316_0_L2A/B03.tif",
+      "dtype": "uint16",
+      "width": 10980,
+      "height": 10980,
+      "crs": "EPSG:32642"
+    },
+    {
+      "band": "B02",
+      "href": "https://sentinel-cogs.s3.us-west-2.amazonaws.com/sentinel-s2-l2a-cogs/42/R/TN/2026/3/S2C_42RTN_20260316_0_L2A/B02.tif",
+      "dtype": "uint16",
+      "width": 10980,
+      "height": 10980,
+      "crs": "EPSG:32642"
+    }
+  ],
+  "window": {
+    "column": 9179,
+    "row": 2059,
+    "width": 1152,
+    "height": 1152
+  },
+  "source_context": {
+    "stac_item_id": "S2C_42RTN_20260316_0_L2A",
+    "collection": "sentinel-2-l2a",
+    "datetime": "2026-03-16T06:22:23.670000Z",
+    "cloud_cover": 0.007402,
+    "proj_epsg": 32642,
+    "bbox": [
+      66.020765,
+      24.296331,
+      67.125443,
+      25.304615
+    ],
+    "stac_item_sha256": "f6ba9df7e87418bce5fba2c695a418d01595cfc8e07a01c21ce586140d5456ee",
+    "radiometric_scale": 0.0001,
+    "radiometric_offset": -0.1
+  },
+  "region": "karachi",
+  "window_selection": {
+    "good_scl_fraction": 1.0,
+    "positive_reflectance_fraction": 0.8673469387755102,
+    "red_reflectance_p90_minus_p10": 0.13037998974323273,
+    "minimum_good_scl_fraction": 0.95,
+    "minimum_positive_reflectance_fraction": 0.55
+  }
+}

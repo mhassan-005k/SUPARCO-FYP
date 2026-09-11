@@ -180,6 +180,53 @@ Conclusion: DA gains are consistently positive but too small for a strong contri
 - Limitation: weak/imbalanced patch-majority probe; result supports modest semantic retention, not land-cover state of the art or physical subpixel recovery.
 - Artifacts, checkpoint, model card, history and hashes: `artifacts/results/faithsr3x/downstream_landcover_v2/`.
 
+## Qualitative evidence policy and native L2A experiment
+
+### qualitative-backfill-v1
+
+- Date: 2026-09-10
+- Objective: make every retained experiment directly inspectable on a deterministic held-out dataset image rather than reporting aggregate numbers alone.
+- Output contract: observed LR, bicubic 3x, FaithSR-3X, held-out HR, absolute-error map, optional uncertainty map, metric-labelled PNG, and same-name JSON with exact source/degradation/checkpoint provenance.
+- Backfilled runs: Sentinel Plain, Degradation, Observation, Full, and Distilled.
+- Mechanically selected Full cases over all 1,728 held-out images: worst PSNR gain -1.6344 dB, median +1.8658 dB, best +5.6059 dB versus bicubic. The negative case is retained; examples were selected by sorted per-image delta, not appearance.
+- Artifacts: `artifacts/training_runs/faithsr3x/sentinel_delhi_ablation_v1_partial/*/best-preview.*`, `artifacts/training_runs/faithsr3x/sentinel_distillation_v3/faithsr3x-sentinel-distillation/distilled/best-preview.*`, and `artifacts/results/faithsr3x/sentinel_exact_v2/qualitative/`.
+
+### sentinel-native-l2a-v1/v2/v3/v4
+
+- Date: 2026-09-10
+- Kernel: `muhammadhassan2/faithsr-3x-native-sentinel-2-l2a`.
+- Dataset source: public Element84 Earth Search `sentinel-2-l2a` STAC collection; B04/B03/B02 10 m reflectance COGs and SCL quality layer.
+- Corpus design: two scenes each from Karachi, Lahore, and Islamabad. The accepted v6 manifest is authoritative for final scene/tile counts. Reflectance mapping uses STAC scale/offset followed by frozen clipping [0,0.3].
+- Split: complete scene parents; seed 0 and ratio 0.5 hold out one acquisition/tile scene from each region. Patches from one scene cannot cross the split.
+- Compared variants: Plain, Uncertainty-only, and Full. Each is 60 epochs with identical data, seed, degradation curriculum and evaluation; only declared model components differ.
+- Version 1 result: failed before epoch 1 after data preparation because Kaggle's then-default PyTorch build did not contain CUDA kernels for Tesla P100 `sm_60`. No quality metric was produced.
+- Version 2 correction/result: explicitly installed the previously verified P100-compatible PyTorch 2.5.1/cu121 and TorchVision 0.20.1. Data preparation and epoch-1 evaluation ran, then automatic preview creation exposed a CUDA-prediction/CPU-target device mismatch; no completed-run metric was accepted.
+- Version 3 correction: the evidence writer explicitly aligned LR/HR tensors to the prediction device before computing/saving visual metrics.
+- Version 3 result: execution completed, but automatic previews showed near-black held-out tiles and a degenerate 120 dB bicubic result. Audit traced this to selecting SCL-valid but radiometrically uninformative coastal/dark windows after applying the correct STAC scale `0.0001` and offset `-0.1`. All v3 quality numbers are rejected rather than promoted to the paper.
+- Version 4 correction: window selection requires at least 95% accepted SCL pixels and 55% pixels above 0.01 reflectance, then maximizes red-channel 90th-minus-10th percentile dynamic range. The 55% floor is data-calibrated from the failed Lahore candidate's maximum 56.63% rather than model performance. Every derived tile separately requires at least 75% nonzero pixels and mean channel standard deviation at least 2.0; exact selection/content statistics are stored in the manifest. The saved preview is the deterministic median-texture held-out sample fixed without model outputs.
+- Version 4 corpus: 6 scenes and 86 retained tiles; 39 training tiles and 47 held-out tiles from three disjoint scene parents. Preview panels passed the visual/non-degenerate gate, but its generic comparison CLI silently used legacy degradation defaults rather than the training YAML. Aggregate comparison numbers are rejected.
+- Version 5 correction/result: comparison loaded crop size, MTF probability and mixture probability from the exact variant YAML, but still inherited dataset seed 42 instead of experiment seed 0. The independent bicubic baseline disagreed with the pretrained run, so v5 comparison numbers are rejected.
+- Version 6 correction/gate: comparison binds and records seed 0, crop 192, MTF probability 0.5, and complex-mixture probability 0.75. Bicubic PSNR, SSIM, false-edge, SAM, and ERGAS exactly match the independent pretrained run; LPIPS differs only 0.0000018 from GPU numerical variation. v6 is accepted.
+- Version 6 per-image means: bicubic 23.41633 dB PSNR / 0.59057 SSIM / 0.62166 LPIPS; Plain 23.13413 / 0.59140 / 0.53151; Uncertainty-only 23.13498 / 0.59275 / 0.53138; Full 23.05308 / 0.58783 / 0.54940. Lower LPIPS is better.
+- Scene-cluster inference: Plain-minus-bicubic PSNR -0.26044 dB (95% CI -0.33753 to -0.18336) and LPIPS -0.09189 (-0.10172 to -0.08206). Full-minus-bicubic PSNR -0.33530 dB (-0.43653 to -0.23407), false-edge +0.00496 (+0.00019 to +0.00972), and LPIPS -0.07370 (-0.08085 to -0.06655).
+- Uncertainty result: mean correlation is -0.25121 for Uncertainty-only and -0.26663 for Full, so the current native-L2A risk map is not calibrated as intended. This negative evidence blocks any calibrated-uncertainty claim.
+- Decision: accept v6 as scientifically valid mixed/negative held-out validation evidence, not as a model-win result. Only 39 training tiles and native radiometric/domain shift are plausible constraints, not proven causes. Do not tune on held-out scenes; redesign from training-only evidence and later evaluate on a new external test.
+- Artifact: `artifacts/training_runs/faithsr3x/sentinel_l2a_native_v6/` with SHA256 manifest in `artifact-provenance.json`.
+
+### swin2sr-full-finetune-native-l2a-v1/v2/v3
+
+- Date: 2026-09-11
+- Kernel: `muhammadhassan2/faithsr-3x-swin2sr-full-finetune-native-l2a`.
+- Objective: test actual pretrained personalization, not a frozen wrapper, by training every parameter of immutable revision `c69ef3e2d2ac5777ff4a9f2f5afcd86d20604b7e` on the same native-L2A train split.
+- Function: `y_hat = Resize_(3H,3W)(Swin2SR_x4(x))`; the antialiased x4-to-x3 resize is declared and never called native x3. All 12,239,283 parameters minimize Smooth-L1 with AdamW for three epochs.
+- Version 1 result: numerically valid, but the generic visual mislabeled Swin2SR as FaithSR; not retained as the paper figure.
+- Version 2 result: corrected method name, but the long fine-tune caption touched the next panel; not retained as the final paper figure.
+- Version 3 accepted result: frozen Swin2SR 21.92152 dB PSNR / 0.54311 SSIM / 0.47065 LPIPS; fully fine-tuned Swin2SR 23.77746 / 0.61740 / 0.55062; bicubic 23.41633 / 0.59057 / 0.62166. Best epoch is 3.
+- Scene-cluster inference for full fine-tuning versus bicubic: PSNR +0.33646 dB (95% CI +0.04417 to +0.62876), SSIM +0.02883 (+0.01821 to +0.03945), false-edge -0.00821 (-0.01445 to -0.00196), SAM -0.02050 (-0.02272 to -0.01827), and LPIPS -0.07080 (-0.07348 to -0.06812). Frozen PSNR is -1.49232 dB, showing that domain/scale personalization is necessary.
+- Interpretation: full fine-tuning succeeds across the main metrics, but it is an x4 pretrained model plus explicit resize and is about 104.4x larger than the 117,224-parameter Full native-x3 student. It is a strong personalized baseline, not relabeled as the custom final architecture. The same held-out set selected the best epoch and reports these validation metrics, so it is not an untouched final test.
+- Repetition: v1-v3 fine-tuned mean PSNR varied by less than 0.00038 dB; conclusion is stable despite small CUDA variation.
+- Artifact: `artifacts/training_runs/faithsr3x/swin2sr_full_finetune_native_l2a_v3/` with method-labelled PNG/JSON, per-image table, model card, checkpoint, exact degradation records, environment, and hashes.
+
 ## Entry template
 
 ### Experiment ID

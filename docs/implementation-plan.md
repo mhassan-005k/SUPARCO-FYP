@@ -1,6 +1,6 @@
 # FaithSR-3X Updated Implementation Plan
 
-Status: Core implementation complete; preliminary EuroSAT training complete; Sentinel-2, full ablations, pretrained comparison, and restricted SUPARCO validation pending
+Status: Core system, public Sentinel RGB ablations, pretrained-teacher personalization, downstream probe, ONNX export, FP16/deployment benchmarks, accepted native Sentinel-2 L2A mixed/negative experiment, and fully fine-tuned pretrained control are complete; restricted SUPARCO validation remains externally gated
 
 Last updated: 2026-09-09
 

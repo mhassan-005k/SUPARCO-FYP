@@ -16,8 +16,8 @@ from .geotiff import apply_metadata, capture_metadata, metadata_summary, nearest
 
 
 def _positions(length: int, tile: int, overlap: int) -> list[int]:
-    if tile <= overlap:
-        raise ValueError("Tile size must be larger than overlap")
+    if tile <= 0 or overlap < 0 or tile <= overlap:
+        raise ValueError("Tile size must be positive and larger than a non-negative overlap")
     if length <= tile:
         return [0]
     positions = list(range(0, length - tile + 1, tile - overlap))
@@ -83,6 +83,10 @@ def process_tiff(input_path: str | Path, output_path: str | Path, model: torch.n
     """Disk-backed overlap/blend inference; memory stays bounded by one tile and one output block."""
     started = time.perf_counter()
     target = Path(output_path)
+    source_path = Path(input_path)
+    if source_path.resolve() == target.resolve():
+        raise ValueError("Input and output TIFF paths must be different")
+    _positions(1, tile_size, overlap)
     target.parent.mkdir(parents=True, exist_ok=True)
     uncertainty_target = target.with_suffix(".uncertainty.tiff")
     device = torch.device(device)
@@ -93,6 +97,9 @@ def process_tiff(input_path: str | Path, output_path: str | Path, model: torch.n
     uncertainty_histogram = np.zeros(1000, dtype=np.int64)
     with rasterio.open(input_path) as source, tempfile.TemporaryDirectory(prefix="faithsr_stream_", dir=target.parent) as temporary:
         metadata = capture_metadata(source, include_mask=False)
+        model_bands = getattr(getattr(model, "config", None), "in_channels", source.count)
+        if source.count != model_bands:
+            raise ValueError(f"Input TIFF has {source.count} bands but checkpoint expects {model_bands}")
         before = metadata_summary(metadata)
         profile = output_profile(metadata)
         if compression == "none":

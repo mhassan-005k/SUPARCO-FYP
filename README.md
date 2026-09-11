@@ -15,14 +15,11 @@ The model should therefore be **blind degradation-aware and image-adaptive**, no
 
 ## Current research status
 
-Two model directions are represented in the repository:
-
-1. A fine-tuned Swin2SR checkpoint and qualitative comparisons on remote-sensing imagery.
-2. `FaithSRNetV01`, a lightweight experimental CNN with a learned degradation encoder, degradation-conditioned feature modulation, and adaptive observation-consistency correction.
-
-The new `faithsr` package implements native 3x training/inference, blind degradation conditioning, learned observation consistency, uncertainty output, deterministic degradation replay, 8-bit GeoTIFF metadata preservation, tiled inference, evaluation, benchmarking, ONNX export, and a Streamlit interface. The older `FaithSRNetV01` code remains as an archived 2x/4x baseline.
+The active `faithsr` package implements a custom native-3x model with blind degradation conditioning, learned observation consistency, uncertainty output, deterministic degradation replay, documented Sentinel-2 L2A-to-uint8 derivation, 8-bit GeoTIFF metadata preservation, disk-backed tiled inference, comparison metrics, ONNX export, and a Streamlit interface. Pretrained Swin2SR is retained as a pinned baseline/teacher; it is not the deployed architecture. The older `FaithSRNetV01` remains an archived 2x/4x baseline.
 
 The first preliminary native-3x EuroSAT RGB Kaggle run completed on 2026-09-09. Its 117,224-parameter model reached 30.6966 dB PSNR and 0.84078 SSIM at epoch 25 on a deterministic 6,000-image held-out split. Matched evaluation reached 30.6825 dB versus 22.7390 dB bicubic PSNR, while model-only P95 latency was 54.04 ms for 512x512 input on a Tesla P100. This is synthetic-degradation evidence only—not yet a Sentinel-2, pretrained-baseline, end-to-end deployment, or SUPARCO claim. Raw artifacts and provenance are under `artifacts/training_runs/faithsr3x/eurosat_preliminary_v8/` and `artifacts/results/faithsr3x/eurosat_matched_v3/`.
+
+On 1,728 geographically held-out Delhi Sentinel RGB tiles, Full FaithSR reached 24.1911 dB versus bicubic 22.3652 dB and reduced false-edge rate from 0.16018 to 0.13142. The stricter native-L2A v6 test uses six public STAC scenes from Karachi, Lahore, and Islamabad, 86 content-screened tiles, and complete scene separation. It is retained mixed/negative evidence: Plain FaithSR trails bicubic PSNR by a scene-cluster mean 0.2604 dB but improves LPIPS by 0.0919; Full trails by 0.3353 dB and its uncertainty correlation is negative. In contrast, fully fine-tuning all 12.24M parameters of pinned Swin2SR improves PSNR by 0.3365 dB, SSIM by 0.02883, false-edge rate by 0.00821, and LPIPS by 0.07080 over bicubic on the identical 47-image held-out protocol. This demonstrates effective pretrained personalization, but the x4 model plus declared resize is 104x larger than the native-x3 Full student and is not relabeled as the proposed custom architecture. Restricted SUPARCO validation remains an external gate.
 
 ### FaithSRNet v0.1 ablation results
 
@@ -55,7 +52,10 @@ SUPARCO-FYP/
 |-- .gitignore
 |-- .gitattributes
 |-- src/
-|   `-- faithsr_v01/             # Experimental architecture and trainer
+|   |-- faithsr/                 # Active native-3x package
+|   `-- faithsr_v01/             # Archived x2/x4 architecture
+|-- configs/                     # Frozen YAML experiment protocols
+|-- kaggle_*/                    # Reproducible private Kaggle job sources
 |-- models/
 |   `-- checkpoints/
 |       |-- faithsr_v01/         # Base and degradation-adaptive checkpoints
@@ -72,23 +72,23 @@ SUPARCO-FYP/
 |   |-- proposal/                # FYP proposal in Markdown and PDF
 |   |-- references/              # Relevant research literature
 |   `-- meetings/                # SUPARCO requirement notes
-`-- notebooks/                   # Kaggle/Jupyter notebooks should be added here
+|-- scripts/                     # Data preparation and evidence backfills
+|-- tests/                       # Unit and end-to-end verification
+`-- notebooks/                   # Historical analysis notebooks
 ```
 
-## Run the current experiment
+## Run the active model
 
 From the repository root:
 
 ```powershell
-python src/faithsr_v01/train_faithsr_v01.py `
-  --data PATH_TO_IMAGE_FOLDER `
-  --variant full `
-  --scale 4 `
-  --epochs 100 `
-  --batch-size 8
+.venv\Scripts\python -m faithsr.train `
+  --data PATH_TO_8BIT_IMAGES `
+  --config configs\faithsr3x_base.yaml `
+  --output runs\faithsr3x
 ```
 
-Supported input extensions in the current trainer are `.tif`, `.tiff`, `.png`, `.jpg`, and `.jpeg`. The current PIL-based loader converts all inputs to 8-bit RGB and does **not** preserve GeoTIFF metadata; a Rasterio-based inference/data path is required for the final application.
+Each best checkpoint saves a deterministic held-out `best-preview.png/json` with LR, bicubic 3x, FaithSR, HR, error/risk maps, exact per-image metrics and degradation provenance. TIFF inference uses Rasterio and writes an audit sidecar; see [`docs/development.md`](docs/development.md).
 
 ## Documents and results
 

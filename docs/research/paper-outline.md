@@ -2,7 +2,7 @@
 
 Status: Living document - claims remain provisional until supported by experiments
 
-Last updated: 2026-09-09
+Last updated: 2026-09-10
 
 ## Working title
 
@@ -37,6 +37,8 @@ Geographically separated Sentinel-2 Delhi evaluation now adds 1,728 per-image me
 Model-only P95 latency for a 512x512 input was about 53 ms on Tesla P100. In matched end-to-end disk-backed TIFF runs, P95 was 743 ms with input/Deflate, 697 ms with LZW, and 460 ms uncompressed, though v5/v6 variance prevents a hardware-independent guarantee. Optional FP16 reduced matched uncompressed pipeline P95 from 497.86 to 450.99 ms while changing the final uint8 output by at most 1 DN and preserving metadata. A frozen HR-trained WorldCover probe gave FaithSR 66.51% accuracy / 0.24084 macro-F1 versus bicubic 65.24% / 0.23543; paired accuracy gain was +1.54 points (95% CI +0.66 to +2.42). The probe is weak and imbalanced, so this is modest semantic evidence only.
 
 A pinned pretrained Swin2SR x4 teacher was used for three-epoch output distillation into the native-x3 FaithSR student. The personalized student reached 24.19109 dB, effectively tied with the non-distilled Full model at 24.19106 dB, while the unadapted teacher resized to x3 reached only 19.67141 dB versus bicubic at 22.36519 dB. This negative/neutral result supports the need for domain-and-scale personalization but does not establish a distillation gain. Native L2A radiometry and the restricted SUPARCO test remain required before final claims are frozen.
+
+Qualitative evidence is generated automatically at every best checkpoint and cannot be detached from its JSON metrics/provenance. Existing Sentinel runs have deterministic previews, while Full-model worst/median/best cases are selected mechanically from all 1,728 held-out per-image PSNR deltas. The retained worst case is 1.6344 dB below bicubic, preventing cherry-picked visual claims. Exact-protocol native L2A v6 retained 86 informative tiles from six STAC scenes and used three scene-disjoint held-out clusters. Plain FaithSR traded lower PSNR (-0.26044 dB cluster mean versus bicubic) for lower LPIPS (-0.09189); Full had -0.33530 dB PSNR and -0.07370 LPIPS. Both native uncertainty variants had negative uncertainty-error correlation, so calibrated-risk and across-metric superiority claims are explicitly rejected. On the identical validation protocol, frozen Swin2SR was -1.49232 dB below bicubic, whereas full fine-tuning was +0.33646 dB PSNR, +0.02883 SSIM, -0.00821 false-edge and -0.07080 LPIPS. This supports pretrained personalization while preserving the distinction between the 12.24M x4-plus-resize baseline and the 117k custom native-x3 model.
 
 ## Research questions
 

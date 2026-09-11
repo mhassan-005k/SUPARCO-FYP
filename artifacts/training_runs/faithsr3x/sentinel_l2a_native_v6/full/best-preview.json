@@ -1,0 +1,66 @@
+{
+  "artifact": "/kaggle/working/faithsr3x-native-l2a/full/best-preview.png",
+  "input_shape": [
+    1,
+    3,
+    64,
+    64
+  ],
+  "output_shape": [
+    1,
+    3,
+    192,
+    192
+  ],
+  "display_scale": 2,
+  "metrics": {
+    "psnr": 24.39798355102539,
+    "ssim": 0.6806937456130981,
+    "false_edge_rate": 0.14489257335662842,
+    "edge_precision": 0.8551074266433716,
+    "edge_recall": 0.9006670117378235,
+    "sam_radians": 0.5426061749458313,
+    "ergas": 22.02323341369629,
+    "uncertainty_correlation": -0.4850049316883087,
+    "uncertainty_calibration_error": 0.1907135397195816
+  },
+  "bicubic_metrics": {
+    "psnr": 24.934843063354492,
+    "ssim": 0.6885693669319153,
+    "false_edge_rate": 0.13532264530658722,
+    "edge_precision": 0.864677369594574,
+    "edge_recall": 0.8708909153938293,
+    "sam_radians": 0.5169955492019653,
+    "ergas": 19.84034538269043
+  },
+  "method_minus_bicubic_psnr_db": -0.5368595123291016,
+  "method_label": "FaithSR-3X",
+  "panels": [
+    "lr",
+    "bicubic",
+    "method",
+    "hr",
+    "absolute_error",
+    "uncertainty"
+  ],
+  "faithsr_minus_bicubic_psnr_db": -0.5368595123291016,
+  "epoch": 60,
+  "source": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00384_c00768.tif",
+  "degradation": {
+    "aliasing": 0.6536357538927619,
+    "angle_degrees": 71.49568727398093,
+    "blur": 0.5390815646058106,
+    "compression": 0.03003690855112706,
+    "jpeg_quality": 98,
+    "kernel_family": "mtf_gaussian",
+    "mtf_nyquist": 0.35741329592738524,
+    "noise": 0.2891964436397205,
+    "seed": 30,
+    "severity_cap": 1.0,
+    "sigma_x": 0.4566082867975727,
+    "sigma_y": 0.3379115659906877
+  },
+  "selection_rule": "validation sample at median HR spatial standard deviation; fixed before training and independent of model output",
+  "selection_index": 30,
+  "selection_hr_spatial_std": 0.16118748486042023
+}

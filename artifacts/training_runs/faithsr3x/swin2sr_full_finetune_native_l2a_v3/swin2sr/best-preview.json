@@ -1,0 +1,62 @@
+{
+  "artifact": "/kaggle/working/faithsr3x-swin2sr-full-finetune/swin2sr/best-preview.png",
+  "input_shape": [
+    1,
+    3,
+    64,
+    64
+  ],
+  "output_shape": [
+    1,
+    3,
+    192,
+    192
+  ],
+  "display_scale": 2,
+  "metrics": {
+    "psnr": 25.361568450927734,
+    "ssim": 0.7305635809898376,
+    "false_edge_rate": 0.125474214553833,
+    "edge_precision": 0.874525785446167,
+    "edge_recall": 0.8602905869483948,
+    "sam_radians": 0.4780210852622986,
+    "ergas": 19.281068801879883
+  },
+  "bicubic_metrics": {
+    "psnr": 24.934843063354492,
+    "ssim": 0.6885693669319153,
+    "false_edge_rate": 0.13532264530658722,
+    "edge_precision": 0.864677369594574,
+    "edge_recall": 0.8708909153938293,
+    "sam_radians": 0.5169955492019653,
+    "ergas": 19.84034538269043
+  },
+  "method_minus_bicubic_psnr_db": 0.4267253875732422,
+  "method_label": "Swin2SR FT x4-to-x3",
+  "panels": [
+    "lr",
+    "bicubic",
+    "method",
+    "hr",
+    "absolute_error"
+  ],
+  "epoch": 3,
+  "source": "/kaggle/input/notebooks/muhammadhassan2/faithsr-3x-native-sentinel-2-l2a/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00384_c00768.tif",
+  "degradation": {
+    "aliasing": 0.6536357538927619,
+    "angle_degrees": 71.49568727398093,
+    "blur": 0.5390815646058106,
+    "compression": 0.03003690855112706,
+    "jpeg_quality": 98,
+    "kernel_family": "mtf_gaussian",
+    "mtf_nyquist": 0.35741329592738524,
+    "noise": 0.2891964436397205,
+    "seed": 30,
+    "severity_cap": 1.0,
+    "sigma_x": 0.4566082867975727,
+    "sigma_y": 0.3379115659906877
+  },
+  "selection_rule": "highest mean validation PSNR epoch; visual sample is fixed at median held-out HR spatial standard deviation",
+  "selection_index": 30,
+  "selection_hr_spatial_std": 0.16118748486042023
+}

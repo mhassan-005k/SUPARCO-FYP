@@ -1,0 +1,27 @@
+{
+  "experiment_id": "sentinel_l2a_native_v6",
+  "kaggle_kernel": "muhammadhassan2/faithsr-3x-native-sentinel-2-l2a",
+  "kaggle_kernel_version": 6,
+  "completed_utc_date": "2026-09-11",
+  "validation_decision": "accepted as exact-protocol mixed/negative held-out evidence; no superiority or calibrated-uncertainty claim",
+  "protocol_gate": "passed: seed, crop size, MTF probability and mixed-degradation probability are loaded from the exact YAML; all non-LPIPS bicubic metrics exactly match the independent pretrained run and LPIPS differs by 0.0000018",
+  "visual_audit": "passed: median-texture held-out previews are non-black and metric labels are non-degenerate",
+  "local_regression_tests_before_run": "47 passed",
+  "sha256": {
+    "data/manifest.json": "8ee5489690adfe550d5f3f27ca288be2409863722df4a3b87e70cb909c8147cc",
+    "environment.txt": "6c37eab7a93e75c9da9ab0493a804ccde5d2244b6ffa9962758631ddab41776a",
+    "experiment-summary.json": "4ac46b21f98e49e30978093949454ee011c634b6ebf5ce69aefb0b1c2113480a",
+    "plain/best.pth": "e13271ee88617831c4c405f99971f2a5ded7a76f8b28caee3cbba30c007b2677",
+    "plain/best-preview.png": "c9602be481d7012a8d98d269c5cb363cb65bea974ac561b21157387c3e5bc2b2",
+    "plain/comparison.csv": "fefbcfff3f2c7671ab2f76ade9a1ac3d69f1e8f34518224e36d4c69a4b9187c9",
+    "plain/comparison.summary.json": "193dcb63475a123d073af0c09e6bcbf22151fb1f865d951a9d7bee483a1c24db",
+    "uncertainty_only/best.pth": "3a5c7272520d40bebfa45cf22930a0d8640429375c471d1c204270190bf5afe6",
+    "uncertainty_only/best-preview.png": "e81580421c2b1a9d5f640a3ab9f7de7eae4dcfcf6bd51108e197b580066644c4",
+    "uncertainty_only/comparison.csv": "f38a86fe03ed7de49d00e12063a74e932bfd96bf0d7b83b929d87fb9df52bdc6",
+    "uncertainty_only/comparison.summary.json": "352deeda66bf28118406755ab0627ed69e35484a2620ed1d097871b04f64763d",
+    "full/best.pth": "0bd12f881ca777a5fb2bbfa7043b3a3afe57b5d90e84f759622f5ce55dae5b8f",
+    "full/best-preview.png": "237a43c5cf72447ccd45f9e25a044c9ff8a7bf28ea5ac671b46aac1a7320a005",
+    "full/comparison.csv": "d672c8519087d0902bbc5b49f090c4eb9aca9617a46d19af997700d283716936",
+    "full/comparison.summary.json": "20ac59691e6ba69dc3110cee238e9250ebc618fe63e2f6ad4a71621cd1d4a87f"
+  }
+}

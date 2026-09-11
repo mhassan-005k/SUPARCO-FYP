@@ -1,0 +1,133 @@
+{
+  "methods": {
+    "bicubic": {
+      "psnr": 23.416333056510762,
+      "ssim": 0.5905705278224134,
+      "false_edge_rate": 0.132286603146411,
+      "edge_precision": 0.867713398121773,
+      "edge_recall": 0.8417791223272364,
+      "sam_radians": 0.40416524036133544,
+      "ergas": 28.044985121869026,
+      "lpips": 0.6216612515297342,
+      "samples": 47
+    },
+    "swin2sr_frozen_x4_resized_x3": {
+      "psnr": 21.921516093801944,
+      "ssim": 0.5431143730244739,
+      "false_edge_rate": 0.131943391160445,
+      "edge_precision": 0.8680566092754932,
+      "edge_recall": 0.8652189608584059,
+      "sam_radians": 0.4503234547186405,
+      "ergas": 36.56439925254659,
+      "lpips": 0.47064878205035593,
+      "samples": 47
+    },
+    "swin2sr_full_finetune_x4_resized_x3": {
+      "psnr": 23.777460666413003,
+      "ssim": 0.6173973400542077,
+      "false_edge_rate": 0.1244644655033629,
+      "edge_precision": 0.8755355350514675,
+      "edge_recall": 0.8475070589400352,
+      "sam_radians": 0.3839102675940128,
+      "ergas": 28.078072547912598,
+      "lpips": 0.5506215143076917,
+      "samples": 47
+    }
+  },
+  "paired_scene_intervals_vs_bicubic": {
+    "swin2sr_frozen_x4_resized_x3_vs_bicubic": {
+      "psnr": {
+        "mean_delta": -1.4923194249471028,
+        "ci95_low": -1.7425531464844468,
+        "ci95_high": -1.2420857034097588,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "ssim": {
+        "mean_delta": -0.0441126051372376,
+        "ci95_low": -0.05736219092164929,
+        "ci95_high": -0.030863019352825913,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "false_edge_rate": {
+        "mean_delta": -0.0015076535207259915,
+        "ci95_low": -0.016304932047082617,
+        "ci95_high": 0.013289625005630632,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "sam_radians": {
+        "mean_delta": 0.052208850767625416,
+        "ci95_low": 0.026211754914041492,
+        "ci95_high": 0.07820594662120933,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "ergas": {
+        "mean_delta": 8.079451694004778,
+        "ci95_low": 5.0955192646192184,
+        "ci95_high": 11.063384123390337,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "lpips": {
+        "mean_delta": -0.15954088608639827,
+        "ci95_low": -0.20367202973121307,
+        "ci95_high": -0.11540974244158346,
+        "clusters": 3,
+        "paired_images": 47
+      }
+    },
+    "swin2sr_full_finetune_x4_resized_x3_vs_bicubic": {
+      "psnr": {
+        "mean_delta": 0.33646448107733246,
+        "ci95_low": 0.04417241937869398,
+        "ci95_high": 0.6287565427759709,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "ssim": {
+        "mean_delta": 0.028830711986275685,
+        "ci95_low": 0.01821019460675484,
+        "ci95_high": 0.03945122936579653,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "false_edge_rate": {
+        "mean_delta": -0.008205674399716267,
+        "ci95_low": -0.014449564600882332,
+        "ci95_high": -0.0019617841985502017,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "sam_radians": {
+        "mean_delta": -0.020497322352468105,
+        "ci95_low": -0.022720712621970486,
+        "ci95_high": -0.018273932082965724,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "ergas": {
+        "mean_delta": -0.11196227350096771,
+        "ci95_low": -1.0587072881193758,
+        "ci95_high": 0.8347827411174402,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "lpips": {
+        "mean_delta": -0.07080171419226605,
+        "ci95_low": -0.07348493689450442,
+        "ci95_high": -0.06811849149002769,
+        "clusters": 3,
+        "paired_images": 47
+      }
+    }
+  },
+  "model_id": "caidas/swin2SR-classical-sr-x4-64",
+  "revision": "c69ef3e2d2ac5777ff4a9f2f5afcd86d20604b7e",
+  "all_parameters_trainable": true,
+  "parameters": 12239283,
+  "duration_seconds": 78.52264738082886,
+  "best_epoch": 3
+}

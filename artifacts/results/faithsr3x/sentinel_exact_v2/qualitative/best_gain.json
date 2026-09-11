@@ -1,0 +1,59 @@
+{
+  "artifact": "D:\\FYP\\artifacts\\results\\faithsr3x\\sentinel_exact_v2\\qualitative\\best_gain.png",
+  "input_shape": [
+    1,
+    3,
+    40,
+    40
+  ],
+  "output_shape": [
+    1,
+    3,
+    120,
+    120
+  ],
+  "display_scale": 2,
+  "metrics": {
+    "psnr": 28.84384536743164,
+    "ssim": 0.7065242528915405,
+    "false_edge_rate": 0.4699154794216156,
+    "edge_precision": 0.5300845503807068,
+    "edge_recall": 0.5018044710159302,
+    "sam_radians": 0.08705666661262512,
+    "ergas": 9.016849517822266,
+    "uncertainty_correlation": 0.15735597908496857,
+    "uncertainty_calibration_error": 0.001008879393339157
+  },
+  "bicubic_metrics": {
+    "psnr": 23.237945556640625,
+    "ssim": 0.3718675971031189,
+    "false_edge_rate": 0.5564272999763489,
+    "edge_precision": 0.44357267022132874,
+    "edge_recall": 0.993566632270813,
+    "sam_radians": 0.3462850749492645,
+    "ergas": 17.815906524658203
+  },
+  "faithsr_minus_bicubic_psnr_db": 5.605901718139648,
+  "panels": [
+    "lr",
+    "bicubic",
+    "faithsr3x",
+    "hr",
+    "absolute_error",
+    "uncertainty"
+  ],
+  "case": "best_gain",
+  "source": "D:\\FYP\\tmp\\delhi-sentinel-data\\rgb\\28.3590_77.6410.png",
+  "checkpoint_epoch": 26,
+  "degradation": {
+    "seed": 1096,
+    "aliasing": 0.4766829352884283,
+    "angle_degrees": 48.613426389528755,
+    "blur": 0.6330711128303897,
+    "compression": 0.12128072543014179,
+    "jpeg_quality": 94,
+    "noise": 0.9243530772212142,
+    "sigma_x": 1.674410003868377,
+    "sigma_y": 0.36875328828607046
+  }
+}

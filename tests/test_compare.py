@@ -1,8 +1,9 @@
 import json
 
+import pytest
 import torch
 
-from faithsr.compare import interpolate, paired_cluster_intervals, validation_files
+from faithsr.compare import _score_rows, degradation_protocol, interpolate, paired_cluster_intervals, validation_files
 
 
 def test_all_interpolation_baselines_are_native_3x():
@@ -32,3 +33,24 @@ def test_paired_intervals_use_geographic_cluster_means():
     assert result["paired_images"] == 3
     assert result["mean_delta"] == 3.5
     assert result["ci95_low"] < result["mean_delta"] < result["ci95_high"]
+
+
+def test_score_rows_records_optional_per_image_lpips():
+    prediction = torch.zeros(2, 3, 12, 12)
+    target = torch.ones_like(prediction) * 0.1
+    rows = _score_rows(
+        "candidate",
+        prediction,
+        target,
+        ["rgb/28.1_77.1.png", "rgb/28.2_77.2.png"],
+        ["{}", "{}"],
+        lpips_values=torch.tensor([0.12, 0.34]),
+    )
+    assert [row["lpips"] for row in rows] == pytest.approx([0.12, 0.34])
+
+
+def test_compare_replays_degradation_protocol_from_exact_config():
+    crop_size, options, record = degradation_protocol("configs/sentinel_l2a_native_kaggle.yaml", 48)
+    assert crop_size == 192
+    assert options == {"seed": 0, "mtf_probability": 0.5, "complex_probability": 0.75}
+    assert record["source"].endswith("configs\\sentinel_l2a_native_kaggle.yaml")

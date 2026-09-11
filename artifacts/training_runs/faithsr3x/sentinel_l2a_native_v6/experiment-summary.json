@@ -1,0 +1,813 @@
+{
+  "dataset_manifest": "/kaggle/working/faithsr3x-native-l2a/data/manifest.json",
+  "variants": {
+    "plain": {
+      "best_training_row": {
+        "epoch": "58",
+        "train_loss": "0.09339773903290431",
+        "psnr": "22.52643330891927",
+        "ssim": "0.5905364751815796",
+        "false_edge_rate": "0.13298436999320984",
+        "observation_l1": "",
+        "uncertainty_correlation": "",
+        "learning_rate": "5.478104631726603e-07"
+      },
+      "evaluation": {
+        "methods": {
+          "bicubic": {
+            "psnr": 23.416333056510762,
+            "ssim": 0.5905705278224134,
+            "false_edge_rate": 0.132286603146411,
+            "edge_precision": 0.867713398121773,
+            "edge_recall": 0.8417791223272364,
+            "sam_radians": 0.40416524036133544,
+            "ergas": 28.044985121869026,
+            "lpips": 0.6216630364986176,
+            "samples": 47
+          },
+          "bilinear": {
+            "psnr": 23.461332199421335,
+            "ssim": 0.5836825992198701,
+            "false_edge_rate": 0.1270945429643418,
+            "edge_precision": 0.8729054585416266,
+            "edge_recall": 0.8065078562878548,
+            "sam_radians": 0.39518950689346233,
+            "ergas": 27.364056242273207,
+            "lpips": 0.5872969868335318,
+            "samples": 47
+          },
+          "faithsr3x": {
+            "psnr": 23.134133480964824,
+            "ssim": 0.5913993506989581,
+            "false_edge_rate": 0.13601457121524405,
+            "edge_precision": 0.863985428150664,
+            "edge_recall": 0.8749328255653381,
+            "sam_radians": 0.41702312484700627,
+            "ergas": 29.123154883689068,
+            "lpips": 0.531507060248801,
+            "samples": 47
+          },
+          "nearest": {
+            "psnr": 22.43288222779619,
+            "ssim": 0.5494354335551567,
+            "false_edge_rate": 0.15037651106398156,
+            "edge_precision": 0.8496234873507885,
+            "edge_recall": 0.7548665030205504,
+            "sam_radians": 0.42005879463667567,
+            "ergas": 31.268212074929096,
+            "lpips": 0.530294566078389,
+            "samples": 47
+          }
+        },
+        "paired_cluster_robust_vs_bicubic": {
+          "bilinear_vs_bicubic": {
+            "psnr": {
+              "mean_delta": 0.0332083581150442,
+              "ci95_low": -0.0867788722343836,
+              "ci95_high": 0.15319558846447198,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ssim": {
+              "mean_delta": -0.008852680740149124,
+              "ci95_low": -0.019025765674408113,
+              "ci95_high": 0.0013204041941098643,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "false_edge_rate": {
+              "mean_delta": -0.005050420028872896,
+              "ci95_low": -0.009319274075438727,
+              "ci95_high": -0.0007815659823070661,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "sam_radians": {
+              "mean_delta": -0.009340313438704048,
+              "ci95_low": -0.010692579001712745,
+              "ci95_high": -0.007988047875695351,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ergas": {
+              "mean_delta": -0.5691083859706271,
+              "ci95_low": -1.3562538388392884,
+              "ci95_high": 0.21803706689803437,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "lpips": {
+              "mean_delta": -0.0341633560432904,
+              "ci95_low": -0.04064888424636409,
+              "ci95_high": -0.0276778278402167,
+              "clusters": 3,
+              "paired_images": 47
+            }
+          },
+          "faithsr3x_vs_bicubic": {
+            "psnr": {
+              "mean_delta": -0.26044380319291266,
+              "ci95_low": -0.3375316341025792,
+              "ci95_high": -0.18335597228324613,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ssim": {
+              "mean_delta": 0.0021981863655905795,
+              "ci95_low": -0.005417090515391337,
+              "ci95_high": 0.009813463246572495,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "false_edge_rate": {
+              "mean_delta": 0.0029009521729650273,
+              "ci95_low": -0.0013750782518605217,
+              "ci95_high": 0.007176982597790576,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "sam_radians": {
+              "mean_delta": 0.013355888088868147,
+              "ci95_low": 0.008010739371384778,
+              "ci95_high": 0.018701036806351518,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ergas": {
+              "mean_delta": 0.9926847202190454,
+              "ci95_low": 0.6776361706121006,
+              "ci95_high": 1.3077332698259903,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "lpips": {
+              "mean_delta": -0.09189020045965479,
+              "ci95_low": -0.10171803416875856,
+              "ci95_high": -0.08206236675055102,
+              "clusters": 3,
+              "paired_images": 47
+            }
+          },
+          "nearest_vs_bicubic": {
+            "psnr": {
+              "mean_delta": -0.9406676689783732,
+              "ci95_low": -1.1124608399411602,
+              "ci95_high": -0.7688744980155862,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ssim": {
+              "mean_delta": -0.03985689024346462,
+              "ci95_low": -0.045404719336052675,
+              "ci95_high": -0.03430906115087657,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "false_edge_rate": {
+              "mean_delta": 0.017809354916106964,
+              "ci95_low": 0.007502252399800279,
+              "ci95_high": 0.02811645743241365,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "sam_radians": {
+              "mean_delta": 0.016868359949169815,
+              "ci95_low": 0.01199924165321193,
+              "ci95_high": 0.0217374782451277,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ergas": {
+              "mean_delta": 3.131250161191691,
+              "ci95_low": 2.6131766169762187,
+              "ci95_high": 3.6493237054071637,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "lpips": {
+              "mean_delta": -0.10724605536223321,
+              "ci95_low": -0.1738825691169283,
+              "ci95_high": -0.040609541607538116,
+              "clusters": 3,
+              "paired_images": 47
+            }
+          }
+        },
+        "aggregation": "Per-image means; paired normal-approximation 95% CI over geographic-group mean deltas.",
+        "degradation_protocol": {
+          "source": "/kaggle/working/faithsr3x-native-l2a/plain.yaml",
+          "crop_size": 192,
+          "seed": 0,
+          "mtf_probability": 0.5,
+          "complex_probability": 0.75
+        }
+      },
+      "qualitative_preview": "/kaggle/working/faithsr3x-native-l2a/plain/best-preview.png",
+      "qualitative_metrics": {
+        "artifact": "/kaggle/working/faithsr3x-native-l2a/plain/best-preview.png",
+        "input_shape": [
+          1,
+          3,
+          64,
+          64
+        ],
+        "output_shape": [
+          1,
+          3,
+          192,
+          192
+        ],
+        "display_scale": 2,
+        "metrics": {
+          "psnr": 24.55946922302246,
+          "ssim": 0.6860210299491882,
+          "false_edge_rate": 0.1404438316822052,
+          "edge_precision": 0.8595561981201172,
+          "edge_recall": 0.8888359665870667,
+          "sam_radians": 0.5379063487052917,
+          "ergas": 21.564218521118164
+        },
+        "bicubic_metrics": {
+          "psnr": 24.934843063354492,
+          "ssim": 0.6885693669319153,
+          "false_edge_rate": 0.13532264530658722,
+          "edge_precision": 0.864677369594574,
+          "edge_recall": 0.8708909153938293,
+          "sam_radians": 0.5169955492019653,
+          "ergas": 19.84034538269043
+        },
+        "method_minus_bicubic_psnr_db": -0.37537384033203125,
+        "method_label": "FaithSR-3X",
+        "panels": [
+          "lr",
+          "bicubic",
+          "method",
+          "hr",
+          "absolute_error"
+        ],
+        "faithsr_minus_bicubic_psnr_db": -0.37537384033203125,
+        "epoch": 58,
+        "source": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00384_c00768.tif",
+        "degradation": {
+          "aliasing": 0.6536357538927619,
+          "angle_degrees": 71.49568727398093,
+          "blur": 0.5390815646058106,
+          "compression": 0.03003690855112706,
+          "jpeg_quality": 98,
+          "kernel_family": "mtf_gaussian",
+          "mtf_nyquist": 0.35741329592738524,
+          "noise": 0.2891964436397205,
+          "seed": 30,
+          "severity_cap": 1.0,
+          "sigma_x": 0.4566082867975727,
+          "sigma_y": 0.3379115659906877
+        },
+        "selection_rule": "validation sample at median HR spatial standard deviation; fixed before training and independent of model output",
+        "selection_index": 30,
+        "selection_hr_spatial_std": 0.16118748486042023
+      }
+    },
+    "uncertainty_only": {
+      "best_training_row": {
+        "epoch": "56",
+        "train_loss": "0.09241848935683568",
+        "psnr": "22.52752749125163",
+        "ssim": "0.5918931365013123",
+        "false_edge_rate": "0.13256478309631348",
+        "observation_l1": "",
+        "uncertainty_correlation": "-0.2782075156768163",
+        "learning_rate": "2.1852399266194327e-06"
+      },
+      "evaluation": {
+        "methods": {
+          "bicubic": {
+            "psnr": 23.416333056510762,
+            "ssim": 0.5905705278224134,
+            "false_edge_rate": 0.132286603146411,
+            "edge_precision": 0.867713398121773,
+            "edge_recall": 0.8417791223272364,
+            "sam_radians": 0.40416524036133544,
+            "ergas": 28.044985121869026,
+            "lpips": 0.6216630364986176,
+            "samples": 47
+          },
+          "bilinear": {
+            "psnr": 23.461332199421335,
+            "ssim": 0.5836825992198701,
+            "false_edge_rate": 0.1270945429643418,
+            "edge_precision": 0.8729054585416266,
+            "edge_recall": 0.8065078562878548,
+            "sam_radians": 0.39518950689346233,
+            "ergas": 27.364056242273207,
+            "lpips": 0.5872969868335318,
+            "samples": 47
+          },
+          "faithsr3x": {
+            "psnr": 23.13498383379997,
+            "ssim": 0.5927502829977807,
+            "false_edge_rate": 0.1355996383155914,
+            "edge_precision": 0.8644003601784401,
+            "edge_recall": 0.8745698611787025,
+            "sam_radians": 0.4166294453625983,
+            "ergas": 29.086317305869244,
+            "lpips": 0.531379335104151,
+            "uncertainty_correlation": -0.25120970208514876,
+            "uncertainty_calibration_error": 0.1913212131946645,
+            "samples": 47
+          },
+          "nearest": {
+            "psnr": 22.43288222779619,
+            "ssim": 0.5494354335551567,
+            "false_edge_rate": 0.15037651106398156,
+            "edge_precision": 0.8496234873507885,
+            "edge_recall": 0.7548665030205504,
+            "sam_radians": 0.42005879463667567,
+            "ergas": 31.268212074929096,
+            "lpips": 0.530294566078389,
+            "samples": 47
+          }
+        },
+        "paired_cluster_robust_vs_bicubic": {
+          "bilinear_vs_bicubic": {
+            "psnr": {
+              "mean_delta": 0.0332083581150442,
+              "ci95_low": -0.0867788722343836,
+              "ci95_high": 0.15319558846447198,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ssim": {
+              "mean_delta": -0.008852680740149124,
+              "ci95_low": -0.019025765674408113,
+              "ci95_high": 0.0013204041941098643,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "false_edge_rate": {
+              "mean_delta": -0.005050420028872896,
+              "ci95_low": -0.009319274075438727,
+              "ci95_high": -0.0007815659823070661,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "sam_radians": {
+              "mean_delta": -0.009340313438704048,
+              "ci95_low": -0.010692579001712745,
+              "ci95_high": -0.007988047875695351,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ergas": {
+              "mean_delta": -0.5691083859706271,
+              "ci95_low": -1.3562538388392884,
+              "ci95_high": 0.21803706689803437,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "lpips": {
+              "mean_delta": -0.0341633560432904,
+              "ci95_low": -0.04064888424636409,
+              "ci95_high": -0.0276778278402167,
+              "clusters": 3,
+              "paired_images": 47
+            }
+          },
+          "faithsr3x_vs_bicubic": {
+            "psnr": {
+              "mean_delta": -0.2592011240945346,
+              "ci95_low": -0.33767477017778896,
+              "ci95_high": -0.18072747801128025,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ssim": {
+              "mean_delta": 0.0035649630632521453,
+              "ci95_low": -0.004961096837026507,
+              "ci95_high": 0.012091022963530798,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "false_edge_rate": {
+              "mean_delta": 0.0024470451416150813,
+              "ci95_low": -0.0018735785456098996,
+              "ci95_high": 0.006767668828840062,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "sam_radians": {
+              "mean_delta": 0.012945233736241209,
+              "ci95_low": 0.00727245503223055,
+              "ci95_high": 0.018618012440251866,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ergas": {
+              "mean_delta": 0.9562918250111565,
+              "ci95_low": 0.6289805888758986,
+              "ci95_high": 1.2836030611464144,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "lpips": {
+              "mean_delta": -0.0919719783562249,
+              "ci95_low": -0.10159884909212116,
+              "ci95_high": -0.08234510762032865,
+              "clusters": 3,
+              "paired_images": 47
+            }
+          },
+          "nearest_vs_bicubic": {
+            "psnr": {
+              "mean_delta": -0.9406676689783732,
+              "ci95_low": -1.1124608399411602,
+              "ci95_high": -0.7688744980155862,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ssim": {
+              "mean_delta": -0.03985689024346462,
+              "ci95_low": -0.045404719336052675,
+              "ci95_high": -0.03430906115087657,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "false_edge_rate": {
+              "mean_delta": 0.017809354916106964,
+              "ci95_low": 0.007502252399800279,
+              "ci95_high": 0.02811645743241365,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "sam_radians": {
+              "mean_delta": 0.016868359949169815,
+              "ci95_low": 0.01199924165321193,
+              "ci95_high": 0.0217374782451277,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ergas": {
+              "mean_delta": 3.131250161191691,
+              "ci95_low": 2.6131766169762187,
+              "ci95_high": 3.6493237054071637,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "lpips": {
+              "mean_delta": -0.10724605536223321,
+              "ci95_low": -0.1738825691169283,
+              "ci95_high": -0.040609541607538116,
+              "clusters": 3,
+              "paired_images": 47
+            }
+          }
+        },
+        "aggregation": "Per-image means; paired normal-approximation 95% CI over geographic-group mean deltas.",
+        "degradation_protocol": {
+          "source": "/kaggle/working/faithsr3x-native-l2a/uncertainty_only.yaml",
+          "crop_size": 192,
+          "seed": 0,
+          "mtf_probability": 0.5,
+          "complex_probability": 0.75
+        }
+      },
+      "qualitative_preview": "/kaggle/working/faithsr3x-native-l2a/uncertainty_only/best-preview.png",
+      "qualitative_metrics": {
+        "artifact": "/kaggle/working/faithsr3x-native-l2a/uncertainty_only/best-preview.png",
+        "input_shape": [
+          1,
+          3,
+          64,
+          64
+        ],
+        "output_shape": [
+          1,
+          3,
+          192,
+          192
+        ],
+        "display_scale": 2,
+        "metrics": {
+          "psnr": 24.560964584350586,
+          "ssim": 0.689220666885376,
+          "false_edge_rate": 0.13987545669078827,
+          "edge_precision": 0.8601245284080505,
+          "edge_recall": 0.8883992433547974,
+          "sam_radians": 0.5370352268218994,
+          "ergas": 21.521747589111328,
+          "uncertainty_correlation": -0.48255059123039246,
+          "uncertainty_calibration_error": 0.21134395897388458
+        },
+        "bicubic_metrics": {
+          "psnr": 24.934843063354492,
+          "ssim": 0.6885693669319153,
+          "false_edge_rate": 0.13532264530658722,
+          "edge_precision": 0.864677369594574,
+          "edge_recall": 0.8708909153938293,
+          "sam_radians": 0.5169955492019653,
+          "ergas": 19.84034538269043
+        },
+        "method_minus_bicubic_psnr_db": -0.37387847900390625,
+        "method_label": "FaithSR-3X",
+        "panels": [
+          "lr",
+          "bicubic",
+          "method",
+          "hr",
+          "absolute_error",
+          "uncertainty"
+        ],
+        "faithsr_minus_bicubic_psnr_db": -0.37387847900390625,
+        "epoch": 56,
+        "source": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00384_c00768.tif",
+        "degradation": {
+          "aliasing": 0.6536357538927619,
+          "angle_degrees": 71.49568727398093,
+          "blur": 0.5390815646058106,
+          "compression": 0.03003690855112706,
+          "jpeg_quality": 98,
+          "kernel_family": "mtf_gaussian",
+          "mtf_nyquist": 0.35741329592738524,
+          "noise": 0.2891964436397205,
+          "seed": 30,
+          "severity_cap": 1.0,
+          "sigma_x": 0.4566082867975727,
+          "sigma_y": 0.3379115659906877
+        },
+        "selection_rule": "validation sample at median HR spatial standard deviation; fixed before training and independent of model output",
+        "selection_index": 30,
+        "selection_hr_spatial_std": 0.16118748486042023
+      }
+    },
+    "full": {
+      "best_training_row": {
+        "epoch": "60",
+        "train_loss": "0.09499417493740718",
+        "psnr": "22.420193354288738",
+        "ssim": "0.5869820316632589",
+        "false_edge_rate": "0.13490555187066397",
+        "observation_l1": "0.034806630263725914",
+        "uncertainty_correlation": "-0.3125278055667877",
+        "learning_rate": "0.0"
+      },
+      "evaluation": {
+        "methods": {
+          "bicubic": {
+            "psnr": 23.416333056510762,
+            "ssim": 0.5905705278224134,
+            "false_edge_rate": 0.132286603146411,
+            "edge_precision": 0.867713398121773,
+            "edge_recall": 0.8417791223272364,
+            "sam_radians": 0.40416524036133544,
+            "ergas": 28.044985121869026,
+            "lpips": 0.6216630364986176,
+            "samples": 47
+          },
+          "bilinear": {
+            "psnr": 23.461332199421335,
+            "ssim": 0.5836825992198701,
+            "false_edge_rate": 0.1270945429643418,
+            "edge_precision": 0.8729054585416266,
+            "edge_recall": 0.8065078562878548,
+            "sam_radians": 0.39518950689346233,
+            "ergas": 27.364056242273207,
+            "lpips": 0.5872969868335318,
+            "samples": 47
+          },
+          "faithsr3x": {
+            "psnr": 23.05307891521048,
+            "ssim": 0.5878280902162512,
+            "false_edge_rate": 0.13795049345873772,
+            "edge_precision": 0.862049511138429,
+            "edge_recall": 0.8803673272437238,
+            "sam_radians": 0.42095938911463354,
+            "ergas": 29.374332326523803,
+            "lpips": 0.5494032873118178,
+            "uncertainty_correlation": -0.26663167370443647,
+            "uncertainty_calibration_error": 0.16870080156529205,
+            "samples": 47
+          },
+          "nearest": {
+            "psnr": 22.43288222779619,
+            "ssim": 0.5494354335551567,
+            "false_edge_rate": 0.15037651106398156,
+            "edge_precision": 0.8496234873507885,
+            "edge_recall": 0.7548665030205504,
+            "sam_radians": 0.42005879463667567,
+            "ergas": 31.268212074929096,
+            "lpips": 0.530294566078389,
+            "samples": 47
+          }
+        },
+        "paired_cluster_robust_vs_bicubic": {
+          "bilinear_vs_bicubic": {
+            "psnr": {
+              "mean_delta": 0.0332083581150442,
+              "ci95_low": -0.0867788722343836,
+              "ci95_high": 0.15319558846447198,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ssim": {
+              "mean_delta": -0.008852680740149124,
+              "ci95_low": -0.019025765674408113,
+              "ci95_high": 0.0013204041941098643,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "false_edge_rate": {
+              "mean_delta": -0.005050420028872896,
+              "ci95_low": -0.009319274075438727,
+              "ci95_high": -0.0007815659823070661,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "sam_radians": {
+              "mean_delta": -0.009340313438704048,
+              "ci95_low": -0.010692579001712745,
+              "ci95_high": -0.007988047875695351,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ergas": {
+              "mean_delta": -0.5691083859706271,
+              "ci95_low": -1.3562538388392884,
+              "ci95_high": 0.21803706689803437,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "lpips": {
+              "mean_delta": -0.0341633560432904,
+              "ci95_low": -0.04064888424636409,
+              "ci95_high": -0.0276778278402167,
+              "clusters": 3,
+              "paired_images": 47
+            }
+          },
+          "faithsr3x_vs_bicubic": {
+            "psnr": {
+              "mean_delta": -0.3352973305660745,
+              "ci95_low": -0.4365285569380612,
+              "ci95_high": -0.23406610419408785,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ssim": {
+              "mean_delta": -0.0009372116376956304,
+              "ci95_low": -0.009295576027880108,
+              "ci95_high": 0.007421152752488847,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "false_edge_rate": {
+              "mean_delta": 0.00495571760541719,
+              "ci95_low": 0.00019224095483996208,
+              "ci95_high": 0.009719194255994417,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "sam_radians": {
+              "mean_delta": 0.01686831917343796,
+              "ci95_low": 0.012140014400373928,
+              "ci95_high": 0.021596623946501997,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ergas": {
+              "mean_delta": 1.2221874007280322,
+              "ci95_low": 0.8407922377658499,
+              "ci95_high": 1.6035825636902146,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "lpips": {
+              "mean_delta": -0.07369838930342508,
+              "ci95_low": -0.08085005683136513,
+              "ci95_high": -0.06654672177548503,
+              "clusters": 3,
+              "paired_images": 47
+            }
+          },
+          "nearest_vs_bicubic": {
+            "psnr": {
+              "mean_delta": -0.9406676689783732,
+              "ci95_low": -1.1124608399411602,
+              "ci95_high": -0.7688744980155862,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ssim": {
+              "mean_delta": -0.03985689024346462,
+              "ci95_low": -0.045404719336052675,
+              "ci95_high": -0.03430906115087657,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "false_edge_rate": {
+              "mean_delta": 0.017809354916106964,
+              "ci95_low": 0.007502252399800279,
+              "ci95_high": 0.02811645743241365,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "sam_radians": {
+              "mean_delta": 0.016868359949169815,
+              "ci95_low": 0.01199924165321193,
+              "ci95_high": 0.0217374782451277,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "ergas": {
+              "mean_delta": 3.131250161191691,
+              "ci95_low": 2.6131766169762187,
+              "ci95_high": 3.6493237054071637,
+              "clusters": 3,
+              "paired_images": 47
+            },
+            "lpips": {
+              "mean_delta": -0.10724605536223321,
+              "ci95_low": -0.1738825691169283,
+              "ci95_high": -0.040609541607538116,
+              "clusters": 3,
+              "paired_images": 47
+            }
+          }
+        },
+        "aggregation": "Per-image means; paired normal-approximation 95% CI over geographic-group mean deltas.",
+        "degradation_protocol": {
+          "source": "/kaggle/working/faithsr3x-native-l2a/full.yaml",
+          "crop_size": 192,
+          "seed": 0,
+          "mtf_probability": 0.5,
+          "complex_probability": 0.75
+        }
+      },
+      "qualitative_preview": "/kaggle/working/faithsr3x-native-l2a/full/best-preview.png",
+      "qualitative_metrics": {
+        "artifact": "/kaggle/working/faithsr3x-native-l2a/full/best-preview.png",
+        "input_shape": [
+          1,
+          3,
+          64,
+          64
+        ],
+        "output_shape": [
+          1,
+          3,
+          192,
+          192
+        ],
+        "display_scale": 2,
+        "metrics": {
+          "psnr": 24.39798355102539,
+          "ssim": 0.6806937456130981,
+          "false_edge_rate": 0.14489257335662842,
+          "edge_precision": 0.8551074266433716,
+          "edge_recall": 0.9006670117378235,
+          "sam_radians": 0.5426061749458313,
+          "ergas": 22.02323341369629,
+          "uncertainty_correlation": -0.4850049316883087,
+          "uncertainty_calibration_error": 0.1907135397195816
+        },
+        "bicubic_metrics": {
+          "psnr": 24.934843063354492,
+          "ssim": 0.6885693669319153,
+          "false_edge_rate": 0.13532264530658722,
+          "edge_precision": 0.864677369594574,
+          "edge_recall": 0.8708909153938293,
+          "sam_radians": 0.5169955492019653,
+          "ergas": 19.84034538269043
+        },
+        "method_minus_bicubic_psnr_db": -0.5368595123291016,
+        "method_label": "FaithSR-3X",
+        "panels": [
+          "lr",
+          "bicubic",
+          "method",
+          "hr",
+          "absolute_error",
+          "uncertainty"
+        ],
+        "faithsr_minus_bicubic_psnr_db": -0.5368595123291016,
+        "epoch": 60,
+        "source": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00384_c00768.tif",
+        "degradation": {
+          "aliasing": 0.6536357538927619,
+          "angle_degrees": 71.49568727398093,
+          "blur": 0.5390815646058106,
+          "compression": 0.03003690855112706,
+          "jpeg_quality": 98,
+          "kernel_family": "mtf_gaussian",
+          "mtf_nyquist": 0.35741329592738524,
+          "noise": 0.2891964436397205,
+          "seed": 30,
+          "severity_cap": 1.0,
+          "sigma_x": 0.4566082867975727,
+          "sigma_y": 0.3379115659906877
+        },
+        "selection_rule": "validation sample at median HR spatial standard deviation; fixed before training and independent of model output",
+        "selection_index": 30,
+        "selection_hr_spatial_std": 0.16118748486042023
+      }
+    }
+  }
+}

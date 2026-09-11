@@ -13,6 +13,10 @@ data:
   train_ratio: 0.5
   mixed_probability: 1.0
   extensions: [".jpg", ".jpeg", ".png", ".tif", ".tiff"]
+degradation:
+  curriculum_epochs: 1
+  start_severity: 1.0
+  mtf_probability: 0.35
 training:
   epochs: 1
   batch_size: 1

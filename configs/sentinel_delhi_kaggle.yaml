@@ -13,6 +13,10 @@ data:
   train_ratio: 0.8
   split_grid_degrees: 0.1
   extensions: [".png"]
+degradation:
+  curriculum_epochs: 10
+  start_severity: 0.25
+  mtf_probability: 0.35
 training:
   epochs: 30
   batch_size: 32

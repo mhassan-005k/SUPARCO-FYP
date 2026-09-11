@@ -1,0 +1,2089 @@
+{
+  "created_utc": "2026-09-11T07:00:55.212462+00:00",
+  "source": "Element84 Earth Search public STAC sentinel-2-l2a",
+  "endpoint": "https://earth-search.aws.element84.com/v1",
+  "date_range": "2025-10-01T00:00:00Z/2026-03-31T23:59:59Z",
+  "cloud_cover_lt": 5.0,
+  "scene_size": 1152,
+  "tile_size": 192,
+  "reflectance_clip": [
+    0.0,
+    0.3
+  ],
+  "split_unit": "STAC scene parent; seed 0 holds out one scene per region",
+  "scenes": [
+    {
+      "region": "karachi",
+      "item_id": "S2C_41RRH_20260316_0_L2A",
+      "datetime": "2026-03-16T06:22:24.317000Z",
+      "cloud_cover": 0.006881,
+      "window": {
+        "column": 9693,
+        "row": 1630,
+        "width": 1152,
+        "height": 1152
+      },
+      "window_selection": {
+        "good_scl_fraction": 1.0,
+        "positive_reflectance_fraction": 0.8469387755102041,
+        "red_reflectance_p90_minus_p10": 0.13193997740745544,
+        "minimum_good_scl_fraction": 0.95,
+        "minimum_positive_reflectance_fraction": 0.55
+      },
+      "tiles": [
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00000_c00000.tif",
+          "sha256": "48968b1d95f2e9e2d746543b6f8be111665e4a16d0c2ac6b15818752652239c7",
+          "window": {
+            "column": 0,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9331868489583334,
+          "mean_channel_std": 35.655918658544785,
+          "transform": [
+            10.0,
+            0.0,
+            896910.0,
+            0.0,
+            -10.0,
+            2783720.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00000_c00192.tif",
+          "sha256": "a7243219db619f3e4657ad9e39d702c37a84b9fd4be16be4b1496ff3ce6ca006",
+          "window": {
+            "column": 192,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7783203125,
+          "mean_channel_std": 29.33248481851902,
+          "transform": [
+            10.0,
+            0.0,
+            898830.0,
+            0.0,
+            -10.0,
+            2783720.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00000_c00576.tif",
+          "sha256": "b9958ec7a5f235fe677edf57d530c2fc473008bab6e7fbdd9b1eaa47b6ec5b5e",
+          "window": {
+            "column": 576,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7797037760416666,
+          "mean_channel_std": 35.90073941322488,
+          "transform": [
+            10.0,
+            0.0,
+            902670.0,
+            0.0,
+            -10.0,
+            2783720.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00000_c00960.tif",
+          "sha256": "391da101d45416cb2c8c90731f8bcc86b9fee213d8d826c101f8ddc1e3af8fd3",
+          "window": {
+            "column": 960,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8945855034722222,
+          "mean_channel_std": 39.949839335762285,
+          "transform": [
+            10.0,
+            0.0,
+            906510.0,
+            0.0,
+            -10.0,
+            2783720.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00192_c00384.tif",
+          "sha256": "30726f41431e2ca5cf5a7601e6e4c54be2c4ca142e63d703626cb0b85c8d424d",
+          "window": {
+            "column": 384,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7580023871527778,
+          "mean_channel_std": 26.306976128766106,
+          "transform": [
+            10.0,
+            0.0,
+            900750.0,
+            0.0,
+            -10.0,
+            2781800.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00192_c00576.tif",
+          "sha256": "51f7f34b836a3e1b36a7c2cfcae5966f2f2c83fbcee79026da163f8420c06407",
+          "window": {
+            "column": 576,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7991265190972222,
+          "mean_channel_std": 40.13964203744526,
+          "transform": [
+            10.0,
+            0.0,
+            902670.0,
+            0.0,
+            -10.0,
+            2781800.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00192_c00768.tif",
+          "sha256": "352705f6a0f7c5fb9cad2e09b96150cc8b275be6566d1519e9abac1230127c70",
+          "window": {
+            "column": 768,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8655056423611112,
+          "mean_channel_std": 34.05988742627722,
+          "transform": [
+            10.0,
+            0.0,
+            904590.0,
+            0.0,
+            -10.0,
+            2781800.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00192_c00960.tif",
+          "sha256": "921fede4c51dd13e602a54960afe41363ee6962cc6698fa1c9284934627011f1",
+          "window": {
+            "column": 960,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8923611111111112,
+          "mean_channel_std": 50.86340525099476,
+          "transform": [
+            10.0,
+            0.0,
+            906510.0,
+            0.0,
+            -10.0,
+            2781800.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00384_c00576.tif",
+          "sha256": "f155808abcf9f8b936ed7822e00aa2363ef1ee8239a4cd3ecdd3d80eb6f46ff9",
+          "window": {
+            "column": 576,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9497884114583334,
+          "mean_channel_std": 40.40851420549333,
+          "transform": [
+            10.0,
+            0.0,
+            902670.0,
+            0.0,
+            -10.0,
+            2779880.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00384_c00768.tif",
+          "sha256": "ff49e83fdacb20071042842614a368168c34cb12350a9c826591e2834bba126d",
+          "window": {
+            "column": 768,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9038628472222222,
+          "mean_channel_std": 31.912403223403874,
+          "transform": [
+            10.0,
+            0.0,
+            904590.0,
+            0.0,
+            -10.0,
+            2779880.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00384_c00960.tif",
+          "sha256": "196f721461c3eb23b54a1e1a95cd5e28023252513ee5ca8ef8fe83edf9815e88",
+          "window": {
+            "column": 960,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8707411024305556,
+          "mean_channel_std": 39.23463438616115,
+          "transform": [
+            10.0,
+            0.0,
+            906510.0,
+            0.0,
+            -10.0,
+            2779880.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00576_c00384.tif",
+          "sha256": "6f96f3f2bed472e72180dc70e6ce77572fd0d7a9d068ce6b20157dff98e5f87a",
+          "window": {
+            "column": 384,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7884385850694444,
+          "mean_channel_std": 29.826740042048627,
+          "transform": [
+            10.0,
+            0.0,
+            900750.0,
+            0.0,
+            -10.0,
+            2777960.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00576_c00576.tif",
+          "sha256": "4fbef384b1186851950ea8e17e2f38d999d2998d52cc0a8d3e1435d7ceffb52d",
+          "window": {
+            "column": 576,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9449869791666666,
+          "mean_channel_std": 28.425418714637214,
+          "transform": [
+            10.0,
+            0.0,
+            902670.0,
+            0.0,
+            -10.0,
+            2777960.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00576_c00768.tif",
+          "sha256": "21df65e866ebfcbf56834869359f8187ce57aba86c4abd84c42db1d5f152151c",
+          "window": {
+            "column": 768,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9553493923611112,
+          "mean_channel_std": 31.71637200899566,
+          "transform": [
+            10.0,
+            0.0,
+            904590.0,
+            0.0,
+            -10.0,
+            2777960.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00576_c00960.tif",
+          "sha256": "a9787eadb7d17860130a59c0963084df48b8282bc388a594e551a75bf077fdf6",
+          "window": {
+            "column": 960,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9688313802083334,
+          "mean_channel_std": 35.84186936338804,
+          "transform": [
+            10.0,
+            0.0,
+            906510.0,
+            0.0,
+            -10.0,
+            2777960.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00768_c00384.tif",
+          "sha256": "6ed9fcec8464ecca6ed6b5bbc26c2ed89488fa5213f43765fd204cf4937dde26",
+          "window": {
+            "column": 384,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8389756944444444,
+          "mean_channel_std": 36.05264424846415,
+          "transform": [
+            10.0,
+            0.0,
+            900750.0,
+            0.0,
+            -10.0,
+            2776040.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00768_c00576.tif",
+          "sha256": "cca8d0ba360033ae09687e9b49efd5768c0405a8cb19e4f501eb7ffdc54111ab",
+          "window": {
+            "column": 576,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9116482204861112,
+          "mean_channel_std": 31.66722416437693,
+          "transform": [
+            10.0,
+            0.0,
+            902670.0,
+            0.0,
+            -10.0,
+            2776040.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00768_c00768.tif",
+          "sha256": "1eec71d20536cd3b90fdcf08539eb92e5632627c82d0438e26765886d5ac3fad",
+          "window": {
+            "column": 768,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9467230902777778,
+          "mean_channel_std": 55.73313897037318,
+          "transform": [
+            10.0,
+            0.0,
+            904590.0,
+            0.0,
+            -10.0,
+            2776040.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00768_c00960.tif",
+          "sha256": "a4e6a79ec270843be2f2ecf1762518a3d1f32c99049c59b7e719f652bcc4a8c8",
+          "window": {
+            "column": 960,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9839409722222222,
+          "mean_channel_std": 56.83273166561818,
+          "transform": [
+            10.0,
+            0.0,
+            906510.0,
+            0.0,
+            -10.0,
+            2776040.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00960_c00000.tif",
+          "sha256": "ae8f405cc948128325c0bae7a74ac3956da9c0b1ec40103b10ae9b9d6acce757",
+          "window": {
+            "column": 0,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8688693576388888,
+          "mean_channel_std": 31.53737111196094,
+          "transform": [
+            10.0,
+            0.0,
+            896910.0,
+            0.0,
+            -10.0,
+            2774120.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00960_c00576.tif",
+          "sha256": "ce7f9d6e13ff948258b3a79b1bd2c1b119f488aa3038913fb5f90f7edb625a01",
+          "window": {
+            "column": 576,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7510308159722222,
+          "mean_channel_std": 33.098293501577054,
+          "transform": [
+            10.0,
+            0.0,
+            902670.0,
+            0.0,
+            -10.0,
+            2774120.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00960_c00768.tif",
+          "sha256": "1ac4538d5cd49a43c0e7fd230ac58aaf3e1c374c783db90d111f24a181640e76",
+          "window": {
+            "column": 768,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9178331163194444,
+          "mean_channel_std": 52.733253248760626,
+          "transform": [
+            10.0,
+            0.0,
+            904590.0,
+            0.0,
+            -10.0,
+            2774120.0
+          ],
+          "crs": "EPSG:32641"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_41RRH_20260316_0_L2A/r00960_c00960.tif",
+          "sha256": "bb39d7d64a11b5dfa9174b155759c1a149ffefe00da18d5d6dc59399d565b1d7",
+          "window": {
+            "column": 960,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9783257378472222,
+          "mean_channel_std": 37.40935423642082,
+          "transform": [
+            10.0,
+            0.0,
+            906510.0,
+            0.0,
+            -10.0,
+            2774120.0
+          ],
+          "crs": "EPSG:32641"
+        }
+      ]
+    },
+    {
+      "region": "karachi",
+      "item_id": "S2C_42RTN_20260316_0_L2A",
+      "datetime": "2026-03-16T06:22:23.670000Z",
+      "cloud_cover": 0.007402,
+      "window": {
+        "column": 9179,
+        "row": 2059,
+        "width": 1152,
+        "height": 1152
+      },
+      "window_selection": {
+        "good_scl_fraction": 1.0,
+        "positive_reflectance_fraction": 0.8673469387755102,
+        "red_reflectance_p90_minus_p10": 0.13037998974323273,
+        "minimum_good_scl_fraction": 0.95,
+        "minimum_positive_reflectance_fraction": 0.55
+      },
+      "tiles": [
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00000_c00000.tif",
+          "sha256": "abb010b0de556319b30626bdca3ac0b0ec9de29936b684e9c04c3cde81bb7e56",
+          "window": {
+            "column": 0,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9241536458333334,
+          "mean_channel_std": 35.97491761926922,
+          "transform": [
+            10.0,
+            0.0,
+            291770.0,
+            0.0,
+            -10.0,
+            2779430.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00000_c00192.tif",
+          "sha256": "1fa19acd68367426c797fd7766c6cecd42dbfd67fb9e498c795f0821e7639c22",
+          "window": {
+            "column": 192,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7805718315972222,
+          "mean_channel_std": 29.381030215888476,
+          "transform": [
+            10.0,
+            0.0,
+            293690.0,
+            0.0,
+            -10.0,
+            2779430.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00000_c00576.tif",
+          "sha256": "f177e51b4a6882c5ffa0981c02249cc592a25e8533cfab1acc75d88f82ff237c",
+          "window": {
+            "column": 576,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7685275607638888,
+          "mean_channel_std": 34.169577039805866,
+          "transform": [
+            10.0,
+            0.0,
+            297530.0,
+            0.0,
+            -10.0,
+            2779430.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00000_c00960.tif",
+          "sha256": "2998bd577565024d29adf882c4909ae608defbf696e7201012493fd9ec1ab572",
+          "window": {
+            "column": 960,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.88671875,
+          "mean_channel_std": 36.09183252346026,
+          "transform": [
+            10.0,
+            0.0,
+            301370.0,
+            0.0,
+            -10.0,
+            2779430.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00192_c00384.tif",
+          "sha256": "9bca54656445814eacd6bf0f9d845da47c83fbc6bc4e59b9cc30bad3878a228f",
+          "window": {
+            "column": 384,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7609049479166666,
+          "mean_channel_std": 26.39755087614301,
+          "transform": [
+            10.0,
+            0.0,
+            295610.0,
+            0.0,
+            -10.0,
+            2777510.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00192_c00576.tif",
+          "sha256": "afefd3d69da5f337607737d682b58232914e55f40824079319cc8bd25f7773d4",
+          "window": {
+            "column": 576,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7986111111111112,
+          "mean_channel_std": 43.64962380560457,
+          "transform": [
+            10.0,
+            0.0,
+            297530.0,
+            0.0,
+            -10.0,
+            2777510.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00192_c00768.tif",
+          "sha256": "62a6626c4ea198f3f97867c87f177b304c92593e7fd9d0824daebe0c843b6304",
+          "window": {
+            "column": 768,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8629286024305556,
+          "mean_channel_std": 35.66218518752397,
+          "transform": [
+            10.0,
+            0.0,
+            299450.0,
+            0.0,
+            -10.0,
+            2777510.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00192_c00960.tif",
+          "sha256": "7240efa1bc800c02198ce9965696091295e7b2293951e55b9b34cf0659b74e5f",
+          "window": {
+            "column": 960,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9213595920138888,
+          "mean_channel_std": 50.60569364879706,
+          "transform": [
+            10.0,
+            0.0,
+            301370.0,
+            0.0,
+            -10.0,
+            2777510.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00384_c00576.tif",
+          "sha256": "0d248adc8afefbe359a4bb3f409bd9c3d4d818c196b4829c23710dc083caf026",
+          "window": {
+            "column": 576,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9476453993055556,
+          "mean_channel_std": 33.22042621002387,
+          "transform": [
+            10.0,
+            0.0,
+            297530.0,
+            0.0,
+            -10.0,
+            2775590.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00384_c00768.tif",
+          "sha256": "445c4c438c0319ab72d3ba2d78c05cd1e3ba3cecfe6a9e95b5cb38fb710560f6",
+          "window": {
+            "column": 768,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8735894097222222,
+          "mean_channel_std": 33.111800381904004,
+          "transform": [
+            10.0,
+            0.0,
+            299450.0,
+            0.0,
+            -10.0,
+            2775590.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00384_c00960.tif",
+          "sha256": "0b60d0409eed41a116532d1e0db4bdbf7cd92c62fa0ca85ee4a9e3c7a027e6f6",
+          "window": {
+            "column": 960,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8933648003472222,
+          "mean_channel_std": 39.5764709269831,
+          "transform": [
+            10.0,
+            0.0,
+            301370.0,
+            0.0,
+            -10.0,
+            2775590.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00576_c00384.tif",
+          "sha256": "34489f0642ec99ee3915f0d1b61f932bfbe323354d10df4b7c104bab80274805",
+          "window": {
+            "column": 384,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8359103732638888,
+          "mean_channel_std": 27.415541881439086,
+          "transform": [
+            10.0,
+            0.0,
+            295610.0,
+            0.0,
+            -10.0,
+            2773670.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00576_c00576.tif",
+          "sha256": "b105e7dbc6c57afccbfa91e215795ae25fb91a2aabf27cbc84d16ea02952752d",
+          "window": {
+            "column": 576,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9421929253472222,
+          "mean_channel_std": 29.73847544760952,
+          "transform": [
+            10.0,
+            0.0,
+            297530.0,
+            0.0,
+            -10.0,
+            2773670.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00576_c00768.tif",
+          "sha256": "66d1ff355c378a17bf5091ef44a993e537e8d0f9e9a1f2132d4c4229709c9017",
+          "window": {
+            "column": 768,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9293348524305556,
+          "mean_channel_std": 32.37583678041734,
+          "transform": [
+            10.0,
+            0.0,
+            299450.0,
+            0.0,
+            -10.0,
+            2773670.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00576_c00960.tif",
+          "sha256": "55d5e2a238ddcf594f3ebdbd96900ee619bdbac9f125281a79c1a28617eb8eac",
+          "window": {
+            "column": 960,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9855414496527778,
+          "mean_channel_std": 37.70624333297113,
+          "transform": [
+            10.0,
+            0.0,
+            301370.0,
+            0.0,
+            -10.0,
+            2773670.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00768_c00192.tif",
+          "sha256": "131f96bfe11604b1fd165d3ed08bdb0a3956161f4033c01232c56321d7cd8d09",
+          "window": {
+            "column": 192,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7684461805555556,
+          "mean_channel_std": 29.21138795977788,
+          "transform": [
+            10.0,
+            0.0,
+            293690.0,
+            0.0,
+            -10.0,
+            2771750.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00768_c00384.tif",
+          "sha256": "ac9e3e4b95adff9e70916d9894633f7d7c2947a6e92c6b95b393dbd5ad9057dd",
+          "window": {
+            "column": 384,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8774685329861112,
+          "mean_channel_std": 34.24066734129805,
+          "transform": [
+            10.0,
+            0.0,
+            295610.0,
+            0.0,
+            -10.0,
+            2771750.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00768_c00576.tif",
+          "sha256": "3ff670702e64a853314a47351c38aaccf91b8388a14aa216e2f75ecd8a582cff",
+          "window": {
+            "column": 576,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9295247395833334,
+          "mean_channel_std": 31.56568360058346,
+          "transform": [
+            10.0,
+            0.0,
+            297530.0,
+            0.0,
+            -10.0,
+            2771750.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00768_c00768.tif",
+          "sha256": "08ff5ff388e9109bd14d3f7867d120b4862b2105be73a8fc9c2b5d582139f6f2",
+          "window": {
+            "column": 768,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 0.9999728732638888,
+          "nonzero_fraction": 0.9405110677083334,
+          "mean_channel_std": 69.40943484679373,
+          "transform": [
+            10.0,
+            0.0,
+            299450.0,
+            0.0,
+            -10.0,
+            2771750.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00768_c00960.tif",
+          "sha256": "b2a0c180812df199ed48821f2edaab83c3fadbac4ec97cce34d5ebe2e6e06512",
+          "window": {
+            "column": 960,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9922146267361112,
+          "mean_channel_std": 40.77391082631299,
+          "transform": [
+            10.0,
+            0.0,
+            301370.0,
+            0.0,
+            -10.0,
+            2771750.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00960_c00000.tif",
+          "sha256": "4097239cd16669c814fb3f6ddc9cc8dede751aae3b5462ac5e5cd2ba3f844169",
+          "window": {
+            "column": 0,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.87939453125,
+          "mean_channel_std": 34.25480510369435,
+          "transform": [
+            10.0,
+            0.0,
+            291770.0,
+            0.0,
+            -10.0,
+            2769830.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00960_c00576.tif",
+          "sha256": "0eec088dc36bb6dc6d6730e392e4256e9dd71b4c50af9271e675460a16f3d44d",
+          "window": {
+            "column": 576,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8407660590277778,
+          "mean_channel_std": 34.93664817237431,
+          "transform": [
+            10.0,
+            0.0,
+            297530.0,
+            0.0,
+            -10.0,
+            2769830.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00960_c00768.tif",
+          "sha256": "51041a451d79908f215ee1a41e5c832de57ef9ab69c3d5c6e9c77dc776724791",
+          "window": {
+            "column": 768,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9266221788194444,
+          "mean_channel_std": 55.148721189787864,
+          "transform": [
+            10.0,
+            0.0,
+            299450.0,
+            0.0,
+            -10.0,
+            2769830.0
+          ],
+          "crs": "EPSG:32642"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_42RTN_20260316_0_L2A/r00960_c00960.tif",
+          "sha256": "d773bf480caa756a5f48346a21261358c79d18449fa8a662cfa95896bd3365f2",
+          "window": {
+            "column": 960,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9956597222222222,
+          "mean_channel_std": 33.116884375508334,
+          "transform": [
+            10.0,
+            0.0,
+            301370.0,
+            0.0,
+            -10.0,
+            2769830.0
+          ],
+          "crs": "EPSG:32642"
+        }
+      ]
+    },
+    {
+      "region": "lahore",
+      "item_id": "S2C_43RCQ_20260327_0_L2A",
+      "datetime": "2026-03-27T05:50:30.437000Z",
+      "cloud_cover": 0.001636,
+      "window": {
+        "column": 5147,
+        "row": 8664,
+        "width": 1152,
+        "height": 1152
+      },
+      "window_selection": {
+        "good_scl_fraction": 1.0,
+        "positive_reflectance_fraction": 0.5510204081632653,
+        "red_reflectance_p90_minus_p10": 0.08529999852180481,
+        "minimum_good_scl_fraction": 0.95,
+        "minimum_positive_reflectance_fraction": 0.55
+      },
+      "tiles": [
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43RCQ_20260327_0_L2A/r00192_c00000.tif",
+          "sha256": "4acab4b8a0585cb11d1a14c45a8c6d07470ab3900a3365df43c66f38f9dde173",
+          "window": {
+            "column": 0,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 0.9999728732638888,
+          "nonzero_fraction": 0.9324544270833334,
+          "mean_channel_std": 30.334720722431573,
+          "transform": [
+            10.0,
+            0.0,
+            351470.0,
+            0.0,
+            -10.0,
+            3411480.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43RCQ_20260327_0_L2A/r00384_c00000.tif",
+          "sha256": "c615a575b4f429569d4249343c947a5c9fc8518e3326d46266606efde832a331",
+          "window": {
+            "column": 0,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 0.9999457465277778,
+          "nonzero_fraction": 0.9363335503472222,
+          "mean_channel_std": 26.76850789868966,
+          "transform": [
+            10.0,
+            0.0,
+            351470.0,
+            0.0,
+            -10.0,
+            3409560.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43RCQ_20260327_0_L2A/r00384_c00192.tif",
+          "sha256": "2f7bc2600a8cb987dc4c196b1209405be85e683d02d8890c29bfe3839f2f48e2",
+          "window": {
+            "column": 192,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 0.9999186197916666,
+          "nonzero_fraction": 0.8040635850694444,
+          "mean_channel_std": 32.10176591450158,
+          "transform": [
+            10.0,
+            0.0,
+            353390.0,
+            0.0,
+            -10.0,
+            3409560.0
+          ],
+          "crs": "EPSG:32643"
+        }
+      ]
+    },
+    {
+      "region": "lahore",
+      "item_id": "S2C_43RDQ_20260327_1_L2A",
+      "datetime": "2026-03-27T05:50:27.419000Z",
+      "cloud_cover": 1.062279,
+      "window": {
+        "column": 2230,
+        "row": 3174,
+        "width": 1152,
+        "height": 1152
+      },
+      "window_selection": {
+        "good_scl_fraction": 1.0,
+        "positive_reflectance_fraction": 0.5561224489795918,
+        "red_reflectance_p90_minus_p10": 0.07800000160932541,
+        "minimum_good_scl_fraction": 0.95,
+        "minimum_positive_reflectance_fraction": 0.55
+      },
+      "tiles": [
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43RDQ_20260327_1_L2A/r00000_c00384.tif",
+          "sha256": "ec3806eab901f31b1b12c7862f17dfd51fc92ff73949d1a4d4719a15bbdd5eed",
+          "window": {
+            "column": 384,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 0.9999457465277778,
+          "nonzero_fraction": 0.7609320746527778,
+          "mean_channel_std": 34.386367356607245,
+          "transform": [
+            10.0,
+            0.0,
+            426100.0,
+            0.0,
+            -10.0,
+            3468300.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43RDQ_20260327_1_L2A/r00000_c00576.tif",
+          "sha256": "f72e65dafb6e2db609de72d649f5b9eddfbea51378eed99ece4c14460d1024cf",
+          "window": {
+            "column": 576,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 0.9998914930555556,
+          "nonzero_fraction": 0.82373046875,
+          "mean_channel_std": 40.03761819830344,
+          "transform": [
+            10.0,
+            0.0,
+            428020.0,
+            0.0,
+            -10.0,
+            3468300.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43RDQ_20260327_1_L2A/r00192_c00192.tif",
+          "sha256": "b9f5871ceb82c9efe5ca525b6b0511f6472bca9afdb2cddc0648f871624ec07c",
+          "window": {
+            "column": 192,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 0.9999728732638888,
+          "nonzero_fraction": 0.7676866319444444,
+          "mean_channel_std": 31.095812085369886,
+          "transform": [
+            10.0,
+            0.0,
+            424180.0,
+            0.0,
+            -10.0,
+            3466380.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43RDQ_20260327_1_L2A/r00192_c00384.tif",
+          "sha256": "2acfdb89051d05332c3c9219462c5c27dc1253ecd08de3530df1991fc2662b03",
+          "window": {
+            "column": 384,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 0.9999186197916666,
+          "nonzero_fraction": 0.7564832899305556,
+          "mean_channel_std": 31.25634709961515,
+          "transform": [
+            10.0,
+            0.0,
+            426100.0,
+            0.0,
+            -10.0,
+            3466380.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43RDQ_20260327_1_L2A/r00192_c00576.tif",
+          "sha256": "d8a5b2ce1ea9137dba6007151052d190093e7e61799f9eab6deb84ac43944312",
+          "window": {
+            "column": 576,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7503797743055556,
+          "mean_channel_std": 38.00002406383176,
+          "transform": [
+            10.0,
+            0.0,
+            428020.0,
+            0.0,
+            -10.0,
+            3466380.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43RDQ_20260327_1_L2A/r00384_c00192.tif",
+          "sha256": "8c2d0b0b84328dde97ca947554d7fbdb2f3799d59c5404f4eff97cf3c012ea46",
+          "window": {
+            "column": 192,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 0.9999186197916666,
+          "nonzero_fraction": 0.84375,
+          "mean_channel_std": 29.267194064069145,
+          "transform": [
+            10.0,
+            0.0,
+            424180.0,
+            0.0,
+            -10.0,
+            3464460.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43RDQ_20260327_1_L2A/r00384_c00384.tif",
+          "sha256": "0fa356cca4906d4dbeb04de909f0784e784daf282637de04b5a01f55b510fe1a",
+          "window": {
+            "column": 384,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7866753472222222,
+          "mean_channel_std": 57.048176424896354,
+          "transform": [
+            10.0,
+            0.0,
+            426100.0,
+            0.0,
+            -10.0,
+            3464460.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43RDQ_20260327_1_L2A/r00960_c00192.tif",
+          "sha256": "3ab8d9a1f9ebd3b0454be0739ef011d6e5498f9a9f94d5e2c91e0df6dc870018",
+          "window": {
+            "column": 192,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8057725694444444,
+          "mean_channel_std": 28.269634512773212,
+          "transform": [
+            10.0,
+            0.0,
+            424180.0,
+            0.0,
+            -10.0,
+            3458700.0
+          ],
+          "crs": "EPSG:32643"
+        }
+      ]
+    },
+    {
+      "region": "islamabad",
+      "item_id": "S2C_43SBT_20260228_0_L2A",
+      "datetime": "2026-02-28T05:59:46.827000Z",
+      "cloud_cover": 0.063297,
+      "window": {
+        "column": 9350,
+        "row": 8921,
+        "width": 1152,
+        "height": 1152
+      },
+      "window_selection": {
+        "good_scl_fraction": 1.0,
+        "positive_reflectance_fraction": 0.5663265306122449,
+        "red_reflectance_p90_minus_p10": 0.11487998813390732,
+        "minimum_good_scl_fraction": 0.95,
+        "minimum_positive_reflectance_fraction": 0.55
+      },
+      "tiles": [
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00192_c00768.tif",
+          "sha256": "3f2d3d262053b92c2da8a64103bca6470576b1deec94986f85643910c868105e",
+          "window": {
+            "column": 768,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.892578125,
+          "mean_channel_std": 44.26907579505862,
+          "transform": [
+            10.0,
+            0.0,
+            301160.0,
+            0.0,
+            -10.0,
+            3708910.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00192_c00960.tif",
+          "sha256": "1ebd3f9908823080d51f5e9e638148da5f7c2f8e546c1525442067564d1dc66d",
+          "window": {
+            "column": 960,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8024359809027778,
+          "mean_channel_std": 27.931233955569283,
+          "transform": [
+            10.0,
+            0.0,
+            303080.0,
+            0.0,
+            -10.0,
+            3708910.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00384_c00576.tif",
+          "sha256": "28b3f577f97a155ff0984019727c7e5919135b221e63401c7bd827f85ad0d4ef",
+          "window": {
+            "column": 576,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7879774305555556,
+          "mean_channel_std": 16.34485779827609,
+          "transform": [
+            10.0,
+            0.0,
+            299240.0,
+            0.0,
+            -10.0,
+            3706990.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00576_c00192.tif",
+          "sha256": "75afb9152ca4a98287ea2600c73eb3a6ebb2449dc1bcf7519bf1e181e1f60d0c",
+          "window": {
+            "column": 192,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7643229166666666,
+          "mean_channel_std": 13.560561351495162,
+          "transform": [
+            10.0,
+            0.0,
+            295400.0,
+            0.0,
+            -10.0,
+            3705070.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00576_c00384.tif",
+          "sha256": "f76dedf41a3fe237af7848cc6c1d0369eb80fdd5916f60c352b62aa7cf788913",
+          "window": {
+            "column": 384,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7742784288194444,
+          "mean_channel_std": 21.60558735724077,
+          "transform": [
+            10.0,
+            0.0,
+            297320.0,
+            0.0,
+            -10.0,
+            3705070.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00576_c00768.tif",
+          "sha256": "52f25ce2e01b188595a0dda49f05493443a1aa0696f47e3738ee010749f7d134",
+          "window": {
+            "column": 768,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9155544704861112,
+          "mean_channel_std": 29.046530088052265,
+          "transform": [
+            10.0,
+            0.0,
+            301160.0,
+            0.0,
+            -10.0,
+            3705070.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00768_c00384.tif",
+          "sha256": "f229971cf0584554da873d573689853838b62b124c2880e0cd5d371967e4b009",
+          "window": {
+            "column": 384,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8185763888888888,
+          "mean_channel_std": 22.3033443281888,
+          "transform": [
+            10.0,
+            0.0,
+            297320.0,
+            0.0,
+            -10.0,
+            3703150.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00768_c00576.tif",
+          "sha256": "80a8544531774bfd437e151cbb225f698b1e813049e04783b6646b049f8fe761",
+          "window": {
+            "column": 576,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8792317708333334,
+          "mean_channel_std": 33.19309443605828,
+          "transform": [
+            10.0,
+            0.0,
+            299240.0,
+            0.0,
+            -10.0,
+            3703150.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00768_c00768.tif",
+          "sha256": "8888478d5e7fa0a7eefdb422590508aa3b1071ae8377f3a952e649675a0dd6cc",
+          "window": {
+            "column": 768,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9033203125,
+          "mean_channel_std": 25.704135401372834,
+          "transform": [
+            10.0,
+            0.0,
+            301160.0,
+            0.0,
+            -10.0,
+            3703150.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00768_c00960.tif",
+          "sha256": "b7a323b4992c957c25e78a8a25a2cebebd7ca224e9816d485ff718d6afdb8d94",
+          "window": {
+            "column": 960,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8092176649305556,
+          "mean_channel_std": 21.19217542968502,
+          "transform": [
+            10.0,
+            0.0,
+            303080.0,
+            0.0,
+            -10.0,
+            3703150.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00960_c00192.tif",
+          "sha256": "b23907b6a61da87ee725aabb01f5dbed4227102344f74fdbf1de2a72afa515d4",
+          "window": {
+            "column": 192,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7798122829861112,
+          "mean_channel_std": 20.23887930531284,
+          "transform": [
+            10.0,
+            0.0,
+            295400.0,
+            0.0,
+            -10.0,
+            3701230.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SBT_20260228_0_L2A/r00960_c00384.tif",
+          "sha256": "efdc49842ef02eb98140425484c12e7aef36d30a50fb6ac8d2bd7d69674dfae1",
+          "window": {
+            "column": 384,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9417588975694444,
+          "mean_channel_std": 32.87254370158257,
+          "transform": [
+            10.0,
+            0.0,
+            297320.0,
+            0.0,
+            -10.0,
+            3701230.0
+          ],
+          "crs": "EPSG:32643"
+        }
+      ]
+    },
+    {
+      "region": "islamabad",
+      "item_id": "S2C_43SCT_20260228_0_L2A",
+      "datetime": "2026-02-28T05:59:43.204000Z",
+      "cloud_cover": 2.488509,
+      "window": {
+        "column": 86,
+        "row": 8149,
+        "width": 1152,
+        "height": 1152
+      },
+      "window_selection": {
+        "good_scl_fraction": 1.0,
+        "positive_reflectance_fraction": 0.7551020408163265,
+        "red_reflectance_p90_minus_p10": 0.1005999818444252,
+        "minimum_good_scl_fraction": 0.95,
+        "minimum_positive_reflectance_fraction": 0.55
+      },
+      "tiles": [
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00000_c00000.tif",
+          "sha256": "f5e328a593db0abb4ad049ef7a552c2807ab19b6428935f25a98bd1dffeb565d",
+          "window": {
+            "column": 0,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9172905815972222,
+          "mean_channel_std": 27.979493754775728,
+          "transform": [
+            10.0,
+            0.0,
+            300860.0,
+            0.0,
+            -10.0,
+            3718550.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00000_c00192.tif",
+          "sha256": "19dfd56b40ba8523124b588203ded128d16aac7dee848b4e5f25bb67ee6b737e",
+          "window": {
+            "column": 192,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8302680121527778,
+          "mean_channel_std": 28.24156554236184,
+          "transform": [
+            10.0,
+            0.0,
+            302780.0,
+            0.0,
+            -10.0,
+            3718550.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00000_c00384.tif",
+          "sha256": "61ca2e5e2d817ac4d4de05a587e2a0e9938b0577b9a1449ad7c328cba682e821",
+          "window": {
+            "column": 384,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8742404513888888,
+          "mean_channel_std": 27.50425427340654,
+          "transform": [
+            10.0,
+            0.0,
+            304700.0,
+            0.0,
+            -10.0,
+            3718550.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00000_c00960.tif",
+          "sha256": "6a37976e8ccd1a61398528c0273400b4c11269e51631172cb2c6851bc76378bb",
+          "window": {
+            "column": 960,
+            "row": 0,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8038736979166666,
+          "mean_channel_std": 27.13211672857872,
+          "transform": [
+            10.0,
+            0.0,
+            310460.0,
+            0.0,
+            -10.0,
+            3718550.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00192_c00000.tif",
+          "sha256": "fb8f13b6ad21b9f0f94e8d7e8651d3db1cabae6c068a5934c4f56ba53af9eea8",
+          "window": {
+            "column": 0,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8626844618055556,
+          "mean_channel_std": 34.694167691488836,
+          "transform": [
+            10.0,
+            0.0,
+            300860.0,
+            0.0,
+            -10.0,
+            3716630.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00192_c00192.tif",
+          "sha256": "2a4420e6e8c454fd15bc298b8d9609a042644be870d9bcd38e4779ab9f4afb7c",
+          "window": {
+            "column": 192,
+            "row": 192,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.806884765625,
+          "mean_channel_std": 30.53991417564528,
+          "transform": [
+            10.0,
+            0.0,
+            302780.0,
+            0.0,
+            -10.0,
+            3716630.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00384_c00000.tif",
+          "sha256": "e602461007be7015f648209381c5bdf2961e970ddcddabcfb1f58d0ac3ea19f4",
+          "window": {
+            "column": 0,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7623155381944444,
+          "mean_channel_std": 21.62223582474488,
+          "transform": [
+            10.0,
+            0.0,
+            300860.0,
+            0.0,
+            -10.0,
+            3714710.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00384_c00768.tif",
+          "sha256": "2b7f13d2d322109713a26a4d5ecceaaf2e5fe0c06d5f55fd0f7da8802e0c07a5",
+          "window": {
+            "column": 768,
+            "row": 384,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7846950954861112,
+          "mean_channel_std": 33.69644864931939,
+          "transform": [
+            10.0,
+            0.0,
+            308540.0,
+            0.0,
+            -10.0,
+            3714710.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00576_c00384.tif",
+          "sha256": "727c490148585ffec60bba45ee8f6b22145596a2eab950fe27370d53e74c05a3",
+          "window": {
+            "column": 384,
+            "row": 576,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.7855902777777778,
+          "mean_channel_std": 23.805306548330154,
+          "transform": [
+            10.0,
+            0.0,
+            304700.0,
+            0.0,
+            -10.0,
+            3712790.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00768_c00384.tif",
+          "sha256": "5186b866ab69259128ebcd33a5192bba0930010c6e74bc3142c14b3886a01d73",
+          "window": {
+            "column": 384,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9027506510416666,
+          "mean_channel_std": 26.6860105952199,
+          "transform": [
+            10.0,
+            0.0,
+            304700.0,
+            0.0,
+            -10.0,
+            3710870.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00768_c00576.tif",
+          "sha256": "2fcf17e19be29ed7da07c8fb96b47c1345d61b8ef3182fab54bf022c283dbd18",
+          "window": {
+            "column": 576,
+            "row": 768,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9426812065972222,
+          "mean_channel_std": 21.372042762193,
+          "transform": [
+            10.0,
+            0.0,
+            306620.0,
+            0.0,
+            -10.0,
+            3710870.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00960_c00000.tif",
+          "sha256": "de4abb73935100ed28ef7308cf4b72e7c4616e3f14f97d7475527f18ae1a5366",
+          "window": {
+            "column": 0,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8758138020833334,
+          "mean_channel_std": 42.93890299421241,
+          "transform": [
+            10.0,
+            0.0,
+            300860.0,
+            0.0,
+            -10.0,
+            3708950.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00960_c00192.tif",
+          "sha256": "c017160b8bdbde1b03ce1e7e17eb028cf3a994fb922504cb6ef7f73f887040a0",
+          "window": {
+            "column": 192,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8180338541666666,
+          "mean_channel_std": 30.960349490594567,
+          "transform": [
+            10.0,
+            0.0,
+            302780.0,
+            0.0,
+            -10.0,
+            3708950.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00960_c00384.tif",
+          "sha256": "c5e14ef2ffe9ca61138e011298172d0c550fdd2e253f405cc26f19538314cb05",
+          "window": {
+            "column": 384,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9100206163194444,
+          "mean_channel_std": 18.435838145214152,
+          "transform": [
+            10.0,
+            0.0,
+            304700.0,
+            0.0,
+            -10.0,
+            3708950.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00960_c00576.tif",
+          "sha256": "725643c0d2ac55b6bff7316a4994888540a296fb2f5bfb6e83b5fd8b7ab97661",
+          "window": {
+            "column": 576,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.9358452690972222,
+          "mean_channel_std": 23.65476725347902,
+          "transform": [
+            10.0,
+            0.0,
+            306620.0,
+            0.0,
+            -10.0,
+            3708950.0
+          ],
+          "crs": "EPSG:32643"
+        },
+        {
+          "path": "/kaggle/working/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00960_c00768.tif",
+          "sha256": "9461102f9fcff9807c56296390de42119ae72e1a6e5a2e8edd13c63d95e0cef7",
+          "window": {
+            "column": 768,
+            "row": 960,
+            "width": 192,
+            "height": 192
+          },
+          "valid_fraction": 1.0,
+          "nonzero_fraction": 0.8276638454861112,
+          "mean_channel_std": 20.30752075047369,
+          "transform": [
+            10.0,
+            0.0,
+            308540.0,
+            0.0,
+            -10.0,
+            3708950.0
+          ],
+          "crs": "EPSG:32643"
+        }
+      ]
+    }
+  ],
+  "window_selection": {
+    "minimum_good_scl_fraction": 0.95,
+    "minimum_positive_reflectance_fraction": 0.55,
+    "ranking": "maximum red-reflectance p90-p10 among eligible overview blocks"
+  },
+  "tile_selection": {
+    "minimum_nonzero_fraction": 0.75,
+    "minimum_mean_channel_std_uint8": 2.0
+  },
+  "regions": [
+    {
+      "name": "karachi",
+      "bbox": [
+        66.75,
+        24.7,
+        67.25,
+        25.1
+      ],
+      "selected": [
+        "S2C_41RRH_20260316_0_L2A",
+        "S2C_42RTN_20260316_0_L2A"
+      ],
+      "rejected": []
+    },
+    {
+      "name": "lahore",
+      "bbox": [
+        74.05,
+        31.3,
+        74.6,
+        31.75
+      ],
+      "selected": [
+        "S2C_43RCQ_20260327_0_L2A",
+        "S2C_43RDQ_20260327_1_L2A"
+      ],
+      "rejected": []
+    },
+    {
+      "name": "islamabad",
+      "bbox": [
+        72.8,
+        33.45,
+        73.35,
+        33.9
+      ],
+      "selected": [
+        "S2C_43SBT_20260228_0_L2A",
+        "S2C_43SCT_20260228_0_L2A"
+      ],
+      "rejected": []
+    }
+  ],
+  "scene_count": 6,
+  "tile_count": 86
+}

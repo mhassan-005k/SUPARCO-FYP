@@ -1,0 +1,15 @@
+{
+  "id": "muhammadhassan2/faithsr-3x-native-sentinel-2-l2a",
+  "title": "FaithSR-3X Native Sentinel-2 L2A",
+  "code_file": "faithsr3x_native_l2a.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "muhammadhassan2/faithsr-3x-private-source"
+  ],
+  "competition_sources": [],
+  "kernel_sources": []
+}

@@ -1,0 +1,23 @@
+{
+  "experiment_id": "swin2sr_full_finetune_native_l2a_v3",
+  "kaggle_kernel": "muhammadhassan2/faithsr-3x-swin2sr-full-finetune-native-l2a",
+  "kaggle_kernel_version": 3,
+  "completed_utc_date": "2026-09-11",
+  "validation_decision": "accepted held-out validation evidence; frozen and full-fine-tune methods use identical files and degradation observations",
+  "visual_audit": "passed: method-specific labels, non-black median-texture sample, and non-degenerate metrics",
+  "repetition_note": "three independent short runs changed fine-tuned mean PSNR by less than 0.00038 dB; the reported v3 conclusion is stable",
+  "sha256": {
+    "environment.txt": "c42e6cd3b70dd64417ddfdc3b37603a3372b2a5cc52075a7065855e5eaa054b1",
+    "swin2sr/best.pth": "66cd46d9f1cf25a196abd0b166edfd6a415490cd0ee1e9fe54e267e24e6a4942",
+    "swin2sr/best-preview.png": "81eec2eb78c9442ddfcbba449ba84f4f20c902aec9522f25bd71ebfa275357fa",
+    "swin2sr/best-preview.json": "b302d3673fcb4a718f73a4681414428e2e0f51a5e4c462c653c530ebd7da6dbc",
+    "swin2sr/frozen-preview.png": "d2c80d5a78aa2984e3e194df7d7cfac1b0018c1c178c16aa3c7b75d806d2fad8",
+    "swin2sr/frozen-preview.json": "21bb6f9fa6b5c1856f7169c352b1811fdcbb5ebe4adcd52bdfee8d0107b48cd9",
+    "swin2sr/comparison.csv": "022e1d799992247d461d2868f87d8bcf7502ba0990b4799a6c5eaa14f153f69b",
+    "swin2sr/comparison.summary.json": "a1b9d0d7d1baf4d7332960933dcedbe2d16fcec5e5566d17d98b19397fa07b43",
+    "swin2sr/degradations.jsonl": "07ec1d5557ae9ce2a9055d7fa3b9ff6529d7519dea8b527ed087194ca868277b",
+    "swin2sr/metrics.csv": "c947823f6b5e35122df6eac6472728ed00bc12b336f36173eb81ec89810c7b6b",
+    "swin2sr/model-card.md": "4c73a5ce4ebb8920f9e3f76ab9bd627e325909b24e2d89d490799bc2748b7c19",
+    "swin2sr/split.json": "533532eeca4f1ffd3cfdc5742ae44ed213c4114caa2d4ce4475e0aa53b5bb31a"
+  }
+}

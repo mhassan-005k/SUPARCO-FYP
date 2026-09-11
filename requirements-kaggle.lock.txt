@@ -1,0 +1,8 @@
+# Direct pins used by the successful Tesla P100 distillation environment.
+# CUDA wheels are installed from https://download.pytorch.org/whl/cu121.
+torch==2.5.1
+torchvision==0.20.1
+transformers==4.47.1
+lpips==0.1.4
+PyYAML==6.0.3
+scikit-image==0.25.2

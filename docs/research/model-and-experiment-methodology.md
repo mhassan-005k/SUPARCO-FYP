@@ -338,6 +338,44 @@ EuroSAT/Sentinel full weights are (1.0,0.1,0.03,0.02,0.05,0.02,0.02,0.0\). Disti
 
 Code: [`src/faithsr/losses.py`](../../src/faithsr/losses.py). SSIM reference: [Wang et al., 2004](https://ece.uwaterloo.ca/~z70wang/publications/ssim.pdf). Realistic-degradation motivation: [Real-ESRGAN](https://arxiv.org/abs/2107.10833).
 
+## Realistic degradation curriculum and replay manifest
+
+Every synthetic LR observation records blur, Gaussian/Poisson noise severity, compression, aliasing mode, kernel axes/angle, JPEG quality, kernel family, MTF-at-Nyquist target, severity cap, and random seed in `degradations.jsonl`. The training record is append-only by epoch and its SHA-256 is written into `run.json`; this makes an individual LR sample reconstructable rather than merely statistically similar.
+
+For an MTF-inspired Gaussian point-spread function, the implementation uses
+
+\[
+\operatorname{MTF}(f)=\exp(-2\pi^2\sigma^2 f^2),\qquad
+\sigma=\frac{\sqrt{-2\ln m_N}}{\pi}
+\]
+
+at Nyquist frequency \(f=0.5\), where \(m_N\) is the sampled MTF target. An anisotropic axis ratio and angle then represent directional blur. This is a controlled Gaussian MTF approximation, not a claim that one generic kernel reproduces a named satellite sensor.
+
+The epoch severity cap follows
+
+\[
+s_e=s_0+(1-s_0)\min\left(1,\frac{e-1}{E_c-1}\right),
+\]
+
+where \(s_0\) is the starting severity and \(E_c\) is the configured curriculum duration. Early epochs therefore learn the exact x3 inverse problem under milder corruptions before the full blur/noise/compression/aliasing range is exposed. Validation always uses the frozen full range and deterministic per-image seeds.
+
+```mermaid
+flowchart LR
+    HR["Held-out/train HR patch"] --> K["Gaussian or MTF-Gaussian PSF"]
+    K --> DS["Antialiased exact 3x decimation"]
+    DS --> N["Gaussian + conditional Poisson noise"]
+    N --> C["JPEG/compression simulation"]
+    C --> Q["Clip + uint8 quantization"]
+    Q --> LR["Observed LR"]
+    K --> M["JSONL parameters + seed"]
+    DS --> M
+    N --> M
+    C --> M
+    Q --> M
+```
+
+Why added after earlier experiments: EuroSAT v8 and Sentinel v1 preserved only validation degradation details in comparison CSVs. The new manifest closes the training-provenance gap and the curriculum makes the intended easy-to-severe schedule executable. Historical metrics remain under their original generator and are not retroactively relabelled.
+
 ## EuroSAT native-3x experiments
 
 ### EuroSAT preliminary v8
@@ -382,7 +420,7 @@ Artifacts: [`artifacts/results/faithsr3x/eurosat_matched_v3/`](../../artifacts/r
 
 ## Sentinel-2 Delhi geographic ablation experiment
 
-Status: four matched custom variants completed in Kaggle kernel v1. The distilled/pretrained stage failed before training because of a Torch/TorchVision ABI mismatch and is being rerun separately with compatible pins. Partial completion is labelled explicitly.
+Status: four matched custom variants completed in Kaggle kernel v1. Distillation attempts v1/v2 failed for documented configuration/autograd reasons; corrected v3 completed with a compatible pinned environment. Historical failures and final artifacts are both retained.
 
 Dataset role: CC0 Sentinel-2 RGB display patches, 128x128 at reported 10 m/pixel, coordinate-named over Delhi NCR. It is more geographically explicit than EuroSAT but does not contain native L2A DN/quantification metadata, so it is not a replacement for the planned reflectance-controlled L2A experiment.
 
@@ -426,6 +464,84 @@ flowchart TD
 ```
 
 Kernel: `muhammadhassan2/faithsr-3x-sentinel-delhi-ablation`. Config: [`configs/sentinel_delhi_kaggle.yaml`](../../configs/sentinel_delhi_kaggle.yaml).
+
+## Native Sentinel-2 L2A radiometric experiment
+
+Why run: Delhi tiles are useful geographic RGB evidence but omit native L2A DN, scale/offset and acquisition provenance. This experiment closes that gap while still targeting the supervisor-confirmed 8-bit TIFF interface.
+
+For STAC-provided digital number (d_c), scale (s_c), offset (o_c), and frozen display limits (a=0,b=0.3), each B04/B03/B02 channel is mapped by
+
+\[
+r_c=s_c d_c+o_c,\qquad
+u_c=\operatorname{round}\left(255\,\operatorname{clip}\left(\frac{r_c-a}{b-a},0,1\right)\right).
+\]
+
+This mapping is a documented derived 8-bit product, not a claim that native Sentinel data are intrinsically 8-bit. Source item ID, canonical STAC item hash, band URLs, acquisition time, cloud cover, CRS, transform, source/window dimensions, scale, offset and clipping limits are preserved in JSON and TIFF tags. Dataset masks exclude nodata. The L2A SCL classes 2, 4, 5, 6 and 7 define mechanically selected usable overview windows; cloud/cloud-shadow/snow/nodata classes are excluded. An eligible overview block requires at least 95% accepted SCL pixels and 55% pixels above 0.01 reflectance, then maximum red-channel P90-P10 range wins. Every final uint8 tile also requires at least 75% nonzero pixels and mean channel standard deviation at least 2.0. These thresholds use input statistics only and are frozen before training.
+
+```mermaid
+flowchart LR
+    STAC["Element84 Sentinel-2 L2A STAC"] --> META["Item ID, date, CRS, scale/offset"]
+    STAC --> RGB["10 m B04/B03/B02 COG windows"]
+    STAC --> SCL["Scene Classification Layer"]
+    SCL --> PICK["Mechanically select valid window"]
+    RGB --> REF["DN to surface reflectance"]
+    META --> REF
+    REF --> U8["Frozen [0,0.3] clip to uint8"]
+    PICK --> U8
+    U8 --> TILE["192x192 georeferenced TIFF tiles"]
+    TILE --> SCENE["Whole-scene train/validation split"]
+    SCENE --> EXP["Plain / Uncertainty-only / Full"]
+    EXP --> EVID["Metrics + saved held-out preview"]
+```
+
+The native comparison isolates uncertainty explicitly:
+
+| Variant | Active paths | Mathematical change | Why needed |
+|---|---|---|---|
+| Plain | GELU residual backbone + PixelShuffle(3) | \(\hat y=P_3(C(h_L))+B_3(x)\) | Minimum custom exact-3x control. |
+| Uncertainty-only | Plain + sigmoid risk head | \(u=\sigma(C_u(h_L))\) and heteroscedastic calibration term | Measures risk-head cost/benefit without DA/AOC confounding. |
+| Full | Encoder/FiLM + learned observation correction + uncertainty | Full forward and loss defined above | Tests the complete personalized hypothesis on native radiometric provenance. |
+
+All three use the same six-scene candidate design, accepted v6 manifest, seed 0, 60 epochs, MTF-aware mixed degradation curriculum, scene-parent split, best-validation-PSNR selection, and per-image interpolation comparison. The reported tile count comes only from the accepted manifest after content filtering. Each best-checkpoint preview uses the held-out sample at median HR spatial standard deviation, selected before training without model scores. GELU remains the backbone activation for smooth gating; sigmoid is used only where a bounded 0-to-1 uncertainty/risk field is required; PixelShuffle(3) makes the output scale exactly 3 rather than resizing an x4 pretrained output.
+
+### Native L2A v6 accepted mixed/negative result
+
+The final content screen retained 86 tiles from six scenes. Whole-scene separation produced 39 training and 47 held-out validation images in three scene clusters. v4 was rejected because comparison used legacy degradation defaults; v5 was rejected because comparison still used seed 42. v6 records seed 0, crop 192, MTF probability 0.5 and mixture probability 0.75, and its non-LPIPS bicubic metrics exactly match the independent pretrained experiment. Per-image means are:
+
+| Method | Params | Best epoch | PSNR | SSIM | False-edge | SAM (rad) | ERGAS | LPIPS | UQ corr. |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Bicubic | 0 | — | **23.41633** | 0.59057 | **0.13229** | **0.40417** | **28.04499** | 0.62166 | — |
+| Plain | 56,433 | 58 | 23.13413 | 0.59140 | 0.13601 | 0.41702 | 29.12315 | 0.53151 | — |
+| Uncertainty-only | 61,202 | 56 | 23.13498 | **0.59275** | 0.13560 | 0.41663 | 29.08632 | **0.53138** | -0.25121 |
+| Full | 117,224 | 60 | 23.05308 | 0.58783 | 0.13795 | 0.42096 | 29.37433 | 0.54940 | -0.26663 |
+
+Scene-cluster intervals prevent unequal scene sizes from silently dominating inference. Plain-minus-bicubic PSNR is -0.26044 dB (95% CI -0.33753 to -0.18336) and LPIPS is -0.09189 (-0.10172 to -0.08206). Full-minus-bicubic PSNR is -0.33530 dB (-0.43653 to -0.23407), false-edge is +0.00496 (+0.00019 to +0.00972), and LPIPS is -0.07370 (-0.08085 to -0.06655). Thus the compact network has a perceptual trade-off but does not beat bicubic fidelity on this stricter native corpus; the complete personalization paths hurt more than they help. Negative uncertainty-error correlation rejects the current calibrated-risk interpretation. The tiny 39-tile training side and native radiometric/domain shift are plausible constraints, not excuses or proven causes; held-out scenes will not be used for post-hoc tuning.
+
+Artifacts: [`sentinel_l2a_native_v6`](../../artifacts/training_runs/faithsr3x/sentinel_l2a_native_v6/). The automatic previews directly print bicubic and model PSNR, and `artifact-provenance.json` freezes hashes for key evidence.
+
+### Fully fine-tuned pretrained control on native L2A
+
+This control answers whether personalization of a pretrained model works when every weight, rather than only a wrapper or custom student, adapts to the native training split. For pinned Swin2SR x4 function (S_{\theta}), the exact comparison output is
+
+\[
+\hat y=\mathcal R_{3H,3W}(S_{\theta}(x)),\qquad
+\theta^*=\arg\min_{\theta}\sum_i\operatorname{SmoothL1}(\hat y_i,y_i).
+\]
+
+All 12,239,283 parameters are trainable for three AdamW epochs at learning rate (10^{-5}). Shifted-window attention captures nonlocal structure; LayerNorm stabilizes transformer blocks; GELU supplies smooth MLP gating; residual connections preserve low-frequency evidence; the inherited x4 PixelShuffle head reconstructs first, and a separately declared antialiased bicubic operator produces exactly x3. This last resize is necessary because the immutable public checkpoint is x4 and prevents a false native-x3 claim.
+
+```mermaid
+flowchart LR
+    LR["Native-protocol LR"] --> EMB["Convolutional embedding"]
+    EMB --> SW["Residual shifted-window SwinV2 groups\nLayerNorm + attention + GELU MLP"]
+    SW --> PX["Inherited PixelShuffle x4"]
+    PX --> R3["Declared antialiased resize to x3"]
+    R3 --> L["Smooth-L1 to held-out-protocol HR"]
+```
+
+Frozen Swin2SR reaches 21.92152 dB PSNR, 0.54311 SSIM and 0.47065 LPIPS. Full fine-tuning reaches 23.77746 dB, 0.61740 and 0.55062 versus bicubic 23.41633 dB, 0.59057 and 0.62166. Fine-tuned scene-cluster deltas are +0.33646 dB PSNR (95% CI +0.04417 to +0.62876), +0.02883 SSIM, -0.00821 false-edge, -0.02050 rad SAM and -0.07080 LPIPS. This is strong evidence that domain/task personalization matters. It is not evidence that a 12.24M x4-plus-resize model is the project's compact native-x3 contribution; it is roughly 104.4x larger than Full FaithSR. These are held-out validation metrics because the same split selected epoch 3, not an untouched final test.
+
+Artifacts and complete generated model card: [`swin2sr_full_finetune_native_l2a_v3`](../../artifacts/training_runs/faithsr3x/swin2sr_full_finetune_native_l2a_v3/). References: Conde et al., [Swin2SR](https://arxiv.org/abs/2209.11345), and the [immutable checkpoint configuration](https://huggingface.co/caidas/swin2SR-classical-sr-x4-64/blob/c69ef3e2d2ac5777ff4a9f2f5afcd86d20604b7e/config.json).
 
 ### Sentinel v1 completed results
 
@@ -581,3 +697,4 @@ The unadapted x4 teacher resized to x3 performed poorly on this matched Sentinel
 6. Wang et al., “Real-ESRGAN: Training Real-World Blind Super-Resolution with Pure Synthetic Data,” 2021: https://arxiv.org/abs/2107.10833
 7. Ngambenjavichaikul et al., “Development of a Super-Resolution Satellite Image Processing System on an Edge AI Platform,” ISMAC 2025. Local supplied text: [`docs/references/edge-ai-sr-platform-paper.md`](../references/edge-ai-sr-platform-paper.md).
 8. Delhi Airshed Sentinel-2 RGB and Landcover dataset (CC0): https://www.kaggle.com/datasets/rishabhsnip/earth-observation-delhi-airshed
+9. Element84 Earth Search Sentinel-2 L2A STAC collection: https://earth-search.aws.element84.com/v1/collections/sentinel-2-l2a

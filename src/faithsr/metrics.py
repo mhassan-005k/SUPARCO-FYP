@@ -6,6 +6,30 @@ import torch.nn.functional as F
 from .losses import sobel_magnitude, ssim_loss
 
 
+class LPIPSMetric:
+    """Optional learned perceptual metric; inputs remain in the documented RGB [0,1] domain."""
+
+    def __init__(self, device: str | torch.device, network: str = "alex") -> None:
+        if network not in {"alex", "vgg", "squeeze"}:
+            raise ValueError("LPIPS network must be alex, vgg, or squeeze")
+        try:
+            import lpips
+        except ImportError as error:
+            raise RuntimeError("Install faithsr[metrics] to compute LPIPS") from error
+        self.device = torch.device(device)
+        self.network = network
+        self.model = lpips.LPIPS(net=network).to(self.device).eval()
+        for parameter in self.model.parameters():
+            parameter.requires_grad_(False)
+
+    @torch.inference_mode()
+    def __call__(self, prediction: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+        if prediction.ndim != 4 or target.shape != prediction.shape or prediction.shape[1] != 3:
+            raise ValueError("LPIPS requires matching BCHW three-band RGB tensors")
+        values = self.model(prediction.to(self.device) * 2 - 1, target.to(self.device) * 2 - 1)
+        return values.flatten(1).mean(1)
+
+
 def psnr(prediction: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
     mse = F.mse_loss(prediction, target)
     return 10 * torch.log10(1.0 / (mse + 1e-12))

@@ -12,7 +12,7 @@ import rasterio
 import torch
 from torch.utils.data import Dataset
 
-from .degradation import degrade
+from .degradation import DegradationParameters, degrade
 
 
 def discover_images(root: str | Path, extensions: set[str] | None = None) -> list[Path]:
@@ -60,10 +60,18 @@ def read_image(path: Path, bands: int = 3) -> torch.Tensor:
 
 
 class SyntheticSRDataset(Dataset):
-    def __init__(self, files: list[Path], crop_size: int = 192, bands: int = 3, train: bool = True, seed: int = 42) -> None:
+    def __init__(self, files: list[Path], crop_size: int = 192, bands: int = 3, train: bool = True, seed: int = 42, max_severity: float = 1.0, mtf_probability: float = 0.0, complex_probability: float = 1.0) -> None:
         if crop_size % 3:
             raise ValueError("HR crop size must be divisible by 3")
         self.files, self.crop_size, self.bands, self.train, self.seed = files, crop_size, bands, train, seed
+        if not 0 <= complex_probability <= 1:
+            raise ValueError("Complex degradation probability must be within [0,1]")
+        self.max_severity, self.mtf_probability, self.complex_probability = max_severity, mtf_probability, complex_probability
+
+    def set_degradation_severity(self, value: float) -> None:
+        if not 0 <= value <= 1:
+            raise ValueError("Degradation severity must be within [0,1]")
+        self.max_severity = value
 
     def __len__(self) -> int:
         return len(self.files)
@@ -82,7 +90,9 @@ class SyntheticSRDataset(Dataset):
             if rng.random() < 0.5:
                 hr = hr.flip(2)
         degradation_seed = rng.randrange(0, 2**31) if self.train else self.seed + index
-        lr, parameters = degrade(hr, seed=degradation_seed)
+        use_complex = self.complex_probability >= 1 or rng.random() < self.complex_probability
+        parameters = None if use_complex else DegradationParameters(0.0, 0.0, 0.0, 0.0, 0.25, 0.25, 0.0, 100, "bicubic_reference", None, 0.0)
+        lr, parameters = degrade(hr, seed=degradation_seed, params=parameters, max_severity=self.max_severity, mtf_probability=self.mtf_probability)
         details = json.dumps({"seed": degradation_seed, **parameters.to_dict()}, sort_keys=True)
         return lr, hr, parameters.normalized_target(), str(self.files[index]), details
 
@@ -90,3 +100,12 @@ class SyntheticSRDataset(Dataset):
 def write_split_manifest(path: str | Path, train: list[Path], validation: list[Path], seed: int, grid_degrees: float = 0.1) -> None:
     payload = {"seed": seed, "strategy": "coordinate-grid-when-available-else-parent-group", "grid_degrees": grid_degrees, "train": [str(p) for p in train], "validation": [str(p) for p in validation]}
     Path(path).write_text(json.dumps(payload, indent=2), encoding="utf-8")
+
+
+def append_degradation_records(path: str | Path, epoch: int, sources: list[str] | tuple[str, ...], details: list[str] | tuple[str, ...]) -> None:
+    """Persist the exact sampled LR formation parameters for every training observation."""
+    if len(sources) != len(details):
+        raise ValueError("Source and degradation record counts differ")
+    with Path(path).open("a", encoding="utf-8", newline="\n") as handle:
+        for source, detail in zip(sources, details):
+            handle.write(json.dumps({"epoch": epoch, "source": source, "degradation": json.loads(detail)}, sort_keys=True) + "\n")
