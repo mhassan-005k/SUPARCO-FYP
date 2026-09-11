@@ -38,7 +38,12 @@ if upload:
             if not Path(checkpoint).exists(): st.error("Checkpoint not found")
             else:
                 device = "cuda" if torch.cuda.is_available() else "cpu"; model, state = load_checkpoint(checkpoint, device); output = session / f"{source.stem}_faithsr3x.tiff"
-                with st.spinner("Processing tiles and preserving metadata..."): audit = process_tiff(source, output, model, device, model_version=f"epoch-{state.get('epoch', 'unknown')}", compression=compression, precision=precision)
+                progress = st.progress(0, text="Preparing tiled inference...")
+                def report_progress(completed: int, total: int) -> None:
+                    progress.progress(completed / total, text=f"Processing tile {completed} of {total}")
+                with st.spinner("Processing tiles and preserving metadata..."):
+                    audit = process_tiff(source, output, model, device, model_version=f"epoch-{state.get('epoch', 'unknown')}", compression=compression, precision=precision, progress_callback=report_progress)
+                progress.progress(1.0, text="Inference and metadata-preserving write complete")
                 st.success("3x output complete"); st.json(audit)
                 with rasterio.open(output) as dataset:
                     indexes = list(range(1, min(3, dataset.count) + 1))

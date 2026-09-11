@@ -182,7 +182,7 @@ Per-experiment cards: [Base x4](model-cards/faithsr-v01-base-x4.md), [Degradatio
 
 ### Why a new architecture was required
 
-The confirmed output is exactly x3, whereas v0.1 was x2/x4. The v0.1 degradation target lacked aliasing, its observation operator was fixed bicubic, and it had no spatial uncertainty. FaithSR-3X addresses those specific gaps while remaining much smaller than Swin2SR.
+The current custom output is native x3 and therefore meets the confirmed minimum-x3 requirement, whereas v0.1 was x2/x4. The v0.1 degradation target lacked aliasing, its observation operator was fixed bicubic, and it had no spatial uncertainty. FaithSR-3X addresses those specific gaps while remaining much smaller than Swin2SR; native-x4 pretrained output is also a valid product candidate.
 
 ### Layer-by-layer definition (EuroSAT/Sentinel configuration)
 
@@ -669,7 +669,7 @@ T_3(x)=\operatorname{Resize}_{3/4}(T_{\text{Swin2SR-x4}}(x)),
 \mathcal L_{KD}=\lVert \hat y-T_3(x)\rVert_1,
 \]
 
-and epochs 1–3 optimize \(\mathcal L_{full}+0.05\mathcal L_{KD}\). Resizing is explicit because the public teacher is intrinsically x4 while the requirement is exactly x3. GELU is used inside both the compact student residual blocks and the teacher’s MLPs because its smooth gating supports gradient flow; the student ends with a 27-channel convolution and PixelShuffle(3), which deterministically rearranges channels into exactly 3x spatial dimensions.
+and epochs 1–3 optimize \(\mathcal L_{full}+0.05\mathcal L_{KD}\). Resizing is explicit because this experiment compares an intrinsically x4 public teacher against an x3 student under the same x3 target protocol. It is not imposed by the corrected SUPARCO requirement, which accepts any scale of at least 3x. GELU is used inside both the compact student residual blocks and the teacher’s MLPs because its smooth gating supports gradient flow; the student ends with a 27-channel convolution and PixelShuffle(3), which deterministically rearranges channels into exactly 3x spatial dimensions.
 
 ```mermaid
 flowchart LR

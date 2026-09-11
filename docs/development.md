@@ -87,6 +87,8 @@ Use `--precision fp16` only on CUDA. Both CLI inference and benchmarking reject 
 .venv\Scripts\streamlit run app.py
 ```
 
+The application reports completed/total tiles during disk-backed inference. The same progress callback is available through `process_tiff(..., progress_callback=...)`; callbacks receive `(completed_tiles, total_tiles)`. Output download is enabled only after the metadata-preserving write and audit sidecar complete.
+
 ## ONNX export
 
 ```powershell

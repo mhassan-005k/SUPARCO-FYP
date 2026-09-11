@@ -1,28 +1,30 @@
-# FaithSR-3X Updated Implementation Plan
+# FaithSR Updated Implementation Plan and Evidence-Driven Next Direction
 
-Status: Core system, public Sentinel RGB ablations, pretrained-teacher personalization, downstream probe, ONNX export, FP16/deployment benchmarks, accepted native Sentinel-2 L2A mixed/negative experiment, and fully fine-tuned pretrained control are complete; restricted SUPARCO validation remains externally gated
+Status: Native-3x core system and public-data plan complete; SUPARCO requirement corrected to minimum 3x; native-x4 Swin2SR diagnostic is the next research gate; restricted validation remains externally gated
 
-Last updated: 2026-09-09
+Last updated: 2026-09-11
 
 ## 1. Final product requirement
 
-System ka input 8-bit `.tiff` image hoga aur output exactly 3x spatial resolution ka 8-bit `.tiff` hoga. Available TIFF/GeoTIFF metadata output ke sath preserve kiya jayega. Width, height, affine transform aur pixel spacing jaisi scale-dependent values 3x output ke mutabiq update hongi; CRS, geographic bounds, band order, tags, no-data aur masks jahan valid hon wahan same rahenge.
+System ka input 8-bit `.tiff` image hoga aur output **minimum 3x** spatial resolution ka 8-bit `.tiff` hoga. Current FaithSR pipeline native 3x hai, lekin native 4x Swin2SR bhi requirement-compliant hai aur usay sirf requirement ke liye 3x par resize karna zaroori nahi. Available TIFF/GeoTIFF metadata output ke sath preserve kiya jayega. Width, height, affine transform aur pixel spacing jaisi scale-dependent values declared output scale ke mutabiq update hongi; CRS, geographic bounds, band order, tags, no-data aur masks jahan valid hon wahan same rahenge.
 
 Primary objective visually dramatic sharpening nahi, balkeh data-faithful reconstruction aur minimum hallucination hai. Model ko aisi building, road, edge ya texture invent nahi karni jo input observation support na karti ho.
 
 ## 2. Proposed research model
 
-Working name: **FaithSR-3X**
+Working name: **FaithSR**; final architecture/name diagnostic evidence ke baad freeze hoga.
 
-Final model sirf pretrained model ka wrapper nahi hoga. Pretrained Swin2SR/HAT ko strong teacher aur baseline ke taur par use kiya jayega, jabke deploy hone wala student hamara custom lightweight network hoga:
+Final model ko pehle se custom student ya kisi fashionable hybrid par lock nahi kiya jayega. Current strongest public-data candidate fully fine-tuned Swin2SR hai. Pehle uski native-x4 speed, degradation-wise fidelity aur hallucination weaknesses measure hongi. Sirf measured deficiency ko solve karne ke liye degradation conditioning, consistency, frequency refinement ya Mamba/global-context component add hoga. Current custom FaithSR candidate ke implemented components ye hain:
 
 1. **Degradation encoder:** har input tile se blur, noise, compression aur aliasing ka compact representation estimate karega.
 2. **Degradation-conditioned backbone:** estimated degradation ke mutabiq feature processing adapt karega.
-3. **Native 3x reconstruction head:** PixelShuffle-compatible 3x head 512x512 tile ko 1536x1536 banayega.
+3. **Native 3x reconstruction head:** PixelShuffle-compatible 3x head 512x512 tile ko 1536x1536 banata hai aur minimum-3x requirement satisfy karta hai.
 4. **Learned observation operator:** SR output ko estimated degradation ke through dobara LR space mein project karega.
 5. **Fidelity correction:** agar re-degraded output original input se disagree kare to unsupported detail ko reduce karega.
 6. **Uncertainty head:** har output region ka confidence/risk map dega, taa-ke analyst questionable reconstruction identify kar sake.
-7. **Teacher distillation:** pretrained teacher se useful spatial knowledge transfer hogi, lekin student ki architecture, losses, consistency mechanism aur uncertainty hamari research contribution honge.
+7. **Teacher distillation:** pretrained teacher se useful spatial knowledge transfer test hui; isay contribution tabhi kaha jayega jab matched ablation improvement show kare.
+
+Fine-tuning a pretrained network valid personalization hai, magar paper contribution ko honestly distinguish kiya jayega. Agar native-x4 fine-tuned Swin2SR already quality aur latency pass karta hai, to hybrid sirf tab banega jab targeted ablation uski diagnosed weakness improve kare.
 
 GAN aur diffusion ko primary model mein use nahi kiya jayega, kyunke perceptual realism ke liye invented detail scientific interpretation ko damage kar sakti hai.
 
@@ -76,7 +78,7 @@ Exit criteria: synthetic fixtures par input/output metadata tests 100% pass hon;
 - bicubic, bilinear aur nearest baselines;
 - current FaithSR backbone ko 3x reconstruction head dena;
 - same parameter budget mein plain lightweight CNN baseline;
-- pretrained teacher ko 3x task ke liye reproducible inference/fine-tuning baseline banana.
+- pretrained teacher ko reproducible frozen/fine-tuned baseline banana; earlier x3 protocol parity aur new native-x4 product path ko separately label karna.
 
 Exit criteria: all models arbitrary valid tile sizes par correct 3x tensor shape dein aur evaluation script ek common metrics table generate kare.
 
@@ -129,7 +131,7 @@ Exit criteria: complete dataset results, confidence intervals, failure cases aur
 
 ### Phase 6 - Speed optimization
 
-Benchmark target: confirmed hardware par 512x512 input to 1536x1536 output. Model-only aur complete TIFF read/tile/stitch/write latency separately report hogi. Warm-up, CUDA synchronization, at least 100 runs, mean/median/P95 aur peak VRAM record hongi.
+Benchmark target: confirmed hardware par 512x512 input to at least 1536x1536 output. Native-x4 ke liye output 2048x2048 hoga. Model-only aur complete TIFF read/tile/stitch/write latency separately report hogi. Warm-up, CUDA synchronization, at least 100 runs, mean/median/P95 aur peak VRAM record hongi.
 
 Optimization order:
 
@@ -154,6 +156,25 @@ Exit criteria: sub-one-second claim sirf specified hardware aur clearly defined 
 - downloadable audit JSON containing model version, checksum, runtime, metadata handling and warnings.
 
 Exit criteria: representative large raster without seams process ho, output reopen ho aur metadata verification pass ho.
+
+### Phase 8 - Strongest-baseline diagnosis and justified hybrid decision
+
+Immediate next experiment fully fine-tuned Swin2SR ko native x4 par test karega; x4 output ko x3 resize nahi kiya jayega. Aik frozen, scene-disjoint protocol par ye record hoga:
+
+- 512x512 to 2048x2048 model-only aur end-to-end TIFF mean/median/P95 latency, peak VRAM;
+- degradation-family/severity-wise PSNR, SSIM, LPIPS, false-edge, edge precision/recall, SAM, ERGAS aur observation consistency;
+- deterministic worst/median/best previews with metric JSON;
+- failure categories: blur/noise/compression sensitivity, invented edges, broken long-range roads/fields, aur weak high-frequency detail.
+
+Uske baad component selection evidence-driven hogi:
+
+- degradation-specific failure ho to degradation conditioning;
+- hallucination/observation mismatch ho to bounded consistency correction;
+- local frequency/detail failure ho to frequency refiner;
+- long-range structure failure ho to lightweight Mamba/global-context branch;
+- koi material failure na ho aur latency pass ho to unnecessary hybrid add nahi ki jayegi.
+
+Exit criteria: deficiency ranking aur confidence intervals save hon; proposed component ka hypothesis pre-register ho; matched ablation improvement ke baghair architecture novelty claim na ho.
 
 ## 5. Mandatory tests
 
@@ -197,4 +218,4 @@ Claim tabhi paper mein final hoga jab corresponding experiment, metric implement
 
 ## 8. Recommended execution order
 
-Sab se pehle Phase 0 aur Phase 1 implement hon. Uske baad native 3x baseline aur realistic degradation dataset banaya jaye. Strong baseline establish hone ke baad FaithSR-3X ke components one-by-one add aur ablate hon. Model fidelity pass karne ke baad hi deployment optimization aur application UI final ki jaye.
+Phases 0-7 execute ho chuki hain. Ab Phase 8 mein strongest proven fine-tuned Swin2SR ka native-x4 diagnostic hoga. Result ke baad sirf diagnosed weakness ke liye aik targeted component select aur matched ablation ki jayegi. Restricted SUPARCO holdout final external-validity gate rahega.

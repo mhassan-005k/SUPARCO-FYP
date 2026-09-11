@@ -1,10 +1,12 @@
-# SUPARCO FYP - Faithful 3x Satellite Image Super-Resolution
+# SUPARCO FYP - Faithful Satellite Image Super-Resolution (minimum 3x)
 
 This repository contains the research, experiments, checkpoints, and supporting documents for a satellite image super-resolution system intended for SUPARCO analysts.
 
 ## Target system
 
-The intended application accepts an arbitrary raster image, primarily GeoTIFF (`.tif`/`.tiff`), and returns a **3x spatially upscaled** image with:
+The intended application accepts an arbitrary raster image, primarily GeoTIFF (`.tif`/`.tiff`), and returns an image with **at least 3x spatial upscaling**. The implemented FaithSR path is native 3x; a native 4x model is also requirement-compliant and does not need to be resized back to 3x.
+
+The output must provide:
 
 - minimal hallucinated geographic detail;
 - preservation of the source CRS, affine transform, band information, bit depth, and other available metadata;
@@ -15,11 +17,11 @@ The model should therefore be **blind degradation-aware and image-adaptive**, no
 
 ## Current research status
 
-The active `faithsr` package implements a custom native-3x model with blind degradation conditioning, learned observation consistency, uncertainty output, deterministic degradation replay, documented Sentinel-2 L2A-to-uint8 derivation, 8-bit GeoTIFF metadata preservation, disk-backed tiled inference, comparison metrics, ONNX export, and a Streamlit interface. Pretrained Swin2SR is retained as a pinned baseline/teacher; it is not the deployed architecture. The older `FaithSRNetV01` remains an archived 2x/4x baseline.
+The active `faithsr` package implements a custom native-3x model with blind degradation conditioning, learned observation consistency, uncertainty output, deterministic degradation replay, documented Sentinel-2 L2A-to-uint8 derivation, 8-bit GeoTIFF metadata preservation, disk-backed tiled inference, comparison metrics, ONNX export, and a Streamlit interface. Fully fine-tuned Swin2SR is the strongest current public-data baseline and is now a valid final-model candidate because its native 4x output satisfies the corrected minimum-3x requirement. Final architecture selection is deliberately deferred until native-x4 latency and degradation/fidelity diagnostics identify what, if anything, a hybrid component must fix. The older `FaithSRNetV01` remains an archived 2x/4x baseline.
 
 The first preliminary native-3x EuroSAT RGB Kaggle run completed on 2026-09-09. Its 117,224-parameter model reached 30.6966 dB PSNR and 0.84078 SSIM at epoch 25 on a deterministic 6,000-image held-out split. Matched evaluation reached 30.6825 dB versus 22.7390 dB bicubic PSNR, while model-only P95 latency was 54.04 ms for 512x512 input on a Tesla P100. This is synthetic-degradation evidence only—not yet a Sentinel-2, pretrained-baseline, end-to-end deployment, or SUPARCO claim. Raw artifacts and provenance are under `artifacts/training_runs/faithsr3x/eurosat_preliminary_v8/` and `artifacts/results/faithsr3x/eurosat_matched_v3/`.
 
-On 1,728 geographically held-out Delhi Sentinel RGB tiles, Full FaithSR reached 24.1911 dB versus bicubic 22.3652 dB and reduced false-edge rate from 0.16018 to 0.13142. The stricter native-L2A v6 test uses six public STAC scenes from Karachi, Lahore, and Islamabad, 86 content-screened tiles, and complete scene separation. It is retained mixed/negative evidence: Plain FaithSR trails bicubic PSNR by a scene-cluster mean 0.2604 dB but improves LPIPS by 0.0919; Full trails by 0.3353 dB and its uncertainty correlation is negative. In contrast, fully fine-tuning all 12.24M parameters of pinned Swin2SR improves PSNR by 0.3365 dB, SSIM by 0.02883, false-edge rate by 0.00821, and LPIPS by 0.07080 over bicubic on the identical 47-image held-out protocol. This demonstrates effective pretrained personalization, but the x4 model plus declared resize is 104x larger than the native-x3 Full student and is not relabeled as the proposed custom architecture. Restricted SUPARCO validation remains an external gate.
+On 1,728 geographically held-out Delhi Sentinel RGB tiles, Full FaithSR reached 24.1911 dB versus bicubic 22.3652 dB and reduced false-edge rate from 0.16018 to 0.13142. The stricter native-L2A v6 test uses six public STAC scenes from Karachi, Lahore, and Islamabad, 86 content-screened tiles, and complete scene separation. It is retained mixed/negative evidence: Plain FaithSR trails bicubic PSNR by a scene-cluster mean 0.2604 dB but improves LPIPS by 0.0919; Full trails by 0.3353 dB and its uncertainty correlation is negative. In contrast, fully fine-tuning all 12.24M parameters of pinned Swin2SR improves PSNR by 0.3365 dB, SSIM by 0.02883, false-edge rate by 0.00821, and LPIPS by 0.07080 over bicubic on the identical 47-image held-out x3-comparison protocol. That experiment explicitly resized x4 output to x3 only to preserve protocol parity; the corrected requirement permits native x4 output. Restricted SUPARCO validation remains an external gate.
 
 ### FaithSRNet v0.1 ablation results
 
@@ -96,6 +98,7 @@ Each best checkpoint saves a deterministic held-out `best-preview.png/json` with
 - SUPARCO meeting requirements: [`docs/meetings/2026-07-30-suparco-meeting.txt`](docs/meetings/2026-07-30-suparco-meeting.txt)
 - Input/output and metadata contract: [`docs/requirements/data-contract.md`](docs/requirements/data-contract.md)
 - Updated implementation plan: [`docs/implementation-plan.md`](docs/implementation-plan.md)
+- Completion and evidence audit: [`docs/completion-audit.md`](docs/completion-audit.md)
 - Development and reproduction guide: [`docs/development.md`](docs/development.md)
 - Kaggle execution runbook: [`docs/kaggle-runbook.md`](docs/kaggle-runbook.md)
 - Public and restricted dataset strategy: [`docs/requirements/dataset-strategy.md`](docs/requirements/dataset-strategy.md)

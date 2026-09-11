@@ -2,7 +2,7 @@
 
 Status: Living document - claims remain provisional until supported by experiments
 
-Last updated: 2026-09-10
+Last updated: 2026-09-11
 
 ## Working title
 
@@ -10,13 +10,13 @@ Last updated: 2026-09-10
 
 ## Central research problem
 
-How can a lightweight 3x satellite-image super-resolution model adapt to unknown input degradations while minimizing unsupported geographic detail and preserving geospatial/radiometric information?
+How can a satellite-image super-resolution model provide at least 3x enhancement under unknown input degradations while minimizing unsupported geographic detail, preserving geospatial/radiometric information, and meeting the confirmed deployment latency scope?
 
 ## Candidate contribution
 
 Detailed mathematical definitions, layer rationale, activation choices, architecture figures, and experiment-to-experiment connections are maintained in [`model-and-experiment-methodology.md`](model-and-experiment-methodology.md) and should be promoted into the final Methodology section after the corresponding ablations complete.
 
-The proposed system combines:
+The current native-3x candidate combines:
 
 1. an input-driven degradation representation;
 2. degradation-conditioned feature modulation;

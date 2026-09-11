@@ -1,8 +1,8 @@
 # Input, Output, and Metadata Contract
 
-Status: Working v1 - 8-bit TIFF input confirmed; remaining schema and hardware details pending
+Status: Implemented working v1 - 8-bit TIFF and minimum 3x confirmed; final band schema and hardware details pending
 
-Last updated: 2026-09-08
+Last updated: 2026-09-11
 
 ## Terminology that must not be mixed
 
@@ -19,7 +19,7 @@ An 8-bit image does not carry eight values as metadata. A three-band 8-bit RGB p
 
 - Input container will be `.tiff` (the reader may also accept `.tif` as an alias).
 - Input pixel values will be 8-bit and must not be silently changed to another output bit depth.
-- Spatial scaling is fixed at exactly 3x in width and height.
+- Spatial scaling must be at least 3x in width and height. Native 3x and native 4x outputs are both valid candidates.
 - All available TIFF/GeoTIFF metadata must be carried into the output where the field remains valid.
 - Metadata fields that depend on raster dimensions or pixel spacing must be recalculated for the 3x raster rather than copied unchanged.
 - The reconstruction must prioritize data fidelity and minimum unsupported detail over perceptual sharpness.
@@ -34,11 +34,14 @@ An 8-bit image does not carry eight values as metadata. A three-band 8-bit RGB p
 6. What hardware must satisfy the sub-one-second latency requirement?
 7. Does the one-second limit cover model inference only or complete file read, processing, stitching, and write time?
 
+The working RGB contract below is implemented and covered by automated round-trip tests. These unanswered items remain hard gates for restricted SUPARCO validation; the software does not infer or invent them from an uploaded file.
+
 ## Draft input contract
 
 - Container: `.tiff`; `.tif` may be accepted as an equivalent extension.
 - Storage depth: 8-bit (`uint8`) input and 8-bit (`uint8`) output.
-- Scale: fixed 3x in both spatial dimensions.
+- Current implemented application path: native 3x in both spatial dimensions.
+- Product acceptance range: scale factor `s >= 3`; the chosen model's native scale must be declared in the audit.
 - Required tile size: 512x512 input pixels; output tile is 1536x1536 pixels.
 - MVP band schema: three-band RGB until SUPARCO confirms a multispectral schema.
 - Internal model representation: normalized floating point for inference; values are clipped, rounded, and restored to 8-bit only at the output boundary.
@@ -57,11 +60,11 @@ The output shall preserve or correctly transform:
 - acquisition/sensor tags supplied in the input;
 - compression/profile choices where compatible with the enlarged raster.
 
-Only scale-dependent fields change:
+Only scale-dependent fields change. For the selected declared scale factor `s`:
 
-- `width_out = width_in * 3`
-- `height_out = height_in * 3`
-- horizontal and vertical pixel spacing are divided by 3
+- `width_out = width_in * s`
+- `height_out = height_in * s`
+- horizontal and vertical pixel spacing are divided by `s`
 - geographic bounds and CRS remain unchanged
 
 The new pixel spacing is a nominal, model-derived GSD. It must not be represented as equivalent to newly captured sensor measurements.
@@ -72,7 +75,7 @@ The new pixel spacing is a nominal, model-derived GSD. It must not be represente
 2. Run the complete 3x inference pipeline.
 3. Reopen the output with Rasterio.
 4. Assert unchanged CRS and bounds.
-5. Assert 3x width/height and one-third pixel spacing.
+5. Assert output width/height match the declared scale and pixel spacing is divided by that scale. The current native-3x regression fixture specifically checks 3x and one-third spacing.
 6. Assert preserved data type, band schema, tags, no-data value, and mask semantics.
 7. Compare tiled and non-tiled output on a small fixture.
 

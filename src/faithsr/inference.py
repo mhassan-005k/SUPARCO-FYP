@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 import tempfile
 import time
+from typing import Callable
 
 import numpy as np
 import rasterio
@@ -79,7 +80,7 @@ def file_sha256(path: str | Path) -> str:
     return digest.hexdigest()
 
 
-def process_tiff(input_path: str | Path, output_path: str | Path, model: torch.nn.Module, device: str | torch.device = "cpu", tile_size: int = 512, overlap: int = 32, model_version: str = "unversioned", compression: str = "input", precision: str = "fp32") -> dict:
+def process_tiff(input_path: str | Path, output_path: str | Path, model: torch.nn.Module, device: str | torch.device = "cpu", tile_size: int = 512, overlap: int = 32, model_version: str = "unversioned", compression: str = "input", precision: str = "fp32", progress_callback: Callable[[int, int], None] | None = None) -> dict:
     """Disk-backed overlap/blend inference; memory stays bounded by one tile and one output block."""
     started = time.perf_counter()
     target = Path(output_path)
@@ -113,9 +114,13 @@ def process_tiff(input_path: str | Path, output_path: str | Path, model: torch.n
         float_profile = profile.copy(); float_profile.update(driver="GTiff", dtype="float32", compress="none"); float_profile.pop("num_threads", None)
         weight_profile = float_profile.copy(); weight_profile.update(count=1)
         temporary = Path(temporary)
+        top_positions = _positions(source.height, tile_size, overlap)
+        left_positions = _positions(source.width, tile_size, overlap)
+        total_tiles = len(top_positions) * len(left_positions)
+        completed_tiles = 0
         with rasterio.open(temporary / "sum.tif", "w+", **float_profile) as summed, rasterio.open(temporary / "weights.tif", "w+", **weight_profile) as weights, rasterio.open(temporary / "uncertainty.tif", "w+", **weight_profile) as uncertainty_sum_raster:
-            for top in _positions(source.height, tile_size, overlap):
-                for left in _positions(source.width, tile_size, overlap):
+            for top in top_positions:
+                for left in left_positions:
                     height, width = min(tile_size, source.height - top), min(tile_size, source.width - left)
                     input_window = Window(left, top, width, height)
                     mark = time.perf_counter(); pixels = source.read(window=input_window); read_seconds += time.perf_counter() - mark
@@ -129,6 +134,9 @@ def process_tiff(input_path: str | Path, output_path: str | Path, model: torch.n
                         uncertainty_seen = True
                         uncertainty_sum_raster.write(uncertainty_sum_raster.read(window=output_window) + uncertainty.astype(np.float32) * blend, window=output_window)
                     accumulator_seconds += time.perf_counter() - mark
+                    completed_tiles += 1
+                    if progress_callback is not None:
+                        progress_callback(completed_tiles, total_tiles)
             with rasterio.open(target, "w", **profile) as output:
                 apply_metadata(output, metadata)
                 risk_output = None
@@ -181,7 +189,7 @@ def process_tiff(input_path: str | Path, output_path: str | Path, model: torch.n
             "finalize_and_write": max(0.0, (write_finished - started) - read_seconds - inference_seconds - accumulator_seconds) * 1000,
             "total": (write_finished - started) * 1000,
         },
-        "streaming": {"disk_backed": True, "tile_size": tile_size, "overlap": overlap, "full_raster_allocated": False, "compression": profile.get("compress", "none"), "precision": precision},
+        "streaming": {"disk_backed": True, "tile_size": tile_size, "overlap": overlap, "tiles_processed": total_tiles, "full_raster_allocated": False, "compression": profile.get("compress", "none"), "precision": precision},
         "uncertainty": None if not uncertainty_seen else {
             "mean": uncertainty_sum / max(1, uncertainty_count),
             "p95_approx": (p95_index + 0.5) / 1000,

@@ -37,6 +37,23 @@ def test_complete_tiff_read_infer_write_audit(tmp_path):
     assert np.array_equal(actual, np.clip(np.rint(expected), 0, 255).astype(np.uint8))
 
 
+def test_tiff_pipeline_reports_monotonic_tile_progress(tmp_path):
+    source, target = tmp_path / "source.tiff", tmp_path / "result.tiff"
+    with rasterio.open(source, "w", driver="GTiff", width=13, height=9, count=3, dtype="uint8") as output:
+        output.write(np.zeros((3, 9, 13), dtype=np.uint8))
+    events = []
+    audit = process_tiff(
+        source,
+        target,
+        BicubicModel(),
+        tile_size=8,
+        overlap=2,
+        progress_callback=lambda completed, total: events.append((completed, total)),
+    )
+    assert events == [(1, 4), (2, 4), (3, 4), (4, 4)]
+    assert audit["streaming"]["tiles_processed"] == 4
+
+
 def test_corrupt_tiff_fails_without_creating_output(tmp_path):
     source, target = tmp_path / "corrupt.tiff", tmp_path / "result.tiff"
     source.write_bytes(b"not-a-tiff")
