@@ -18,6 +18,31 @@ def test_degradation_is_exact_3x_and_repeatable():
     assert torch.all((first * 255).round() == first * 255)
 
 
+def test_native_x4_degradation_is_exact_and_repeatable():
+    hr = torch.linspace(0, 1, 3 * 32 * 40).reshape(3, 32, 40)
+    first, first_params = degrade(hr, scale=4, seed=17)
+    second, second_params = degrade(hr, scale=4, seed=17)
+    assert first.shape == (3, 8, 10)
+    assert torch.equal(first, second)
+    assert first_params == second_params
+
+
+def test_degradation_rejects_unsupported_scale_and_indivisible_shape():
+    with torch.no_grad():
+        try:
+            degrade(torch.rand(3, 32, 32), scale=2)
+        except ValueError as error:
+            assert "3x or 4x" in str(error)
+        else:
+            raise AssertionError("Unsupported 2x scale was accepted")
+        try:
+            degrade(torch.rand(3, 31, 32), scale=4)
+        except ValueError as error:
+            assert "divisible" in str(error)
+        else:
+            raise AssertionError("Indivisible HR shape was accepted")
+
+
 def test_multiband_degradation_does_not_require_jpeg():
     lr, _ = degrade(torch.rand(5, 30, 30), seed=5)
     assert lr.shape == (5, 10, 10)
@@ -34,6 +59,18 @@ def test_validation_dataset_records_replayable_degradation(tmp_path):
     assert torch.equal(first[0], second[0])
     assert first[4] == second[4]
     assert json.loads(first[4])["seed"] == 9
+
+
+def test_native_x4_dataset_records_declared_scale(tmp_path):
+    from PIL import Image
+    import numpy as np
+    path = tmp_path / "image.png"
+    Image.fromarray(np.full((48, 48, 3), 128, np.uint8)).save(path)
+    dataset = SyntheticSRDataset([path], crop_size=48, train=False, seed=9, scale=4)
+    lr, hr, _, _, details = dataset[0]
+    assert lr.shape == (3, 12, 12)
+    assert hr.shape == (3, 48, 48)
+    assert json.loads(details)["scale"] == 4
 
 
 def test_curriculum_caps_all_sampled_degradation_severities():

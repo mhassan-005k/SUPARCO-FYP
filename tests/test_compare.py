@@ -12,6 +12,11 @@ def test_all_interpolation_baselines_are_native_3x():
         assert interpolate(image, mode).shape == (1, 3, 21, 27)
 
 
+def test_interpolation_baseline_supports_native_x4_protocol():
+    image = torch.rand(1, 3, 7, 9)
+    assert interpolate(image, "bicubic", scale=4).shape == (1, 3, 28, 36)
+
+
 def test_validation_manifest_paths_can_be_relocated(tmp_path):
     data = tmp_path / "EuroSAT" / "Forest"
     data.mkdir(parents=True)
@@ -33,6 +38,16 @@ def test_paired_intervals_use_geographic_cluster_means():
     assert result["paired_images"] == 3
     assert result["mean_delta"] == 3.5
     assert result["ci95_low"] < result["mean_delta"] < result["ci95_high"]
+
+
+def test_paired_intervals_include_available_observation_metric():
+    rows = []
+    for path, group, candidate_value in (("a", "g1", 0.08), ("b", "g2", 0.12)):
+        common = {"path": path, "geographic_group": group, "psnr": 10.0, "ssim": 0.5, "false_edge_rate": 0.2, "sam_radians": 0.1, "ergas": 4.0}
+        rows.append({"method": "bicubic", **common, "observation_l1": 0.10})
+        rows.append({"method": "candidate", **common, "observation_l1": candidate_value})
+    result = paired_cluster_intervals(rows)["candidate_vs_bicubic"]
+    assert result["observation_l1"]["mean_delta"] == pytest.approx(0.0)
 
 
 def test_score_rows_records_optional_per_image_lpips():

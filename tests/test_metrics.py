@@ -39,3 +39,11 @@ def test_vectorized_metrics_return_one_value_per_image():
     calibration = uncertainty_metrics_per_sample(uncertainty, prediction, target)
     assert all(value.shape == (3,) for value in reconstruction.values())
     assert all(value.shape == (3,) for value in calibration.values())
+
+
+def test_vectorized_ergas_uses_declared_x4_scale():
+    target = torch.full((1, 3, 16, 16), 0.5)
+    prediction = torch.full_like(target, 0.6)
+    x3 = reconstruction_metrics_per_sample(prediction, target, scale=3)["ergas"]
+    x4 = reconstruction_metrics_per_sample(prediction, target, scale=4)["ergas"]
+    assert torch.allclose(x4, x3 * 3 / 4)

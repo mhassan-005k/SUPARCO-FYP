@@ -1,0 +1,17 @@
+{
+  "id": "muhammadhassan2/faithsr-swin2sr-native-x4-diagnostic",
+  "title": "FaithSR Swin2SR Native X4 Diagnostic",
+  "code_file": "swin2sr_native_x4_diagnostic.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "muhammadhassan2/faithsr-3x-private-source"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [
+    "muhammadhassan2/faithsr-3x-native-sentinel-2-l2a"
+  ]
+}

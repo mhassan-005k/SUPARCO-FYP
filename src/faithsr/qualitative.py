@@ -81,6 +81,9 @@ def save_qualitative_panel(
 
     lr_image = Image.fromarray(_rgb_uint8(lr_b))
     height, width = hr_b.shape[-2:]
+    scale_y, scale_x = height / lr_b.shape[-2], width / lr_b.shape[-1]
+    scale_label = f"{scale_y:g}x" if scale_y == scale_x else f"{scale_y:g}x{scale_x:g}"
+    metric_scale = int(scale_y) if scale_y == scale_x and scale_y.is_integer() else 3
     bicubic_b = F.interpolate(lr_b.float(), size=(height, width), mode="bicubic", align_corners=False, antialias=True).clamp(0, 1)
     bicubic_image = Image.fromarray(_rgb_uint8(bicubic_b))
     sr_image = Image.fromarray(_rgb_uint8(sr_b.clamp(0, 1)))
@@ -93,8 +96,8 @@ def save_qualitative_panel(
     uncertainty_b = None
     if uncertainty is not None:
         uncertainty_b = uncertainty.unsqueeze(0) if uncertainty.ndim == 3 else uncertainty
-    metric_tensors = reconstruction_metrics_per_sample(sr_b.clamp(0, 1), hr_b)
-    bicubic_metric_tensors = reconstruction_metrics_per_sample(bicubic_b, hr_b)
+    metric_tensors = reconstruction_metrics_per_sample(sr_b.clamp(0, 1), hr_b, metric_scale)
+    bicubic_metric_tensors = reconstruction_metrics_per_sample(bicubic_b, hr_b, metric_scale)
     if uncertainty_b is not None:
         metric_tensors.update(uncertainty_metrics_per_sample(uncertainty_b, sr_b.clamp(0, 1), hr_b))
     metrics = {name: float(value[0].detach().cpu()) for name, value in metric_tensors.items()}
@@ -102,7 +105,7 @@ def save_qualitative_panel(
 
     panels = [
         _label(lr_image.resize((width, height), Image.Resampling.NEAREST), "Observed LR"),
-        _label(bicubic_image, f'Bicubic 3x | {bicubic_metrics["psnr"]:.2f} dB'),
+        _label(bicubic_image, f'Bicubic {scale_label} | {bicubic_metrics["psnr"]:.2f} dB'),
         _label(sr_image, f'{method_label} | {metrics["psnr"]:.2f} dB'),
         _label(hr_image, "Held-out HR"),
         _label(Image.fromarray(error_rgb), "Error: blue low / red high"),

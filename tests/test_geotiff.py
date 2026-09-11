@@ -41,6 +41,21 @@ def test_metadata_and_mask_survive_3x_round_trip(tmp_path):
     assert audit["metadata"]["transform_recalculated"] is True
 
 
+def test_metadata_and_mask_support_declared_native_x4(tmp_path):
+    source_path, output_path = tmp_path / "input.tiff", tmp_path / "output_x4.tiff"
+    _fixture(source_path)
+    with rasterio.open(source_path) as source:
+        metadata = capture_metadata(source); original_bounds = source.bounds
+    audit = write_raster(output_path, np.full((3, 28, 44), 128, np.float32), metadata, scale=4)
+    with rasterio.open(output_path) as output:
+        assert (output.width, output.height) == (44, 28)
+        assert output.bounds == original_bounds
+        assert abs(output.transform.a - 2.5) < 1e-9
+        assert output.tags()["FAITHSR_SCALE"] == "4"
+        assert output.dataset_mask()[0, 0] == 0
+    assert audit["scale"] == 4
+
+
 def test_non_uint8_input_rejected(tmp_path):
     path = tmp_path / "uint16.tiff"
     with rasterio.open(path, "w", driver="GTiff", width=2, height=2, count=1, dtype="uint16") as output:

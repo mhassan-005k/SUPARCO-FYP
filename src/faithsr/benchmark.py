@@ -52,7 +52,8 @@ def benchmark_tiff_pipeline(model, device: torch.device, input_path: str, output
         "runs": runs, "mean_ms": statistics.mean(values), "median_ms": statistics.median(values),
         "p95_ms": ordered[max(0, math.ceil(0.95 * len(ordered)) - 1)], "scope": "end_to_end_tiff_disk_backed",
         "component_mean_ms": {key: statistics.mean(row[key] for row in component_rows) for key in numeric_components},
-        "tile_size": tile_size, "overlap": overlap, "compression": compression, "precision": precision,
+        "tile_size": tile_size, "overlap": overlap, "scale": audit["scale"], "output_shape": audit["output_shape"],
+        "compression": compression, "precision": precision,
     }
 
 

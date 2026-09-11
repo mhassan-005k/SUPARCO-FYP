@@ -18,8 +18,8 @@ from .metrics import LPIPSMetric, reconstruction_metrics_per_sample, uncertainty
 from .teacher import Swin2SRTeacher
 
 
-def interpolate(lr: torch.Tensor, mode: str) -> torch.Tensor:
-    arguments = {"scale_factor": 3, "mode": mode}
+def interpolate(lr: torch.Tensor, mode: str, scale: int = 3) -> torch.Tensor:
+    arguments = {"scale_factor": scale, "mode": mode}
     if mode in {"bilinear", "bicubic"}:
         arguments["align_corners"] = False
         arguments["antialias"] = True
@@ -34,10 +34,11 @@ def _score_rows(
     degradations: list[str] | tuple[str, ...],
     uncertainty: torch.Tensor | None = None,
     lpips_values: torch.Tensor | None = None,
+    scale: int = 3,
 ) -> list[dict]:
     """Return one independent metric record per source image."""
 
-    values = reconstruction_metrics_per_sample(prediction, target)
+    values = reconstruction_metrics_per_sample(prediction, target, scale)
     if uncertainty is not None:
         values.update(uncertainty_metrics_per_sample(uncertainty, prediction, target))
     cpu_values = {name: tensor.detach().cpu().tolist() for name, tensor in values.items()}
@@ -71,6 +72,9 @@ def paired_cluster_intervals(rows: list[dict], reference: str = "bicubic") -> di
     """Compute paired 95% normal CIs over geographic-cluster mean deltas."""
 
     metrics = ["psnr", "ssim", "false_edge_rate", "sam_radians", "ergas"]
+    for optional_metric in ("edge_precision", "edge_recall", "observation_l1"):
+        if rows and all(optional_metric in row and row[optional_metric] is not None for row in rows):
+            metrics.append(optional_metric)
     if rows and all("lpips" in row and row["lpips"] is not None for row in rows):
         metrics.append("lpips")
     indexed = {(row["method"], row["path"]): row for row in rows}

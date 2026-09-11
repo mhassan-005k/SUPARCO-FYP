@@ -79,6 +79,23 @@ For three-band RGB paper evaluation, add `--lpips --lpips-network alex`. LPIPS i
 
 Paper-facing comparison must receive the exact training YAML through `--config`. The summary records crop size, validation seed, MTF probability and clean/complex mixture probability. A comparison whose interpolation baseline disagrees across methods on the same split is a protocol failure, not a result.
 
+## Native-x4 pretrained diagnostic
+
+The corrected SUPARCO requirement is minimum 3x, so native Swin2SR x4 is evaluated without resizing its output to x3. First create a native-x4 personalized checkpoint, then run the frozen stress and latency diagnostic:
+
+```powershell
+.venv\Scripts\python -m faithsr.pretrained_finetune `
+  --data DATASET --config configs/sentinel_l2a_native_kaggle.yaml `
+  --output runs/swin2sr-native-x4 --target-scale 4 --epochs 3 --lpips
+
+.venv\Scripts\python -m faithsr.pretrained_diagnostic `
+  --checkpoint runs/swin2sr-native-x4/best.pth --data DATASET `
+  --output artifacts/results/swin2sr-native-x4-diagnostic `
+  --tiff-input INPUT_512.tiff --lpips --precisions fp32 fp16
+```
+
+This writes a per-case stress table, profile and cluster summaries, scale-correct ERGAS, re-observation error, deficiency ranking, deterministic worst/median/best PNG+JSON panels, checkpoint checksum, and separate FP32/FP16 512x512 latency records. A 512-block out-of-memory result is saved as a failed result rather than replaced by a smaller unpublished benchmark.
+
 Use `--precision fp16` only on CUDA. Both CLI inference and benchmarking reject FP16 on CPU. TIFF inference records precision and compression in the audit sidecar; `--compression none` trades disk size for lower write latency.
 
 ## Application

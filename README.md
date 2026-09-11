@@ -104,6 +104,7 @@ Each best checkpoint saves a deterministic held-out `best-preview.png/json` with
 - Public and restricted dataset strategy: [`docs/requirements/dataset-strategy.md`](docs/requirements/dataset-strategy.md)
 - Edge-AI reference paper: [`docs/references/edge-ai-sr-platform-paper.md`](docs/references/edge-ai-sr-platform-paper.md)
 - Research paper outline: [`docs/research/paper-outline.md`](docs/research/paper-outline.md)
+- Native-x4 Swin2SR diagnostic pre-registration: [`docs/research/swin2sr-native-x4-diagnostic-plan.md`](docs/research/swin2sr-native-x4-diagnostic-plan.md)
 - Mathematical model, layers, activations, architecture figures, and experiment lineage: [`docs/research/model-and-experiment-methodology.md`](docs/research/model-and-experiment-methodology.md)
 - Individual historical and pretrained model cards: [`docs/research/model-cards/`](docs/research/model-cards/)
 - Experiment audit log: [`docs/research/experiment-log.md`](docs/research/experiment-log.md)

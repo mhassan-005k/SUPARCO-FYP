@@ -17,6 +17,14 @@ class BicubicModel(nn.Module):
         return (sr, {"uncertainty": torch.full_like(sr[:, :1], 0.1)}) if return_aux else sr
 
 
+class BicubicX4Model(nn.Module):
+    scale = 4
+
+    def forward(self, image, return_aux=False):
+        sr = F.interpolate(image, scale_factor=4, mode="bicubic", align_corners=False)
+        return (sr, {"uncertainty": None}) if return_aux else sr
+
+
 def test_complete_tiff_read_infer_write_audit(tmp_path):
     source, target = tmp_path / "source.tiff", tmp_path / "result.tiff"
     with rasterio.open(source, "w", driver="GTiff", width=13, height=9, count=3, dtype="uint8", crs="EPSG:4326", transform=from_origin(70, 35, 0.01, 0.01)) as output:
@@ -52,6 +60,21 @@ def test_tiff_pipeline_reports_monotonic_tile_progress(tmp_path):
     )
     assert events == [(1, 4), (2, 4), (3, 4), (4, 4)]
     assert audit["streaming"]["tiles_processed"] == 4
+
+
+def test_complete_native_x4_tiff_pipeline_preserves_bounds(tmp_path):
+    source, target = tmp_path / "source.tiff", tmp_path / "result_x4.tiff"
+    with rasterio.open(source, "w", driver="GTiff", width=7, height=5, count=3, dtype="uint8", crs="EPSG:4326", transform=from_origin(70, 35, 0.01, 0.01)) as output:
+        output.write(np.arange(3 * 5 * 7, dtype=np.uint8).reshape(3, 5, 7))
+    with rasterio.open(source) as dataset:
+        original_bounds = dataset.bounds
+    audit = process_tiff(source, target, BicubicX4Model(), tile_size=4, overlap=1, model_version="test-x4")
+    assert audit["scale"] == 4
+    assert audit["output_shape"] == [3, 20, 28]
+    with rasterio.open(target) as output:
+        assert (output.width, output.height) == (28, 20)
+        assert output.bounds == original_bounds
+        assert output.tags()["FAITHSR_SCALE"] == "4"
 
 
 def test_corrupt_tiff_fails_without_creating_output(tmp_path):

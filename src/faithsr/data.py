@@ -60,10 +60,12 @@ def read_image(path: Path, bands: int = 3) -> torch.Tensor:
 
 
 class SyntheticSRDataset(Dataset):
-    def __init__(self, files: list[Path], crop_size: int = 192, bands: int = 3, train: bool = True, seed: int = 42, max_severity: float = 1.0, mtf_probability: float = 0.0, complex_probability: float = 1.0) -> None:
-        if crop_size % 3:
-            raise ValueError("HR crop size must be divisible by 3")
-        self.files, self.crop_size, self.bands, self.train, self.seed = files, crop_size, bands, train, seed
+    def __init__(self, files: list[Path], crop_size: int = 192, bands: int = 3, train: bool = True, seed: int = 42, max_severity: float = 1.0, mtf_probability: float = 0.0, complex_probability: float = 1.0, scale: int = 3) -> None:
+        if scale not in {3, 4}:
+            raise ValueError("Dataset scale must be 3 or 4")
+        if crop_size % scale:
+            raise ValueError(f"HR crop size must be divisible by scale {scale}")
+        self.files, self.crop_size, self.bands, self.train, self.seed, self.scale = files, crop_size, bands, train, seed, scale
         if not 0 <= complex_probability <= 1:
             raise ValueError("Complex degradation probability must be within [0,1]")
         self.max_severity, self.mtf_probability, self.complex_probability = max_severity, mtf_probability, complex_probability
@@ -92,8 +94,8 @@ class SyntheticSRDataset(Dataset):
         degradation_seed = rng.randrange(0, 2**31) if self.train else self.seed + index
         use_complex = self.complex_probability >= 1 or rng.random() < self.complex_probability
         parameters = None if use_complex else DegradationParameters(0.0, 0.0, 0.0, 0.0, 0.25, 0.25, 0.0, 100, "bicubic_reference", None, 0.0)
-        lr, parameters = degrade(hr, seed=degradation_seed, params=parameters, max_severity=self.max_severity, mtf_probability=self.mtf_probability)
-        details = json.dumps({"seed": degradation_seed, **parameters.to_dict()}, sort_keys=True)
+        lr, parameters = degrade(hr, scale=self.scale, seed=degradation_seed, params=parameters, max_severity=self.max_severity, mtf_probability=self.mtf_probability)
+        details = json.dumps({"seed": degradation_seed, "scale": self.scale, **parameters.to_dict()}, sort_keys=True)
         return lr, hr, parameters.normalized_target(), str(self.files[index]), details
 
 

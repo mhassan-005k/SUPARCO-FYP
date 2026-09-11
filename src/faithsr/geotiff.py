@@ -64,8 +64,8 @@ def capture_metadata(dataset: rasterio.io.DatasetReader, include_mask: bool = Tr
 
 
 def output_profile(metadata: RasterMetadata, scale: int = 3) -> dict[str, Any]:
-    if scale != 3:
-        raise ValueError("Approved output scale is exactly 3x")
+    if not isinstance(scale, int) or isinstance(scale, bool) or scale < 3:
+        raise ValueError("Output scale must be an integer greater than or equal to 3")
     profile = metadata.profile.copy()
     transform = profile["transform"]
     scaled_transform = Affine(transform.a / scale, transform.b / scale, transform.c, transform.d / scale, transform.e / scale, transform.f)
@@ -85,13 +85,20 @@ def output_profile(metadata: RasterMetadata, scale: int = 3) -> dict[str, Any]:
     return profile
 
 
+def nearest_mask(mask: np.ndarray, scale: int = 3) -> np.ndarray:
+    if not isinstance(scale, int) or isinstance(scale, bool) or scale < 3:
+        raise ValueError("Output scale must be an integer greater than or equal to 3")
+    return np.repeat(np.repeat(mask, scale, axis=0), scale, axis=1)
+
+
 def nearest_mask_3x(mask: np.ndarray) -> np.ndarray:
-    return np.repeat(np.repeat(mask, 3, axis=0), 3, axis=1)
+    """Backward-compatible native-3x mask helper."""
+    return nearest_mask(mask, 3)
 
 
-def apply_metadata(output: rasterio.io.DatasetWriter, metadata: RasterMetadata) -> None:
+def apply_metadata(output: rasterio.io.DatasetWriter, metadata: RasterMetadata, scale: int = 3) -> None:
     output.update_tags(**metadata.tags)
-    output.update_tags(FAITHSR_SCALE="3", FAITHSR_GSD="nominal_model_derived")
+    output.update_tags(FAITHSR_SCALE=str(scale), FAITHSR_GSD="nominal_model_derived")
     for index, tags in enumerate(metadata.band_tags, start=1):
         if index <= output.count:
             output.update_tags(index, **tags)
@@ -126,26 +133,26 @@ def apply_metadata(output: rasterio.io.DatasetWriter, metadata: RasterMetadata) 
                 pass
 
 
-def write_raster(path: str | Path, pixels: np.ndarray, metadata: RasterMetadata) -> dict[str, Any]:
+def write_raster(path: str | Path, pixels: np.ndarray, metadata: RasterMetadata, scale: int = 3) -> dict[str, Any]:
     target = Path(path)
     target.parent.mkdir(parents=True, exist_ok=True)
-    expected = (metadata.profile["count"], metadata.profile["height"] * 3, metadata.profile["width"] * 3)
+    expected = (metadata.profile["count"], metadata.profile["height"] * scale, metadata.profile["width"] * scale)
     if pixels.shape != expected:
         raise ValueError(f"Expected output shape {expected}, received {pixels.shape}")
     pixels = np.clip(np.rint(pixels), 0, 255).astype(np.uint8)
-    profile = output_profile(metadata)
+    profile = output_profile(metadata, scale)
     with rasterio.open(target, "w", **profile) as output:
         output.write(pixels)
-        apply_metadata(output, metadata)
+        apply_metadata(output, metadata, scale)
         if metadata.mask is None:
             raise ValueError("In-memory writer requires a captured mask")
-        output.write_mask(nearest_mask_3x(metadata.mask))
+        output.write_mask(nearest_mask(metadata.mask, scale))
     return {
         "output": str(target.resolve()),
         "input_shape": [metadata.profile["count"], metadata.profile["height"], metadata.profile["width"]],
         "output_shape": list(expected),
         "dtype": "uint8",
-        "scale": 3,
+        "scale": scale,
         "crs": None if metadata.profile.get("crs") is None else str(metadata.profile["crs"]),
         "metadata": {
             "dataset_tags": len(metadata.tags),
@@ -162,20 +169,20 @@ def write_raster(path: str | Path, pixels: np.ndarray, metadata: RasterMetadata)
     }
 
 
-def write_uncertainty_raster(path: str | Path, uncertainty: np.ndarray, metadata: RasterMetadata) -> str:
-    expected = (1, metadata.profile["height"] * 3, metadata.profile["width"] * 3)
+def write_uncertainty_raster(path: str | Path, uncertainty: np.ndarray, metadata: RasterMetadata, scale: int = 3) -> str:
+    expected = (1, metadata.profile["height"] * scale, metadata.profile["width"] * scale)
     if uncertainty.shape != expected:
         raise ValueError(f"Expected uncertainty shape {expected}, received {uncertainty.shape}")
-    profile = output_profile(metadata)
+    profile = output_profile(metadata, scale)
     profile.update(count=1, dtype="float32", nodata=None)
     target = Path(path)
     with rasterio.open(target, "w", **profile) as output:
         output.write(np.clip(uncertainty, 0, 1).astype(np.float32))
-        output.update_tags(FAITHSR_PRODUCT="uncertainty_risk", FAITHSR_SCALE="3", FAITHSR_RANGE="0,1")
+        output.update_tags(FAITHSR_PRODUCT="uncertainty_risk", FAITHSR_SCALE=str(scale), FAITHSR_RANGE="0,1")
         output.set_band_description(1, "FaithSR uncertainty risk")
         if metadata.mask is None:
             raise ValueError("In-memory uncertainty writer requires a captured mask")
-        output.write_mask(nearest_mask_3x(metadata.mask))
+        output.write_mask(nearest_mask(metadata.mask, scale))
     return str(target.resolve())
 
 

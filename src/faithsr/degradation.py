@@ -71,10 +71,12 @@ def sample_parameters(rng: random.Random, max_severity: float = 1.0, mtf_probabi
 
 
 def degrade(hr: torch.Tensor, scale: int = 3, params: DegradationParameters | None = None, seed: int | None = None, max_severity: float = 1.0, mtf_probability: float = 0.0) -> tuple[torch.Tensor, DegradationParameters]:
-    if scale != 3:
-        raise ValueError("The approved degradation pipeline supports exactly 3x")
+    if scale not in {3, 4}:
+        raise ValueError("The validated degradation pipeline supports 3x or 4x")
     if hr.ndim != 3:
         raise ValueError("Expected CHW image")
+    if hr.shape[-2] % scale or hr.shape[-1] % scale:
+        raise ValueError(f"HR dimensions must be divisible by scale {scale}")
     rng = random.Random(seed)
     params = params or sample_parameters(rng, max_severity, mtf_probability)
     if params.kernel_family == "bicubic_reference":
@@ -86,7 +88,7 @@ def degrade(hr: torch.Tensor, scale: int = 3, params: DegradationParameters | No
         weight = kernel.view(1, 1, kernel_size, kernel_size).expand(bands, 1, -1, -1)
         blurred = F.conv2d(hr.unsqueeze(0), weight, padding=kernel_size // 2, groups=bands)
     mode = "bicubic" if params.aliasing < 0.5 else "bilinear"
-    lr = F.interpolate(blurred, size=(hr.shape[-2] // 3, hr.shape[-1] // 3), mode=mode, align_corners=False, antialias=True)[0]
+    lr = F.interpolate(blurred, size=(hr.shape[-2] // scale, hr.shape[-1] // scale), mode=mode, align_corners=False, antialias=True)[0]
     generator = torch.Generator(device=hr.device).manual_seed(0 if seed is None else seed)
     gaussian_std = 0.035 * params.noise
     poisson_level = 80.0 - 60.0 * params.noise

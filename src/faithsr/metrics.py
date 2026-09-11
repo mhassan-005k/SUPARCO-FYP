@@ -97,8 +97,10 @@ def segmentation_iou_f1(prediction: torch.Tensor, target: torch.Tensor) -> tuple
     return iou, f1
 
 
-def reconstruction_metrics_per_sample(prediction: torch.Tensor, target: torch.Tensor) -> dict[str, torch.Tensor]:
+def reconstruction_metrics_per_sample(prediction: torch.Tensor, target: torch.Tensor, scale: int = 3) -> dict[str, torch.Tensor]:
     """Vectorized per-image metrics for exact CSV rows and paired intervals."""
+    if scale < 1:
+        raise ValueError("Metric scale must be positive")
     dimensions = tuple(range(1, prediction.ndim))
     mse = (prediction - target).square().mean(dim=dimensions)
     psnr_values = 10 * torch.log10(1.0 / (mse + 1e-12))
@@ -114,7 +116,7 @@ def reconstruction_metrics_per_sample(prediction: torch.Tensor, target: torch.Te
     dot = (prediction * target).sum(dim=1); norms = prediction.square().sum(dim=1).sqrt() * target.square().sum(dim=1).sqrt()
     sam_values = torch.acos((dot / norms.clamp_min(1e-8)).clamp(-1 + 1e-7, 1 - 1e-7)).flatten(1).mean(1)
     spatial_dims = tuple(range(2, target.ndim)); band_rmse = (prediction - target).square().mean(dim=spatial_dims).sqrt(); band_mean = target.mean(dim=spatial_dims).abs().clamp_min(1e-8)
-    ergas_values = 100 / 3 * torch.sqrt(((band_rmse / band_mean).square()).mean(dim=1))
+    ergas_values = 100 / scale * torch.sqrt(((band_rmse / band_mean).square()).mean(dim=1))
     return {"psnr": psnr_values, "ssim": ssim_values, "false_edge_rate": false_edge_values, "edge_precision": true_positive / predicted_count, "edge_recall": true_positive / target_count, "sam_radians": sam_values, "ergas": ergas_values}
 
 

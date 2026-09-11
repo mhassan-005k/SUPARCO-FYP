@@ -227,6 +227,21 @@ Conclusion: DA gains are consistently positive but too small for a strong contri
 - Repetition: v1-v3 fine-tuned mean PSNR varied by less than 0.00038 dB; conclusion is stable despite small CUDA variation.
 - Artifact: `artifacts/training_runs/faithsr3x/swin2sr_full_finetune_native_l2a_v3/` with method-labelled PNG/JSON, per-image table, model card, checkpoint, exact degradation records, environment, and hashes.
 
+### swin2sr-native-x4-diagnostic (pre-registered)
+
+- Date: 2026-09-11
+- Connection: the earlier x4-to-x3 experiment used resize only for parity with the custom x3 target. SUPARCO's clarified requirement is minimum 3x, so native x4 is product-valid.
+- Objective: determine whether personalized Swin2SR already passes native-x4 fidelity and 512-block latency, and identify its worst degradation/hallucination deficiency before selecting any hybrid component.
+- Model: the same pinned 12,239,283-parameter Swin2SR revision, trained directly on 48x48 LR to 192x192 HR x4 pairs for three epochs with all parameters trainable.
+- Comparisons: bicubic x4, frozen Swin2SR native x4, and fully fine-tuned Swin2SR native x4 on identical scene-separated observations.
+- Stress grid: clean bicubic, mild anisotropic, severe blur, noise-heavy, compression-heavy, aliasing-heavy, and low-Nyquist MTF.
+- Metrics: PSNR, SSIM, LPIPS, false-edge, edge precision/recall, SAM, x4-correct ERGAS, re-observation L1, and paired scene-cluster intervals.
+- Deployment: 512x512 to 2048x2048 FP32 and FP16; 10 warm-ups, 100 synchronized runs, mean/median/P95, peak VRAM, plus end-to-end TIFF timing. OOM is retained as a failure.
+- Visual evidence: deterministic worst/median/best fine-tuned-minus-bicubic stress cases, each with PNG and metric/provenance JSON.
+- Pre-registration and architecture rationale: `docs/research/swin2sr-native-x4-diagnostic-plan.md`.
+- Decision rule: add degradation conditioning, consistency, frequency refinement, or Mamba only if its corresponding failure is measured. Do not build a hybrid merely for novelty.
+- State: runner and tests implemented locally; private source upload/GPU execution pending explicit approval.
+
 ## Entry template
 
 ### Experiment ID
