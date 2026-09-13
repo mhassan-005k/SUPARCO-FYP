@@ -1,0 +1,61 @@
+{
+  "artifact": "/kaggle/working/faithsr-swin2sr-native-x4/diagnostic/median-native-x4.png",
+  "input_shape": [
+    1,
+    3,
+    48,
+    48
+  ],
+  "output_shape": [
+    1,
+    3,
+    192,
+    192
+  ],
+  "display_scale": 2,
+  "metrics": {
+    "psnr": 27.799776077270508,
+    "ssim": 0.7053152918815613,
+    "false_edge_rate": 0.12372458726167679,
+    "edge_precision": 0.8762754201889038,
+    "edge_recall": 0.49991375207901,
+    "sam_radians": 0.39880865812301636,
+    "ergas": 27.624393463134766
+  },
+  "bicubic_metrics": {
+    "psnr": 27.431547164916992,
+    "ssim": 0.6564456820487976,
+    "false_edge_rate": 0.14242224395275116,
+    "edge_precision": 0.8575777411460876,
+    "edge_recall": 0.4494222104549408,
+    "sam_radians": 0.42184650897979736,
+    "ergas": 29.046327590942383
+  },
+  "method_minus_bicubic_psnr_db": 0.3682289123535156,
+  "method_label": "Swin2SR FT native x4",
+  "panels": [
+    "lr",
+    "bicubic",
+    "method",
+    "hr",
+    "absolute_error"
+  ],
+  "path": "/kaggle/input/notebooks/muhammadhassan2/faithsr-3x-native-sentinel-2-l2a/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00960_c00768.tif",
+  "profile": "mild_anisotropic",
+  "seed": 13801,
+  "psnr_delta": 0.3682289123535156,
+  "selection_rule": "median Swin2SR-minus-bicubic PSNR over every held-out stress case",
+  "degradation": {
+    "blur": 0.25,
+    "noise": 0.1,
+    "compression": 0.1,
+    "aliasing": 0.2,
+    "sigma_x": 0.75,
+    "sigma_y": 0.55,
+    "angle_degrees": 25.0,
+    "jpeg_quality": 95,
+    "kernel_family": "anisotropic_gaussian",
+    "mtf_nyquist": null,
+    "severity_cap": 0.25
+  }
+}

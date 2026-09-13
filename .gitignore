@@ -23,4 +23,5 @@ exports/
 .pytest_cache/
 graphify-out/
 *.audit.json
+!artifacts/training_runs/faithsr3x/swin2sr_native_x4_diagnostic_v2/**/*.audit.json
 *.egg-info/

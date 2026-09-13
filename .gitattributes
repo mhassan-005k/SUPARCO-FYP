@@ -5,3 +5,4 @@
 # Preserve byte-exact Kaggle evidence so recorded SHA256 values survive checkout.
 artifacts/training_runs/faithsr3x/sentinel_l2a_native_v6/** -text
 artifacts/training_runs/faithsr3x/swin2sr_full_finetune_native_l2a_v3/** -text
+artifacts/training_runs/faithsr3x/swin2sr_native_x4_diagnostic_v2/** -text

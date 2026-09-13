@@ -1,0 +1,101 @@
+{
+  "output": "/kaggle/working/faithsr-swin2sr-native-x4/diagnostic/pipeline-fp32/pipeline_0.tiff",
+  "input_shape": [
+    3,
+    512,
+    512
+  ],
+  "output_shape": [
+    3,
+    2048,
+    2048
+  ],
+  "dtype": "uint8",
+  "scale": 4,
+  "crs": "EPSG:32643",
+  "metadata": {
+    "dataset_tags": 7,
+    "band_tags": [
+      0,
+      0,
+      0
+    ],
+    "tag_namespaces": [
+      "DERIVED_SUBDATASETS",
+      "IMAGE_STRUCTURE"
+    ],
+    "band_tag_namespaces": [
+      [],
+      [],
+      []
+    ],
+    "colormap_bands": [],
+    "descriptions": [
+      "B04_red",
+      "B03_green",
+      "B02_blue"
+    ],
+    "nodata": null,
+    "mask_preserved": true,
+    "transform_recalculated": true
+  },
+  "warnings": [],
+  "input": "/kaggle/working/faithsr-swin2sr-native-x4/benchmark-input-512.tiff",
+  "input_sha256": "afd820c17600f9eeb1bb8fb0f798db9b8a9a0c4cd71b57e22120283401311c54",
+  "output_sha256": "107a11eb953733f9adfbbcf2b14dc3b9080125a0d54328b293739babeba67213",
+  "model_version": "benchmark",
+  "input_metadata": {
+    "width": 512,
+    "height": 512,
+    "bands": 3,
+    "dtype": "uint8",
+    "crs": "EPSG:32643",
+    "transform": [
+      3.75,
+      0.0,
+      351470.0,
+      0.0,
+      -3.75,
+      3409560.0,
+      0.0,
+      0.0,
+      1.0
+    ],
+    "descriptions": [
+      "B04_red",
+      "B03_green",
+      "B02_blue"
+    ],
+    "nodata": null,
+    "tags": {
+      "FAITHSR_ADDITIVE_OFFSET": "-1000.0",
+      "FAITHSR_DERIVED_PRODUCT": "Sentinel-2_L2A_RGB_uint8",
+      "FAITHSR_PARENT_SCENE": "S2C_43RCQ_20260327_0_L2A.tif",
+      "FAITHSR_PARENT_WINDOW": "0,384,192,192",
+      "FAITHSR_QUANTIFICATION": "10000.0",
+      "FAITHSR_REFLECTANCE_CLIP": "0.0,0.3",
+      "AREA_OR_POINT": "Area"
+    },
+    "tag_namespaces": [
+      "DERIVED_SUBDATASETS",
+      "IMAGE_STRUCTURE"
+    ]
+  },
+  "timing_ms": {
+    "read": 0.9157200000800003,
+    "inference": 3464.002061999963,
+    "disk_accumulation": 127.18858599998839,
+    "finalize_and_write": 199.2626809999365,
+    "total": 3791.369048999968
+  },
+  "streaming": {
+    "disk_backed": true,
+    "tile_size": 512,
+    "overlap": 32,
+    "tiles_processed": 1,
+    "full_raster_allocated": false,
+    "compression": "none",
+    "precision": "fp32"
+  },
+  "uncertainty": null
+}

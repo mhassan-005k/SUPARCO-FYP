@@ -1,8 +1,8 @@
 # FaithSR Updated Implementation Plan and Evidence-Driven Next Direction
 
-Status: Native-3x core system and public-data plan complete; SUPARCO requirement corrected to minimum 3x; native-x4 Swin2SR diagnostic is the next research gate; restricted validation remains externally gated
+Status: Native-3x core system complete; native-x4 Swin2SR diagnostic accepted; lightweight personalized native-x4 compression-aware student is the next research gate; restricted validation remains externally gated
 
-Last updated: 2026-09-11
+Last updated: 2026-09-13
 
 ## 1. Final product requirement
 
@@ -14,7 +14,7 @@ Primary objective visually dramatic sharpening nahi, balkeh data-faithful recons
 
 Working name: **FaithSR**; final architecture/name diagnostic evidence ke baad freeze hoga.
 
-Final model ko pehle se custom student ya kisi fashionable hybrid par lock nahi kiya jayega. Current strongest public-data candidate fully fine-tuned Swin2SR hai. Pehle uski native-x4 speed, degradation-wise fidelity aur hallucination weaknesses measure hongi. Sirf measured deficiency ko solve karne ke liye degradation conditioning, consistency, frequency refinement ya Mamba/global-context component add hoga. Current custom FaithSR candidate ke implemented components ye hain:
+Native-x4 diagnosis ab complete hai. Fully fine-tuned Swin2SR strong fidelity reference hai, lekin measured P100 latency target se 3.4x zyada hai aur heavy compression par PSNR win statistically clear nahi. Is liye next model lightweight native-x4 student hoga jo personalized Swin2SR teacher se knowledge transfer karega aur compression-aware conditioning/observation fidelity use karega. Mamba/global-context branch abhi add nahi hogi kyun ke long-range structure ko dominant measured failure prove nahi kiya gaya. Current custom FaithSR candidate ke implemented components ye hain:
 
 1. **Degradation encoder:** har input tile se blur, noise, compression aur aliasing ka compact representation estimate karega.
 2. **Degradation-conditioned backbone:** estimated degradation ke mutabiq feature processing adapt karega.
@@ -24,7 +24,7 @@ Final model ko pehle se custom student ya kisi fashionable hybrid par lock nahi 
 6. **Uncertainty head:** har output region ka confidence/risk map dega, taa-ke analyst questionable reconstruction identify kar sake.
 7. **Teacher distillation:** pretrained teacher se useful spatial knowledge transfer test hui; isay contribution tabhi kaha jayega jab matched ablation improvement show kare.
 
-Fine-tuning a pretrained network valid personalization hai, magar paper contribution ko honestly distinguish kiya jayega. Agar native-x4 fine-tuned Swin2SR already quality aur latency pass karta hai, to hybrid sirf tab banega jab targeted ablation uski diagnosed weakness improve kare.
+Fine-tuning a pretrained network valid personalization hai, magar paper contribution ko honestly distinguish kiya jayega. Native-x4 fine-tuned Swin2SR quality mein useful hai magar latency fail karta hai; is liye teacher ko deploy karne ke bajaye us se compact student personalize karna aur measured compression weakness address karna next contribution hai.
 
 GAN aur diffusion ko primary model mein use nahi kiya jayega, kyunke perceptual realism ke liye invented detail scientific interpretation ko damage kar sakti hai.
 
@@ -159,14 +159,22 @@ Exit criteria: representative large raster without seams process ho, output reop
 
 ### Phase 8 - Strongest-baseline diagnosis and justified hybrid decision
 
-Immediate next experiment fully fine-tuned Swin2SR ko native x4 par test karega; x4 output ko x3 resize nahi kiya jayega. Aik frozen, scene-disjoint protocol par ye record hoga:
+Completed v2 experiment ne fully fine-tuned Swin2SR ko native x4 par test kiya; x4 output ko x3 resize nahi kiya gaya. Frozen, scene-disjoint protocol par ye record hua:
 
 - 512x512 to 2048x2048 model-only aur end-to-end TIFF mean/median/P95 latency, peak VRAM;
 - degradation-family/severity-wise PSNR, SSIM, LPIPS, false-edge, edge precision/recall, SAM, ERGAS aur observation consistency;
 - deterministic worst/median/best previews with metric JSON;
 - failure categories: blur/noise/compression sensitivity, invented edges, broken long-range roads/fields, aur weak high-frequency detail.
 
-Uske baad component selection evidence-driven hogi:
+Measured outcome:
+
+- overall stress PSNR delta +0.5038 dB (95% scene-cluster CI +0.4019 to +0.6056) versus bicubic;
+- false-edge delta -0.01460 and LPIPS delta -0.08691;
+- compression-heavy PSNR delta +0.0193 dB with CI crossing zero;
+- 512-to-2048 FP32 model-only P95 3.419 s and end-to-end P95 3.791 s on Tesla P100;
+- uint8, CRS, tags, band descriptions, mask and recalculated x4 transform preserved.
+
+Iske baad component selection evidence-driven hai:
 
 - degradation-specific failure ho to degradation conditioning;
 - hallucination/observation mismatch ho to bounded consistency correction;
@@ -174,7 +182,7 @@ Uske baad component selection evidence-driven hogi:
 - long-range structure failure ho to lightweight Mamba/global-context branch;
 - koi material failure na ho aur latency pass ho to unnecessary hybrid add nahi ki jayegi.
 
-Exit criteria: deficiency ranking aur confidence intervals save hon; proposed component ka hypothesis pre-register ho; matched ablation improvement ke baghair architecture novelty claim na ho.
+Exit criteria: complete. Deficiency ranking, confidence intervals, latency and deterministic visuals save hain. Next matched ablation: lightweight native-x4 base; plus personalized-teacher distillation; plus compression conditioning/consistency; full combination. Architecture novelty sirf quality-latency Pareto improvement par claim hogi.
 
 ## 5. Mandatory tests
 
@@ -218,4 +226,4 @@ Claim tabhi paper mein final hoga jab corresponding experiment, metric implement
 
 ## 8. Recommended execution order
 
-Phases 0-7 execute ho chuki hain. Ab Phase 8 mein strongest proven fine-tuned Swin2SR ka native-x4 diagnostic hoga. Result ke baad sirf diagnosed weakness ke liye aik targeted component select aur matched ablation ki jayegi. Restricted SUPARCO holdout final external-validity gate rahega.
+Phases 0-8 execute ho chuki hain. Phase 9 lightweight personalized native-x4 student hai: (A) compact base, (B) full-run output/feature distillation from the accepted personalized Swin2SR teacher, (C) compression-conditioned fidelity correction, aur (D) complete model. Same 47 held-out images aur seven frozen stress profiles par comparison hoga; primary deployment gate 512-to-2048 model-only P95 below one second hai. Restricted SUPARCO holdout final external-validity gate rahega.

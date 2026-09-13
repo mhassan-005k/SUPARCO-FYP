@@ -227,7 +227,7 @@ Conclusion: DA gains are consistently positive but too small for a strong contri
 - Repetition: v1-v3 fine-tuned mean PSNR varied by less than 0.00038 dB; conclusion is stable despite small CUDA variation.
 - Artifact: `artifacts/training_runs/faithsr3x/swin2sr_full_finetune_native_l2a_v3/` with method-labelled PNG/JSON, per-image table, model card, checkpoint, exact degradation records, environment, and hashes.
 
-### swin2sr-native-x4-diagnostic (pre-registered)
+### swin2sr-native-x4-diagnostic-v1/v2
 
 - Date: 2026-09-11
 - Connection: the earlier x4-to-x3 experiment used resize only for parity with the custom x3 target. SUPARCO's clarified requirement is minimum 3x, so native x4 is product-valid.
@@ -240,7 +240,16 @@ Conclusion: DA gains are consistently positive but too small for a strong contri
 - Visual evidence: deterministic worst/median/best fine-tuned-minus-bicubic stress cases, each with PNG and metric/provenance JSON.
 - Pre-registration and architecture rationale: `docs/research/swin2sr-native-x4-diagnostic-plan.md`.
 - Decision rule: add degradation conditioning, consistency, frequency refinement, or Mamba only if its corresponding failure is measured. Do not build a hybrid merely for novelty.
-- State: runner and tests implemented locally; private source upload/GPU execution pending explicit approval.
+- Version 1 partial result: all three fine-tuning epochs and the native-x4 training comparison completed, but the benchmark fixture then failed because Rasterio uses `Resampling.cubic`, not `Resampling.bicubic`. No v1 stress or latency result is accepted.
+- Version 2 correction: replaced the invalid enum, added a regression test, passed 64 local tests, and reran the unchanged registered protocol from Git commit `83dfac9` using private source dataset version 17.
+- Training-distribution v2 result: bicubic 22.51125 dB PSNR / 0.52003 SSIM / 0.70549 LPIPS; frozen Swin2SR 20.97111 / 0.48072 / 0.54741; fully fine-tuned Swin2SR 22.78239 / 0.54833 / 0.61495. Fine-tuned-minus-bicubic PSNR is +0.25827 dB with scene-cluster CI -0.00111 to +0.51764, while SSIM, false-edge, SAM, and LPIPS improve.
+- Frozen stress-grid result: 329 paired cases across seven profiles. Fine-tuned-minus-bicubic scene-cluster deltas are PSNR +0.50377 dB (95% CI +0.40189,+0.60565), SSIM +0.04228, false-edge -0.01460, SAM -0.01258 rad, ERGAS -0.92793, observation L1 -0.00291, and LPIPS -0.08691.
+- Weakest profile: compression-heavy PSNR +0.0193 dB with CI -0.0626 to +0.1012. Its improvement is not statistically clear, although LPIPS and observation L1 improve.
+- Latency: 512x512 to 2048x2048 FP32 model-only P95 3,418.60 ms and end-to-end TIFF P95 3,791.37 ms; FP16 model-only P95 3,922.36 ms. Both fail the one-second gate on Tesla P100.
+- TIFF result: six checked runs preserve uint8 dtype, CRS, dataset tags, band descriptions, mask and geographic bounds; affine spacing is recalculated for x4 and all audit warning lists are empty.
+- Visual result: deterministic worst/median/best stress panels and a training-distribution preview passed the label/non-black audit. The retained worst compression case is -0.15923 dB below bicubic.
+- Decision: accept personalized native-x4 Swin2SR as the fidelity teacher/reference, not the deployed final model. Next experiment is a lightweight native-x4 student with personalized-teacher distillation and compression-aware conditioning/consistency. Do not add Mamba without a measured long-range failure.
+- Artifacts/results: `artifacts/training_runs/faithsr3x/swin2sr_native_x4_diagnostic_v2/`; detailed interpretation: `docs/research/swin2sr-native-x4-diagnostic-results.md`.
 
 ## Entry template
 

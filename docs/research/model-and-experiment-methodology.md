@@ -543,6 +543,34 @@ Frozen Swin2SR reaches 21.92152 dB PSNR, 0.54311 SSIM and 0.47065 LPIPS. Full fi
 
 Artifacts and complete generated model card: [`swin2sr_full_finetune_native_l2a_v3`](../../artifacts/training_runs/faithsr3x/swin2sr_full_finetune_native_l2a_v3/). References: Conde et al., [Swin2SR](https://arxiv.org/abs/2209.11345), and the [immutable checkpoint configuration](https://huggingface.co/caidas/swin2SR-classical-sr-x4-64/blob/c69ef3e2d2ac5777ff4a9f2f5afcd86d20604b7e/config.json).
 
+### Native-x4 diagnostic and architecture decision
+
+The corrected minimum-3x requirement permits the direct native mapping
+
+\[
+\hat y_4=S_{\theta}(x),
+\]
+
+without the matched-x3 resize used above. The accepted v2 run keeps every pretrained layer trainable and directly supervises the x4 PixelShuffle output with Smooth-L1. Its shallow convolution, shifted-window SwinV2 attention groups, LayerNorm, GELU MLPs, residual convolutions and reconstruction head are inherited unchanged so that personalization remains attributable to domain fine-tuning rather than an undocumented architecture mutation.
+
+```mermaid
+flowchart LR
+    LR["Sentinel LR"] --> SW["Personalized Swin2SR x4<br/>12.24M parameters"]
+    SW --> HR["Native x4 SR"]
+    HR --> FID["Fidelity stress grid"]
+    HR --> LAT["512-to-2048 latency"]
+    FID --> DEC["Compression weakness measured"]
+    LAT --> DEC2["One-second gate failed"]
+    DEC --> STUD["Compression-aware lightweight x4 student"]
+    DEC2 --> STUD
+```
+
+Across 329 paired stress cases, fine-tuning improves PSNR by +0.50377 dB (95% scene-cluster CI +0.40189 to +0.60565), SSIM by +0.04228, false-edge rate by -0.01460, and LPIPS by -0.08691 versus bicubic. Compression-heavy PSNR is only +0.0193 dB with a confidence interval crossing zero. FP32 model-only P95 is 3.419 seconds for 512x512 input on Tesla P100, so the teacher is too slow for the deployment target.
+
+The next model is selected from these failures. A compact native-x4 student will receive full-schedule output/feature supervision from the accepted personalized teacher, while an estimated degradation vector and bounded observation correction address compression robustness. This is not a repeat of the neutral earlier x3 distillation: teacher and target are now native x4, the teacher is Sentinel-personalized rather than frozen generic, supervision spans the training schedule, and compression cases are explicitly stratified. LoRA is insufficient for the latency goal because it does not remove the teacher backbone at inference. Mamba is deferred because the diagnostic did not establish long-range structure as the dominant failure.
+
+Detailed protocol, per-profile table, latency, visuals and decision: [`swin2sr-native-x4-diagnostic-results.md`](swin2sr-native-x4-diagnostic-results.md). Accepted artifacts: [`swin2sr_native_x4_diagnostic_v2`](../../artifacts/training_runs/faithsr3x/swin2sr_native_x4_diagnostic_v2/).
+
 ### Sentinel v1 completed results
 
 The frozen split contains 7,488 training images in 58 coordinate-grid groups and 1,728 validation images in 14 disjoint groups; group overlap is zero. All variants use seed 42, 30 epochs, identical synthetic degradation/evaluation, and best-validation-PSNR checkpoint selection.

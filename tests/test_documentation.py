@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from faithsr.documentation import append_run_results, write_model_card
 from faithsr.model import FaithSR3X, FaithSRConfig
 
@@ -21,3 +23,24 @@ def test_results_are_added_idempotently_to_model_card(tmp_path):
     assert text.count("GENERATED_RESULTS_START") == 1
     assert "| Best | 2 |" in text
     assert "12.50 seconds" in text
+
+
+def test_native_x4_result_records_decision_evidence():
+    result = (
+        Path(__file__).resolve().parents[1]
+        / "docs"
+        / "research"
+        / "swin2sr-native-x4-diagnostic-results.md"
+    ).read_text(encoding="utf-8")
+
+    for required in (
+        "Accepted v2 Results",
+        "Model function, layers",
+        "GELU",
+        "PixelShuffle",
+        "Compression-heavy",
+        "3,418.60 ms",
+        "Fails <1 s gate",
+        "compact native-x4 student",
+    ):
+        assert required in result

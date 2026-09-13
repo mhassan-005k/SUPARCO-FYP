@@ -1,0 +1,163 @@
+{
+  "methods": {
+    "bicubic": {
+      "psnr": 22.51125254529588,
+      "ssim": 0.520028385076117,
+      "false_edge_rate": 0.13219362632074255,
+      "edge_precision": 0.8678063686857832,
+      "edge_recall": 0.7671426281015924,
+      "sam_radians": 0.4103493224433128,
+      "ergas": 22.731876231254414,
+      "lpips": 0.7054870756382637,
+      "samples": 47
+    },
+    "swin2sr_frozen_native_x4": {
+      "psnr": 20.97110618428981,
+      "ssim": 0.48072492442232495,
+      "false_edge_rate": 0.1308040460373493,
+      "edge_precision": 0.8691959533285587,
+      "edge_recall": 0.8045295039389996,
+      "sam_radians": 0.45809946843284244,
+      "ergas": 30.083811252675158,
+      "lpips": 0.5474133310799904,
+      "samples": 47
+    },
+    "swin2sr_full_finetune_native_x4": {
+      "psnr": 22.78239367870574,
+      "ssim": 0.548325850608501,
+      "false_edge_rate": 0.12436686147083627,
+      "edge_precision": 0.8756331357550113,
+      "edge_recall": 0.7800562489540019,
+      "sam_radians": 0.3924506798069528,
+      "ergas": 22.88958724001621,
+      "lpips": 0.6149492964465567,
+      "samples": 47
+    }
+  },
+  "paired_scene_intervals_vs_bicubic": {
+    "swin2sr_frozen_native_x4_vs_bicubic": {
+      "psnr": {
+        "mean_delta": -1.5145107404045437,
+        "ci95_low": -1.7134594555200686,
+        "ci95_high": -1.3155620252890188,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "ssim": {
+        "mean_delta": -0.036367159606753914,
+        "ci95_low": -0.050127533877307624,
+        "ci95_high": -0.022606785336200204,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "false_edge_rate": {
+        "mean_delta": -0.0035333635886132288,
+        "ci95_low": -0.023523536081786527,
+        "ci95_high": 0.01645680890456007,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "sam_radians": {
+        "mean_delta": 0.05433030085017284,
+        "ci95_low": 0.025710186093886433,
+        "ci95_high": 0.08295041560645924,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "ergas": {
+        "mean_delta": 6.908599312754645,
+        "ci95_low": 4.229704613994833,
+        "ci95_high": 9.587494011514458,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "edge_precision": {
+        "mean_delta": 0.0035333677694417433,
+        "ci95_low": -0.016456804707911377,
+        "ci95_high": 0.02352354024679486,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "edge_recall": {
+        "mean_delta": 0.03744005150013212,
+        "ci95_low": 0.020516755815820208,
+        "ci95_high": 0.05436334718444403,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "lpips": {
+        "mean_delta": -0.16054367749155432,
+        "ci95_low": -0.1867685134876339,
+        "ci95_high": -0.13431884149547474,
+        "clusters": 3,
+        "paired_images": 47
+      }
+    },
+    "swin2sr_full_finetune_native_x4_vs_bicubic": {
+      "psnr": {
+        "mean_delta": 0.25826557650082355,
+        "ci95_low": -0.001105990231407561,
+        "ci95_high": 0.5176371432330547,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "ssim": {
+        "mean_delta": 0.029807213612872623,
+        "ci95_low": 0.017690922296914553,
+        "ci95_high": 0.04192350492883069,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "false_edge_rate": {
+        "mean_delta": -0.008459839467094213,
+        "ci95_low": -0.016195733130851916,
+        "ci95_high": -0.0007239458033365103,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "sam_radians": {
+        "mean_delta": -0.018210543360075226,
+        "ci95_low": -0.01995756102219388,
+        "ci95_high": -0.01646352569795657,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "ergas": {
+        "mean_delta": 0.03830329404361006,
+        "ci95_low": -0.829920406618651,
+        "ci95_high": 0.9065269947058712,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "edge_precision": {
+        "mean_delta": 0.008459841049667717,
+        "ci95_low": 0.0007239602391759855,
+        "ci95_high": 0.016195721860159447,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "edge_recall": {
+        "mean_delta": 0.011720683182711187,
+        "ci95_low": 0.004801754475046393,
+        "ci95_high": 0.01863961189037598,
+        "clusters": 3,
+        "paired_images": 47
+      },
+      "lpips": {
+        "mean_delta": -0.09186913175643353,
+        "ci95_low": -0.10333308404255181,
+        "ci95_high": -0.08040517947031525,
+        "clusters": 3,
+        "paired_images": 47
+      }
+    }
+  },
+  "model_id": "caidas/swin2SR-classical-sr-x4-64",
+  "revision": "c69ef3e2d2ac5777ff4a9f2f5afcd86d20604b7e",
+  "all_parameters_trainable": true,
+  "parameters": 12239283,
+  "duration_seconds": 74.00750279426575,
+  "best_epoch": 3,
+  "target_scale": 4,
+  "native_x4_output": true
+}

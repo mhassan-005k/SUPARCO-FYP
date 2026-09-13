@@ -1,5 +1,7 @@
 # Swin2SR Native-x4 Diagnostic Pre-registration
 
+Post-run note (2026-09-13): version 2 completed the frozen protocol and is accepted. It found strong overall fidelity gains, an inconclusive compression-heavy PSNR gain, and a failed one-second latency gate. Results and the selected next experiment are recorded in [`swin2sr-native-x4-diagnostic-results.md`](swin2sr-native-x4-diagnostic-results.md). The plan below is retained unchanged as the pre-run record.
+
 Status: locally implemented; private Kaggle source update and GPU execution require explicit approval
 
 Date: 2026-09-11
