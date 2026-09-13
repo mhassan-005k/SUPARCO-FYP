@@ -108,3 +108,21 @@ def test_bicubic_reference_branch_is_recorded(tmp_path):
     assert lr.shape == (3, 16, 16)
     assert torch.equal(target, torch.zeros(4))
     assert json.loads(details)["kernel_family"] == "bicubic_reference"
+
+
+def test_training_dataset_can_stratify_compression_without_changing_scale(tmp_path):
+    from PIL import Image
+    import numpy as np
+
+    path = tmp_path / "image.png"
+    Image.fromarray(np.full((48, 48, 3), 128, np.uint8)).save(path)
+    dataset = SyntheticSRDataset(
+        [path], crop_size=48, train=True, seed=5, scale=4,
+        compression_focus_probability=1.0, compression_focus_floor=0.8,
+    )
+    lr, hr, target, _, details = dataset[0]
+
+    assert lr.shape == (3, 12, 12)
+    assert hr.shape == (3, 48, 48)
+    assert target[2] >= 0.8
+    assert json.loads(details)["compression"] >= 0.8

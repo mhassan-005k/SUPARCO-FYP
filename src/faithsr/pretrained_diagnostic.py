@@ -73,6 +73,15 @@ def _mean_by_method(rows: list[dict]) -> dict[str, dict[str, float | int]]:
     return summary
 
 
+def _predict_native_x4(model: nn.Module, image: torch.Tensor, input_style: str) -> torch.Tensor:
+    if input_style == "pixel_values":
+        return model(pixel_values=image).reconstruction
+    if input_style == "tensor":
+        output = model(image)
+        return output.reconstruction if hasattr(output, "reconstruction") else output
+    raise ValueError(f"Unknown native-x4 model input style: {input_style}")
+
+
 @torch.inference_mode()
 def stress_evaluate(
     model: nn.Module,
@@ -82,6 +91,9 @@ def stress_evaluate(
     crop_size: int = 192,
     perceptual: LPIPSMetric | None = None,
     frozen_model: nn.Module | None = None,
+    candidate_method: str = "swin2sr_full_finetune_native_x4",
+    candidate_label: str = "Swin2SR FT native x4",
+    input_style: str = "pixel_values",
 ) -> dict:
     """Evaluate matched x4 methods under deterministic, named degradation families."""
 
@@ -98,7 +110,7 @@ def stress_evaluate(
             seed = 10_000 + file_index * 100 + profile_index
             lr_cpu, _ = degrade(hr_cpu, scale=4, params=parameters, seed=seed)
             lr, hr = lr_cpu.unsqueeze(0).to(device), hr_cpu.unsqueeze(0).to(device)
-            prediction = model(pixel_values=lr).reconstruction.clamp(0, 1)
+            prediction = _predict_native_x4(model, lr, input_style).clamp(0, 1)
             if prediction.shape != hr.shape:
                 raise ValueError(f"Native x4 prediction shape {tuple(prediction.shape)} != HR {tuple(hr.shape)}")
             bicubic = F.interpolate(lr, size=hr.shape[-2:], mode="bicubic", align_corners=False, antialias=True).clamp(0, 1)
@@ -107,7 +119,7 @@ def stress_evaluate(
             lpips_prediction = None if perceptual is None else perceptual(prediction, hr)
             lpips_bicubic = None if perceptual is None else perceptual(bicubic, hr)
             lpips_frozen = None if perceptual is None or frozen is None else perceptual(frozen, hr)
-            model_rows = _score_rows("swin2sr_full_finetune_native_x4", prediction, hr, [str(path)], [degradation_record], lpips_values=lpips_prediction, scale=4)
+            model_rows = _score_rows(candidate_method, prediction, hr, [str(path)], [degradation_record], lpips_values=lpips_prediction, scale=4)
             baseline_rows = _score_rows("bicubic_x4", bicubic, hr, [str(path)], [degradation_record], lpips_values=lpips_bicubic, scale=4)
             frozen_rows = [] if frozen is None else _score_rows("swin2sr_frozen_native_x4", frozen, hr, [str(path)], [degradation_record], lpips_values=lpips_frozen, scale=4)
             reobserved_model, _ = degrade(prediction[0].detach().cpu(), scale=4, params=parameters, seed=seed)
@@ -140,7 +152,7 @@ def stress_evaluate(
     deficiency_ranking = []
     for profile_name, profile_result in by_profile.items():
         methods = profile_result["methods"]
-        candidate = methods["swin2sr_full_finetune_native_x4"]
+        candidate = methods[candidate_method]
         baseline = methods["bicubic_x4"]
         deficiency_ranking.append({
             "profile": profile_name,
@@ -168,11 +180,11 @@ def stress_evaluate(
         parameters = STRESS_PROFILES[case["profile"]]
         hr = _center_crop(path, crop_size)
         lr, _ = degrade(hr, scale=4, params=parameters, seed=case["seed"])
-        prediction = model(pixel_values=lr.unsqueeze(0).to(device)).reconstruction[0].clamp(0, 1)
+        prediction = _predict_native_x4(model, lr.unsqueeze(0).to(device), input_style)[0].clamp(0, 1)
         save_qualitative_panel(
             target / f"{label}-native-x4.png", lr, hr, prediction,
-            extra={**case, "selection_rule": f"{label} Swin2SR-minus-bicubic PSNR over every held-out stress case", "degradation": parameters.to_dict()},
-            method_label="Swin2SR FT native x4",
+            extra={**case, "selection_rule": f"{label} {candidate_method}-minus-bicubic PSNR over every held-out stress case", "degradation": parameters.to_dict()},
+            method_label=candidate_label,
         )
     return summary
 

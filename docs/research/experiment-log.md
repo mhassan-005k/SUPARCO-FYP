@@ -251,6 +251,20 @@ Conclusion: DA gains are consistently positive but too small for a strong contri
 - Decision: accept personalized native-x4 Swin2SR as the fidelity teacher/reference, not the deployed final model. Next experiment is a lightweight native-x4 student with personalized-teacher distillation and compression-aware conditioning/consistency. Do not add Mamba without a measured long-range failure.
 - Artifacts/results: `artifacts/training_runs/faithsr3x/swin2sr_native_x4_diagnostic_v2/`; detailed interpretation: `docs/research/swin2sr-native-x4-diagnostic-results.md`.
 
+### faithsr-lite-x4-personalized-ablation (pre-registered)
+
+- Date: 2026-09-13.
+- Connection: follows accepted native-x4 Swin2SR v2, which passes overall fidelity but fails the one-second latency gate and has inconclusive compression-heavy PSNR.
+- Hypothesis: a compact native-x4 student can meet latency while personalized-teacher distillation retains fidelity; compression-stratified sampling, estimated-degradation FiLM, a compression-gated depthwise refiner, and bounded observation correction can improve the measured compression weakness.
+- Variants: Base; Distilled; Compression; Full. Shared architecture/training values remain fixed and only registered teacher/compression switches change.
+- Teacher: accepted Sentinel-personalized Swin2SR native-x4 checkpoint SHA-256 `b6ee155e167253fd9db8335338fffba342e2af1a201a1662942aeaa1c5949c7a`.
+- Scale/data: direct native x4 on the same seed-0, 39-train/47-held-out complete-scene Sentinel-2 L2A split.
+- Evaluation: unchanged seven-profile/329-case stress grid, full fidelity metrics, deterministic worst/median/best panels, 100-run FP32/FP16 512-to-2048 benchmark, and full-model TIFF audits.
+- Acceptance: model-only P95 below 1,000 ms plus supported compression fidelity improvement without worse overall false-edge or observation L1. Distillation claims require matched Distilled-minus-Base and Full-minus-Compression evidence.
+- Exclusions: no uncertainty head because current calibration failed; no Mamba/global-context branch because the prior diagnostic did not establish a dominant long-range failure.
+- Mathematics, layer/activation rationale, architecture figure, loss and decision rules: `docs/research/faithsr-lite-x4-ablation-plan.md`.
+- State: architecture, objective, compression sampling, checkpoint support, four-way trainer, evaluator, Kaggle runner and local tests implemented; private source dataset update and remote GPU execution require a separate exact-file approval.
+
 ## Entry template
 
 ### Experiment ID

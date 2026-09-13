@@ -35,3 +35,15 @@ def test_teacher_revision_is_pinned_and_x4_output_is_adapted_to_x3(monkeypatch):
     student = torch.rand_like(output, requires_grad=True)
     torch.nn.functional.smooth_l1_loss(student, output).backward()
     assert student.grad is not None
+
+
+def test_teacher_accepts_wrapped_checkpoint_and_keeps_native_x4(monkeypatch, tmp_path):
+    monkeypatch.setitem(sys.modules, "transformers", types.SimpleNamespace(Swin2SRForImageSuperResolution=_FakeFactory))
+    checkpoint = tmp_path / "teacher.pth"
+    torch.save({"model": {}}, checkpoint)
+    teacher = Swin2SRTeacher("org/model", checkpoint=checkpoint, revision="immutable-sha")
+
+    image = torch.rand(1, 3, 6, 7)
+    output = teacher(image)
+
+    assert output.shape == (1, 3, 24, 28)

@@ -32,6 +32,9 @@ def write_model_card(path: str | Path, model: nn.Module, config: dict[str, Any],
     da = bool(getattr(model_config, "use_degradation_adaptation", False))
     observation = bool(getattr(model_config, "use_observation_consistency", False))
     uncertainty = bool(getattr(model_config, "use_uncertainty", False))
+    compression = bool(getattr(model_config, "use_compression_refinement", False))
+    scale = int(getattr(model_config, "scale", 3))
+    num_blocks = int(getattr(model_config, "num_blocks", 0))
     rows = _parameter_rows(model)
     activations = _activation_counts(model)
     layer_table = "\n".join(f"| `{name}` | {kind} | {parameters:,} |" for name, kind, parameters in rows)
@@ -40,7 +43,9 @@ def write_model_card(path: str | Path, model: nn.Module, config: dict[str, Any],
     if da:
         optional_math.append(r"\(\bar h_i=(1+\gamma_i(z))\odot h_i+\beta_i(z)\) (degradation-conditioned FiLM).")
     if observation:
-        optional_math.append(r"\(k_z=\operatorname{softmax}(W_kz),\;\tilde x=\downarrow_3(k_z*\hat y_0),\;\hat y=\hat y_0+\alpha(z)\operatorname{Bicubic}_3(x-\tilde x),\;0\le\alpha\le0.25\).")
+        optional_math.append(fr"\(k_z=\operatorname{{softmax}}(W_kz),\;\tilde x=\downarrow_{scale}(k_z*\hat y_0),\;\hat y=\hat y_0+\alpha(z)\operatorname{{Bicubic}}_{scale}(x-\tilde x),\;0\le\alpha\le0.25\).")
+    if compression:
+        optional_math.append(r"\(f_c=f+s_c\,c(z)\,\sigma(W_cz)\odot R_c(f)\) (compression-gated LR-space refinement).")
     if uncertainty:
         optional_math.append(r"\(u=\operatorname{Bilinear}_3(\sigma(C_{u2}(\operatorname{GELU}(C_{u1}(f)))))\).")
     card = fr"""# Experiment Model Card: {experiment_id}
@@ -49,11 +54,12 @@ def write_model_card(path: str | Path, model: nn.Module, config: dict[str, Any],
 
 - Why this experiment was run: {rationale}
 - Previous experiment/connection: {previous_experiment}
-- Scale: exact native 3x
+- Scale: exact native {scale}x
 - Trainable parameters: {sum(parameter.numel() for parameter in model.parameters() if parameter.requires_grad):,}
 - Degradation adaptation: {da}
 - Learned observation consistency: {observation}
 - Spatial uncertainty: {uncertainty}
+- Compression-gated refinement: {compression}
 
 ## Mathematical forward function
 
@@ -64,7 +70,7 @@ h_i=P_{{2,i}}(\operatorname{{GELU}}(D_i(\operatorname{{GELU}}(P_{{1,i}}(f_{{i-1}
 
 \[
 f_i=f_{{i-1}}+s_i h_i\odot\sigma(G_i(h_i)),\qquad
-\hat y_0=\operatorname{{Bicubic}}_3(x)+\operatorname{{PixelShuffle}}_3(C_r(f)).
+\hat y_0=\operatorname{{Bicubic}}_{scale}(x)+\operatorname{{PixelShuffle}}_{scale}(C_r(f)).
 \]
 
 """ + ("\n\n".join(optional_math) if optional_math else "This control variant intentionally omits degradation conditioning, learned observation correction, and uncertainty.") + fr"""
@@ -76,11 +82,11 @@ The training objective and degradation equations are frozen in `docs/research/mo
 ```mermaid
 flowchart LR
     X["LR input"] --> S["3x3 stem"]
-    X --> E["Degradation encoder: {da or observation}"]
-    S --> B["Six residual blocks; FiLM={da}"]
+    X --> E["Degradation encoder: {da or observation or compression}"]
+    S --> B["{num_blocks} residual blocks; FiLM={da}"]
     E --> B
     B --> F["Multi-depth fusion"]
-    F --> P["Conv + PixelShuffle x3"]
+    F --> P["Conv + PixelShuffle x{scale}"]
     X --> C["Bicubic base"]
     P --> Y0["Initial SR"]
     C --> Y0
@@ -101,7 +107,7 @@ flowchart LR
 |---|---:|---|
 {activation_table}
 
-PixelShuffle is a deterministic tensor rearrangement, not an activation. For RGB x3, the preceding convolution predicts 3x3²=27 sub-pixel channels.
+PixelShuffle is a deterministic tensor rearrangement, not an activation. For RGB x{scale}, the preceding convolution predicts 3x{scale}²={3 * scale**2} sub-pixel channels.
 
 ## Exact configuration
 

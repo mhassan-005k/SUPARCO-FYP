@@ -65,3 +65,42 @@ class FaithfulObjective(nn.Module):
             terms["distillation"] = F.smooth_l1_loss(sr, teacher.detach())
         total = sum(self.weights.get(name, 0.0) * value for name, value in terms.items())
         return total, terms
+
+
+class CompressionAwareObjective(nn.Module):
+    """Native-x4 reconstruction objective selected by the compression stress failure."""
+
+    def __init__(self, weights: dict[str, float]) -> None:
+        super().__init__()
+        self.weights = weights
+
+    def forward(self, sr, hr, lr, aux, degradation_target=None, teacher=None):
+        per_sample = torch.sqrt((sr - hr).square() + 1e-6).mean(dim=(1, 2, 3))
+        if degradation_target is None:
+            sample_weights = torch.ones_like(per_sample)
+        else:
+            compression = degradation_target[:, 2].to(per_sample)
+            sample_weights = 1 + self.weights.get("compression_focus", 0.0) * compression
+        terms = {
+            "charbonnier": (per_sample * sample_weights).sum() / sample_weights.sum().clamp_min(1e-8),
+            "ssim": ssim_loss(sr.float(), hr.float()),
+            "gradient": F.l1_loss(sobel_magnitude(sr.float()), sobel_magnitude(hr.float())),
+            "frequency": frequency_loss(sr.float(), hr.float()),
+        }
+        if aux.get("reprojected_lr") is not None:
+            terms["observation"] = F.smooth_l1_loss(aux["reprojected_lr"].float(), lr.float())
+        if degradation_target is not None and aux.get("degradation_params") is not None:
+            terms["degradation"] = F.smooth_l1_loss(aux["degradation_params"].float(), degradation_target.float())
+        if teacher is not None:
+            teacher = teacher.detach()
+            terms["distillation"] = F.smooth_l1_loss(sr, teacher)
+            terms["distillation_edge"] = F.l1_loss(
+                sobel_magnitude(sr.float()),
+                sobel_magnitude(teacher.float()),
+            )
+        total = sum(
+            self.weights.get(name, 0.0) * value
+            for name, value in terms.items()
+            if name != "compression_focus"
+        )
+        return total, terms

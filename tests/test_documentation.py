@@ -44,3 +44,24 @@ def test_native_x4_result_records_decision_evidence():
         "compact native-x4 student",
     ):
         assert required in result
+
+
+def test_lite_x4_ablation_is_preregistered_with_math_and_rejection_rules():
+    plan = (
+        Path(__file__).resolve().parents[1]
+        / "docs"
+        / "research"
+        / "faithsr-lite-x4-ablation-plan.md"
+    ).read_text(encoding="utf-8")
+
+    for required in (
+        "Pre-registration",
+        "Four matched variants",
+        "Student mathematical function",
+        "Compression gate",
+        "GELU",
+        "PixelShuffle x4",
+        "below 1,000 ms",
+        "Mamba/global-context is excluded",
+    ):
+        assert required in plan

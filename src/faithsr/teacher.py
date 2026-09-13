@@ -8,7 +8,7 @@ import torch.nn.functional as F
 
 
 class Swin2SRTeacher(nn.Module):
-    """Frozen Hugging Face Swin2SR teacher adapted to the fixed 3x student target."""
+    """Frozen Swin2SR teacher with optional explicit resizing for a student target."""
 
     def __init__(self, model_id: str, checkpoint: str | Path | None = None, revision: str | None = None, batch_size: int | None = None) -> None:
         super().__init__()
@@ -20,7 +20,8 @@ class Swin2SRTeacher(nn.Module):
         self.batch_size = batch_size
         if checkpoint:
             state = torch.load(checkpoint, map_location="cpu", weights_only=False)
-            missing, unexpected = self.model.load_state_dict(state, strict=False)
+            model_state = state.get("model", state) if isinstance(state, dict) else state
+            missing, unexpected = self.model.load_state_dict(model_state, strict=False)
             if missing or unexpected:
                 raise ValueError(f"Teacher checkpoint mismatch: missing={len(missing)} unexpected={len(unexpected)}")
         self.model.eval()
@@ -28,10 +29,12 @@ class Swin2SRTeacher(nn.Module):
             parameter.requires_grad_(False)
 
     @torch.no_grad()
-    def forward(self, lr: torch.Tensor, target_size: tuple[int, int]) -> torch.Tensor:
+    def forward(self, lr: torch.Tensor, target_size: tuple[int, int] | None = None) -> torch.Tensor:
         chunk_size = self.batch_size or lr.shape[0]
         outputs = []
         for chunk in lr.split(chunk_size):
             output = self.model(pixel_values=chunk).reconstruction
-            outputs.append(F.interpolate(output, size=target_size, mode="bicubic", align_corners=False, antialias=True))
+            if target_size is not None and output.shape[-2:] != target_size:
+                output = F.interpolate(output, size=target_size, mode="bicubic", align_corners=False, antialias=True)
+            outputs.append(output)
         return torch.cat(outputs, dim=0)

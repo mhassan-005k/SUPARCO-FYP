@@ -12,7 +12,7 @@ import rasterio
 import torch
 from torch.utils.data import Dataset
 
-from .degradation import DegradationParameters, degrade
+from .degradation import DegradationParameters, degrade, sample_parameters
 
 
 def discover_images(root: str | Path, extensions: set[str] | None = None) -> list[Path]:
@@ -60,7 +60,7 @@ def read_image(path: Path, bands: int = 3) -> torch.Tensor:
 
 
 class SyntheticSRDataset(Dataset):
-    def __init__(self, files: list[Path], crop_size: int = 192, bands: int = 3, train: bool = True, seed: int = 42, max_severity: float = 1.0, mtf_probability: float = 0.0, complex_probability: float = 1.0, scale: int = 3) -> None:
+    def __init__(self, files: list[Path], crop_size: int = 192, bands: int = 3, train: bool = True, seed: int = 42, max_severity: float = 1.0, mtf_probability: float = 0.0, complex_probability: float = 1.0, scale: int = 3, compression_focus_probability: float = 0.0, compression_focus_floor: float = 0.8) -> None:
         if scale not in {3, 4}:
             raise ValueError("Dataset scale must be 3 or 4")
         if crop_size % scale:
@@ -68,7 +68,11 @@ class SyntheticSRDataset(Dataset):
         self.files, self.crop_size, self.bands, self.train, self.seed, self.scale = files, crop_size, bands, train, seed, scale
         if not 0 <= complex_probability <= 1:
             raise ValueError("Complex degradation probability must be within [0,1]")
+        if not 0 <= compression_focus_probability <= 1 or not 0 <= compression_focus_floor <= 1:
+            raise ValueError("Compression focus settings must be within [0,1]")
         self.max_severity, self.mtf_probability, self.complex_probability = max_severity, mtf_probability, complex_probability
+        self.compression_focus_probability = compression_focus_probability
+        self.compression_focus_floor = compression_focus_floor
 
     def set_degradation_severity(self, value: float) -> None:
         if not 0 <= value <= 1:
@@ -94,6 +98,18 @@ class SyntheticSRDataset(Dataset):
         degradation_seed = rng.randrange(0, 2**31) if self.train else self.seed + index
         use_complex = self.complex_probability >= 1 or rng.random() < self.complex_probability
         parameters = None if use_complex else DegradationParameters(0.0, 0.0, 0.0, 0.0, 0.25, 0.25, 0.0, 100, "bicubic_reference", None, 0.0)
+        if parameters is None and self.train and rng.random() < self.compression_focus_probability:
+            sampled = sample_parameters(rng, self.max_severity, self.mtf_probability)
+            floor = self.compression_focus_floor * self.max_severity
+            span = max(0.0, self.max_severity - floor)
+            normalized = sampled.compression / self.max_severity if self.max_severity else 0.0
+            compression = floor + span * normalized
+            parameters = DegradationParameters(
+                sampled.blur, sampled.noise, compression, sampled.aliasing,
+                sampled.sigma_x, sampled.sigma_y, sampled.angle_degrees,
+                int(round(100 - 50 * compression)), sampled.kernel_family,
+                sampled.mtf_nyquist, sampled.severity_cap,
+            )
         lr, parameters = degrade(hr, scale=self.scale, seed=degradation_seed, params=parameters, max_severity=self.max_severity, mtf_probability=self.mtf_probability)
         details = json.dumps({"seed": degradation_seed, "scale": self.scale, **parameters.to_dict()}, sort_keys=True)
         return lr, hr, parameters.normalized_target(), str(self.files[index]), details

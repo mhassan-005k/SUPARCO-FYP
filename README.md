@@ -106,6 +106,7 @@ Each best checkpoint saves a deterministic held-out `best-preview.png/json` with
 - Research paper outline: [`docs/research/paper-outline.md`](docs/research/paper-outline.md)
 - Native-x4 Swin2SR diagnostic pre-registration: [`docs/research/swin2sr-native-x4-diagnostic-plan.md`](docs/research/swin2sr-native-x4-diagnostic-plan.md)
 - Native-x4 Swin2SR accepted results and next-model decision: [`docs/research/swin2sr-native-x4-diagnostic-results.md`](docs/research/swin2sr-native-x4-diagnostic-results.md)
+- FaithSR-Lite-X4 personalized compression-aware ablation pre-registration: [`docs/research/faithsr-lite-x4-ablation-plan.md`](docs/research/faithsr-lite-x4-ablation-plan.md)
 - Mathematical model, layers, activations, architecture figures, and experiment lineage: [`docs/research/model-and-experiment-methodology.md`](docs/research/model-and-experiment-methodology.md)
 - Individual historical and pretrained model cards: [`docs/research/model-cards/`](docs/research/model-cards/)
 - Experiment audit log: [`docs/research/experiment-log.md`](docs/research/experiment-log.md)
