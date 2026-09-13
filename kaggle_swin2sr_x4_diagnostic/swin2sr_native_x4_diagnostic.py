@@ -44,7 +44,7 @@ def make_fixture(patches: Path, target: Path) -> None:
     source_path = next(patches.rglob("*.tif"))
     with rasterio.open(source_path) as source:
         profile = source.profile.copy()
-        pixels = source.read([1, 2, 3], out_shape=(3, 512, 512), resampling=Resampling.bicubic)
+        pixels = source.read([1, 2, 3], out_shape=(3, 512, 512), resampling=Resampling.cubic)
         transform = source.transform * Affine.scale(source.width / 512, source.height / 512)
         profile.update(driver="GTiff", width=512, height=512, count=3, dtype="uint8", transform=transform, compress="none")
         profile.pop("blockxsize", None); profile.pop("blockysize", None); profile.pop("tiled", None)
