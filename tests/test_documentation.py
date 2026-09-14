@@ -1,6 +1,7 @@
 from pathlib import Path
 
-from faithsr.documentation import append_run_results, write_model_card
+from faithsr.documentation import append_run_results, write_hybrid_x4_model_card, write_model_card
+from faithsr.hybrid_x4 import HybridFaithSRX4, HybridFaithSRX4Config
 from faithsr.model import FaithSR3X, FaithSRConfig
 
 
@@ -115,4 +116,14 @@ def test_paper_math_uses_rendered_equations_and_code_mapping():
         r"\operatorname{Softmax}",
     ):
         assert required in lite
-    assert "code does not exist yet" in hybrid
+    assert "Implementation status" in hybrid
+    assert "Residual Consistency Cascade" in hybrid
+
+
+def test_hybrid_model_card_has_word_friendly_math_and_code_mapping(tmp_path):
+    model = HybridFaithSRX4(HybridFaithSRX4Config(channels=8, num_blocks=1, context_levels=2, variant="context_fusion"))
+    path = write_hybrid_x4_model_card(tmp_path / "model-card.md", model, {"scale": 4}, "context", "why", "lite")
+    text = path.read_text(encoding="utf-8")
+    for required in ("batch x bands x height x width", "$$", "MultiScaleContextBranch", "Sigmoid", "PixelShuffle", "Application-input rule"):
+        assert required in text
+    assert r"\[" not in text

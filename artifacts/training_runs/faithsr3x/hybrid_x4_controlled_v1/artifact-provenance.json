@@ -1,0 +1,23 @@
+{
+  "experiment_id": "hybrid_x4_controlled_v1",
+  "completed_date": "2026-09-14",
+  "kaggle_kernel": "muhammadhassan2/faithsr-hybrid-x4-controlled-comparison",
+  "kaggle_kernel_version": 1,
+  "kaggle_kernel_url": "https://www.kaggle.com/code/muhammadhassan2/faithsr-hybrid-x4-controlled-comparison",
+  "source_dataset": "muhammadhassan2/faithsr-3x-private-source",
+  "source_dataset_version": 20,
+  "sentinel_dataset": "muhammadhassan2/faithsr-3x-native-sentinel-2-l2a",
+  "variants": {
+    "medium_base": {
+      "checkpoint_sha256": "7b243b493de6bf00764304090c0d4c19626201961e7aeb3bab4653fcf8b1a059"
+    },
+    "context_fusion": {
+      "checkpoint_sha256": "97064d7524426022abe34cb88d7ea0188a863ee01cb8d0293be0b60a74f41d16"
+    },
+    "residual_cascade": {
+      "checkpoint_sha256": "e77984d3cebb416b6b96e64048a34b6fd6f2474f92b88f8b0abc3c3ab6bffbbe"
+    }
+  },
+  "archive_policy": "Checkpoints, manifests, metrics, generated model cards, audit JSON and PNG panels retained. Duplicate 12.6 MB pipeline TIFF files omitted; their metadata/timing audit JSON is retained.",
+  "selected_variant": "context_fusion"
+}

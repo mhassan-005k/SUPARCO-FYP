@@ -1,0 +1,63 @@
+{
+  "variant": "residual_cascade",
+  "config": {
+    "seed": 0,
+    "scale": 4,
+    "model": {
+      "channels": 48,
+      "num_blocks": 8,
+      "context_levels": 3,
+      "context_kernel_size": 7,
+      "cascade_blocks": 3,
+      "max_cascade_strength": 0.15
+    },
+    "data": {
+      "crop_size": 192,
+      "train_ratio": 0.5,
+      "split_grid_degrees": 0.1,
+      "extensions": [
+        ".tif",
+        ".tiff"
+      ],
+      "mixed_probability": 0.75
+    },
+    "degradation": {
+      "curriculum_epochs": 15,
+      "start_severity": 0.2,
+      "mtf_probability": 0.5
+    },
+    "training": {
+      "epochs": 60,
+      "batch_size": 8,
+      "validation_batch_size": 16,
+      "workers": 2,
+      "learning_rate": 0.0002,
+      "weight_decay": 0.0001,
+      "amp": true
+    },
+    "loss": {
+      "charbonnier": 1.0,
+      "ssim": 0.1,
+      "gradient": 0.03,
+      "frequency": 0.02,
+      "observation": 0.05,
+      "degradation": 0.0,
+      "distillation": 0.0,
+      "distillation_edge": 0.0,
+      "compression_focus": 0.0
+    },
+    "inference": {
+      "tile_size": 512,
+      "overlap": 32
+    }
+  },
+  "git_commit": "unknown",
+  "device": "cuda",
+  "parameters": 147732,
+  "started_unix": 1789390190.6213524,
+  "controlled_comparison": "same split, seed, loss, optimizer, schedule, and common backbone",
+  "finished_unix": 1789390310.529324,
+  "duration_seconds": 119.90797162055969,
+  "best_validation_psnr": 22.001542409261067,
+  "degradation_manifest_sha256": "b17115973de754eed2fce15e4071a120a946a69d7e0a479334b5a6fcece35c29"
+}

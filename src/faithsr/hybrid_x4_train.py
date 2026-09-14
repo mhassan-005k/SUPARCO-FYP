@@ -1,0 +1,163 @@
+"""Train one pre-registered matched native-x4 hybrid comparison variant."""
+from __future__ import annotations
+
+import argparse
+import csv
+import hashlib
+import json
+from pathlib import Path
+import subprocess
+import time
+
+import torch
+from torch.utils.data import DataLoader
+
+from .checkpoint import save_checkpoint
+from .config import load_config, seed_everything, write_run_manifest
+from .data import SyntheticSRDataset, append_degradation_records, discover_images, geographic_split, write_split_manifest
+from .documentation import append_run_results, write_hybrid_x4_model_card
+from .hybrid_x4 import HYBRID_X4_VARIANTS, HybridFaithSRX4, HybridFaithSRX4Config
+from .losses import CompressionAwareObjective
+from .model import count_parameters
+from .qualitative import representative_sample_index, save_qualitative_panel
+from .train import evaluate
+
+
+def variant_model_config(model_config: dict, variant: str) -> HybridFaithSRX4Config:
+    if variant not in HYBRID_X4_VARIANTS:
+        raise ValueError(f"Unknown hybrid variant: {variant}")
+    return HybridFaithSRX4Config(**model_config, variant=variant)
+
+
+def _sha256(path: str | Path) -> str:
+    digest = hashlib.sha256()
+    with Path(path).open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _git_commit() -> str:
+    try:
+        return subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip()
+    except Exception:
+        return "unknown"
+
+
+def run(args: argparse.Namespace) -> Path:
+    config = load_config(args.config, allowed_scales={4})
+    seed_everything(int(config["seed"]))
+    device = torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
+    files = discover_images(args.data, set(config["data"]["extensions"]))
+    train_files, validation_files = geographic_split(
+        files, config["data"]["train_ratio"], config["seed"], config["data"].get("split_grid_degrees", 0.1)
+    )
+    if not train_files or not validation_files:
+        raise ValueError("Scene-separated split produced an empty partition")
+
+    output = Path(args.output)
+    output.mkdir(parents=True, exist_ok=True)
+    write_split_manifest(output / "split.json", train_files, validation_files, config["seed"], config["data"].get("split_grid_degrees", 0.1))
+    degradation = config.get("degradation", {})
+    data_options = {
+        "crop_size": config["data"]["crop_size"], "bands": args.bands, "seed": config["seed"], "scale": 4,
+        "mtf_probability": float(degradation.get("mtf_probability", 0.0)),
+        "complex_probability": float(config["data"].get("mixed_probability", 1.0)),
+    }
+    train_data = SyntheticSRDataset(train_files, train=True, **data_options)
+    validation_data = SyntheticSRDataset(validation_files, train=False, **data_options)
+    train_loader = DataLoader(train_data, batch_size=config["training"]["batch_size"], shuffle=True, num_workers=config["training"]["workers"])
+    validation_loader = DataLoader(validation_data, batch_size=config["training"].get("validation_batch_size", config["training"]["batch_size"]), shuffle=False, num_workers=config["training"]["workers"])
+
+    model_config = variant_model_config({"in_channels": args.bands, "out_channels": args.bands, **config["model"]}, args.variant)
+    model = HybridFaithSRX4(model_config).to(device)
+    rationale = {
+        "medium_base": "Establish a higher-capacity native-x4 control under the exact loss, data split, and schedule used by both hybrids.",
+        "context_fusion": "Test whether cheap multi-scale LR context recovers structures that the local Lite model rendered too softly.",
+        "residual_cascade": "Test whether a bounded second-stage expert can improve sharpness while correcting LR re-observation error.",
+    }[args.variant]
+    write_hybrid_x4_model_card(
+        output / "model-card.md", model, {**config, "variant": args.variant, "resolved_model": model.config.__dict__},
+        f"faithsr-hybrid-x4-{args.variant}", rationale, "faithsr-lite-x4-personalized-ablation-v1",
+    )
+    objective = CompressionAwareObjective(config["loss"])
+    optimizer = torch.optim.AdamW(model.parameters(), lr=config["training"]["learning_rate"], weight_decay=config["training"]["weight_decay"])
+    epochs = int(config["training"]["epochs"])
+    scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs)
+    amp_enabled = device.type == "cuda" and bool(config["training"].get("amp", True))
+    scaler = torch.amp.GradScaler("cuda", enabled=amp_enabled)
+    preview_index, preview_texture = representative_sample_index(validation_data)
+    degradation_path = output / "degradations.jsonl"
+    degradation_path.write_text("", encoding="utf-8")
+    metrics_path = output / "metrics.csv"
+    metrics_path.write_text("epoch,train_loss,psnr,ssim,false_edge_rate,observation_l1,learning_rate\n", encoding="utf-8")
+    started = time.time()
+    best_psnr = float("-inf")
+    manifest = {
+        "variant": args.variant, "config": config, "git_commit": _git_commit(), "device": str(device),
+        "parameters": count_parameters(model), "started_unix": started,
+        "controlled_comparison": "same split, seed, loss, optimizer, schedule, and common backbone",
+    }
+    write_run_manifest(output / "run.json", manifest)
+
+    for epoch in range(1, epochs + 1):
+        curriculum_epochs = max(1, int(degradation.get("curriculum_epochs", 1)))
+        progress = min(1.0, (epoch - 1) / max(1, curriculum_epochs - 1))
+        start_severity = float(degradation.get("start_severity", 1.0))
+        train_data.set_degradation_severity(start_severity + (1 - start_severity) * progress)
+        model.train()
+        total = 0.0
+        for lr, hr, degradation_target, sources, details in train_loader:
+            append_degradation_records(degradation_path, epoch, sources, details)
+            lr, hr, degradation_target = lr.to(device), hr.to(device), degradation_target.to(device)
+            optimizer.zero_grad(set_to_none=True)
+            with torch.amp.autocast("cuda", enabled=amp_enabled):
+                sr, auxiliary = model(lr, return_aux=True)
+                loss, _ = objective(sr, hr, lr, auxiliary, degradation_target, None)
+            scaler.scale(loss).backward()
+            scaler.unscale_(optimizer)
+            torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+            scaler.step(optimizer)
+            scaler.update()
+            total += loss.item()
+        scheduler.step()
+
+        validation = evaluate(model, validation_loader, device)
+        mean_loss = total / max(1, len(train_loader))
+        with metrics_path.open("a", encoding="utf-8", newline="") as handle:
+            csv.writer(handle).writerow([epoch, mean_loss, validation.get("psnr"), validation.get("ssim"), validation.get("false_edge_rate"), validation.get("observation_l1"), optimizer.param_groups[0]["lr"]])
+        checkpoint_state = {"epoch": epoch, "variant": args.variant, "optimizer": optimizer.state_dict(), "scheduler": scheduler.state_dict(), "best_psnr": max(best_psnr, validation["psnr"]), "config": config}
+        save_checkpoint(output / "last.pth", model, **checkpoint_state)
+        if validation["psnr"] > best_psnr:
+            best_psnr = validation["psnr"]
+            save_checkpoint(output / "best.pth", model, **checkpoint_state)
+            preview_lr, preview_hr, _, preview_path, preview_degradation = validation_data[preview_index]
+            with torch.inference_mode():
+                preview_sr = model(preview_lr.unsqueeze(0).to(device))[0].clamp(0, 1)
+            save_qualitative_panel(output / "best-preview.png", preview_lr, preview_hr, preview_sr, extra={"epoch": epoch, "variant": args.variant, "source": preview_path, "degradation": json.loads(preview_degradation), "selection_rule": "maximum validation PSNR epoch; fixed median-texture held-out image", "selection_index": preview_index, "selection_hr_spatial_std": preview_texture}, method_label=f"FaithSR Hybrid X4 {args.variant}")
+        print(json.dumps({"variant": args.variant, "epoch": epoch, "train_loss": mean_loss, **validation}), flush=True)
+
+    finished = time.time()
+    manifest.update({"finished_unix": finished, "duration_seconds": finished - started, "best_validation_psnr": best_psnr, "degradation_manifest_sha256": _sha256(degradation_path)})
+    write_run_manifest(output / "run.json", manifest)
+    append_run_results(output / "model-card.md", metrics_path, manifest["duration_seconds"])
+    return output
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--data", required=True)
+    parser.add_argument("--config", required=True)
+    parser.add_argument("--output", required=True)
+    parser.add_argument("--variant", choices=HYBRID_X4_VARIANTS, required=True)
+    parser.add_argument("--bands", type=int, default=3)
+    parser.add_argument("--device")
+    return parser
+
+
+def main() -> None:
+    print(run(build_parser().parse_args()))
+
+
+if __name__ == "__main__":
+    main()

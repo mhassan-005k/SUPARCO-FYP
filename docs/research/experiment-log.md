@@ -277,6 +277,27 @@ Conclusion: DA gains are consistently positive but too small for a strong contri
 - Complete human-readable dossier: `docs/research/experiments/faithsr-lite-x4-personalized-ablation/README.md`.
 - Saved evidence: `artifacts/training_runs/faithsr3x/faithsr_lite_x4_ablation_v1/`.
 
+### hybrid-x4-controlled-comparison-v1
+
+- Date: 2026-09-14.
+- Kaggle kernel: private `muhammadhassan2/faithsr-hybrid-x4-controlled-comparison`, version 1, complete.
+- Source/data: private source dataset version 20 and the unchanged native Sentinel-2 L2A corpus; 39 training tiles, 47 held-out tiles, three held-out scene/geographic clusters and 329 frozen stress cases.
+- Connection: follows FaithSR-Lite-X4, which passed latency but stayed near/below bicubic and showed visually soft reconstruction. Sequential Swin2SR is excluded because its 3.419-second P95 already fails latency.
+- Controlled variants: a 48-channel/eight-block Medium Base; the same base plus Parallel Context Fusion; and the same base plus a bounded Residual Consistency Cascade. Seed, split, degradation samples, loss, optimizer and 60-epoch schedule are fixed.
+- Input rule: the deployed app does not synthetically degrade real TIFF input. The cascade only area-downsamples its own first SR output to compute an LR consistency error.
+- Model sizes: Medium Base 106,712 parameters; Context Fusion 155,720; Residual Cascade 147,732.
+- Overall metrics: Base 23.73499 dB PSNR / 0.62680 SSIM / 0.56040 LPIPS; Context 23.77394 / 0.62945 / 0.55694; Cascade 23.75310 / 0.62907 / 0.55987.
+- Context-minus-Base paired evidence: PSNR +0.03654 dB (95% geographic-cluster CI +0.02649 to +0.04658), SSIM +0.002617, false-edge -0.000744, LPIPS -0.003809, and observation L1 -0.000398.
+- Cascade-minus-Base paired evidence: PSNR +0.01697 dB (95% CI +0.01208 to +0.02185), SSIM +0.002140, false-edge -0.000663, LPIPS -0.000404, and observation L1 -0.000092.
+- Context-versus-Cascade: Context is +0.01957 dB PSNR better (95% CI +0.01441 to +0.02473). Cascade has slightly lower spectral angle/ERGAS and lower FP16 peak VRAM, but does not match Context's reconstruction/perceptual gain.
+- Versus bicubic: Context gains +0.07561 dB PSNR, +0.02395 SSIM, -0.001324 false-edge, -0.06336 LPIPS and -0.001337 observation L1. Cascade gains +0.05603 dB PSNR with the other registered fidelity metrics also improving.
+- Latency: Context FP16 model-only P95 48.44 ms and TIFF P95 423.41 ms; Cascade 51.27 ms and 398.32 ms. Both pass the 300/800 ms safety targets and one-second hard gate on Tesla P100.
+- Training: Base/Context/Cascade durations were 124.21/126.18/119.91 seconds; best epochs 60/57/56.
+- Visual audit: deterministic panels remain close to bicubic and do not show aggressive invented structures. Gains are measurable but modest; no physical-detail recovery claim is made.
+- Decision: select Parallel Context Fusion for the next data/capacity experiment. Retain Residual Cascade as a successful but weaker ablation, not as the deployed default.
+- Mathematics, layers, activations, figure, trade-offs and accepted results: `docs/research/experiments/hybrid-x4-capacity-context/README.md`.
+- Evidence: `artifacts/training_runs/faithsr3x/hybrid_x4_controlled_v1/`.
+
 ## Entry template
 
 ### Experiment ID

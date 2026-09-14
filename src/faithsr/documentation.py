@@ -127,6 +127,179 @@ PixelShuffle is a deterministic tensor rearrangement, not an activation. For RGB
     return target
 
 
+def write_hybrid_x4_model_card(
+    path: str | Path,
+    model: nn.Module,
+    config: dict[str, Any],
+    experiment_id: str,
+    rationale: str,
+    previous_experiment: str,
+) -> Path:
+    """Write a Word-friendly, variant-specific card for the hybrid x4 study."""
+
+    target = Path(path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    cfg = model.config
+    rows = _parameter_rows(model)
+    activations = _activation_counts(model)
+    layer_table = "\n".join(
+        f"| `{name}` | {kind} | {parameters:,} |" for name, kind, parameters in rows
+    )
+    activation_table = "\n".join(
+        f"| {name} | {count} | "
+        + {
+            "GELU": "Smooth nonlinear feature transform; keeps small negative evidence instead of hard-clipping it.",
+            "Sigmoid": "Bounds fusion or correction gates between 0 and 1.",
+        }.get(name, "Configured nonlinear transform.")
+        + " |"
+        for name, count in activations.items()
+    ) or "| None | 0 | Linear control. |"
+    variant_math = {
+        "medium_base": r"""The control stops at the initial reconstruction:
+
+$$
+\widehat{Y} = \widehat{Y}_0.
+$$""",
+        "context_fusion": r"""The context branch observes the same real LR feature map at several spatial scales:
+
+$$
+C = \operatorname{Mix}\!\left(\operatorname{Concat}\left(B_1(F),\ldots,B_L(F)\right)\right),
+$$
+
+$$
+G = \operatorname{Sigmoid}\!\left(C_{1\times1}\left(\operatorname{GELU}\left(C_{1\times1}([F,C])\right)\right)\right),
+$$
+
+$$
+F_{\mathrm{fused}} = F + G \odot C.
+$$
+
+The gate lets the network use broad context only where the image supports it.""",
+        "residual_cascade": r"""The cascade does not degrade the application input. It only re-observes its own first SR estimate:
+
+$$
+\widetilde{X}_0 = \operatorname{AreaDownsample}_{4}(\widehat{Y}_0),
+\qquad E = X - \widetilde{X}_0.
+$$
+
+The second-stage expert predicts a residual from the real LR input and this consistency error:
+
+$$
+\Delta Y = R_{\theta}([X,E]),
+\qquad A = 0.15\,\operatorname{Sigmoid}(G_{\theta}(R_{\theta}([X,E]))),
+$$
+
+$$
+\widehat{Y} = \widehat{Y}_0 + A \odot \Delta Y.
+$$
+
+The maximum correction strength of 0.15 is a fidelity guardrail against uncontrolled detail injection.""",
+    }[cfg.variant]
+    route = {
+        "medium_base": 'F --> R["x4 reconstruction"]',
+        "context_fusion": 'F --> C["Multi-scale context"]\n    C --> G["Sigmoid fusion gate"]\n    G --> R["x4 reconstruction"]',
+        "residual_cascade": 'F --> R["Initial x4 reconstruction"]\n    R --> E["Re-observe output; LR error"]\n    X --> E\n    E --> Q["Bounded residual expert"]\n    Q --> Y["Final x4 output"]',
+    }[cfg.variant]
+    card = fr"""# Experiment Model Card: {experiment_id}
+
+## Purpose and lineage
+
+- Why this experiment was run: {rationale}
+- Previous experiment/connection: {previous_experiment}
+- Variant: `{cfg.variant}`
+- Scale: native 4x (satisfies the minimum 3x requirement)
+- Input/output: matching image bands; experiments use 8-bit, three-band TIFF imagery
+- Trainable parameters: {sum(p.numel() for p in model.parameters() if p.requires_grad):,}
+
+## Application-input rule
+
+The deployed app passes the user's normalized TIFF pixels directly to the model. Synthetic degradation is a supervised training-data construction method only; it is not an inference prerequisite. Original TIFF metadata is handled by the inference pipeline, not encoded into neural pixels.
+
+## Common mathematical model
+
+Let the input be a batch of normalized LR images with shape `batch x bands x height x width`:
+
+$$
+X \in [0,1]^{{B \times C \times H \times W}}.
+$$
+
+The common local backbone is:
+
+$$
+F_0 = C_{{3\times3}}(X),
+$$
+
+$$
+F_i = F_{{i-1}} + s_i\,C_{{1\times1}}\!\left(DW_{{3\times3}}\!\left(\operatorname{{GELU}}\!\left(C_{{1\times1}}\!\left(\operatorname{{GELU}}\!\left(DW_{{3\times3}}(F_{{i-1}})\right)\right)\right)\right)\right),
+$$
+
+where `DW` is a depthwise convolution and each learned residual scale starts at 0.1. Multi-depth features are concatenated and fused:
+
+$$
+F = F_0 + C_{{3\times3}}\!\left(\operatorname{{GELU}}\!\left(C_{{1\times1}}([F_1,\ldots,F_N])\right)\right).
+$$
+
+The first native-x4 estimate is:
+
+$$
+\widehat{{Y}}_0 = \operatorname{{Bicubic}}_4(X) + \operatorname{{PixelShuffle}}_4(C_r(F)).
+$$
+
+## Variant-specific function
+
+{variant_math}
+
+## Architecture figure
+
+```mermaid
+flowchart LR
+    X["Real LR TIFF pixels"] --> S["3x3 shallow features"]
+    S --> B["{cfg.num_blocks} efficient residual blocks"]
+    B --> F["Multi-depth fusion"]
+    {route}
+    R --> Y["Native x4 output"]
+```
+
+## Top-level layers and parameters
+
+| Name | Layer/module | Parameters |
+|---|---|---:|
+{layer_table}
+
+## Activations and rationale
+
+| Activation | Count | Why used |
+|---|---:|---|
+{activation_table}
+
+PixelShuffle is a deterministic rearrangement, not an activation. For RGB x4, its preceding convolution predicts `3 x 4² = 48` sub-pixel channels.
+
+## Exact configuration
+
+```yaml
+{yaml.safe_dump(config, sort_keys=False).rstrip()}
+```
+
+## Code mapping
+
+- Common block: `EfficientResidualBlock` in `src/faithsr/hybrid_x4.py`
+- Context hypothesis: `MultiScaleContextBranch`
+- Cascade hypothesis: `ResidualConsistencyExpert`
+- End-to-end model: `HybridFaithSRX4`
+- Loss implementation: `CompressionAwareObjective` in `src/faithsr/losses.py`
+
+## References
+
+- SAFMN context motivation: https://openaccess.thecvf.com/content/ICCV2023/papers/Sun_Spatially-Adaptive_Feature_Modulation_for_Efficient_Image_Super-Resolution_ICCV_2023_paper.pdf
+- EFDN efficient residual processing: https://openaccess.thecvf.com/content/CVPR2022W/NTIRE/html/Wang_Edge-Enhanced_Feature_Distillation_Network_for_Efficient_Super-Resolution_CVPRW_2022_paper.html
+- PixelShuffle/sub-pixel convolution: https://arxiv.org/abs/1609.05158
+- GELU: https://arxiv.org/abs/1606.08415
+- Previous experiment: {previous_experiment}
+"""
+    target.write_text(card, encoding="utf-8")
+    return target
+
+
 def append_run_results(card_path: str | Path, metrics_path: str | Path, duration_seconds: float | None = None) -> Path:
     """Idempotently append exact best/final rows to a generated run card."""
 

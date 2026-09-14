@@ -1,0 +1,17 @@
+{
+  "id": "muhammadhassan2/faithsr-hybrid-x4-controlled-comparison",
+  "title": "FaithSR Hybrid X4 Controlled Comparison",
+  "code_file": "faithsr_hybrid_x4_ablation.py",
+  "language": "python",
+  "kernel_type": "script",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_internet": true,
+  "dataset_sources": [
+    "muhammadhassan2/faithsr-3x-private-source"
+  ],
+  "competition_sources": [],
+  "kernel_sources": [
+    "muhammadhassan2/faithsr-3x-native-sentinel-2-l2a"
+  ]
+}

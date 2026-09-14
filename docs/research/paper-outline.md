@@ -24,7 +24,8 @@ The research programme has tested:
 4. learned observation consistency rather than fixed bicubic back-projection;
 5. uncertainty estimation for possible hallucination regions;
 6. full pretrained-model personalization and teacher-student distillation;
-7. metadata-preserving tiled GeoTIFF inference.
+7. metadata-preserving tiled GeoTIFF inference;
+8. efficient parallel multi-scale context and bounded residual-consistency hybrids.
 
 Novelty is not claimed merely from combining components. The literature review and ablation study must establish which mechanism is new and which part produces a measurable improvement.
 
@@ -44,7 +45,9 @@ The accepted native-x4 diagnostic removes the comparison-only resize and tests 3
 
 The follow-up FaithSR-Lite-X4 ablation completed four matched 60-epoch variants. Model-only P95 fell to 23.35 ms for Base and 73.35 ms for Full; Full TIFF end-to-end P95 was 482.85 ms FP32. Quality did not follow speed: Distilled-minus-Base PSNR was only +0.00104 dB and LPIPS worsened; Compression-minus-Base improved LPIPS by 0.01565 but reduced PSNR by 0.04286 dB and worsened observation L1; Full remained 0.04063 dB below Base overall. This rejects a simple “distillation plus compression module” contribution. Swin2SR remains the quality ceiling and Lite Base the speed floor.
 
-The next dataset experiment uses the linked EuroSAT/Sentinel-2 collection's 27,000 multispectral TIFF tiles for spectral/domain pretraining, with its 27,000 JPG copies retained only as an RGB control. Native L2A scenes remain the 512-block and GeoTIFF stress source. Because neither public source supplies true x4 ground truth, all physical-resolution claims remain gated on registered external reference data.
+The controlled Hybrid-X4 experiment then tested a 48-channel Medium Base against two mechanisms. Parallel Context Fusion achieved 23.77394 dB PSNR and 0.62945 SSIM across 329 paired Sentinel-2 stress cases. Relative to Medium Base, its geographic-cluster paired gains were +0.03654 dB PSNR (95% CI +0.02649 to +0.04658), +0.002617 SSIM, -0.000744 false-edge, -0.003809 LPIPS and -0.000398 LR observation L1. Residual Consistency Cascade also improved every primary fidelity measure but produced only +0.01697 dB PSNR. Context exceeded Cascade by +0.01957 dB (95% CI +0.01441 to +0.02473). Both satisfy deployment timing: FP16 512-block P95 was 48.44 ms/51.27 ms model-only and 423.41 ms/398.32 ms end-to-end TIFF for Context/Cascade. Parallel Context Fusion is therefore selected for continuation, while the modest absolute effect size and conservative visuals prohibit a strong recovered-detail claim.
+
+The next selected-model experiment applies the Context Fusion architecture to the linked EuroSAT/Sentinel-2 collection's 27,000 multispectral TIFF tiles for spectral/domain pretraining, with its 27,000 JPG copies retained only as an RGB control. Native L2A scenes remain the 512-block and GeoTIFF stress source. Because neither public source supplies true x4 ground truth, all physical-resolution claims remain gated on registered external reference data.
 
 ## Research questions
 
