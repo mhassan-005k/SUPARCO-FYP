@@ -37,6 +37,8 @@ Every paper-facing experiment must retain this minimum artifact bundle: `best.pt
 
 ## TIFF inference
 
+Inference consumes the observed TIFF directly. `faithsr.degradation.degrade()` belongs to supervised pair creation and evaluation fixtures; it is not called by the application or TIFF inference path. The runtime only validates/normalizes the input, runs overlapping model tiles, blends them, restores uint8 values, and writes the enlarged TIFF plus audit sidecar.
+
 ```powershell
 .venv\Scripts\faithsr infer `
   --input input.tiff `
@@ -45,6 +47,8 @@ Every paper-facing experiment must retain this minimum artifact bundle: `best.pt
 ```
 
 The output is accompanied by `output_faithsr3x.tiff.audit.json` containing hashes, model version, timings, shape, CRS status, and metadata handling.
+
+Current trained checkpoints expect RGB. Do not point them at the linked 13-band EuroSAT TIFF branch until a band-aware configuration is trained and its output-band policy is frozen.
 
 ## Prepare documented Sentinel-2 8-bit RGB
 

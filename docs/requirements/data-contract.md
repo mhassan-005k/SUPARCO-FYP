@@ -2,7 +2,7 @@
 
 Status: Implemented working v1 - 8-bit TIFF and minimum 3x confirmed; final band schema and hardware details pending
 
-Last updated: 2026-09-11
+Last updated: 2026-09-14
 
 ## Terminology that must not be mixed
 
@@ -35,6 +35,16 @@ An 8-bit image does not carry eight values as metadata. A three-band 8-bit RGB p
 7. Does the one-second limit cover model inference only or complete file read, processing, stitching, and write time?
 
 The working RGB contract below is implemented and covered by automated round-trip tests. These unanswered items remain hard gates for restricted SUPARCO validation; the software does not infer or invent them from an uploaded file.
+
+## Training versus application input
+
+The application does **not** blur, downsample, compress or otherwise synthetically degrade the uploaded TIFF. Its inference path is:
+
+`observed TIFF -> validate bands/dtype -> normalize values -> model x3/x4 -> clip and restore uint8 -> write metadata-preserving TIFF`
+
+Synthetic degradation exists only in supervised training and paired public evaluation. There, a known higher-resolution training tile is degraded to create an LR input because public Sentinel datasets do not supply a true same-scene x4 target. Consequently, synthetic test scores estimate reconstruction under the registered degradation family; they do not guarantee the same quality on an arbitrary operational sensor image.
+
+The current application model contract is three-band RGB. A 13-band EuroSAT TIFF cannot be passed to that checkpoint and have ten bands silently reattached. The forthcoming multispectral experiment must declare either (a) a band-aware model that reconstructs every selected band, or (b) an RGB-only output plus an explicit untouched-band policy. Output metadata may describe generated data, but metadata preservation cannot manufacture spectral predictions the network never made.
 
 ## Draft input contract
 

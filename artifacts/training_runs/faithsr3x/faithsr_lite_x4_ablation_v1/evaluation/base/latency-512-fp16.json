@@ -1,0 +1,25 @@
+{
+  "runs": 100,
+  "warmup": 10,
+  "mean_ms": 22.31559965000315,
+  "median_ms": 22.303203000092253,
+  "p95_ms": 22.3949349999657,
+  "peak_vram_bytes": 333157888,
+  "scope": "model_only",
+  "precision": "fp16",
+  "status": "pass",
+  "device": "cuda",
+  "input": [
+    1,
+    3,
+    512,
+    512
+  ],
+  "output": [
+    1,
+    3,
+    2048,
+    2048
+  ],
+  "scale": 4
+}

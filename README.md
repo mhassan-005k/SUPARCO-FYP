@@ -17,7 +17,9 @@ The model should therefore be **blind degradation-aware and image-adaptive**, no
 
 ## Current research status
 
-The active `faithsr` package implements a custom native-3x model with blind degradation conditioning, learned observation consistency, uncertainty output, deterministic degradation replay, documented Sentinel-2 L2A-to-uint8 derivation, 8-bit GeoTIFF metadata preservation, disk-backed tiled inference, comparison metrics, ONNX export, and a Streamlit interface. The accepted native-x4 diagnostic shows that fully fine-tuned Swin2SR is a strong fidelity reference, but it is not the deployable final model: its 512x512-to-2048x2048 model-only P95 latency is 3.419 seconds on the measured Tesla P100, above the one-second target. Heavy compression is its weakest stress family. The next research candidate is therefore a lightweight native-x4 student personalized from the fine-tuned teacher, with compression-aware fidelity conditioning. The older `FaithSRNetV01` remains an archived 2x/4x baseline.
+The active `faithsr` package implements custom native-3x and native-x4 research paths, deterministic degradation replay, documented Sentinel-2 L2A-to-uint8 derivation, 8-bit GeoTIFF metadata preservation, disk-backed tiled inference, fidelity metrics, portable export, and a Streamlit interface. Synthetic degradation is used only to create supervised train/evaluation pairs; the application feeds the observed TIFF directly to the selected model and never degrades it first.
+
+The completed FaithSR-Lite-X4 ablation resolves the teacher-speed trade-off but not the quality target. Base and Distilled process a 512x512 block in about 23 ms P95 on the measured Tesla P100; Full processes it in about 73 ms and completes the TIFF path in 482.85 ms FP32 P95. All tested TIFF outputs preserve the audited uint8/geospatial contract. However, Full is 0.0443 dB below bicubic overall and its observation error is slightly worse; compression modules improve LPIPS and the compression-heavy profile, but do not deliver the registered all-metric fidelity win. Therefore personalized Swin2SR remains the quality ceiling, Lite Base is the speed floor, and no Lite variant is promoted as the final model. The next experiment uses the linked EuroSAT Sentinel-2 TIFF branch for multispectral/domain pretraining while retaining native L2A scenes for 512-block stress and metadata evaluation.
 
 The first preliminary native-3x EuroSAT RGB Kaggle run completed on 2026-09-09. Its 117,224-parameter model reached 30.6966 dB PSNR and 0.84078 SSIM at epoch 25 on a deterministic 6,000-image held-out split. Matched evaluation reached 30.6825 dB versus 22.7390 dB bicubic PSNR, while model-only P95 latency was 54.04 ms for 512x512 input on a Tesla P100. This is synthetic-degradation evidence only—not yet a Sentinel-2, pretrained-baseline, end-to-end deployment, or SUPARCO claim. Raw artifacts and provenance are under `artifacts/training_runs/faithsr3x/eurosat_preliminary_v8/` and `artifacts/results/faithsr3x/eurosat_matched_v3/`.
 
@@ -73,7 +75,8 @@ SUPARCO-FYP/
 |-- docs/
 |   |-- proposal/                # FYP proposal in Markdown and PDF
 |   |-- references/              # Relevant research literature
-|   `-- meetings/                # SUPARCO requirement notes
+|   |-- meetings/                # SUPARCO requirement notes
+|   `-- research/experiments/    # One self-contained dossier per experiment
 |-- scripts/                     # Data preparation and evidence backfills
 |-- tests/                       # Unit and end-to-end verification
 `-- notebooks/                   # Historical analysis notebooks
@@ -104,9 +107,10 @@ Each best checkpoint saves a deterministic held-out `best-preview.png/json` with
 - Public and restricted dataset strategy: [`docs/requirements/dataset-strategy.md`](docs/requirements/dataset-strategy.md)
 - Edge-AI reference paper: [`docs/references/edge-ai-sr-platform-paper.md`](docs/references/edge-ai-sr-platform-paper.md)
 - Research paper outline: [`docs/research/paper-outline.md`](docs/research/paper-outline.md)
+- Per-experiment research dossiers and result index: [`docs/research/experiments/`](docs/research/experiments/)
 - Native-x4 Swin2SR diagnostic pre-registration: [`docs/research/swin2sr-native-x4-diagnostic-plan.md`](docs/research/swin2sr-native-x4-diagnostic-plan.md)
 - Native-x4 Swin2SR accepted results and next-model decision: [`docs/research/swin2sr-native-x4-diagnostic-results.md`](docs/research/swin2sr-native-x4-diagnostic-results.md)
-- FaithSR-Lite-X4 personalized compression-aware ablation pre-registration: [`docs/research/faithsr-lite-x4-ablation-plan.md`](docs/research/faithsr-lite-x4-ablation-plan.md)
+- FaithSR-Lite-X4 personalized ablation plan and completed results: [`docs/research/experiments/faithsr-lite-x4-personalized-ablation/`](docs/research/experiments/faithsr-lite-x4-personalized-ablation/)
 - Mathematical model, layers, activations, architecture figures, and experiment lineage: [`docs/research/model-and-experiment-methodology.md`](docs/research/model-and-experiment-methodology.md)
 - Individual historical and pretrained model cards: [`docs/research/model-cards/`](docs/research/model-cards/)
 - Experiment audit log: [`docs/research/experiment-log.md`](docs/research/experiment-log.md)

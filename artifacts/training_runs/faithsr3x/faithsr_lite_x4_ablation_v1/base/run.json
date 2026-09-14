@@ -1,0 +1,66 @@
+{
+  "variant": "base",
+  "config": {
+    "seed": 0,
+    "scale": 4,
+    "model": {
+      "channels": 32,
+      "num_blocks": 6,
+      "embed_dim": 48,
+      "kernel_size": 7,
+      "max_consistency_strength": 0.2
+    },
+    "data": {
+      "crop_size": 192,
+      "train_ratio": 0.5,
+      "split_grid_degrees": 0.1,
+      "extensions": [
+        ".tif",
+        ".tiff"
+      ],
+      "mixed_probability": 0.75,
+      "compression_focus_probability": 0.5,
+      "compression_focus_floor": 0.8
+    },
+    "degradation": {
+      "curriculum_epochs": 15,
+      "start_severity": 0.2,
+      "mtf_probability": 0.5
+    },
+    "training": {
+      "epochs": 60,
+      "batch_size": 8,
+      "validation_batch_size": 16,
+      "teacher_batch_size": 2,
+      "workers": 2,
+      "learning_rate": 0.0002,
+      "weight_decay": 0.0001,
+      "amp": true
+    },
+    "loss": {
+      "charbonnier": 1.0,
+      "ssim": 0.1,
+      "gradient": 0.03,
+      "frequency": 0.02,
+      "observation": 0.05,
+      "degradation": 0.02,
+      "distillation": 0.05,
+      "distillation_edge": 0.01,
+      "compression_focus": 1.0
+    },
+    "inference": {
+      "tile_size": 512,
+      "overlap": 32
+    }
+  },
+  "git_commit": "unknown",
+  "device": "cuda",
+  "parameters": 62502,
+  "teacher_checkpoint": null,
+  "teacher_checkpoint_sha256": null,
+  "started_unix": 1789300305.5005682,
+  "finished_unix": 1789300410.5621734,
+  "duration_seconds": 105.06160521507263,
+  "best_validation_psnr": 21.894486745198567,
+  "degradation_manifest_sha256": "f952672290b6e0df8442e17439055b82a743cb7c956987c1fb5a7ca97834ee23"
+}

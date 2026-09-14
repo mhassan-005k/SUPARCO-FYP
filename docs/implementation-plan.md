@@ -1,8 +1,8 @@
 # FaithSR Updated Implementation Plan and Evidence-Driven Next Direction
 
-Status: Native-3x core system complete; native-x4 Swin2SR diagnostic accepted; lightweight personalized native-x4 compression-aware student is the next research gate; restricted validation remains externally gated
+Status: Native-3x core, native-x4 Swin2SR diagnostic and FaithSR-Lite-X4 ablation complete; linked EuroSAT multispectral TIFF experiment is next; restricted validation remains externally gated
 
-Last updated: 2026-09-13
+Last updated: 2026-09-14
 
 ## 1. Final product requirement
 
@@ -14,17 +14,19 @@ Primary objective visually dramatic sharpening nahi, balkeh data-faithful recons
 
 Working name: **FaithSR**; final architecture/name diagnostic evidence ke baad freeze hoga.
 
-Native-x4 diagnosis ab complete hai. Fully fine-tuned Swin2SR strong fidelity reference hai, lekin measured P100 latency target se 3.4x zyada hai aur heavy compression par PSNR win statistically clear nahi. Is liye next model lightweight native-x4 student hoga jo personalized Swin2SR teacher se knowledge transfer karega aur compression-aware conditioning/observation fidelity use karega. Mamba/global-context branch abhi add nahi hogi kyun ke long-range structure ko dominant measured failure prove nahi kiya gaya. Current custom FaithSR candidate ke implemented components ye hain:
+Native-x4 diagnosis aur us ke baad four-way FaithSR-Lite ablation dono complete hain. Fully fine-tuned Swin2SR strong fidelity reference hai lekin slow hai. Lite model latency pass karta hai, magar Full/Base quality result mixed-negative hai; is liye kisi variant ko final model freeze nahi kiya gaya. Agla gate linked EuroSAT multispectral TIFF data se domain/band-aware learning test karna hai. Mamba/global-context branch abhi add nahi hogi kyun ke long-range structure dominant measured failure prove nahi hua.
+
+Implemented research components ye hain:
 
 1. **Degradation encoder:** har input tile se blur, noise, compression aur aliasing ka compact representation estimate karega.
 2. **Degradation-conditioned backbone:** estimated degradation ke mutabiq feature processing adapt karega.
-3. **Native 3x reconstruction head:** PixelShuffle-compatible 3x head 512x512 tile ko 1536x1536 banata hai aur minimum-3x requirement satisfy karta hai.
+3. **Native reconstruction heads:** PixelShuffle-compatible x3 and x4 heads respectively 512x512 tile ko 1536x1536 ya 2048x2048 banate hain.
 4. **Learned observation operator:** SR output ko estimated degradation ke through dobara LR space mein project karega.
 5. **Fidelity correction:** agar re-degraded output original input se disagree kare to unsupported detail ko reduce karega.
-6. **Uncertainty head:** har output region ka confidence/risk map dega, taa-ke analyst questionable reconstruction identify kar sake.
-7. **Teacher distillation:** pretrained teacher se useful spatial knowledge transfer test hui; isay contribution tabhi kaha jayega jab matched ablation improvement show kare.
+6. **Uncertainty head:** x3 experiments mein risk map test hui, lekin native-L2A calibration fail hui; isay validated probability claim nahi kiya jayega.
+7. **Teacher distillation:** personalized pretrained teacher se transfer test hua, lekin x4 matched result near-neutral tha; is component ko proven gain nahi kaha jayega.
 
-Fine-tuning a pretrained network valid personalization hai, magar paper contribution ko honestly distinguish kiya jayega. Native-x4 fine-tuned Swin2SR quality mein useful hai magar latency fail karta hai; is liye teacher ko deploy karne ke bajaye us se compact student personalize karna aur measured compression weakness address karna next contribution hai.
+Fine-tuning a pretrained network valid personalization hai, magar paper contribution ko honestly distinguish kiya jayega. Native-x4 fine-tuned Swin2SR quality ceiling aur Lite Base speed floor hai. Next contribution band/domain evidence se select hogi, sirf architecture novelty ke liye module add nahi hoga.
 
 GAN aur diffusion ko primary model mein use nahi kiya jayega, kyunke perceptual realism ke liye invented detail scientific interpretation ko damage kar sakti hai.
 
@@ -37,6 +39,8 @@ UC Merced sirf fast smoke tests aur existing results se continuity ke liye use h
 ### Stage B - Sentinel-2 Level-2A
 
 Main public training/evaluation Sentinel-2 par hogi. Controlled RGB experiment ke liye B4/B3/B2 10 m bands HR target honge. Inko realistic blur, sensor noise, quantization aur exact 3x decimation se synthetic 30 m LR banaya jayega. Split random patches par nahi, geographic tiles aur acquisitions par hoga taa-ke leakage na ho.
+
+Linked Kaggle EuroSAT collection ke 27,000 multispectral TIFF tiles broad ten-class pretraining aur downstream testing ke liye use honge. Parallel 27,000 JPG files sirf RGB control ke liye hain. Kyun ke tiles 64x64 hain, native Sentinel-2 L2A scenes 512x512 latency, large-raster behavior, scene-separated stress aur metadata audit ke liye primary rahenge. TIFFs ke exact dtype, 13-band order aur georeferencing ko training se pehle file-level audit confirm karega.
 
 Sentinel-2 normally 16-bit scientific product hai, jabke final SUPARCO input 8-bit confirmed hai. Is domain gap ko explicitly handle karne ke liye:
 
@@ -226,4 +230,14 @@ Claim tabhi paper mein final hoga jab corresponding experiment, metric implement
 
 ## 8. Recommended execution order
 
-Phases 0-8 execute ho chuki hain. Phase 9 lightweight personalized native-x4 student hai: (A) compact base, (B) full-run output/feature distillation from the accepted personalized Swin2SR teacher, (C) compression-conditioned fidelity correction, aur (D) complete model. Same 47 held-out images aur seven frozen stress profiles par comparison hoga; primary deployment gate 512-to-2048 model-only P95 below one second hai. Restricted SUPARCO holdout final external-validity gate rahega.
+Phases 0-9 execute ho chuki hain. Phase 9 ke Base, Distilled, Compression aur Full variants sab 60 epochs chale. Latency gate pass hua, magar registered quality gate fail/mixed raha: distillation near-neutral, compression LPIPS mein better lekin overall PSNR/observation mein worse, aur Full overall Base ko beat nahi karta.
+
+Phase 10 execution order:
+
+1. linked EuroSAT TIFF branch ka band/dtype/metadata/hash audit;
+2. leakage-safe split manifest;
+3. RGB B4/B3/B2 control against current Base and personalized Swin2SR;
+4. explicit 13-band or selected-band model contract and mixed-resolution alignment;
+5. EuroSAT pretraining followed by native-L2A scene evaluation;
+6. model selection on fidelity-latency Pareto evidence;
+7. restricted SUPARCO holdout as the final external-validity gate.

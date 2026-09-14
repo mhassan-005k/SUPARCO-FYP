@@ -1,60 +1,74 @@
-# Dataset Strategy for 3x Super-Resolution
+# Dataset Strategy for Minimum-x3 Satellite Super-Resolution
 
-Status: Working decision
+Status: Updated working decision
 
-Last updated: 2026-09-08
+Last updated: 2026-09-14
 
-## Recommended role of each dataset
+## Decision
 
-| Dataset | Role | Limitation |
-|---|---|---|
-| UC Merced | Fast smoke tests and continuity with existing experiments | Small 8-bit RGB scene-classification dataset; not a real LR-HR pair dataset |
-| Sentinel-2 Level-2A | Main public-domain training and scientific evaluation source | Native data is multi-resolution and does not provide a true same-band 3x HR counterpart |
-| SUPARCO imagery | Final on-site validation and domain adaptation | Restricted access and limited working slots |
+The linked Kaggle collection `gallo33henrique/sentinel-2-satellite-imagery` is a valid EuroSAT/Sentinel-2 source, not a JPEG-only dataset. Its Data Explorer exposes two parallel branches: 27,000 class-organized JPG files and 27,000 class-organized TIFF files (54,000 files total, version 1, about 2.99 GB). The TIFF branch is the preferred branch for the next public-data experiment.
 
-## Sentinel-2 facts relevant to this project
+It does not replace the current native Sentinel-2 L2A scene corpus. EuroSAT tiles are only 64 by 64 pixels and are organized for land-cover classification; they do not provide real LR/HR x4 pairs or a realistic 512-by-512 deployment raster. We will therefore use both Sentinel sources for different jobs.
 
-Sentinel-2 MSI provides 13 bands:
+## Role of each dataset
 
-- 4 bands at 10 m: B2, B3, B4, B8;
-- 6 bands at 20 m: B5, B6, B7, B8A, B11, B12;
-- 3 bands at 60 m: B1, B9, B10.
+| Dataset | Role | What it can prove | Main limitation |
+|---|---|---|---|
+| UC Merced | Historical continuity and fast smoke tests | Code/model sanity on familiar RGB scenes | Small 8-bit RGB classification dataset; no real LR/HR pairs |
+| Linked EuroSAT TIFF branch | Multispectral public pretraining, land-cover diversity and downstream probe | Whether Sentinel-2 spectral diversity helps a band-aware model | 64-by-64 tiles; synthetic SR pairs; class split can leak geography unless rebuilt |
+| Native Sentinel-2 L2A scenes | Primary 512-scale stress, TIFF pipeline and scene-separated evaluation | Performance on documented, independently acquired public Sentinel scenes | Still no true same-band x4 ground truth |
+| SUPARCO imagery | Final on-site validation and permitted adaptation | Performance on the actual operational domain | Restricted and contract details are pending |
 
-Sentinel-2 reflectance products use 16-bit integer storage with quantification and radiometric-offset metadata. They must not be silently converted to 8-bit RGB for scientific experiments. Quality/classification layers may use different encodings.
+## Verified linked-dataset structure
+
+The useful TIFF path shown by Kaggle/EuroSAT tooling is:
+
+`sentinel_2/ds/images/remote_sensing/otherDatasets/sentinel_2/tif/<class>/<image>.tif`
+
+Classes are AnnualCrop, Forest, HerbaceousVegetation, Highway, Industrial, Pasture, PermanentCrop, Residential, River and SeaLake. The parallel class tree contains display-friendly JPG copies.
+
+Official EuroSAT documentation describes 27,000 georeferenced Sentinel-2 images across ten classes. The multispectral archive contains all 13 Sentinel-2 bands in the original value range, whereas the RGB archive contains JPG images. Before training, the exact linked TIFF files will be sampled and audited for band count, dtype, CRS/tags and value range; dataset-card text alone will not override file inspection.
 
 Sources:
 
-- ESA Sentinel-2 facts: https://www.esa.int/Applications/Observing_the_Earth/Copernicus/Sentinel-2/Facts_and_figures
-- Sentinel-2 Product Specification: https://sentinels.copernicus.eu/documents/d/sentinel/sentinel-2-products-specification-document-15_1
-- Sentinel-2 processing and quantification: https://sentiwiki.copernicus.eu/web/s2-processing
+- Kaggle dataset: https://www.kaggle.com/datasets/gallo33henrique/sentinel-2-satellite-imagery
+- Official EuroSAT repository: https://github.com/phelber/EuroSAT/blob/master/README.md
+- Official EuroSAT Zenodo record: https://zenodo.org/records/7711810
 
-## Proposed public-data experiment
+## Sentinel-2 facts relevant to the project
 
-For a controlled 3x SISR experiment:
+Sentinel-2 MSI provides 13 bands: four at 10 m, six at 20 m and three at 60 m. This matters because a 13-band tile is not equivalent to an RGB image, and bands at different native ground sampling distances must not be treated as if already co-registered at identical physical resolution.
 
-1. Use cloud-filtered Sentinel-2 Level-2A 10 m bands as the HR target.
-2. For the RGB experiment, use B4/B3/B2; optionally include B8 as a fourth-band experiment.
-3. Convert digital numbers to physically meaningful surface reflectance using product quantification and offset metadata.
-4. Generate synthetic 30 m LR observations from the 10 m target with an MTF-inspired blur, 3x decimation, sensor noise, and radiometric quantization.
-5. Train the model to reconstruct the 10 m target from the simulated 30 m input.
-6. Preserve geographic region, acquisition date, and tile identifiers in the manifest.
-7. Split by geographic tile and acquisition, never by random patches from the same source image.
+For the linked TIFF experiment we will preserve the original multispectral values and record every resampling decision. We will not silently reduce 13 bands to RGB and later “reattach” ten unprocessed bands. The model must either reconstruct every declared output band under an explicit band-aware configuration or process only a declared subset while marking untouched bands separately.
 
-This experiment is scientifically controlled but still synthetic. It cannot by itself prove performance on real unknown SUPARCO degradations.
+## Next public-data protocol
+
+1. Pin the Kaggle dataset version and audit representative TIFFs from every class.
+2. Build a manifest containing relative path, class, hash, shape, dtype, band count, value range and available geospatial metadata.
+3. Create train/validation/test groups using geographic identity where coordinates exist. Class-balanced random image splitting alone is not sufficient.
+4. Run an RGB control using B4/B3/B2 so it remains comparable with the current three-channel models.
+5. Run a multispectral model only after deciding how the 10 m, 20 m and 60 m bands are aligned and which bands the product must output.
+6. Generate synthetic LR observations only for training and paired public evaluation. The application will never degrade a user-uploaded TIFF.
+7. Keep the native L2A scene corpus as the 512-by-512 latency, TIFF metadata and out-of-distribution stress benchmark.
+8. Compare UC Merced only as a historical baseline, not as final evidence.
+
+## Scientific boundary
+
+Neither EuroSAT nor ordinary Sentinel-2 L2A provides a true same-scene x4 higher-resolution target for all Sentinel-2 bands. Synthetic downsampling teaches an inverse degradation function, but it cannot prove recovery of real 2.5 m ground truth. Final physical-validity claims require accurately registered higher-resolution reference imagery or the restricted SUPARCO evaluation protocol.
 
 ## Final validation path
 
-1. Pretrain and ablate on public datasets.
-2. Freeze the public-data baseline before SUPARCO testing.
-3. Evaluate the frozen model on restricted on-site imagery.
-4. If permitted, fine-tune only compact adapters/degradation modules on-site.
-5. Compare frozen and adapted models on a separate on-site holdout set.
-6. Export only artifacts permitted by the SUPARCO data-use agreement.
+1. Pretrain and ablate on the linked EuroSAT TIFF data plus native Sentinel-2 L2A scenes.
+2. Freeze the public checkpoint before SUPARCO testing.
+3. Evaluate it on restricted on-site imagery.
+4. If permitted, adapt only on a separate adaptation split.
+5. Compare frozen and adapted models on an untouched on-site holdout.
+6. Export only artifacts permitted by the data-use agreement.
 
 ## Data quality filters
 
-- exclude or mask cloud, cloud-shadow, snow, saturated, defective, and no-data pixels;
-- retain acquisition date, processing baseline, solar/viewing geometry, band identifiers, CRS, and transform;
-- avoid mixing incompatible radiometric products without normalization;
+- exclude or mask cloud, cloud-shadow, snow, saturated, defective and no-data pixels where quality information exists;
+- retain acquisition, band, CRS, transform, dtype, radiometric scaling and source identifiers;
+- avoid mixing incompatible radiometric products without explicit normalization;
 - record every transformation in a machine-readable manifest;
-- keep source imagery and derived LR data in separate immutable locations.
+- keep source imagery and derived LR observations in separate immutable locations.

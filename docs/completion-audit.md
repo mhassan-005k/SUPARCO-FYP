@@ -1,6 +1,6 @@
 # FaithSR-3X Completion and Evidence Audit
 
-Audit date: 2026-09-13
+Audit date: 2026-09-14
 
 ## Outcome
 
@@ -19,7 +19,7 @@ The final restricted SUPARCO validation is not complete because the imagery, fin
 | Pretrained personalization | Complete | Pinned Swin2SR frozen teacher, student distillation, and full-model fine-tuning under an explicit x4-to-x3 comparison contract. The resize was for matched x3 evaluation, not a SUPARCO constraint |
 | Realistic and replayable degradation | Complete | Isotropic/anisotropic/MTF blur, noise, exact decimation, quantization/compression effects, curriculum, and per-observation `degradations.jsonl` |
 | Hallucination/fidelity evaluation | Complete | PSNR, SSIM, LPIPS, false-edge, edge precision/recall, observation error, SAM, ERGAS, uncertainty correlation/calibration, paired scene-cluster intervals, and a downstream probe |
-| Optimization and export | Partial for the native-x4 candidate | Existing lightweight native-x3 path passes latency. Native-x4 Swin2SR fails the P100 one-second gate at 3.419 s FP32 model-only P95; compression/distillation and deployment optimization are now required. TensorRT is hardware-specific; INT8 remains unaccepted without frozen fidelity calibration |
+| Optimization and export | Latency complete; model selection remains open | Native-x4 Swin2SR fails the P100 one-second gate at 3.419 s. FaithSR-Lite-X4 Base/Distilled pass at about 23 ms and Full passes at about 73 ms model-only P95; Full TIFF end-to-end P95 is 482.85 ms FP32. Lite quality is mixed/negative, so speed alone does not select the final model. TensorRT is hardware-specific; INT8 remains unaccepted without frozen fidelity calibration |
 | Analyst application | Complete | `app.py` validates/uploads TIFF, displays metadata, reports tile progress, compares original/bicubic/model output, displays risk, and downloads TIFF/risk/audit artifacts; `tests/test_app.py` smoke-tests startup |
 | Tests and documentation | Complete | Automated model, TIFF, degradation, inference, comparison, export, app, qualitative, Sentinel, downstream, pretrained, and documentation tests; research methodology and experiment lineage are documented |
 | Public Kaggle execution | Complete | Private source dataset plus versioned public-data kernels; accepted artifacts and SHA-256 provenance are stored under `artifacts/` |
@@ -33,6 +33,8 @@ The final restricted SUPARCO validation is not complete because the imagery, fin
 - The present uncertainty head is not calibrated on native L2A because uncertainty-error correlation is negative. Its map is exposed as risk evidence, not as a validated confidence probability.
 - Fully fine-tuned pinned Swin2SR demonstrates pretrained personalization and exceeds bicubic on both matched-x3 and native-x4 held-out protocols, but its 12.24M-parameter deployment path is too slow on the measured P100.
 - Native-x4 v2 improves PSNR by 0.5038 dB and false-edge rate by 0.01460 over bicubic across 329 stress cases. Heavy compression is the weakest family and the 3.419 s FP32 P95 latency fails the one-second gate. This selects a lightweight personalized native-x4 student plus compression-aware fidelity mechanism; Mamba/global-context expansion is not justified by current evidence.
+- FaithSR-Lite-X4 completes that four-way test. Distillation changes Base PSNR by only +0.0010 dB and worsens LPIPS slightly. Compression improves LPIPS but lowers overall PSNR by 0.0429 dB and raises observation error. Full remains fast and improves the compression-heavy PSNR profile by 0.0155 dB over Base, but trails Base overall by 0.0406 dB and fails the registered observation/fidelity acceptance rule. This is a useful negative result, not a deployable-model victory.
+- The linked EuroSAT/Sentinel-2 Kaggle dataset contains a class-organized multispectral TIFF branch as well as JPG copies. It is selected for the next band-aware public experiment; native L2A scenes remain necessary for 512-block and GeoTIFF stress. Neither source supplies true same-band x4 ground truth.
 - The strongest public results do not establish performance on restricted SUPARCO imagery.
 
 ## Saved experiment evidence
@@ -40,6 +42,7 @@ The final restricted SUPARCO validation is not complete because the imagery, fin
 - Native Sentinel-2 L2A: `artifacts/training_runs/faithsr3x/sentinel_l2a_native_v6/`
 - Fully fine-tuned pretrained control: `artifacts/training_runs/faithsr3x/swin2sr_full_finetune_native_l2a_v3/`
 - Native-x4 diagnostic, checkpoint, stress metrics, latency and deterministic visuals: `artifacts/training_runs/faithsr3x/swin2sr_native_x4_diagnostic_v2/`
+- FaithSR-Lite-X4 four-way training, stress metrics, paired intervals, latency, TIFF audits and deterministic visuals: `artifacts/training_runs/faithsr3x/faithsr_lite_x4_ablation_v1/`
 - Deployment benchmarks: `artifacts/results/faithsr3x/deployment_benchmark_v6/`
 - FP32/FP16 parity: `artifacts/results/faithsr3x/precision_benchmark_v1/`
 - Downstream land-cover probe: `artifacts/results/faithsr3x/downstream_landcover_v2/`

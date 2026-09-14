@@ -251,9 +251,12 @@ Conclusion: DA gains are consistently positive but too small for a strong contri
 - Decision: accept personalized native-x4 Swin2SR as the fidelity teacher/reference, not the deployed final model. Next experiment is a lightweight native-x4 student with personalized-teacher distillation and compression-aware conditioning/consistency. Do not add Mamba without a measured long-range failure.
 - Artifacts/results: `artifacts/training_runs/faithsr3x/swin2sr_native_x4_diagnostic_v2/`; detailed interpretation: `docs/research/swin2sr-native-x4-diagnostic-results.md`.
 
-### faithsr-lite-x4-personalized-ablation (pre-registered)
+### faithsr-lite-x4-personalized-ablation-v1
 
-- Date: 2026-09-13.
+- Date: 2026-09-13 to 2026-09-14.
+- Git commit executed: `3556eb0`.
+- Kaggle kernel: private `muhammadhassan2/faithsr-lite-x4-personalized-ablation`, version 1, complete.
+- Source dataset: private version 19. Version 18 was incomplete because Kaggle's directory upload omitted nested contents; it was not used. Version 19 is the hash-verified correction of the same approved logical scope.
 - Connection: follows accepted native-x4 Swin2SR v2, which passes overall fidelity but fails the one-second latency gate and has inconclusive compression-heavy PSNR.
 - Hypothesis: a compact native-x4 student can meet latency while personalized-teacher distillation retains fidelity; compression-stratified sampling, estimated-degradation FiLM, a compression-gated depthwise refiner, and bounded observation correction can improve the measured compression weakness.
 - Variants: Base; Distilled; Compression; Full. Shared architecture/training values remain fixed and only registered teacher/compression switches change.
@@ -263,7 +266,16 @@ Conclusion: DA gains are consistently positive but too small for a strong contri
 - Acceptance: model-only P95 below 1,000 ms plus supported compression fidelity improvement without worse overall false-edge or observation L1. Distillation claims require matched Distilled-minus-Base and Full-minus-Compression evidence.
 - Exclusions: no uncertainty head because current calibration failed; no Mamba/global-context branch because the prior diagnostic did not establish a dominant long-range failure.
 - Mathematics, layer/activation rationale, architecture figure, loss and decision rules: `docs/research/faithsr-lite-x4-ablation-plan.md`.
-- State: architecture, objective, compression sampling, checkpoint support, four-way trainer, evaluator, Kaggle runner and local tests implemented; private source dataset update and remote GPU execution require a separate exact-file approval.
+- Training: all four variants completed 60 epochs. Base and Distilled have 62,502 parameters; Compression and Full have 121,469. Best epochs were 54, 54, 60 and 59 respectively.
+- Overall 329-case results: Base 23.6881 dB PSNR / 0.61846 SSIM / 0.55761 LPIPS; Distilled 23.6892 / 0.61839 / 0.55893; Compression 23.6428 / 0.61754 / 0.54305; Full 23.6451 / 0.61761 / 0.54510.
+- Versus bicubic: Base PSNR -0.0037 dB with CI crossing zero; Distilled -0.0026 dB; Compression -0.0465 dB; Full -0.0443 dB. All improve SSIM, LPIPS and observation L1 versus bicubic, but none dominates across the registered fidelity metrics.
+- Matched component evidence: Distilled-minus-Base PSNR is +0.0010 dB but LPIPS is 0.00128 worse. Compression-minus-Base PSNR is -0.0429 dB and observation L1 is 0.000595 worse, while LPIPS is 0.01565 better. Full-minus-Base PSNR is -0.0406 dB; heavy-compression PSNR is +0.0155 dB with CI just above zero, but overall observation error and LPIPS/PSNR trade-offs fail the registered combined rule.
+- Latency: Base FP32 model P95 23.35 ms; Distilled 23.44 ms; Compression 73.51 ms; Full 73.35 ms. Full end-to-end TIFF P95 is 482.85 ms FP32 and 399.19 ms FP16 on Tesla P100.
+- TIFF audit: six 512x512-to-2048x2048 uint8 outputs preserved CRS, bounds, tags, RGB descriptions and masks, recalculated the x4 transform, and emitted no warnings.
+- Visual audit: deterministic worst/median/best panels and training previews are retained. The output is coherent but generally close to bicubic/soft; the worst Full stress case is 19.83 dB versus 20.41 dB bicubic, so attractive examples cannot support a stronger claim.
+- Decision: speed and TIFF integrity pass; the registered quality contribution fails/mixes. Do not promote Full as final. Keep personalized Swin2SR as quality ceiling and Lite Base as latency floor. Use the linked EuroSAT multispectral TIFF branch to test whether broader Sentinel spectral/domain learning improves the Pareto frontier before adding Mamba or another module.
+- Complete human-readable dossier: `docs/research/experiments/faithsr-lite-x4-personalized-ablation/README.md`.
+- Saved evidence: `artifacts/training_runs/faithsr3x/faithsr_lite_x4_ablation_v1/`.
 
 ## Entry template
 

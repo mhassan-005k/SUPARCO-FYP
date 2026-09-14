@@ -1,0 +1,436 @@
+﻿{
+    "experiment":  "faithsr-lite-x4-personalized-ablation",
+    "accepted_kernel":  "muhammadhassan2/faithsr-lite-x4-personalized-ablation",
+    "kernel_version":  1,
+    "kernel_status":  "complete",
+    "git_commit_at_execution":  "3556eb0",
+    "source_dataset":  "muhammadhassan2/faithsr-3x-private-source",
+    "accepted_source_version":  19,
+    "source_version_note":  "Version 18 was incomplete because directory upload omitted dir-mode zip; it was not used. Version 19 is the hash-verified corrective upload of the same approved logical file scope.",
+    "dataset":  "native Sentinel-2 L2A scene-separated v6 corpus",
+    "teacher_sha256":  "b6ee155e167253fd9db8335338fffba342e2af1a201a1662942aeaa1c5949c7a",
+    "scale":  4,
+    "variants":  [
+                     "base",
+                     "distilled",
+                     "compression",
+                     "full"
+                 ],
+    "acceptance":  "mixed-negative: latency and TIFF integrity pass; registered quality contribution does not pass",
+    "omitted":  [
+                    "six generated pipeline TIFF rasters and aux.xml files are omitted from Git to avoid redundant 75 MB binary storage; their audit JSONs and SHA-256 output hashes are retained"
+                ],
+    "file_count":  82,
+    "files":  [
+                  {
+                      "path":  "base/best.pth",
+                      "bytes":  827550,
+                      "sha256":  "8c06dcf8ebdc1870b8bf8673fd36efe5fef767319e47b4ee1f88737fc6097a42"
+                  },
+                  {
+                      "path":  "base/best-preview.json",
+                      "bytes":  1763,
+                      "sha256":  "619dad5d18abeccc7a319fe15a99a9ffb651b67fe4b8a094c48b6ce42267b377"
+                  },
+                  {
+                      "path":  "base/best-preview.png",
+                      "bytes":  346521,
+                      "sha256":  "bca8f20b87295ca2394ae6231e5a8add4220607a3e121de4d9bb4deab1ef0795"
+                  },
+                  {
+                      "path":  "base/degradations.jsonl",
+                      "bytes":  1241272,
+                      "sha256":  "f952672290b6e0df8442e17439055b82a743cb7c956987c1fb5a7ca97834ee23"
+                  },
+                  {
+                      "path":  "base/metrics.csv",
+                      "bytes":  6313,
+                      "sha256":  "87f19517f21a5d4b04156ca55df2da784fec79494205287a8c49b5d7ecedc42c"
+                  },
+                  {
+                      "path":  "base/model-card.md",
+                      "bytes":  4009,
+                      "sha256":  "d7bc7de4898d2edb773b591f526697290720f29c942001db9782f6ed3867aa5c"
+                  },
+                  {
+                      "path":  "base/run.json",
+                      "bytes":  1589,
+                      "sha256":  "b78b70da5f9d91913f8184bb1efa17d8f492ae27286e38fe20222b91b94d59f8"
+                  },
+                  {
+                      "path":  "base/split.json",
+                      "bytes":  13645,
+                      "sha256":  "533532eeca4f1ffd3cfdc5742ae44ed213c4114caa2d4ce4475e0aa53b5bb31a"
+                  },
+                  {
+                      "path":  "compression/best.pth",
+                      "bytes":  1573114,
+                      "sha256":  "b222dbcfb87e049f73a47790584f194c164cd8a666c4bc555a695eb9e8006f39"
+                  },
+                  {
+                      "path":  "compression/best-preview.json",
+                      "bytes":  1786,
+                      "sha256":  "c0b66734a2ed1dfc1855329960c886d1853e92e3b9b846cc69b8c8fde0df62d7"
+                  },
+                  {
+                      "path":  "compression/best-preview.png",
+                      "bytes":  346064,
+                      "sha256":  "6ae59cba66de6ab2e967654e48dde11e1436e2542a5bc793e295e3a1516f93d8"
+                  },
+                  {
+                      "path":  "compression/degradations.jsonl",
+                      "bytes":  1244826,
+                      "sha256":  "8e564a486ed5f4fc9149d126350b10b48b8b81efa5c5b8a27f790b7e6d0356c2"
+                  },
+                  {
+                      "path":  "compression/metrics.csv",
+                      "bytes":  7501,
+                      "sha256":  "1a3f1af49b6b8237adbedc23a0680cebb08070f05acf31d8724b7b047f1ba156"
+                  },
+                  {
+                      "path":  "compression/model-card.md",
+                      "bytes":  4537,
+                      "sha256":  "f93e4445347163f277f59332160749be357d97c04a74f3df9616e554585c6441"
+                  },
+                  {
+                      "path":  "compression/run.json",
+                      "bytes":  1597,
+                      "sha256":  "13be382327ca7f72892df3270e7ec3e7db32865c15ca35805400fe595803ee30"
+                  },
+                  {
+                      "path":  "compression/split.json",
+                      "bytes":  13645,
+                      "sha256":  "533532eeca4f1ffd3cfdc5742ae44ed213c4114caa2d4ce4475e0aa53b5bb31a"
+                  },
+                  {
+                      "path":  "distilled/best.pth",
+                      "bytes":  827550,
+                      "sha256":  "0c0754af075e865c69dfb9bac1f83e371d55c4bb63e4875dd90f3002200011a5"
+                  },
+                  {
+                      "path":  "distilled/best-preview.json",
+                      "bytes":  1781,
+                      "sha256":  "690cdeabfdac3e0858fcab231d07fa663aafee84e2c05e5d042506a8ab4f3872"
+                  },
+                  {
+                      "path":  "distilled/best-preview.png",
+                      "bytes":  346717,
+                      "sha256":  "719f958348d1a1d8f48822a9f5f3f1b69b5e72099018f67af7530193eb2ccef0"
+                  },
+                  {
+                      "path":  "distilled/degradations.jsonl",
+                      "bytes":  1241272,
+                      "sha256":  "f952672290b6e0df8442e17439055b82a743cb7c956987c1fb5a7ca97834ee23"
+                  },
+                  {
+                      "path":  "distilled/metrics.csv",
+                      "bytes":  6317,
+                      "sha256":  "aae1bc4d9096f98e46947e66ef245bc0c149234b84d231a80663967b5ad5e11c"
+                  },
+                  {
+                      "path":  "distilled/model-card.md",
+                      "bytes":  4032,
+                      "sha256":  "6bd70e507b5cfb20c9178475f4eb2f6b5f154cb823ec9fa856c21c66f7dd64b7"
+                  },
+                  {
+                      "path":  "distilled/run.json",
+                      "bytes":  1781,
+                      "sha256":  "a8ebfb6c26050f63651df732bdb02b58dfab43dd689da87ddf4597e770c978e0"
+                  },
+                  {
+                      "path":  "distilled/split.json",
+                      "bytes":  13645,
+                      "sha256":  "533532eeca4f1ffd3cfdc5742ae44ed213c4114caa2d4ce4475e0aa53b5bb31a"
+                  },
+                  {
+                      "path":  "environment.txt",
+                      "bytes":  18541,
+                      "sha256":  "90fc806bbb820a3459dae5e430c5f29ee14628cbc1522a58e9266eb92c126e44"
+                  },
+                  {
+                      "path":  "evaluation/ablation-summary.json",
+                      "bytes":  31366,
+                      "sha256":  "5fe12fca380aa528d659bf13681e9511b2adee16b75f1c98e1ea0dd73311af93"
+                  },
+                  {
+                      "path":  "evaluation/base/latency-512-fp16.json",
+                      "bytes":  365,
+                      "sha256":  "77f5e9b9a0839e9d2579c6231c8af3ce045cbcb606c23cd3d8f971dbf2e7fbed"
+                  },
+                  {
+                      "path":  "evaluation/base/latency-512-fp32.json",
+                      "bytes":  368,
+                      "sha256":  "f717d4e91f584e1e5df224066d2667247b11f13c6083d3c0194bccec17edce67"
+                  },
+                  {
+                      "path":  "evaluation/base/stress/best-native-x4.json",
+                      "bytes":  1617,
+                      "sha256":  "b94c61dca9cd9cc24d80f80063a91abb9d6324db8ca89d8116b2c8641405e870"
+                  },
+                  {
+                      "path":  "evaluation/base/stress/best-native-x4.png",
+                      "bytes":  342298,
+                      "sha256":  "8cbdd02705fe7cd0a0c9c3a73f791ac8ed833704d5469e7e311b5ca75c811059"
+                  },
+                  {
+                      "path":  "evaluation/base/stress/median-native-x4.json",
+                      "bytes":  1629,
+                      "sha256":  "d97d30c4cc58b9623c0f83e8642aa6bfd5e14dbe2654ce23073b0d12c2ca3bd1"
+                  },
+                  {
+                      "path":  "evaluation/base/stress/median-native-x4.png",
+                      "bytes":  343201,
+                      "sha256":  "82ac852430587d708ba84e49bf38b40c3a493ae3cc447fa5543d0f84371b34c9"
+                  },
+                  {
+                      "path":  "evaluation/base/stress/stress-comparison.csv",
+                      "bytes":  478296,
+                      "sha256":  "93fcf71561a74adaf3c8b9ba9fa28f1e272644adb58a3c73df473839f7595fe8"
+                  },
+                  {
+                      "path":  "evaluation/base/stress/stress-summary.json",
+                      "bytes":  26981,
+                      "sha256":  "86bda102856067bb90200647a1dae82261c26ec54a83c32a3700a2f8e58cb653"
+                  },
+                  {
+                      "path":  "evaluation/base/stress/worst-native-x4.json",
+                      "bytes":  1623,
+                      "sha256":  "628af37e67db0f00e59d38053c2f58035af00c240e72e3ed76be6c7c2f4d8ae8"
+                  },
+                  {
+                      "path":  "evaluation/base/stress/worst-native-x4.png",
+                      "bytes":  387288,
+                      "sha256":  "5a51533c23372911e145552509fe527d5c2fca9fa962355e328b223da88733db"
+                  },
+                  {
+                      "path":  "evaluation/compression/latency-512-fp16.json",
+                      "bytes":  366,
+                      "sha256":  "29a4254170064a354acd744ea514b37c1d7231fd41a04c98e760625917381e44"
+                  },
+                  {
+                      "path":  "evaluation/compression/latency-512-fp32.json",
+                      "bytes":  365,
+                      "sha256":  "69200331036d97dc68b83c9f386187885b5e935660d44cfba51c3fbb2b7cc65e"
+                  },
+                  {
+                      "path":  "evaluation/compression/stress/best-native-x4.json",
+                      "bytes":  1647,
+                      "sha256":  "ac7c4b6328a1555a6e902f86e8fdd60f60647e41b41c35d4db4d54478a6eef76"
+                  },
+                  {
+                      "path":  "evaluation/compression/stress/best-native-x4.png",
+                      "bytes":  312488,
+                      "sha256":  "ee6fc3739e4541ff53d7373c1e9987b8761ee9a631b47ff1da8c93733a0e111c"
+                  },
+                  {
+                      "path":  "evaluation/compression/stress/median-native-x4.json",
+                      "bytes":  1648,
+                      "sha256":  "4ac87ae71fd5719a1033483b9fa9f8e958c8fbedcaa1f87e65e9d84f63a0d97f"
+                  },
+                  {
+                      "path":  "evaluation/compression/stress/median-native-x4.png",
+                      "bytes":  328560,
+                      "sha256":  "d29c399e0b221a7625bfbdec40445f0f4454b2eab814831793fbb1611c66aed3"
+                  },
+                  {
+                      "path":  "evaluation/compression/stress/stress-comparison.csv",
+                      "bytes":  480609,
+                      "sha256":  "70efe7603cca5d06a969f539fb3f6456936a24332021a47c2bb1ae3627d70c47"
+                  },
+                  {
+                      "path":  "evaluation/compression/stress/stress-summary.json",
+                      "bytes":  27107,
+                      "sha256":  "38685c43289b5137c9d986704cdb038cbfb34b5e58d6d34b8d21685cc0777ae1"
+                  },
+                  {
+                      "path":  "evaluation/compression/stress/worst-native-x4.json",
+                      "bytes":  1644,
+                      "sha256":  "79fe7a67792ea7567456bfbaa1c55ffda284a16b22d8598d586fc11af240b130"
+                  },
+                  {
+                      "path":  "evaluation/compression/stress/worst-native-x4.png",
+                      "bytes":  386622,
+                      "sha256":  "40f3abf603f131d9c85e46492a89ab0a869df0794b391e9e4319ba15bbd3da6c"
+                  },
+                  {
+                      "path":  "evaluation/distilled/latency-512-fp16.json",
+                      "bytes":  366,
+                      "sha256":  "268df109d812971a117fda84cac5b639e508614a3edcab0ffeba79ad773bedd8"
+                  },
+                  {
+                      "path":  "evaluation/distilled/latency-512-fp32.json",
+                      "bytes":  367,
+                      "sha256":  "6b6646d1aa8213c546f294d11c6735cc70e7f61877476419451e41e76e421f28"
+                  },
+                  {
+                      "path":  "evaluation/distilled/stress/best-native-x4.json",
+                      "bytes":  1636,
+                      "sha256":  "a4df62c59ffa8634b4fba2df9bd983bb2d380dac4f067338ed0a482da2fe4749"
+                  },
+                  {
+                      "path":  "evaluation/distilled/stress/best-native-x4.png",
+                      "bytes":  342543,
+                      "sha256":  "12f55f6e825f6d973cac76a22c89cfc469b0c6691a47137f08073c243f87730b"
+                  },
+                  {
+                      "path":  "evaluation/distilled/stress/median-native-x4.json",
+                      "bytes":  1636,
+                      "sha256":  "4e9fda4b7e6da48e02eb60082a1ccb655900dca30e7e2b1a4741a0d8d7df33fb"
+                  },
+                  {
+                      "path":  "evaluation/distilled/stress/median-native-x4.png",
+                      "bytes":  329719,
+                      "sha256":  "039bad3ff7d33f144e8448dc3d214e7b31582a57b422668a381acb93457f6671"
+                  },
+                  {
+                      "path":  "evaluation/distilled/stress/stress-comparison.csv",
+                      "bytes":  479921,
+                      "sha256":  "efc0e300cf13ee3d6f77fbf437a371226085041918e5ab76b48da514ff292d88"
+                  },
+                  {
+                      "path":  "evaluation/distilled/stress/stress-summary.json",
+                      "bytes":  27069,
+                      "sha256":  "ebac9e5377a024751752d2024abc5c116b892756a7311e9d9b41c0c662ff1f4b"
+                  },
+                  {
+                      "path":  "evaluation/distilled/stress/worst-native-x4.json",
+                      "bytes":  1635,
+                      "sha256":  "0888fb61c64adbb9546cc26de10520ad7d95ed6c0107adce4f938e0f4ad406b5"
+                  },
+                  {
+                      "path":  "evaluation/distilled/stress/worst-native-x4.png",
+                      "bytes":  387411,
+                      "sha256":  "0f134902f3267fbb6836b9bd27c0b898a6cb16f95c387c86d33662cb7b8f5210"
+                  },
+                  {
+                      "path":  "evaluation/full/latency-512-fp16.json",
+                      "bytes":  954,
+                      "sha256":  "cfd07b8c4a7c187eb056d0ebd7e33132ac13459975fddf711fb3fff1a52a3548"
+                  },
+                  {
+                      "path":  "evaluation/full/latency-512-fp32.json",
+                      "bytes":  956,
+                      "sha256":  "ff903f6ad8a58bdbaf5b2fb43b5186c7d3dcd24d46880a74023df3fc5f22db2e"
+                  },
+                  {
+                      "path":  "evaluation/full/pipeline-fp16/pipeline_0.tiff.audit.json",
+                      "bytes":  2240,
+                      "sha256":  "a45e627024716d3bf12d0eb38d00a41808c4828147b8b76ef8cba5727858d6e2"
+                  },
+                  {
+                      "path":  "evaluation/full/pipeline-fp16/pipeline_1.tiff.audit.json",
+                      "bytes":  2240,
+                      "sha256":  "b749e73c4db8c2a9e74339528bb70bfe029e9bbcbc0065615e21b0803fe68500"
+                  },
+                  {
+                      "path":  "evaluation/full/pipeline-fp16/pipeline_2.tiff.audit.json",
+                      "bytes":  2239,
+                      "sha256":  "02c164eb8455fe37093883eba5615ad2e95f6a925bbad03909b03daaff7abd6d"
+                  },
+                  {
+                      "path":  "evaluation/full/pipeline-fp32/pipeline_0.tiff.audit.json",
+                      "bytes":  2239,
+                      "sha256":  "c60f6376390c8d3e9070d71d9473f49c45315895213178ab9138adf38f3e724a"
+                  },
+                  {
+                      "path":  "evaluation/full/pipeline-fp32/pipeline_0-preview.png",
+                      "bytes":  6046512,
+                      "sha256":  "ca52e2792b68078d896b751cde13876bf56c29b93b6cae874b0ab0fe27f86489"
+                  },
+                  {
+                      "path":  "evaluation/full/pipeline-fp32/pipeline_1.tiff.audit.json",
+                      "bytes":  2241,
+                      "sha256":  "e9e19e09cd3fc51c756f973468967db50cb16170040d91f69a322f703e5102cf"
+                  },
+                  {
+                      "path":  "evaluation/full/pipeline-fp32/pipeline_2.tiff.audit.json",
+                      "bytes":  2240,
+                      "sha256":  "56cc44bc01c1aeadb87e30eced78dfb5c7abd5bda70f2a50ca86c307fe2a6a13"
+                  },
+                  {
+                      "path":  "evaluation/full/stress/best-native-x4.json",
+                      "bytes":  1624,
+                      "sha256":  "3cd83dba3d11bf27f8fd74cdb1b57b0ec33a607b88e061247c9e79fab034191d"
+                  },
+                  {
+                      "path":  "evaluation/full/stress/best-native-x4.png",
+                      "bytes":  312434,
+                      "sha256":  "78a51c9a596bd7b76aa32957c92140d7814e2bba42459e6a141e654a99fc95c9"
+                  },
+                  {
+                      "path":  "evaluation/full/stress/median-native-x4.json",
+                      "bytes":  1625,
+                      "sha256":  "18dd90f37c6b108abc56f57938ffef968323d81a50314ec3f03ffa791daa867f"
+                  },
+                  {
+                      "path":  "evaluation/full/stress/median-native-x4.png",
+                      "bytes":  328408,
+                      "sha256":  "8c8246f65145990f5ad7874476a3795b7e4f0482a8f9e40963c440c94b19afc5"
+                  },
+                  {
+                      "path":  "evaluation/full/stress/stress-comparison.csv",
+                      "bytes":  478284,
+                      "sha256":  "65cc488a7f31b7265e848ac45c34646ae7d75708984ad974cfe727e4807b08c4"
+                  },
+                  {
+                      "path":  "evaluation/full/stress/stress-summary.json",
+                      "bytes":  26977,
+                      "sha256":  "4071f5b1e8d0779f3bcced3e4d61ca70ff71ec4677fc0b43de6a6c14f0afb0f7"
+                  },
+                  {
+                      "path":  "evaluation/full/stress/worst-native-x4.json",
+                      "bytes":  1621,
+                      "sha256":  "71bca2430c0805199d25576564efeb02d42734bfc77c88978453b8c2d9ef898b"
+                  },
+                  {
+                      "path":  "evaluation/full/stress/worst-native-x4.png",
+                      "bytes":  386610,
+                      "sha256":  "995b3da6b1b41683556be641879f2db32922de0883a68c8b0f05ec5c51b54336"
+                  },
+                  {
+                      "path":  "evaluation/paired-variant-intervals.json",
+                      "bytes":  69048,
+                      "sha256":  "b0daa0db2f0d86c16550f3cc9f87d92ce78b861d5f389097350f8203687fe3b7"
+                  },
+                  {
+                      "path":  "full/best.pth",
+                      "bytes":  1573114,
+                      "sha256":  "ad3b1f903a7b20ecefdf0358368e4646927699bffbe2a89f0baefbf271625642"
+                  },
+                  {
+                      "path":  "full/best-preview.json",
+                      "bytes":  1764,
+                      "sha256":  "e6e8391124d6159e8440cb3d99e10bfb243e5488472809c86d3badd64c98b3ec"
+                  },
+                  {
+                      "path":  "full/best-preview.png",
+                      "bytes":  345767,
+                      "sha256":  "08b3d9f41efef3cec9dc25f4673f8fd14cb7735620936e12c61840dd45337913"
+                  },
+                  {
+                      "path":  "full/degradations.jsonl",
+                      "bytes":  1244826,
+                      "sha256":  "8e564a486ed5f4fc9149d126350b10b48b8b81efa5c5b8a27f790b7e6d0356c2"
+                  },
+                  {
+                      "path":  "full/metrics.csv",
+                      "bytes":  7495,
+                      "sha256":  "b3ad464fc006fafeab279b7612c6d825da7ebbcb6f2125c4e083ccc5e404aa7b"
+                  },
+                  {
+                      "path":  "full/model-card.md",
+                      "bytes":  4502,
+                      "sha256":  "f672f08d67faa5f2ffa5da64a4aa58d678e3b424c2d6dfd5319cd3685f93deaf"
+                  },
+                  {
+                      "path":  "full/run.json",
+                      "bytes":  1776,
+                      "sha256":  "ffbb6dab891558f85fa3a1753da2affc1c19f025d25d46e649d5b84003d29191"
+                  },
+                  {
+                      "path":  "full/split.json",
+                      "bytes":  13645,
+                      "sha256":  "533532eeca4f1ffd3cfdc5742ae44ed213c4114caa2d4ce4475e0aa53b5bb31a"
+                  }
+              ]
+}

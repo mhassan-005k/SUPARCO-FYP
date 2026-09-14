@@ -2,11 +2,11 @@
 
 Status: Living document - claims remain provisional until supported by experiments
 
-Last updated: 2026-09-11
+Last updated: 2026-09-14
 
 ## Working title
 
-**FaithSR-3X: Blind Degradation-Aware and Fidelity-Constrained Super-Resolution for Satellite Imagery**
+**FaithSR: Fidelity-Constrained Minimum-x3 Super-Resolution for Satellite Imagery**
 
 ## Central research problem
 
@@ -16,14 +16,14 @@ How can a satellite-image super-resolution model provide at least 3x enhancement
 
 Detailed mathematical definitions, layer rationale, activation choices, architecture figures, and experiment-to-experiment connections are maintained in [`model-and-experiment-methodology.md`](model-and-experiment-methodology.md) and should be promoted into the final Methodology section after the corresponding ablations complete.
 
-The current native-3x candidate combines:
+The research programme has tested:
 
 1. an input-driven degradation representation;
 2. degradation-conditioned feature modulation;
-3. a lightweight 3x reconstruction network;
+3. lightweight native-x3 and native-x4 reconstruction networks;
 4. learned observation consistency rather than fixed bicubic back-projection;
 5. uncertainty estimation for possible hallucination regions;
-6. teacher-student distillation from a strong pretrained SR model;
+6. full pretrained-model personalization and teacher-student distillation;
 7. metadata-preserving tiled GeoTIFF inference.
 
 Novelty is not claimed merely from combining components. The literature review and ablation study must establish which mechanism is new and which part produces a measurable improvement.
@@ -40,7 +40,11 @@ A pinned pretrained Swin2SR x4 teacher was used for three-epoch output distillat
 
 Qualitative evidence is generated automatically at every best checkpoint and cannot be detached from its JSON metrics/provenance. Existing Sentinel runs have deterministic previews, while Full-model worst/median/best cases are selected mechanically from all 1,728 held-out per-image PSNR deltas. The retained worst case is 1.6344 dB below bicubic, preventing cherry-picked visual claims. Exact-protocol native L2A v6 retained 86 informative tiles from six STAC scenes and used three scene-disjoint held-out clusters. Plain FaithSR traded lower PSNR (-0.26044 dB cluster mean versus bicubic) for lower LPIPS (-0.09189); Full had -0.33530 dB PSNR and -0.07370 LPIPS. Both native uncertainty variants had negative uncertainty-error correlation, so calibrated-risk and across-metric superiority claims are explicitly rejected. On the identical validation protocol, frozen Swin2SR was -1.49232 dB below bicubic, whereas full fine-tuning was +0.33646 dB PSNR, +0.02883 SSIM, -0.00821 false-edge and -0.07080 LPIPS. This supports pretrained personalization while preserving the distinction between the 12.24M x4-plus-resize baseline and the 117k custom native-x3 model.
 
-The accepted native-x4 diagnostic removes the comparison-only resize and tests 329 paired stress cases. Fully fine-tuned Swin2SR improves scene-cluster mean PSNR by 0.50377 dB (95% CI 0.40189 to 0.60565), SSIM by 0.04228, false-edge rate by 0.01460, and LPIPS by 0.08691 over bicubic. Heavy compression is the weakest family: PSNR +0.0193 dB with a confidence interval crossing zero. Deployment is the decisive negative result: 512x512-to-2048x2048 model-only P95 is 3.419 seconds FP32 and 3.922 seconds FP16 on Tesla P100. Consequently Swin2SR is retained as the personalized fidelity teacher, while the proposed contribution becomes a lightweight native-x4 student with compression-aware fidelity conditioning. This direction is diagnostic-driven rather than novelty-driven; a Mamba branch is deferred because no dominant long-range failure was measured.
+The accepted native-x4 diagnostic removes the comparison-only resize and tests 329 paired stress cases. Fully fine-tuned Swin2SR improves scene-cluster mean PSNR by 0.50377 dB (95% CI 0.40189 to 0.60565), SSIM by 0.04228, false-edge rate by 0.01460, and LPIPS by 0.08691 over bicubic. Heavy compression is the weakest family: PSNR +0.0193 dB with a confidence interval crossing zero. Deployment is the decisive negative result: 512x512-to-2048x2048 model-only P95 is 3.419 seconds FP32 and 3.922 seconds FP16 on Tesla P100.
+
+The follow-up FaithSR-Lite-X4 ablation completed four matched 60-epoch variants. Model-only P95 fell to 23.35 ms for Base and 73.35 ms for Full; Full TIFF end-to-end P95 was 482.85 ms FP32. Quality did not follow speed: Distilled-minus-Base PSNR was only +0.00104 dB and LPIPS worsened; Compression-minus-Base improved LPIPS by 0.01565 but reduced PSNR by 0.04286 dB and worsened observation L1; Full remained 0.04063 dB below Base overall. This rejects a simple “distillation plus compression module” contribution. Swin2SR remains the quality ceiling and Lite Base the speed floor.
+
+The next dataset experiment uses the linked EuroSAT/Sentinel-2 collection's 27,000 multispectral TIFF tiles for spectral/domain pretraining, with its 27,000 JPG copies retained only as an RGB control. Native L2A scenes remain the 512-block and GeoTIFF stress source. Because neither public source supplies true x4 ground truth, all physical-resolution claims remain gated on registered external reference data.
 
 ## Research questions
 
@@ -52,7 +56,7 @@ The accepted native-x4 diagnostic removes the comparison-only resize and tests 3
 
 ## Hypotheses and acceptance rules
 
-- H1: The proposed model exceeds the matched base model with a paired confidence interval that excludes zero on the primary fidelity metric.
+- H1: A proposed final model must exceed the matched base model with a practically meaningful paired gain, not merely a tiny interval excluding zero.
 - H2: It reduces re-degradation error and false-edge rate without a material PSNR/SSIM regression.
 - H3: Its uncertainty score is positively associated with reconstruction error and identifies high-risk regions.
 - H4: End-to-end P95 latency satisfies the confirmed SUPARCO limit.
@@ -70,7 +74,7 @@ Thresholds will be frozen before the final test-set evaluation. Selected-image i
    - parameter-efficient adaptation and distillation
    - efficient/edge SR
 4. Dataset and problem formulation
-5. Proposed FaithSR-3X method
+5. Proposed FaithSR method and rejected alternatives
 6. Training losses and optimization
 7. Experimental protocol
 8. Quantitative results

@@ -65,3 +65,27 @@ def test_lite_x4_ablation_is_preregistered_with_math_and_rejection_rules():
         "Mamba/global-context is excluded",
     ):
         assert required in plan
+
+
+def test_every_registered_experiment_has_a_self_contained_readme():
+    root = Path(__file__).resolve().parents[1] / "docs" / "research" / "experiments"
+    index = (root / "README.md").read_text(encoding="utf-8")
+    folders = [path for path in root.iterdir() if path.is_dir()]
+    assert len(folders) >= 13
+    for folder in folders:
+        readme = folder / "README.md"
+        assert readme.is_file(), folder.name
+        text = readme.read_text(encoding="utf-8")
+        assert folder.name in index
+        assert len(text) > 500
+
+
+def test_docs_separate_training_degradation_from_application_inference():
+    root = Path(__file__).resolve().parents[1]
+    contract = (root / "docs" / "requirements" / "data-contract.md").read_text(encoding="utf-8")
+    deployment = (
+        root / "docs" / "research" / "experiments" / "deployment-tiff-latency" / "README.md"
+    ).read_text(encoding="utf-8")
+    assert "does **not** blur, downsample, compress" in contract
+    assert "does **not** synthetically degrade" in deployment
+    assert "13-band EuroSAT TIFF" in contract

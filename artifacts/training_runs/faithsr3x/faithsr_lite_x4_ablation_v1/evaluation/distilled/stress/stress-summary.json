@@ -1,0 +1,810 @@
+{
+  "scale": 4,
+  "protocol": "deterministic named degradation families; same LR/HR observation per paired method",
+  "profiles": {
+    "clean_bicubic": {
+      "methods": {
+        "bicubic_x4": {
+          "psnr": 24.87253132272274,
+          "ssim": 0.71643968338662,
+          "false_edge_rate": 0.10134780747776335,
+          "edge_precision": 0.8986521921259292,
+          "edge_recall": 0.6537115015882127,
+          "sam_radians": 0.32399251486392733,
+          "ergas": 15.839285525869816,
+          "lpips": 0.5113604715529908,
+          "observation_l1": 0.00955550416194378,
+          "samples": 47
+        },
+        "faithsr_lite_x4_distilled": {
+          "psnr": 24.827789184894968,
+          "ssim": 0.7187798289542503,
+          "false_edge_rate": 0.10637791518201219,
+          "edge_precision": 0.8936220876714016,
+          "edge_recall": 0.7378136300026102,
+          "sam_radians": 0.34127029697311684,
+          "ergas": 16.29247097258872,
+          "lpips": 0.46839428391862425,
+          "observation_l1": 0.008704927967900926,
+          "samples": 47
+        }
+      },
+      "paired_scene_intervals_vs_bicubic": {
+        "faithsr_lite_x4_distilled_vs_bicubic_x4": {
+          "psnr": {
+            "mean_delta": -0.03547117157258849,
+            "ci95_low": -0.08838676476881732,
+            "ci95_high": 0.017444421623640335,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ssim": {
+            "mean_delta": 0.0038374941526115804,
+            "ci95_low": -0.0028414001635287595,
+            "ci95_high": 0.01051638846875192,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "false_edge_rate": {
+            "mean_delta": 0.00283630291485916,
+            "ci95_low": -0.00737908479794145,
+            "ci95_high": 0.013051690627659769,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "sam_radians": {
+            "mean_delta": 0.017218720140880432,
+            "ci95_low": 0.01464035128890996,
+            "ci95_high": 0.019797088992850903,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ergas": {
+            "mean_delta": 0.39499473571777344,
+            "ci95_low": 0.06437967672835959,
+            "ci95_high": 0.7256097947071873,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_precision": {
+            "mean_delta": -0.002836297063723854,
+            "ci95_low": -0.013051699135307128,
+            "ci95_high": 0.00737910500785942,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_recall": {
+            "mean_delta": 0.08309187686097795,
+            "ci95_low": 0.07838468946563955,
+            "ci95_high": 0.08779906425631635,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "observation_l1": {
+            "mean_delta": -0.0009058666389361293,
+            "ci95_low": -0.0014216635022839146,
+            "ci95_high": -0.0003900697755883439,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "lpips": {
+            "mean_delta": -0.044133886748897865,
+            "ci95_low": -0.054234511305293345,
+            "ci95_high": -0.034033262192502384,
+            "clusters": 3,
+            "paired_images": 47
+          }
+        }
+      }
+    },
+    "mild_anisotropic": {
+      "methods": {
+        "bicubic_x4": {
+          "psnr": 24.528195685528694,
+          "ssim": 0.6558842963360726,
+          "false_edge_rate": 0.10858460618777478,
+          "edge_precision": 0.8914153930988717,
+          "edge_recall": 0.666168028369863,
+          "sam_radians": 0.34835226374103667,
+          "ergas": 17.09372392613837,
+          "lpips": 0.5621710850837383,
+          "observation_l1": 0.0133459889230893,
+          "samples": 47
+        },
+        "faithsr_lite_x4_distilled": {
+          "psnr": 24.52989610712579,
+          "ssim": 0.6727102208644786,
+          "false_edge_rate": 0.11381032000830833,
+          "edge_precision": 0.8861896852229504,
+          "edge_recall": 0.7462532659794422,
+          "sam_radians": 0.3572999435536405,
+          "ergas": 17.370491595978432,
+          "lpips": 0.5050918098459852,
+          "observation_l1": 0.011697769818946402,
+          "samples": 47
+        }
+      },
+      "paired_scene_intervals_vs_bicubic": {
+        "faithsr_lite_x4_distilled_vs_bicubic_x4": {
+          "psnr": {
+            "mean_delta": 0.007372209991233936,
+            "ci95_low": -0.027204285540952392,
+            "ci95_high": 0.04194870552342027,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ssim": {
+            "mean_delta": 0.01738511241864467,
+            "ci95_low": 0.014314185314813875,
+            "ci95_high": 0.02045603952247546,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "false_edge_rate": {
+            "mean_delta": 0.0033878988478386746,
+            "ci95_low": -0.005826443255497447,
+            "ci95_high": 0.012602240951174796,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "sam_radians": {
+            "mean_delta": 0.009167039631933405,
+            "ci95_low": 0.008088980541946877,
+            "ci95_high": 0.010245098721919933,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ergas": {
+            "mean_delta": 0.2320102962894716,
+            "ci95_low": 0.043237604829341886,
+            "ci95_high": 0.4207829877496013,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_precision": {
+            "mean_delta": -0.003387889136438784,
+            "ci95_low": -0.012602241553250834,
+            "ci95_high": 0.005826463280373267,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_recall": {
+            "mean_delta": 0.07962981824749622,
+            "ci95_low": 0.07620535417548577,
+            "ci95_high": 0.08305428231950668,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "observation_l1": {
+            "mean_delta": -0.0016827421411332014,
+            "ci95_low": -0.002055938815942942,
+            "ci95_high": -0.0013095454663234608,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "lpips": {
+            "mean_delta": -0.05796138548116753,
+            "ci95_low": -0.0684597841198707,
+            "ci95_high": -0.04746298684246434,
+            "clusters": 3,
+            "paired_images": 47
+          }
+        }
+      }
+    },
+    "severe_blur": {
+      "methods": {
+        "bicubic_x4": {
+          "psnr": 23.756430402715157,
+          "ssim": 0.6068320014375321,
+          "false_edge_rate": 0.10974454618197807,
+          "edge_precision": 0.8902554562751283,
+          "edge_recall": 0.5474201218878969,
+          "sam_radians": 0.3473116524041967,
+          "ergas": 17.958561562477275,
+          "lpips": 0.6262505092519395,
+          "observation_l1": 0.013991411497935336,
+          "samples": 47
+        },
+        "faithsr_lite_x4_distilled": {
+          "psnr": 23.86101369654879,
+          "ssim": 0.6279711412622574,
+          "false_edge_rate": 0.11402965986982305,
+          "edge_precision": 0.8859703426665448,
+          "edge_recall": 0.6307170042332183,
+          "sam_radians": 0.35182170585748995,
+          "ergas": 18.072952686472142,
+          "lpips": 0.5788964641855118,
+          "observation_l1": 0.012355106823304866,
+          "samples": 47
+        }
+      },
+      "paired_scene_intervals_vs_bicubic": {
+        "faithsr_lite_x4_distilled_vs_bicubic_x4": {
+          "psnr": {
+            "mean_delta": 0.1020736677059229,
+            "ci95_low": 0.08648598775799382,
+            "ci95_high": 0.11766134765385197,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ssim": {
+            "mean_delta": 0.021214690383361736,
+            "ci95_low": 0.01989239250850916,
+            "ci95_high": 0.022536988258214312,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "false_edge_rate": {
+            "mean_delta": 0.002455230431118305,
+            "ci95_low": -0.007038025495502377,
+            "ci95_high": 0.011948486357738987,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "sam_radians": {
+            "mean_delta": 0.004473882443878962,
+            "ci95_low": 0.0040303646021476345,
+            "ci95_high": 0.004917400285610289,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ergas": {
+            "mean_delta": 0.0815636360126993,
+            "ci95_low": -0.06636853541430117,
+            "ci95_high": 0.22949580743969977,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_precision": {
+            "mean_delta": -0.002455228156801583,
+            "ci95_low": -0.011948495142232266,
+            "ci95_high": 0.007038038828629101,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_recall": {
+            "mean_delta": 0.08324469299312087,
+            "ci95_low": 0.07862121086628238,
+            "ci95_high": 0.08786817511995937,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "observation_l1": {
+            "mean_delta": -0.0016222365176899063,
+            "ci95_low": -0.001959954361199045,
+            "ci95_high": -0.0012845186741807678,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "lpips": {
+            "mean_delta": -0.047940366240083306,
+            "ci95_low": -0.055506953177677155,
+            "ci95_high": -0.040373779302489456,
+            "clusters": 3,
+            "paired_images": 47
+          }
+        }
+      }
+    },
+    "noise_heavy": {
+      "methods": {
+        "bicubic_x4": {
+          "psnr": 21.013022118426385,
+          "ssim": 0.44371485710144043,
+          "false_edge_rate": 0.17051032415412842,
+          "edge_precision": 0.8294896749739952,
+          "edge_recall": 0.9420753501831217,
+          "sam_radians": 0.4899800759046636,
+          "ergas": 26.031800757063195,
+          "lpips": 0.746615635587814,
+          "observation_l1": 0.06025256890248745,
+          "samples": 47
+        },
+        "faithsr_lite_x4_distilled": {
+          "psnr": 20.801306217274767,
+          "ssim": 0.44440714222319583,
+          "false_edge_rate": 0.1722882242595896,
+          "edge_precision": 0.8277117800205311,
+          "edge_recall": 0.952078325951353,
+          "sam_radians": 0.4983498279718643,
+          "ergas": 26.964997311855885,
+          "lpips": 0.6581644682174034,
+          "observation_l1": 0.060109994116615745,
+          "samples": 47
+        }
+      },
+      "paired_scene_intervals_vs_bicubic": {
+        "faithsr_lite_x4_distilled_vs_bicubic_x4": {
+          "psnr": {
+            "mean_delta": -0.19162147805310678,
+            "ci95_low": -0.2718072627619496,
+            "ci95_high": -0.11143569334426395,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ssim": {
+            "mean_delta": 0.002154058844283007,
+            "ci95_low": -0.0030896135303969826,
+            "ci95_high": 0.0073977312189629964,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "false_edge_rate": {
+            "mean_delta": 0.001715228744391082,
+            "ci95_low": 7.48907453179677e-05,
+            "ci95_high": 0.0033555667434641964,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "sam_radians": {
+            "mean_delta": 0.00850810161859229,
+            "ci95_low": 0.007227127260245014,
+            "ci95_high": 0.009789075976939569,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ergas": {
+            "mean_delta": 0.8370811947877858,
+            "ci95_low": 0.43699753180983164,
+            "ci95_high": 1.23716485776574,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_precision": {
+            "mean_delta": -0.0017152238583219223,
+            "ci95_low": -0.00335556108378018,
+            "ci95_high": -7.48866328636646e-05,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_recall": {
+            "mean_delta": 0.009833255755728569,
+            "ci95_low": 0.005723329190656143,
+            "ci95_high": 0.013943182320800995,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "observation_l1": {
+            "mean_delta": -0.00022003990665510082,
+            "ci95_low": -0.0005193406032237989,
+            "ci95_high": 7.926078991359726e-05,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "lpips": {
+            "mean_delta": -0.08937301351756288,
+            "ci95_low": -0.09644486947313531,
+            "ci95_high": -0.08230115756199045,
+            "clusters": 3,
+            "paired_images": 47
+          }
+        }
+      }
+    },
+    "compression_heavy": {
+      "methods": {
+        "bicubic_x4": {
+          "psnr": 23.144837846147254,
+          "ssim": 0.5346486371882418,
+          "false_edge_rate": 0.12441814318299294,
+          "edge_precision": 0.8755818554695617,
+          "edge_recall": 0.6083859110132177,
+          "sam_radians": 0.37334541786224285,
+          "ergas": 20.977046043314832,
+          "lpips": 0.7216256780827299,
+          "observation_l1": 0.007589299499275203,
+          "samples": 47
+        },
+        "faithsr_lite_x4_distilled": {
+          "psnr": 23.126139985754136,
+          "ssim": 0.5482164653057747,
+          "false_edge_rate": 0.12996431915683948,
+          "edge_precision": 0.8700356800505455,
+          "edge_recall": 0.6792391760552183,
+          "sam_radians": 0.3771474577010946,
+          "ergas": 21.104215084238255,
+          "lpips": 0.6500091692234607,
+          "observation_l1": 0.004764660462202069,
+          "samples": 47
+        }
+      },
+      "paired_scene_intervals_vs_bicubic": {
+        "faithsr_lite_x4_distilled_vs_bicubic_x4": {
+          "psnr": {
+            "mean_delta": -0.013419519300046173,
+            "ci95_low": -0.033553035266460855,
+            "ci95_high": 0.006713996666368509,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ssim": {
+            "mean_delta": 0.013897575195068899,
+            "ci95_low": 0.011842055213260039,
+            "ci95_high": 0.01595309517687776,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "false_edge_rate": {
+            "mean_delta": 0.004294449267773957,
+            "ci95_low": -0.0028899326698396816,
+            "ci95_high": 0.011478831205387596,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "sam_radians": {
+            "mean_delta": 0.004065840788509535,
+            "ci95_low": 0.0025986960485039024,
+            "ci95_high": 0.005532985528515167,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ergas": {
+            "mean_delta": 0.10519140440484752,
+            "ci95_low": -0.0027843086183373944,
+            "ci95_high": 0.21316711742803243,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_precision": {
+            "mean_delta": -0.004294451866028965,
+            "ci95_low": -0.01147882631876939,
+            "ci95_high": 0.0028899225867114603,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_recall": {
+            "mean_delta": 0.07033234810375649,
+            "ci95_low": 0.0684656535377842,
+            "ci95_high": 0.07219904266972879,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "observation_l1": {
+            "mean_delta": -0.0027974801452491315,
+            "ci95_low": -0.004053263353681136,
+            "ci95_high": -0.0015416969368171273,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "lpips": {
+            "mean_delta": -0.07219951691618864,
+            "ci95_low": -0.08047703179473258,
+            "ci95_high": -0.06392200203764471,
+            "clusters": 3,
+            "paired_images": 47
+          }
+        }
+      }
+    },
+    "aliasing_heavy": {
+      "methods": {
+        "bicubic_x4": {
+          "psnr": 24.094224402245054,
+          "ssim": 0.6257072947126754,
+          "false_edge_rate": 0.10602343819559888,
+          "edge_precision": 0.8939765628348005,
+          "edge_recall": 0.5821103003430874,
+          "sam_radians": 0.34650111039902304,
+          "ergas": 17.536814151926244,
+          "lpips": 0.5938054792424465,
+          "observation_l1": 0.014469016977447145,
+          "samples": 47
+        },
+        "faithsr_lite_x4_distilled": {
+          "psnr": 24.188572092259182,
+          "ssim": 0.6465459453298691,
+          "false_edge_rate": 0.11257749645316854,
+          "edge_precision": 0.8874225045772309,
+          "edge_recall": 0.667389839887619,
+          "sam_radians": 0.3512850173927368,
+          "ergas": 17.696686085234298,
+          "lpips": 0.5412815168816992,
+          "observation_l1": 0.012778523695120152,
+          "samples": 47
+        }
+      },
+      "paired_scene_intervals_vs_bicubic": {
+        "faithsr_lite_x4_distilled_vs_bicubic_x4": {
+          "psnr": {
+            "mean_delta": 0.09329967222351959,
+            "ci95_low": 0.07842105852201245,
+            "ci95_high": 0.10817828592502673,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ssim": {
+            "mean_delta": 0.02110945762715478,
+            "ci95_low": 0.01900268033070878,
+            "ci95_high": 0.02321623492360078,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "false_edge_rate": {
+            "mean_delta": 0.004666465577547965,
+            "ci95_low": -0.005216244911172852,
+            "ci95_high": 0.014549176066268783,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "sam_radians": {
+            "mean_delta": 0.00473841835839161,
+            "ci95_low": 0.004022682392722204,
+            "ci95_high": 0.005454154324061016,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ergas": {
+            "mean_delta": 0.12226164513739986,
+            "ci95_low": -0.04312887960778826,
+            "ci95_high": 0.28765216988258796,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_precision": {
+            "mean_delta": -0.0046664709090322685,
+            "ci95_low": -0.01454916866251415,
+            "ci95_high": 0.0052162268444496136,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_recall": {
+            "mean_delta": 0.0851729229848454,
+            "ci95_low": 0.08273277067890857,
+            "ci95_high": 0.08761307529078223,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "observation_l1": {
+            "mean_delta": -0.0016896803635577469,
+            "ci95_low": -0.0020498287643298625,
+            "ci95_high": -0.001329531962785631,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "lpips": {
+            "mean_delta": -0.053376498726615006,
+            "ci95_low": -0.06264648442785027,
+            "ci95_high": -0.04410651302537974,
+            "clusters": 3,
+            "paired_images": 47
+          }
+        }
+      }
+    },
+    "mtf_low_nyquist": {
+      "methods": {
+        "bicubic_x4": {
+          "psnr": 24.47477373163751,
+          "ssim": 0.6528028497036468,
+          "false_edge_rate": 0.10840075106379833,
+          "edge_precision": 0.8915992455279573,
+          "edge_recall": 0.6576251286141416,
+          "sam_radians": 0.34813374090701976,
+          "ergas": 17.14251329543743,
+          "lpips": 0.5672154984575637,
+          "observation_l1": 0.013563346870719119,
+          "samples": 47
+        },
+        "faithsr_lite_x4_distilled": {
+          "psnr": 24.489914954976832,
+          "ssim": 0.6700851016856254,
+          "false_edge_rate": 0.11373768754779025,
+          "edge_precision": 0.8862623141167012,
+          "edge_recall": 0.738649013194632,
+          "sam_radians": 0.3566078137844167,
+          "ergas": 17.401018020954538,
+          "lpips": 0.5106850057206256,
+          "observation_l1": 0.011906894974093488,
+          "samples": 47
+        }
+      },
+      "paired_scene_intervals_vs_bicubic": {
+        "faithsr_lite_x4_distilled_vs_bicubic_x4": {
+          "psnr": {
+            "mean_delta": 0.019499954969986626,
+            "ci95_low": -0.012159871648205388,
+            "ci95_high": 0.05115978158817864,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ssim": {
+            "mean_delta": 0.017804180366405544,
+            "ci95_low": 0.014886863431289804,
+            "ci95_high": 0.020721497301521286,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "false_edge_rate": {
+            "mean_delta": 0.0033623836192207927,
+            "ci95_low": -0.006329430300994742,
+            "ci95_high": 0.013054197539436327,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "sam_radians": {
+            "mean_delta": 0.008668662426804287,
+            "ci95_low": 0.007488511396550436,
+            "ci95_high": 0.009848813457058138,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "ergas": {
+            "mean_delta": 0.21556673965592318,
+            "ci95_low": 0.0315690044679543,
+            "ci95_high": 0.39956447484389207,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_precision": {
+            "mean_delta": -0.0033623787264029184,
+            "ci95_low": -0.013054192679816431,
+            "ci95_high": 0.006329435227010596,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "edge_recall": {
+            "mean_delta": 0.08067341111060501,
+            "ci95_low": 0.07807074101010521,
+            "ci95_high": 0.08327608121110482,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "observation_l1": {
+            "mean_delta": -0.0016743802799559805,
+            "ci95_low": -0.0020579329066188626,
+            "ci95_high": -0.0012908276532930985,
+            "clusters": 3,
+            "paired_images": 47
+          },
+          "lpips": {
+            "mean_delta": -0.05759669802543046,
+            "ci95_low": -0.06868607042495402,
+            "ci95_high": -0.0465073256259069,
+            "clusters": 3,
+            "paired_images": 47
+          }
+        }
+      }
+    }
+  },
+  "overall_methods": {
+    "bicubic_x4": {
+      "psnr": 23.69771650134611,
+      "ssim": 0.6051470885523185,
+      "false_edge_rate": 0.11843280234914783,
+      "edge_precision": 0.8815671971866063,
+      "edge_recall": 0.6653566202856487,
+      "sam_radians": 0.36823096801173,
+      "ergas": 18.939963608889595,
+      "lpips": 0.618434908179889,
+      "observation_l1": 0.01896673383327105,
+      "samples": 329
+    },
+    "faithsr_lite_x4_distilled": {
+      "psnr": 23.68923317697635,
+      "ssim": 0.618387977946493,
+      "false_edge_rate": 0.12325508892536163,
+      "edge_precision": 0.8767449134751294,
+      "edge_recall": 0.7360200364720133,
+      "sam_radians": 0.3762545804620514,
+      "ergas": 19.271833108188897,
+      "lpips": 0.5589318168561872,
+      "observation_l1": 0.017473982551169092,
+      "samples": 329
+    }
+  },
+  "overall_paired_scene_intervals_vs_bicubic": {
+    "faithsr_lite_x4_distilled_vs_bicubic_x4": {
+      "psnr": {
+        "mean_delta": -0.0026095234335826293,
+        "ci95_low": -0.034464508765740635,
+        "ci95_high": 0.029245461898575374,
+        "clusters": 3,
+        "paired_images": 329
+      },
+      "ssim": {
+        "mean_delta": 0.013914652712504314,
+        "ci95_low": 0.0114391473954514,
+        "ci95_high": 0.01639015802955723,
+        "clusters": 3,
+        "paired_images": 329
+      },
+      "false_edge_rate": {
+        "mean_delta": 0.0032454227718214193,
+        "ci95_low": -0.004884571842609401,
+        "ci95_high": 0.011375417386252239,
+        "clusters": 3,
+        "paired_images": 329
+      },
+      "sam_radians": {
+        "mean_delta": 0.008120095058427217,
+        "ci95_low": 0.007777004623598226,
+        "ci95_high": 0.008463185493256208,
+        "clusters": 3,
+        "paired_images": 329
+      },
+      "ergas": {
+        "mean_delta": 0.2840956645722715,
+        "ci95_low": 0.08074104740401275,
+        "ci95_high": 0.4874502817405302,
+        "clusters": 3,
+        "paired_images": 329
+      },
+      "edge_precision": {
+        "mean_delta": -0.003245419959535757,
+        "ci95_low": -0.01137541650250219,
+        "ci95_high": 0.004884576583430675,
+        "clusters": 3,
+        "paired_images": 329
+      },
+      "edge_recall": {
+        "mean_delta": 0.07028261800807578,
+        "ci95_low": 0.06874787652605839,
+        "ci95_high": 0.07181735949009317,
+        "clusters": 3,
+        "paired_images": 329
+      },
+      "observation_l1": {
+        "mean_delta": -0.001513203713311028,
+        "ci95_low": -0.001986442735534819,
+        "ci95_high": -0.001039964691087237,
+        "clusters": 3,
+        "paired_images": 329
+      },
+      "lpips": {
+        "mean_delta": -0.060368766522277954,
+        "ci95_low": -0.06947120838440779,
+        "ci95_high": -0.051266324660148126,
+        "clusters": 3,
+        "paired_images": 329
+      }
+    }
+  },
+  "files": 47,
+  "paired_cases": 329,
+  "deficiency_ranking_worst_first": [
+    {
+      "profile": "noise_heavy",
+      "psnr_delta_db": -0.2117159011516172,
+      "false_edge_delta": 0.0017779001054611665,
+      "observation_l1_delta": -0.00014257478587170747
+    },
+    {
+      "profile": "clean_bicubic",
+      "psnr_delta_db": -0.0447421378277717,
+      "false_edge_delta": 0.005030107704248832,
+      "observation_l1_delta": -0.0008505761940428552
+    },
+    {
+      "profile": "compression_heavy",
+      "psnr_delta_db": -0.01869786039311805,
+      "false_edge_delta": 0.0055461759738465455,
+      "observation_l1_delta": -0.002824639037073134
+    },
+    {
+      "profile": "mild_anisotropic",
+      "psnr_delta_db": 0.0017004215970963799,
+      "false_edge_delta": 0.005225713820533551,
+      "observation_l1_delta": -0.0016482191041428985
+    },
+    {
+      "profile": "mtf_low_nyquist",
+      "psnr_delta_db": 0.015141223339323773,
+      "false_edge_delta": 0.0053369364839919164,
+      "observation_l1_delta": -0.0016564518966256311
+    },
+    {
+      "profile": "aliasing_heavy",
+      "psnr_delta_db": 0.09434769001412846,
+      "false_edge_delta": 0.0065540582575696615,
+      "observation_l1_delta": -0.0016904932823269929
+    },
+    {
+      "profile": "severe_blur",
+      "psnr_delta_db": 0.10458329383363107,
+      "false_edge_delta": 0.0042851136878449825,
+      "observation_l1_delta": -0.0016363046746304694
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "artifact": "/kaggle/working/faithsr-lite-x4-ablation/evaluation/compression/stress/worst-native-x4.png",
+  "input_shape": [
+    1,
+    3,
+    48,
+    48
+  ],
+  "output_shape": [
+    1,
+    3,
+    192,
+    192
+  ],
+  "display_scale": 2,
+  "metrics": {
+    "psnr": 19.838531494140625,
+    "ssim": 0.38575831055641174,
+    "false_edge_rate": 0.20211610198020935,
+    "edge_precision": 0.7978838682174683,
+    "edge_recall": 0.9744590520858765,
+    "sam_radians": 0.39738819003105164,
+    "ergas": 11.89044189453125
+  },
+  "bicubic_metrics": {
+    "psnr": 20.40870475769043,
+    "ssim": 0.3968402147293091,
+    "false_edge_rate": 0.20074988901615143,
+    "edge_precision": 0.7992501258850098,
+    "edge_recall": 0.9693433046340942,
+    "sam_radians": 0.3859919607639313,
+    "ergas": 11.004714965820312
+  },
+  "method_minus_bicubic_psnr_db": -0.5701732635498047,
+  "method_label": "FaithSR-Lite-X4 compression",
+  "panels": [
+    "lr",
+    "bicubic",
+    "method",
+    "hr",
+    "absolute_error"
+  ],
+  "path": "/kaggle/input/notebooks/muhammadhassan2/faithsr-3x-native-sentinel-2-l2a/faithsr3x-native-l2a/data/patches/S2C_43SCT_20260228_0_L2A/r00960_c00000.tif",
+  "profile": "noise_heavy",
+  "seed": 13403,
+  "psnr_delta": -0.5701732635498047,
+  "selection_rule": "worst faithsr_lite_x4_compression-minus-bicubic PSNR over every held-out stress case",
+  "degradation": {
+    "blur": 0.2,
+    "noise": 0.9,
+    "compression": 0.1,
+    "aliasing": 0.3,
+    "sigma_x": 0.7,
+    "sigma_y": 0.5,
+    "angle_degrees": 10.0,
+    "jpeg_quality": 95,
+    "kernel_family": "anisotropic_gaussian",
+    "mtf_nyquist": null,
+    "severity_cap": 0.9
+  }
+}
