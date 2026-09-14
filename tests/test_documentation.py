@@ -71,7 +71,7 @@ def test_every_registered_experiment_has_a_self_contained_readme():
     root = Path(__file__).resolve().parents[1] / "docs" / "research" / "experiments"
     index = (root / "README.md").read_text(encoding="utf-8")
     folders = [path for path in root.iterdir() if path.is_dir()]
-    assert len(folders) >= 13
+    assert len(folders) >= 14
     for folder in folders:
         readme = folder / "README.md"
         assert readme.is_file(), folder.name
@@ -89,3 +89,30 @@ def test_docs_separate_training_degradation_from_application_inference():
     assert "does **not** blur, downsample, compress" in contract
     assert "does **not** synthetically degrade" in deployment
     assert "13-band EuroSAT TIFF" in contract
+
+
+def test_paper_math_uses_rendered_equations_and_code_mapping():
+    root = Path(__file__).resolve().parents[1]
+    standard = (root / "docs" / "research" / "experiment-template.md").read_text(encoding="utf-8")
+    lite = (
+        root
+        / "docs"
+        / "research"
+        / "experiments"
+        / "faithsr-lite-x4-personalized-ablation"
+        / "README.md"
+    ).read_text(encoding="utf-8")
+    hybrid = (
+        root / "docs" / "research" / "experiments" / "hybrid-x4-capacity-context" / "README.md"
+    ).read_text(encoding="utf-8")
+    for text in (standard, lite, hybrid):
+        assert text.count("$$") >= 4
+    for required in (
+        "Code-to-equation mapping",
+        "Activation functions",
+        "FaithSRLiteX4.forward",
+        r"\operatorname{GELU}",
+        r"\operatorname{Softmax}",
+    ):
+        assert required in lite
+    assert "code does not exist yet" in hybrid

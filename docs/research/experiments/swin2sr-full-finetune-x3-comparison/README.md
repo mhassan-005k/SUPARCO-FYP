@@ -8,7 +8,12 @@ The native-L2A custom models lost PSNR. This control asked whether adapting ever
 
 Input is **B RGB images × H×W**, normalized to 0–1. Pinned Swin2SR natively produces **4H×4W**. For comparison with the earlier x3 experiment only, a declared antialiased resize converts the output to **3H×3W**:
 
-`matched x3 output = antialiased resize(Swin2SR-x4(input), size 3H×3W)`
+$$
+\hat{\mathbf{y}}_3=R_{4\rightarrow3}\!\left(T_{\theta,4}(\mathbf{x})\right)
+\in[0,1]^{B\times3\times3H\times3W}.
+$$
+
+$T_{\theta,4}$ is fully fine-tuned Swin2SR at its native x4 scale and $R_{4\rightarrow3}$ is the declared antialiased comparison resize. Code: `Swin2SRTeacher.forward` and `faithsr.pretrained_finetune`.
 
 All 12,239,283 parameters are trainable. Three AdamW epochs minimize Smooth-L1 against the same native-L2A target protocol.
 

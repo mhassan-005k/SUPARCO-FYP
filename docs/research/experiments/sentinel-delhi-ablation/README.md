@@ -15,13 +15,19 @@ EuroSAT proved the x3 code path, but class-folder splitting and JPEG data were n
 
 Input means **B RGB tiles, each H×W pixels, normalized to 0–1**. Output is exactly **3H×3W**.
 
-`features = GELU(shallow 3×3 convolution(input))`
+$$
+\mathbf{f}_0=\operatorname{GELU}(C_{3\times3}(\mathbf{x})),
+\qquad
+\mathbf{f}_6=F_{6,\theta}(\mathbf{f}_0;\mathbf{z}),
+$$
 
-`features = six residual blocks(features, optional degradation conditioning)`
+$$
+\hat{\mathbf{y}}_0=\operatorname{PixelShuffle}_3(C_R(\mathbf{f}_6)),
+\qquad
+\hat{\mathbf{y}}=\operatorname{clip}(\hat{\mathbf{y}}_0+\Delta_{\mathrm{obs}},0,1).
+$$
 
-`initial SR = PixelShuffle3(27-channel reconstruction convolution(features))`
-
-`final SR = clip(initial SR + optional bounded observation correction, 0, 1)`
+$\mathbf{x}$ is RGB input; $F_{6,\theta}$ denotes six residual blocks; $\mathbf{z}$ is optional degradation conditioning; $C_R$ produces $3\times3^2=27$ channels; and $\Delta_{\mathrm{obs}}$ is zero for variants without observation correction. Code: `FaithSR3X.forward` in `src/faithsr/model.py`.
 
 - 3×3 convolutions capture local edges while preserving grid alignment.
 - Residual connections preserve low-frequency content and stabilize training.

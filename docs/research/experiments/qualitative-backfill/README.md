@@ -8,7 +8,12 @@ Aggregate metrics can hide catastrophic local cases. This experiment made retain
 
 For each held-out observation, calculate:
 
-`PSNR gain = model PSNR − bicubic PSNR`
+$$
+\Delta\operatorname{PSNR}_i=operatorname{PSNR}(\hat{\mathbf{y}}_i,\mathbf{y}_i)
+-\operatorname{PSNR}(B_s(\mathbf{x}_i),\mathbf{y}_i).
+$$
+
+$i$ identifies one frozen held-out observation, $\hat{\mathbf{y}}_i$ is the model output, $\mathbf{y}_i$ is its reference target, and $B_s$ is bicubic interpolation at registered scale $s$.
 
 Sort all gains, then save the worst, median and best cases. Each panel contains observed LR, bicubic, model output, held-out HR and absolute error; an uncertainty panel appears only when the model has that head. Same-name JSON records source, degradation parameters, metrics and checkpoint identity.
 

@@ -10,7 +10,12 @@ The run used the public EuroSAT RGB JPEG mirror, 21,000 training images and 6,00
 
 Plain-language function: input has **B RGB images × H × W** with values 0–1. A shallow convolution extracts features; six GELU residual blocks refine them; a 27-channel convolution feeds PixelShuffle(3), producing **B RGB images × 3H × 3W**. A bounded observation correction discourages detail that cannot reproduce the LR observation.
 
-`SR = clip(PixelShuffle3(head(blocks(conv(input)))) + constrained correction, 0, 1)`
+$$
+\hat{\mathbf{y}}=\operatorname{clip}\!\left(
+\operatorname{PixelShuffle}_3(C_R(F_{\theta}(C_S(\mathbf{x}))))+\Delta_{\mathrm{obs}},0,1\right).
+$$
+
+$\mathbf{x}\in[0,1]^{B\times3\times H\times W}$ is the RGB input, $C_S$ is the shallow convolution, $F_{\theta}$ is the residual backbone, $C_R$ is the reconstruction convolution, and $\Delta_{\mathrm{obs}}$ is the optional bounded observation correction. Code: `FaithSR3X.forward` in `src/faithsr/model.py`.
 
 GELU is smooth and stable in residual blocks. Sigmoid-bounded heads keep degradation/risk outputs interpretable. PixelShuffle is used because spatial resizing is exact and the heavy computation remains in LR space.
 

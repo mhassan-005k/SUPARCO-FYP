@@ -2,15 +2,28 @@
 
 Yeh folder research paper ka experiment-wise source of truth hai. Har experiment ka apna folder aur `README.md` hai. Central [`experiment-log.md`](../experiment-log.md) chronological audit trail hai; yahan har run ka sawal, model function, layers, activations, result, failure aur next decision aik jagah milta hai.
 
-## Human-readable notation rule
+## Mathematical documentation rule
 
-Tensor shorthand ko akela nahi likhna. Har formula ke saath plain-language meaning dena lazmi hai.
+“Human-readable function” ka matlab pseudo-code nahi. Har paper-facing function proper display equation mein likha jayega, for example:
 
-- **Input:** `x` is a batch of satellite images. Shape is **B images × C bands × H rows × W columns**. Normalized values are between **0 and 1**.
-- **Output:** `SR(x)` is the reconstructed image batch. At scale four, its shape is **B × C × 4H × 4W**.
-- **Reference:** `y` is the held-out target image at the output size.
-- **Clip:** `clip(value, 0, 1)` prevents values below black or above the normalized sensor/display maximum.
-- **PixelShuffle(4):** channels are rearranged into a spatial image four times wider and four times taller; it does not invent a separate metadata grid.
+$$
+\mathbf{x}\in[0,1]^{B\times C\times H\times W},
+\qquad
+\hat{\mathbf{y}}\in[0,1]^{B\times C\times 4H\times 4W}.
+$$
+
+Markdown mein inline mathematics ke liye `$...$` aur display mathematics ke liye `$$...$$` use honge. Is tarah Pandoc/LaTeX workflow equation ko Word `.docx` mein editable Word Equation (OMML) bana sakta hai; formula ko backticks mein pseudo-code bana kar paper source nahi rakha jayega.
+
+Har equation ke foran baad yeh cheezen lazmi hain:
+
+- har symbol ka plain-language meaning aur tensor shape;
+- equation ka code class/function mapping;
+- layer-by-layer kernel, channels, stride, padding and parameter count;
+- har activation function ka formula, output range, exact location and selection reason;
+- loss ke har term, weight and optimization effect ki explanation;
+- previous experiment se connection aur is function ko test karne ki wajah.
+
+Canonical reusable format: [`experiment-template.md`](../experiment-template.md).
 
 ## Experiment index
 
@@ -25,6 +38,7 @@ Tensor shorthand ko akela nahi likhna. Har formula ke saath plain-language meani
 | [`swin2sr-native-x4-diagnostic`](swin2sr-native-x4-diagnostic/) | Native x4 quality, stress and latency diagnosis | Strong quality; latency failed |
 | [`faithsr-lite-x4-personalized-ablation`](faithsr-lite-x4-personalized-ablation/) | Fast student, distillation and compression mechanisms | Latency passed; quality claim failed |
 | [`eurosat-multispectral-x4`](eurosat-multispectral-x4/) | Linked Sentinel-2 TIFF band/domain experiment | Planned; file audit required |
+| [`hybrid-x4-capacity-context`](hybrid-x4-capacity-context/) | Medium single-pass CNN/context hybrid | Planned; latency and quality gates drafted |
 | [`deployment-tiff-latency`](deployment-tiff-latency/) | Complete TIFF read-to-write timing | Sub-second with suitable output mode |
 | [`precision-and-export`](precision-and-export/) | ONNX validity and FP16 fidelity/speed | ONNX verified; FP16 optional |
 | [`downstream-landcover`](downstream-landcover/) | Frozen semantic probe | Modest positive utility evidence |

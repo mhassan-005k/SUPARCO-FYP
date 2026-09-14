@@ -8,15 +8,23 @@ The Delhi ablation did not complete its teacher variant. This follow-up tested w
 
 The teacher accepts an LR RGB tile and produces x4. For matched x3 evaluation only, its output is antialiased-resized to x3:
 
-`teacher x3 target = antialiased resize of Swin2SR-x4 output from 4H×4W to 3H×3W`
+$$
+\mathbf{t}_3=R_{4\rightarrow3}\!\left(T_{\mathrm{Swin2SR},4}(\mathbf{x})\right),
+$$
 
 The student directly produces x3:
 
-`student output = FaithSR native-x3(input)`
+$$
+\hat{\mathbf{y}}_3=S_{\theta,3}(\mathbf{x}),
+$$
 
 During epochs 1–3:
 
-`total loss = FaithSR data losses + 0.05 × smooth L1(student output, teacher x3 target)`
+$$
+\mathcal{L}=\mathcal{L}_{\mathrm{data}}+0.05\,\operatorname{SmoothL1}(\hat{\mathbf{y}}_3,\mathbf{t}_3).
+$$
+
+$T$ is the frozen Swin2SR x4 teacher, $R_{4\rightarrow3}$ is declared antialiased resizing, and $S_{\theta,3}$ is the trainable native-x3 student. Code: `Swin2SRTeacher.forward`, `FaithSR3X.forward`, and `FaithSRObjective.forward`.
 
 During epochs 4–30, the teacher term is removed. In plain language, the model briefly learns the pretrained prior and then spends most training adapting to Sentinel data. The teacher is never needed in the deployed app.
 

@@ -10,7 +10,12 @@ Detailed frozen protocol: [`plan.md`](plan.md). Full result tables: [`results.md
 
 Input means **B RGB tiles × H×W pixels**, values 0–1. Output means **B RGB tiles × 4H×4W**.
 
-`native x4 output = clip(Swin2SR with adapted weights(input), 0, 1)`
+$$
+\hat{\mathbf{y}}_4=\operatorname{clip}\!\left(T_{\theta,4}(\mathbf{x}),0,1\right)
+\in[0,1]^{B\times3\times4H\times4W}.
+$$
+
+$T_{\theta,4}$ is Swin2SR with every parameter personalized on the Sentinel training split. Code: `Swin2SRTeacher.forward` plus the optimization loop in `faithsr.pretrained_finetune`.
 
 Every pretrained parameter was fine-tuned for three epochs using Smooth-L1. There is no post-model resize. Layers remain shallow convolution → residual shifted-window SwinV2 groups → LayerNorm and GELU MLPs → convolution → PixelShuffle(4).
 

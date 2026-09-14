@@ -14,6 +14,27 @@ STAC scale and offset were applied first; reflectance was then clipped to 0–0.
 
 All variants map **B RGB tiles × H×W** to **B RGB tiles × 3H×3W**. Plain uses convolution, six GELU residual blocks and PixelShuffle(3). Uncertainty-only adds a non-negative risk head. Full adds degradation FiLM, observation correction and uncertainty.
 
+$$
+\mathbf{x}\in[0,1]^{B\times3\times H\times W},
+\qquad
+\hat{\mathbf{y}}=F_{\theta,3}(\mathbf{x})
+\in[0,1]^{B\times3\times3H\times3W}.
+$$
+
+The native reconstruction before optional correction is
+
+$$
+\hat{\mathbf{y}}_0=\operatorname{PixelShuffle}_3(C_R(\mathbf{f}_6)),
+$$
+
+where $\mathbf{f}_6$ is the output of six residual blocks and $C_R$ produces $3\times3^2=27$ channels. Full additionally evaluates
+
+$$
+\mathcal{L}_{\mathrm{obs}}=\operatorname{SmoothL1}(D_{\mathbf{z}}(\hat{\mathbf{y}}),\mathbf{x}),
+$$
+
+where $D_{\mathbf{z}}$ is the learned degradation-conditioned observation operator. Code: `FaithSR3X.forward`, `LearnedObservationOperator.forward`, and `FaithSRObjective.forward`.
+
 The observation term asks: “if the output is degraded back to the LR grid, does it reproduce the actual input?” This discourages unsupported detail. It is a regularizer, not an inference-time pre-degradation step.
 
 ## Version audit

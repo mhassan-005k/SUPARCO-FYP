@@ -8,6 +8,20 @@ PSNR and SSIM do not directly answer whether enhanced imagery preserves informat
 
 Input is **B RGB images**. Three 3×3 stride-2 convolutions change channels 3→24→48→96. GELU follows each convolution. Global average pooling converts each final feature map to one value, then a linear layer produces land-cover logits. Cross-entropy trains class prediction.
 
+$$
+\mathbf{h}_3=\operatorname{GELU}\!\left(C^{96}_{3\times3,s=2}\!\left(
+\operatorname{GELU}\!\left(C^{48}_{3\times3,s=2}\!\left(
+\operatorname{GELU}(C^{24}_{3\times3,s=2}(\mathbf{x}))\right)\right)\right)\right),
+$$
+
+$$
+\boldsymbol{\ell}=W\,\operatorname{GAP}(\mathbf{h}_3)+\mathbf{b},
+\qquad
+\mathcal{L}_{\mathrm{cls}}=-\sum_k y_k\log\operatorname{Softmax}(\boldsymbol{\ell})_k.
+$$
+
+$\boldsymbol{\ell}$ contains land-cover logits, GAP is global average pooling, and $y_k$ is the reference class indicator. Code: the frozen probe implementation in `src/faithsr/downstream.py`.
+
 Why: stride-2 convolutions cheaply summarize spatial evidence; GELU supplies smooth non-linearity; global average pooling avoids a coordinate-specific dense image head. The probe has 53,335 parameters and is independent of SR training.
 
 ## Result

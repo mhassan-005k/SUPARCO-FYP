@@ -23,21 +23,66 @@ Personalized native-x4 Swin2SR improved fidelity but needed 3.42 seconds for one
 
 All other data, seed, epochs, optimizer and evaluation settings are identical.
 
-## Human-readable forward function
+## Mathematical forward function
 
-Input `x` is **B RGB images × H×W pixels**, with normalized values from 0 to 1. Output is **B RGB images × 4H×4W**.
+The observed input and reconstructed output are
 
-1. `base features = GELU(3×3 convolution(x))`
-2. Six blocks apply pointwise 1×1 mixing, GELU, depthwise 7×7 spatial filtering, another GELU, and a residual addition.
-3. Compression variants predict a degradation vector. FiLM converts it into per-channel scale and shift.
-4. A compression gate controls an LR-space depthwise refiner. When estimated compression is low, its contribution is small.
-5. A 48-channel convolution is rearranged by PixelShuffle(4) into RGB x4 output.
-6. Compression variants add a bounded correction whose maximum strength is 0.20.
-7. Final values are clipped to 0–1.
+$$
+\mathbf{x}\in[0,1]^{B\times3\times H\times W},
+\qquad
+\hat{\mathbf{y}}\in[0,1]^{B\times3\times4H\times4W}.
+$$
 
-Compact formula:
+Here $B$ is batch size, the second dimension contains RGB bands, and $H,W$ are the input height and width. Shallow features are
 
-`SR = clip(PixelShuffle4(reconstruction(conditioned features)) + bounded observation correction, 0, 1)`
+$$
+\mathbf{f}_0=C_{3\times3}(\mathbf{x}).
+$$
+
+Each of the six blocks first performs channel mixing, then spatial filtering:
+
+$$
+\mathbf{r}_i=P_{2,i}\!\left(\operatorname{GELU}\!\left(D_{7\times7,i}\!\left(\operatorname{GELU}\!\left(P_{1,i}(\mathbf{f}_{i-1})\right)\right)\right)\right),
+$$
+
+$$
+\mathbf{f}_i=\mathbf{f}_{i-1}+s_i
+\left[(1+\boldsymbol{\gamma}_i(\mathbf{z}))\odot\mathbf{r}_i+\boldsymbol{\beta}_i(\mathbf{z})\right]
+\odot\sigma\!\left(G_i(\mathbf{r}_i)\right).
+$$
+
+$P_1,P_2$ are $1\times1$ pointwise convolutions, $D_{7\times7}$ is a depthwise convolution, $s_i$ is a learned residual scale, $\mathbf{z}$ is the degradation embedding, and $\gamma,\beta$ are FiLM scale and shift. Base/Distilled disable degradation FiLM, so their blocks reduce to an unguided residual form.
+
+Features from all blocks are concatenated and fused:
+
+$$
+\mathbf{f}_{F}=C_{3\times3}\!\left(\operatorname{GELU}\!\left(C_{1\times1}[\mathbf{f}_1,\ldots,\mathbf{f}_6]\right)\right)+\mathbf{f}_0.
+$$
+
+For Compression/Full, predicted compression $\hat c\in[0,1]$ gates a depthwise refinement branch:
+
+$$
+\mathbf{f}_{C}=\mathbf{f}_{F}+s_C\hat c\,\sigma(W_C\mathbf{z})\odot
+P_C\!\left(\operatorname{GELU}(D_C(\mathbf{f}_{F}))\right).
+$$
+
+Native x4 reconstruction is
+
+$$
+\hat{\mathbf{y}}_0=B_4(\mathbf{x})+operatorname{PixelShuffle}_4(C_R(\mathbf{f}_C)),
+$$
+
+where $B_4$ is bicubic x4 interpolation and $C_R$ produces $3\times4^2=48$ channels before PixelShuffle. Observation-enabled variants predict a positive unit-sum kernel $\mathbf{k}_{\mathbf{z}}=\operatorname{Softmax}(W_k\mathbf{z})$, re-observe the tentative output, and add a bounded correction:
+
+$$
+\tilde{\mathbf{x}}=\downarrow_4(\mathbf{k}_{\mathbf{z}}*\hat{\mathbf{y}}_0),
+$$
+
+$$
+\hat{\mathbf{y}}=\operatorname{clip}\!\left(
+\hat{\mathbf{y}}_0+\alpha(\mathbf{z})B_4(\mathbf{x}-\tilde{\mathbf{x}}),0,1\right),
+\qquad 0\leq\alpha\leq0.20.
+$$
 
 Why these layers:
 
@@ -49,13 +94,75 @@ Why these layers:
 - **PixelShuffle(4)** gives exact native x4 output while most compute remains on the LR grid.
 - **No uncertainty head:** the previous native-L2A calibration was negative.
 
+### Code-to-equation mapping
+
+| Mathematical component | Code implementation | Purpose |
+|---|---|---|
+| Complete $F_{\theta}(\mathbf{x})$ | `FaithSRLiteX4.forward` in `src/faithsr/lite_x4.py` | Executes feature extraction, fusion, reconstruction and optional correction |
+| $\mathbf{z},\hat c$ | `DegradationEncoder` in `src/faithsr/model.py` | Predicts input-conditioned embedding and degradation values |
+| $\mathbf{f}_i$ | `AdaptiveBlock` in `src/faithsr/model.py` | Pointwise/depthwise residual processing with optional FiLM |
+| $\mathbf{f}_C$ | `CompressionRefinementBlock.forward` | Compression-gated LR feature correction |
+| $\tilde{\mathbf{x}}$ | `LearnedObservationOperator.forward` | Projects SR output back onto the observed LR grid |
+| teacher target | `Swin2SRTeacher.forward` in `src/faithsr/teacher.py` | Training-only personalized teacher; absent from application inference |
+| $\mathcal{L}$ | `CompressionAwareObjective.forward` in `src/faithsr/losses.py` | Computes the registered training losses |
+
+### Layer specification for Full
+
+| Module | Exact design | Parameters |
+|---|---|---:|
+| Degradation encoder | RGB convolutional encoder to 48-value embedding and four bounded severities | 34,004 |
+| Shallow stem | $3\rightarrow32$ channels, $3\times3$, stride 1, padding 1 | 896 |
+| Six adaptive blocks | $1\times1$ pointwise, GELU, $7\times7$ depthwise, GELU, $1\times1$ pointwise, FiLM and residual gate | 51,126 |
+| Multi-depth fusion | Concatenate six 32-channel outputs, $192\rightarrow32$ with $1\times1$, GELU, then $3\times3$ | 15,424 |
+| Compression refiner | $3\times3$ depthwise, GELU, $1\times1$ pointwise and degradation-conditioned sigmoid gate | 2,945 |
+| Reconstruction | $32\rightarrow48$ channels using $3\times3$, then PixelShuffle(4) to RGB | 13,872 |
+| Observation operator | embedding-conditioned positive $7\times7$ kernel and x4 projection | 2,401 |
+| Consistency gate | $48\rightarrow16\rightarrow1$ MLP, GELU then Sigmoid | 801 |
+
+Full contains 121,469 trainable parameters. Base/Distilled remove the encoder, compression refiner, observation operator and consistency gate, leaving 62,502 parameters.
+
+### Activation functions
+
+GELU is
+
+$$
+\operatorname{GELU}(u)=u\,\Phi(u),
+$$
+
+where $\Phi$ is the standard normal cumulative distribution. It is used after feature projections because its smooth response retains small negative evidence and gives stable residual optimization.
+
+Sigmoid is
+
+$$
+\sigma(u)=\frac{1}{1+e^{-u}},\qquad \sigma(u)\in(0,1).
+$$
+
+It bounds predicted degradation severities, feature gates and correction strength. Softmax is
+
+$$
+\operatorname{Softmax}(u_i)=\frac{e^{u_i}}{\sum_j e^{u_j}},
+$$
+
+and constrains the learned observation-kernel coefficients to be positive and sum to one. PixelShuffle is a deterministic channel-to-space rearrangement, not an activation.
+
 ## Training loss
 
 All variants use robust Charbonnier reconstruction plus SSIM, gradient and frequency terms. Compression variants add re-observation and degradation-prediction terms. Distilled and Full add teacher pixel and teacher edge terms.
 
-In words:
+The complete registered objective is
 
-`total loss = weighted data fidelity + optional observation/degradation losses + optional teacher pixel/edge losses`
+$$
+\mathcal{L}=\mathcal{L}_{\mathrm{Char},c}
++0.10\mathcal{L}_{\mathrm{SSIM}}
++0.03\mathcal{L}_{\nabla}
++0.02\mathcal{L}_{\mathrm{FFT}}
++0.05\mathcal{L}_{\mathrm{obs}}
++0.02\mathcal{L}_{\mathrm{deg}}
++0.05\mathcal{L}_{\mathrm{teacher}}
++0.01\mathcal{L}_{\mathrm{teacher\text{-}edge}}.
+$$
+
+$\mathcal{L}_{\mathrm{Char},c}$ is compression-weighted Charbonnier reconstruction; $\mathcal{L}_{\mathrm{SSIM}}$ preserves local structure; $\mathcal{L}_{\nabla}$ compares Sobel edge magnitude; $\mathcal{L}_{\mathrm{FFT}}$ compares Fourier magnitude; $\mathcal{L}_{\mathrm{obs}}$ penalizes disagreement with the LR observation; $\mathcal{L}_{\mathrm{deg}}$ supervises known synthetic degradation values; and the two teacher terms compare output pixels and edges. Terms belonging to disabled modules are set to zero.
 
 Compression samples receive larger reconstruction weight. The teacher is frozen and only the student is updated.
 

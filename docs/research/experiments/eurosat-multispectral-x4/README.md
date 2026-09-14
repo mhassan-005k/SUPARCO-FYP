@@ -42,9 +42,15 @@ The RGB control is mandatory. The multispectral variant is accepted only if the 
 
 For a selected set of `C` bands, input `x` is **B images × C bands × H rows × W columns**. The model returns **B × C × 4H × 4W**.
 
-Provisional compact function:
+Provisional mathematical function:
 
-`output = clip(Bicubic4(input) + PixelShuffle4(reconstruction(backbone(shallow_features(input)))), valid_range)`
+$$
+\hat{\mathbf{y}}=\operatorname{clip}\!\left(
+B_4(\mathbf{x})+\operatorname{PixelShuffle}_4(C_R(F_{\theta}(C_S(\mathbf{x})))),
+v_{\min},v_{\max}\right).
+$$
+
+$\mathbf{x}\in\mathbb{R}^{B\times C\times H\times W}$ contains the audited spectral bands, $C_S$ is the band-aware shallow stem, $F_{\theta}$ is the controlled backbone, $C_R$ predicts $16C$ sub-pixel channels, and $v_{\min},v_{\max}$ come from the frozen radiometric contract.
 
 The shallow and reconstruction convolutions change from three channels to `C`; the low-resolution backbone remains the controlled component. If degradation conditioning is tested, it must be a separate matched variant.
 

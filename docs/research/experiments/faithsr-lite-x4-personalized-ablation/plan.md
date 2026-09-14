@@ -29,38 +29,59 @@ All variants share channels, block count, optimizer, epochs, crop size, split, s
 
 ### Symbols in plain language
 
-- `x`: a batch of observed RGB low-resolution tiles. Shape is **B images × 3 bands × H rows × W columns**; normalized values are 0 to 1.
-- `z`: a learned summary of the input's apparent degradation.
-- `d_hat = [blur, noise, compression, aliasing]`: four predicted severities, each bounded from 0 to 1.
-- `f_i`: low-resolution feature maps after residual block `i`.
-- `y0`: initial RGB super-resolved image, **B × 3 × 4H × 4W**.
-- `y_hat`: final bounded x4 output.
+- $\mathbf{x}$: a batch of observed RGB low-resolution tiles, $B\times3\times H\times W$, normalized from 0 to 1.
+- $\mathbf{z}$: a learned summary of the input's apparent degradation.
+- $\hat{\mathbf{d}}=[\hat b,\hat n,\hat c,\hat a]$: predicted blur, noise, compression and aliasing, each bounded from 0 to 1.
+- $\mathbf{f}_i$: low-resolution feature maps after residual block $i$.
+- $\hat{\mathbf{y}}_0$: initial RGB super-resolved image, $B\times3\times4H\times4W$.
+- $\hat{\mathbf{y}}$: final bounded x4 output.
 
 ### Forward calculation
 
 The degradation encoder performs:
 
-`d_hat = Sigmoid(linear(GELU(linear(encoder(x)))))`
+$$
+\hat{\mathbf{d}}=\sigma\!\left(W_d\operatorname{GELU}(W_zE(\mathbf{x}))\right).
+$$
 
 Each residual block first mixes channels with a 1×1 convolution, filters each channel spatially with a 7×7 depthwise convolution, and mixes channels again. In compact form:
 
-`residual_i = pointwise_2(GELU(depthwise_7x7(GELU(pointwise_1(f_previous)))))`
+$$
+\mathbf{r}_i=P_{2,i}\!\left(\operatorname{GELU}\!\left(D_{7\times7,i}\!\left(\operatorname{GELU}\!\left(P_{1,i}(\mathbf{f}_{i-1})\right)\right)\right)\right).
+$$
 
 For adaptive variants, FiLM converts `z` into a channel-wise scale and shift, while a sigmoid gate decides how much of the residual is safe to add:
 
-`f_i = f_previous + learned_scale × FiLM(residual_i, z) × Sigmoid(gate(residual_i))`
+$$
+\mathbf{f}_i=\mathbf{f}_{i-1}+s_i
+\left[(1+\boldsymbol{\gamma}_i(\mathbf{z}))\odot\mathbf{r}_i+\boldsymbol{\beta}_i(\mathbf{z})\right]
+\odot\sigma(G_i(\mathbf{r}_i)).
+$$
 
 The compression branch multiplies its correction by predicted compression severity. It therefore contributes less when compression is estimated to be low:
 
-`f_compressed = f + learned_scale × predicted_compression × channel_gate(z) × depthwise_refiner(f)`
+$$
+\mathbf{f}_C=\mathbf{f}+s_C\hat c\,\sigma(W_C\mathbf{z})\odot
+P_C\!\left(\operatorname{GELU}(D_C(\mathbf{f}))\right).
+$$
 
 The initial reconstruction is:
 
-`y0 = Bicubic4(x) + PixelShuffle4(reconstruction_convolution(f_compressed))`
+$$
+\hat{\mathbf{y}}_0=B_4(\mathbf{x})+\operatorname{PixelShuffle}_4(C_R(\mathbf{f}_C)).
+$$
 
 For observation-enabled variants, a Softmax kernel blurs and downsamples `y0` back to the LR grid, producing `x_reobserved`. The mismatch is enlarged and added with a strength limited to 0.20:
 
-`y_hat = y0 + bounded_strength × Bicubic4(x - x_reobserved)`
+$$
+\tilde{\mathbf{x}}=\downarrow_4(\mathbf{k}_{\mathbf{z}}*\hat{\mathbf{y}}_0),
+$$
+
+$$
+\hat{\mathbf{y}}=\operatorname{clip}\!\left(
+\hat{\mathbf{y}}_0+\alpha(\mathbf{z})B_4(\mathbf{x}-\tilde{\mathbf{x}}),0,1\right),
+\qquad 0\leq\alpha\leq0.20.
+$$
 
 `bounded_strength` is between 0 and 0.20. This bound prevents an unrestricted correction branch from inventing arbitrary high-resolution content.
 
@@ -96,7 +117,16 @@ Every variant uses ground-truth Charbonnier, SSIM, gradient, and frequency terms
 
 The complete registered loss is:
 
-`total = compression_weighted_Charbonnier + 0.10×SSIM_loss + 0.03×gradient_loss + 0.02×frequency_loss + 0.05×observation_loss + 0.02×degradation_prediction_loss + 0.05×teacher_pixel_loss + 0.01×teacher_edge_loss`
+$$
+\mathcal{L}=\mathcal{L}_{\mathrm{Char},c}
++0.10\mathcal{L}_{\mathrm{SSIM}}
++0.03\mathcal{L}_{\nabla}
++0.02\mathcal{L}_{\mathrm{FFT}}
++0.05\mathcal{L}_{\mathrm{obs}}
++0.02\mathcal{L}_{\mathrm{deg}}
++0.05\mathcal{L}_{\mathrm{teacher}}
++0.01\mathcal{L}_{\mathrm{teacher\text{-}edge}}.
+$$
 
 Observation and degradation terms are zero when those modules are absent. Teacher terms are zero for non-distilled variants.
 

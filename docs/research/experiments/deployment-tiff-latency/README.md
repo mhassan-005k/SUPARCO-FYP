@@ -12,6 +12,14 @@ The app does **not** synthetically degrade the uploaded TIFF. It performs:
 
 For overlapping tiles, every output pixel is a weighted average of all tile predictions covering it. Hann weights down-weight unreliable tile borders and prevent hard seams. Disk-backed sum and weight rasters avoid allocating the whole enlarged image in GPU memory.
 
+$$
+\hat{\mathbf{y}}(p)=
+\frac{\sum_{t\in\mathcal{T}(p)}w_t(p)F_{\theta}(\mathbf{x}_t)(p)}
+{\sum_{t\in\mathcal{T}(p)}w_t(p)}.
+$$
+
+$p$ is an output pixel, $\mathcal{T}(p)$ is the set of overlapping tiles covering it, $w_t$ is the tile's Hann weight, and $F_{\theta}(\mathbf{x}_t)$ is the model prediction for tile $t$. Code: `process_tiff` in `src/faithsr/inference.py` and the disk-backed writer in `src/faithsr/geotiff.py`.
+
 ## v5 and v6 results
 
 v5 used lossless Deflate and had 52.96 ms model-only P95 but 1,266.34 ms end-to-end P95; final writing dominated. v6 held the fixture/model fixed and varied only TIFF compression:

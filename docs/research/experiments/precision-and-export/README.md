@@ -8,6 +8,18 @@ Can the custom model be exported at dynamic image sizes, and can FP16 reduce dep
 
 The frozen native-x3 graph maps **one RGB image of any H×W size** to **one RGB image of 3H×3W**. Opset 18 was checked and executed at 64×64 and 67×69 inputs. ONNX Runtime matched PyTorch with maximum absolute float error 0.0000104.
 
+$$
+F_{\theta}^{\mathrm{ONNX}}:\mathbb{R}^{1\times3\times H\times W}
+\rightarrow\mathbb{R}^{1\times3\times3H\times3W},
+$$
+
+$$
+\epsilon_{\max}=\max_j\left|F_{\theta}^{\mathrm{PyTorch}}(\mathbf{x})_j
+-F_{\theta}^{\mathrm{ONNX}}(\mathbf{x})_j\right|=1.04\times10^{-5}.
+$$
+
+Code: `faithsr.export` constructs and verifies the ONNX graph; `FaithSR3X.forward` defines $F_{\theta}$.
+
 ## Precision experiment
 
 Only CUDA arithmetic precision changed. Model, input, tiling and uncompressed TIFF output stayed fixed.

@@ -33,13 +33,20 @@ The candidate passes a stress family only when the PSNR interval is not material
 
 ## Mathematical mapping, layers, and activations
 
-For a 48x48 LR crop `x`, native Swin2SR predicts a 192x192 target directly:
+For a normalized LR crop $\mathbf{x}\in[0,1]^{B\times3\times48\times48}$, native Swin2SR predicts a $192\times192$ target directly:
 
-`y_hat_4 = Swin2SR_x4(x)`.
+$$
+\hat{\mathbf{y}}_4=T_{\theta,4}(\mathbf{x})
+\in[0,1]^{B\times3\times192\times192}.
+$$
 
-All parameters minimize:
+All parameters minimize
 
-`L_FT = SmoothL1(y_hat_4, y_4)`.
+$$
+\mathcal{L}_{\mathrm{FT}}=operatorname{SmoothL1}(\hat{\mathbf{y}}_4,\mathbf{y}_4),
+$$
+
+where $T_{\theta,4}$ is Swin2SR with trainable parameters $\theta$ and $\mathbf{y}_4$ is the held-out native-x4 training target. Code: `Swin2SRTeacher.forward` and the optimizer loop in `faithsr.pretrained_finetune`.
 
 Swin2SR retains its published shallow convolution, residual Swin Transformer groups, shifted-window self-attention, LayerNorm, GELU MLPs, residual convolutions, and x4 PixelShuffle reconstruction. GELU is retained because changing the pretrained nonlinearity would invalidate weight reuse; PixelShuffle is the model's native learned x4 rearrangement and avoids a post-output scale conversion.
 

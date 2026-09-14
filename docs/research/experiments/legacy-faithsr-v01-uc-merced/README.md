@@ -12,7 +12,12 @@ Plain language: an RGB batch with **B images × 3 channels × H × W pixels** en
 
 Forward function:
 
-`output = clip(PixelShuffle4(reconstruction(features(input))) + bicubic4(input), 0, 1)`
+$$
+\hat{\mathbf{y}}=\operatorname{clip}\!\left(
+\operatorname{PixelShuffle}_4(C_R(F_{\theta}(\mathbf{x})))+B_4(\mathbf{x}),0,1\right).
+$$
+
+$\mathbf{x}$ is the normalized RGB input, $F_{\theta}$ is the residual feature extractor, $C_R$ produces sub-pixel channels, and $B_4$ is bicubic x4 interpolation. The implementation is `FaithSRNetV01.forward` in `src/faithsr_v01/faithsrnet_v01.py`.
 
 The bicubic skip preserves low-frequency evidence; residual convolution blocks learn only the missing correction. GELU was selected for smooth gradients. PixelShuffle performs deterministic x4 rearrangement without a costly HR-space trunk. DA predicts degradation features and applies FiLM-like channel scale/shift so one model can react to different blur/noise conditions.
 
