@@ -1,8 +1,10 @@
 # Input, Output, and Metadata Contract
 
-Status: Implemented working v1 - 8-bit TIFF and minimum 3x confirmed; final band schema and hardware details pending
+Status: Current implementation contract - 8-bit TIFF path; superseded as a complete target by SUPARCO SRS v1.2
 
-Last updated: 2026-09-14
+Last updated: 2026-09-18
+
+> **Scope notice:** This file describes the currently implemented 8-bit RGB path. SUPARCO SRS v1.2 additionally requires 10/12-bit, panchromatic, and multispectral support. See `srs-v1.2-compliance-audit.md` for the current gap assessment and `srs-v1.2-implementation-roadmap.md` for the closure plan.
 
 ## Terminology that must not be mixed
 

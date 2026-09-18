@@ -1,8 +1,10 @@
 # Dataset Strategy for Minimum-x3 Satellite Super-Resolution
 
-Status: Updated working decision
+Status: Updated for SUPARCO SRS v1.2
 
-Last updated: 2026-09-14
+Last updated: 2026-09-18
+
+This strategy is a data-source companion to `srs-v1.2-implementation-roadmap.md`. It does not by itself establish 10/12-bit, panchromatic, multispectral, registration, or 0.3 m acceptance compliance.
 
 ## Decision
 
