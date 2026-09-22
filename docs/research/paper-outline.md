@@ -1,8 +1,10 @@
 # Research Paper Working Outline
 
-Status: Living document - claims remain provisional until supported by experiments
+Status: Superseded by completed Approach 2 closure manuscript
 
-Last updated: 2026-09-14
+Last updated: 2026-09-19
+
+The lightweight hybrid branch is closed. Its journal-style manuscript is maintained in [`papers/faithsr-controlled-ablation-paper.md`](papers/faithsr-controlled-ablation-paper.md), with the formatted Word version beside it. The successor model specification is [`swin2sr-multispectral-architecture-plan.md`](swin2sr-multispectral-architecture-plan.md).
 
 ## Working title
 

@@ -35,10 +35,10 @@ Canonical reusable format: [`experiment-template.md`](../experiment-template.md)
 | [`sentinel-distillation-x3`](sentinel-distillation-x3/) | Frozen generic Swin2SR teacher to x3 student | Distillation neutral |
 | [`sentinel-native-l2a-x3`](sentinel-native-l2a-x3/) | Native L2A scene-separated x3 validation | Mixed/negative; uncertainty rejected |
 | [`swin2sr-full-finetune-x3-comparison`](swin2sr-full-finetune-x3-comparison/) | Full pretrained personalization under matched x3 output | Fidelity positive; model large |
-| [`swin2sr-native-x4-diagnostic`](swin2sr-native-x4-diagnostic/) | Native x4 quality, stress and latency diagnosis | Strong quality; latency failed |
+| [`swin2sr-native-x4-diagnostic`](swin2sr-native-x4-diagnostic/) | Native x4 quality, stress and latency diagnosis | Strong quality; passes revised 5 s latency gate |
 | [`faithsr-lite-x4-personalized-ablation`](faithsr-lite-x4-personalized-ablation/) | Fast student, distillation and compression mechanisms | Latency passed; quality claim failed |
-| [`eurosat-multispectral-x4`](eurosat-multispectral-x4/) | Linked Sentinel-2 TIFF band/domain experiment | Planned; file audit required |
-| [`hybrid-x4-capacity-context`](hybrid-x4-capacity-context/) | Medium single-pass CNN/context hybrid | Planned; latency and quality gates drafted |
+| [`eurosat-multispectral-x4`](eurosat-multispectral-x4/) | Linked Sentinel-2 TIFF band/domain experiment | Superseded before execution by the Swin2SR multispectral track |
+| [`hybrid-x4-capacity-context`](hybrid-x4-capacity-context/) | Medium single-pass CNN/context hybrid | Completed; modest positive gain; branch closed |
 | [`deployment-tiff-latency`](deployment-tiff-latency/) | Complete TIFF read-to-write timing | Sub-second with suitable output mode |
 | [`precision-and-export`](precision-and-export/) | ONNX validity and FP16 fidelity/speed | ONNX verified; FP16 optional |
 | [`downstream-landcover`](downstream-landcover/) | Frozen semantic probe | Modest positive utility evidence |
@@ -58,3 +58,9 @@ Canonical reusable format: [`experiment-template.md`](../experiment-template.md)
 10. TIFF/metadata audit when the experiment is deployable.
 11. Honest outcome: accepted, mixed, negative, failed, or superseded.
 12. References and exact artifact paths.
+
+## Closed research branch
+
+The lightweight FaithSR and hybrid continuation branch was closed on 2026-09-19 after its completed controlled ablations. The closure evidence and prohibited claims are recorded in [`approach-2-hybrid-closure.md`](../approach-2-hybrid-closure.md). Future model experiments follow the bounded [`swin2sr-multispectral-architecture-plan.md`](../swin2sr-multispectral-architecture-plan.md).
+
+The completed closure manuscript is available as reviewable [Markdown](../papers/faithsr-controlled-ablation-paper.md) and formatted [Word](../papers/faithsr-controlled-ablation-paper.docx). It includes the critical literature review, complete experiment-to-decision chain, model functions, layers, activations, negative results, qualitative figures, SRS interpretation, and the Swin2SR successor design.
